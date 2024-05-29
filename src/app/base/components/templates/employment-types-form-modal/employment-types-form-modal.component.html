@@ -1,5 +1,5 @@
 <ki-modal
-  [title]="isEditMode ? 'ویرایش رشته تحصیلی' : 'ایجاد رشته تحصیلی'"
+  [title]="isEditMode ? 'ویرایش نوع استخدامی' : 'ایجاد  نوع استخدامی'"
   [showCancelButton]="true"
   (onCloseCallback)="cancelHandler()"
   [showPrimaryButton]="true"
@@ -11,12 +11,12 @@
     *ngIf="isLoading; else content"
   ></app-skeleton-form-loading>
   <ng-template #content>
-    <app-educatio-fields-form
+    <app-employment-types-form
       [submitButtonId]="submitButtonId"
       [evidencesModel]="initialData"
       (submitCallback)="saveHandler($event)"
       [isResetForm]="isResetForm"
     >
-    </app-educatio-fields-form>
+    </app-employment-types-form>
   </ng-template>
 </ki-modal>

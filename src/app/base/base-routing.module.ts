@@ -30,6 +30,10 @@ const routes: Routes = [
         component: _pages.EducationFieldsListComponent,
       },
       {
+        path: "employment-types",
+        component: _pages.EmploymentTypesListComponent,
+      },
+      {
         path: "layout",
         loadChildren: () =>
           import("./layout/layout.module").then((m) => m.LayoutModule),

@@ -53,6 +53,14 @@ export class ApiUrlService {
     Edit: BASE_URL + "BasicInformation/EducationFields/Edit",
     getById: BASE_URL + "BasicInformation/EducationFields/GetById",
   };
+  EmploymentTypes={
+    GetAllEducationEvidences:
+    BASE_URL + "BasicInformation/EmploymentTypes/GetAllEducationEvidences",
+  Add: BASE_URL + "BasicInformation/EmploymentTypes/Add",
+  Delete: BASE_URL + "BasicInformation/EmploymentTypes/Delete",
+  Edit: BASE_URL + "BasicInformation/EmploymentTypes/Edit",
+  getById: BASE_URL + "BasicInformation/EmploymentTypes/GetById",
+  };
   clientPrerequisits = {
     GetClientPrerequisits:
       BASE_URL + "ClientPrerequisits/GetMainWorkingTimesReport",

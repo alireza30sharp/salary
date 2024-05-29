@@ -23,16 +23,19 @@ import { SharedModule } from "../shared/shared.module";
     _organisms.TaxFormComponent,
     _organisms.EducationEvidencesFormComponent,
     _organisms.EducationFieldsFormComponent,
+    _organisms.EmploymentTypesFormComponent,
     _template.WorkShopsFormModalComponent,
     _template.BenefitDeductionFormModalComponent,
     _template.TaxFormModalComponent,
     _template.EducationEvidencesFormModalComponent,
     _template.EducationFieldsFormModalComponent,
+    _template.EmploymentTypesFormModalComponent,
     _pages.WorkShopsListComponent,
     _pages.BenefitDeductionListComponent,
     _pages.TaxListComponent,
     _pages.EducationEvidencesListComponent,
     _pages.EducationFieldsListComponent,
+    _pages.EmploymentTypesListComponent
   ],
 })
 export class BaseModule {}
