@@ -61,6 +61,14 @@ export class ApiUrlService {
   Edit: BASE_URL + "BasicInformation/EmploymentTypes/Edit",
   getById: BASE_URL + "BasicInformation/EmploymentTypes/GetById",
   };
+  OrganizationPost={
+    GetAllOrganizationPosts:
+    BASE_URL + "BasicInformation/OrganizationPost/GetAllOrganizationPosts",
+  Add: BASE_URL + "BasicInformation/OrganizationPost/Add",
+  Delete: BASE_URL + "BasicInformation/OrganizationPost/Delete",
+  Edit: BASE_URL + "BasicInformation/OrganizationPost/Edit",
+  getById: BASE_URL + "BasicInformation/OrganizationPost/GetById",
+  }
   clientPrerequisits = {
     GetClientPrerequisits:
       BASE_URL + "ClientPrerequisits/GetMainWorkingTimesReport",

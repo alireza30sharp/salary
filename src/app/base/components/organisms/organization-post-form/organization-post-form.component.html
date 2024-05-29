@@ -1,0 +1,64 @@
+<nb-card accent="success">
+  <nb-card-header>لطفا فیلد های اجباری را وارد نمایید</nb-card-header>
+  <nb-card-body>
+    <form
+      #companyForm="ngForm"
+      (ngSubmit)="!companyForm.invalid && submitHandler(companyForm)"
+    >
+      <div class="row">
+        <ki-form-group
+          class="col-6"
+          [label]="'پست سازمانی'"
+          [showRequireSign]="true"
+          [errorMessage]="evidence.errors?.required ? 'فیلد اجباری' : ''"
+          [hideError]="
+            !(
+              (evidence.touched || companyForm.submitted) &&
+              evidence.errors?.required
+            )
+          "
+        >
+          <ki-input
+            name="evidence"
+            [fullWidth]="true"
+            [(ngModel)]="evidencesModel.post"
+            #evidence="ngModel"
+            required
+          ></ki-input>
+        </ki-form-group>
+        <ki-form-group
+          class="col-6"
+          [label]="'ترتیب'"
+          [showRequireSign]="true"
+          [errorMessage]="orderIndex.errors?.required ? 'فیلد اجباری' : ''"
+          [hideError]="
+            !(
+              (orderIndex.touched || companyForm.submitted) &&
+              orderIndex.errors?.required
+            )
+          "
+        >
+          <ki-input
+            name="orderIndex"
+            [fullWidth]="true"
+            [(ngModel)]="evidencesModel.orderIndex"
+            #orderIndex="ngModel"
+            [onlyNumber]="true"
+            required
+          ></ki-input>
+        </ki-form-group>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <ki-checkbox
+            [text]="'پیش فرض'"
+            name="isDefault"
+            [(ngModel)]="evidencesModel.isDefault"
+          />
+        </div>
+      </div>
+
+      <input type="submit" [hidden]="true" [attr.id]="submitButtonId" />
+    </form>
+  </nb-card-body>
+</nb-card>

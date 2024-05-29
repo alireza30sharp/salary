@@ -1,0 +1,22 @@
+<ki-modal
+  [title]="isEditMode ? 'ویرایش نوع استخدامی' : 'ایجاد  نوع استخدامی'"
+  [showCancelButton]="true"
+  (onCloseCallback)="cancelHandler()"
+  [showPrimaryButton]="true"
+  [primaryButtonFor]="submitButtonId"
+  [hideHeaderActions]="true"
+  [showPrimaryButtonLoading]="isLoadingForm || isLoadingSaveChange"
+>
+  <app-skeleton-form-loading
+    *ngIf="isLoading; else content"
+  ></app-skeleton-form-loading>
+  <ng-template #content>
+    <app-organization-post-form
+      [submitButtonId]="submitButtonId"
+      [evidencesModel]="initialData"
+      (submitCallback)="saveHandler($event)"
+      [isResetForm]="isResetForm"
+    >
+    </app-organization-post-form>
+  </ng-template>
+</ki-modal>
