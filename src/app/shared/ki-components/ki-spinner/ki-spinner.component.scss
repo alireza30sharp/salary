@@ -1,0 +1,62 @@
+@import 'variable';
+
+.spinner-wrapper {
+  display: inline-block;
+
+  &--match-parent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 50;
+  }
+
+  .spinner-border {
+
+    border-right-color: transparent !important;
+  }
+
+  .loader {
+    width: 20px;
+    height: 20px;
+    border: 3px solid $primary;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    left: 50%;
+    right: 0;
+    top: 50%;
+    bottom: 0;
+    transform: translate(-50%, -50%);
+
+    &--match-parent {
+      position: absolute;
+    }
+
+    &--relative {
+      position: relative;
+      left: unset;
+      right: unset;
+      top: unset;
+      bottom: unset;
+      transform: unset;
+    }
+  }
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

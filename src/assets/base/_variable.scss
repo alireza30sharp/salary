@@ -1,0 +1,191 @@
+$inputs-border-color: #ccc;
+$inputs-background-color: #f2f2f2;
+
+// background
+$background-primary: #ffffff;
+$background-secondary: #f3f2f6;
+$background-tertiary: #e7e8ea;
+$background-inverse: #0b163f;
+$background-inverse-secondary: #0b163f;
+
+// content
+$content-primary: #221f29;
+$content-secondary: #6e6a74;
+$content-tertiary: #9e9c93;
+$content-inverse: #fff;
+
+// overlay
+$overlay: rgba(0, 0, 0, 0.7);
+$overlay-light: rgba(0, 0, 0, 0.3);
+
+$shadow-color: rgba(0, 0, 0, 0.15);
+$base-shadow: 0 0 10px $shadow-color;
+
+// border
+$border: #d0d0d0;
+$border-varient: #c0c0c0;
+
+// primary
+$primary: #6371ec;
+$on-primary: #ffffff;
+$primary-medium: #a5affb;
+$primary-light: #e7e9fb;
+
+// secondary or accent
+$secondary: #be52f2;
+$on-secondary: #ffffff;
+$secondary-medium: #dba5f5;
+$secondary-light: #f4e6f8;
+
+// alert
+$alert: #ffcf6c;
+$on-alert: #29252d;
+$alert-medium: #ffe29d;
+$alert-light: #fcf7ec;
+
+// warning
+$warning: #ffa26b;
+$on-warning: #ffffff;
+$warning-medium: #ffc7a6;
+$warning-light: #fcede4;
+
+// information
+$information: #0084f4;
+$on-information: #ffffff;
+$information-medium: #66b5f8;
+$information-light: #deedfa;
+
+// success or positive
+$success: #00c48c;
+$on-success: #ffffff;
+$success-medium: #7ddfc3;
+$success-light: #e9f9f5;
+
+// error or negative
+$error: #f15f76;
+$on-error: #ffffff;
+$error-medium: #fdafbb;
+$error-light: #fceaed;
+
+$disable-background: #fff9f9;
+$disable: #e7850e;
+
+// spacing
+$spacing-x1: 4px;
+$spacing-x2: $spacing-x1 * 2;
+$spacing-x3: $spacing-x1 * 3;
+$spacing-x4: $spacing-x1 * 4;
+$spacing-x5: $spacing-x1 * 5;
+$spacing-x6: $spacing-x1 * 6;
+$spacing-x7: $spacing-x1 * 7;
+$spacing-x8: $spacing-x1 * 8;
+
+$side-distance: $spacing-x5;
+
+// radius
+$radius-x1: 4px;
+$radius-x2: $radius-x1 * 2;
+$radius-x3: $radius-x1 * 3;
+$radius-x4: $radius-x1 * 4;
+
+// z-index
+$modal-zIndex: 1000;
+$overlay-zIndex: 1500;
+$drawer-zIndex: 500;
+$header-zIndex: 150;
+$footer-zIndex: 100;
+
+// form element
+$form-element-size--small: 32px;
+$form-element-size--normal: 40px;
+$form-element-size--large: 48px;
+$form-element-border-radius--small: $radius-x1;
+$form-element-border-radius--normal: $radius-x2;
+$form-element-border-radius--large: $radius-x3;
+$form-element-font-size--small: 13px;
+$form-element-font-size--normal: 14px;
+$form-element-font-size--large: 15px;
+$form-element-background-color: $background-primary;
+$form-element-background-color--focus: lighten(
+  $color: $primary-light,
+  $amount: 4,
+);
+$form-element-background-color--readonly: $background-secondary;
+$form-element-background-color--disabled: $background-tertiary;
+$form-element-border-color: $border;
+$form-element-border-color--focus: $primary;
+$form-element-border-color--readonly: $border;
+$form-element-border-color--disabled: $border;
+$form-element-color: $content-primary;
+$form-element-color--focus: $content-primary;
+$form-element-color--readonly: $content-primary;
+$form-element-color--disabled: $content-secondary;
+$form-element-shadow: 0 0 0 transparent;
+$form-element-shadow--focus: 0 0 6px $primary-medium;
+$form-element-shadow--readonly: 0 0 0 transparent;
+$form-element-shadow--disabled: 0 0 0 transparent;
+
+$header-height: 64px;
+$footer-height: 30px;
+$drawer-width: 340px;
+$drawer-header-height: 60px;
+$tab-height: 50px;
+
+$badge-width: 4px;
+
+$typography-base-size: 10px;
+
+@mixin heading-1 {
+  font-size: $typography-base-size * 3;
+  font-weight: 700;
+}
+
+@mixin heading-2 {
+  font-size: $typography-base-size * 2.6;
+  font-weight: 700;
+}
+
+@mixin heading-3 {
+  font-size: $typography-base-size * 2.2;
+  font-weight: 700;
+}
+
+@mixin heading-4 {
+  font-size: $typography-base-size * 1.8;
+  font-weight: 700;
+}
+
+@mixin subtitle-1 {
+  font-size: $typography-base-size * 1.6;
+  font-weight: 600;
+}
+
+@mixin subtitle-2 {
+  font-size: $typography-base-size * 1.4;
+  font-weight: 600;
+}
+
+@mixin body-1 {
+  font-size: $typography-base-size * 1.4;
+  font-weight: 400;
+}
+
+@mixin body-2 {
+  font-size: $typography-base-size * 1.3;
+  font-weight: 400;
+}
+
+@mixin button-1 {
+  font-size: $typography-base-size * 1.4;
+  font-weight: 600;
+}
+
+@mixin button-2 {
+  font-size: $typography-base-size * 1.3;
+  font-weight: 600;
+}
+
+@mixin caption {
+  font-size: $typography-base-size * 1.2;
+  font-weight: 400;
+}

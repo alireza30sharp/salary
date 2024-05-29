@@ -1,0 +1,21 @@
+<label
+  class="ki-switch"
+  [class.ki-switch--large]="size === 'lg'"
+  [class.ki-switch--small]="size === 'sm'"
+  [class.ki-switch--disabled]="disabled"
+>
+  <input
+    class="ki-switch__element"
+    #chk
+    type="checkbox"
+    [attr.id]="id"
+    [attr.name]="name"
+    [attr.value]="value"
+    [checked]="checked"
+    [disabled]="disabled"
+    (change)="change(chk.checked)"
+  />
+  <span class="ki-switch__rail"></span>
+  <span class="ki-switch__text" *ngIf="text">{{ text }}</span>
+  <ng-content></ng-content>
+</label>

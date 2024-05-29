@@ -1,0 +1,41 @@
+<div class="w-100 float-end text-center">
+  <div class="pincode-container justify-content-center" (click)="clearForm()">
+    <input
+      [(ngModel)]="pinValue[0]"
+      type="number"
+      placeholder=" "
+      aria-checked="true"
+      #resetEle
+      (input)="onDigitCheck($event)"
+      autofocus
+    />
+    <input
+      [(ngModel)]="pinValue[1]"
+      class="pointer-event-none"
+      type="number"
+      placeholder=" "
+      aria-checked="true"
+      (input)="onDigitCheck($event)"
+      (keydown.backspace)="backspace($event)"
+    />
+    <input
+      [(ngModel)]="pinValue[2]"
+      class="pointer-event-none"
+      type="number"
+      placeholder=" "
+      aria-checked="true"
+      (input)="onDigitCheck($event)"
+      (keydown.backspace)="backspace($event)"
+    />
+    <input
+      [(ngModel)]="pinValue[3]"
+      class="pointer-event-none"
+      (input)="onDigitCheck($event)"
+      (keydown.backspace)="backspace($event)"
+      (input)="triggerResult($event)"
+      type="number"
+      placeholder=" "
+      aria-checked="true"
+    />
+  </div>
+</div>

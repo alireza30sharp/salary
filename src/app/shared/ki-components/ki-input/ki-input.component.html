@@ -1,0 +1,98 @@
+<span class="textbox">
+  <ng-container *ngIf="!!startIconClassName">
+    <span
+      class="textbox__icon textbox__icon--start"
+      [class]="startIconClassName"
+      [class.textbox__icon--large]="fieldSize == 'large'"
+      [class.textbox__icon--small]="fieldSize == 'small'"
+    ></span>
+  </ng-container>
+
+  <ng-container *ngIf="!!endIconClassName">
+    <span
+      class="textbox__icon textbox__icon--end"
+      [class]="endIconClassName"
+      [class.textbox__icon--large]="fieldSize === 'large'"
+      [class.textbox__icon--small]="fieldSize === 'small'"
+    ></span>
+  </ng-container>
+
+  <ng-container *ngIf="template">
+    <ng-template [ngTemplateOutlet]="template"></ng-template>
+  </ng-container>
+  <ng-container *ngIf="!mask; else withMask">
+    <input
+      nbInput
+      #inputRef
+      [type]="type"
+      class="textbox__element"
+      [fullWidth]="fullWidth"
+      [fieldSize]="fieldSize"
+      [shape]="shape"
+      [status]="_status"
+      [class.textbox__element--has-start-icon]="!!startIconClassName"
+      [class.textbox__element--has-end-icon]="!!endIconClassName"
+      [class.textbox__element--has-template]="!!template"
+      [attr.placeholder]="placeholder ?? ''"
+      [readonly]="readonly"
+      [attr.id]="id"
+      [attr.accept]="accept"
+      [disabled]="disable"
+      [(ngModel)]="value"
+      (keypress)="numberOnly($event)"
+      (input)="onChange($event)"
+      (keydown)="keydownHandler($event)"
+      (focus)="focusHandler($event)"
+      (change)="onChange($event)"
+      (blur)="onTouchedFn()"
+      (keyup.enter)="onEnter($event)"
+      [min]="min"
+      [max]="max"
+      [step]="step"
+      onfocus="this.previousValue = this.value"
+      onkeydown="this.previousValue = this.value"
+      [maxlength]="max"
+    />
+  </ng-container>
+
+  <ng-template #withMask>
+    <input
+      #inputRef
+      nbInput
+      [type]="type"
+      [fieldSize]="fieldSize"
+      [shape]="shape"
+      [status]="_status"
+      [fullWidth]="fullWidth"
+      class="textbox__element"
+      [class.textbox__element--error]="state === 'error'"
+      [class.textbox__element--success]="state === 'success'"
+      [class.textbox__element--has-start-icon]="!!startIconClassName"
+      [class.textbox__element--has-end-icon]="!!endIconClassName"
+      [class.textbox__element--has-template]="!!template"
+      [attr.placeholder]="placeholder ?? ''"
+      [readonly]="readonly"
+      [attr.id]="id"
+      [attr.accept]="accept"
+      [disabled]="disable"
+      [(ngModel)]="value"
+      (keypress)="numberOnly($event)"
+      (input)="onChange($event)"
+      (keydown)="keydownHandler($event)"
+      (focus)="focusHandler($event)"
+      (change)="onChange($event)"
+      (blur)="onTouchedFn()"
+      (keyup.enter)="onEnter($event)"
+      [min]="min"
+      [step]="step"
+      oninput="validity.valid||(value = this.previousValue);"
+      onfocus="this.previousValue = this.value"
+      onkeydown="this.previousValue = this.value"
+      [mask]="mask"
+      [separatorLimit]="sepLimitation"
+      [thousandSeparator]="maskThousandSeparator"
+      [prefix]="maskPrefix || ''"
+      [allowNegativeNumbers]="maskAllowNegativeNumbers"
+    />
+  </ng-template>
+</span>

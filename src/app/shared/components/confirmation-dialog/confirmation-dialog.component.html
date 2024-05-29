@@ -1,0 +1,11 @@
+<div class="modal-header p-2 text-black-50">
+  <h6 class="modal-title pull-left text-light">حذف</h6>
+  <span class="pointer text-light" aria-hidden="true" (click)="activeModal.close('close')">×</span>
+</div>
+<div class="modal-body">
+  آیا مطمئن هستید؟
+</div>
+<div class="modal-footer p-2">
+  <button type="button" class="btn btn-secondary btn-sm btn-danger" (click)="activeModal.close('confirm')">بله</button>
+  <button type="button" class="btn  btn-sm" (click)="activeModal.close('no')">خیر</button>
+</div>

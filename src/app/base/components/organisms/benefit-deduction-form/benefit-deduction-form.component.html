@@ -1,0 +1,179 @@
+<nb-card accent="success">
+  <nb-card-header>لطفا فیلد های اجباری را وارد نمایید</nb-card-header>
+  <nb-card-body>
+    <form
+      #companyForm="ngForm"
+      (ngSubmit)="!companyForm.invalid && submitHandler(companyForm)"
+    >
+      <div class="row" *ngIf="benefitDeduction.id">
+        <ki-form-group class="col-12" [label]="'کد'" [showRequireSign]="false">
+          <ki-input
+            name="code"
+            [fullWidth]="true"
+            [readonly]="true"
+            [(ngModel)]="benefitDeduction.code"
+            #code="ngModel"
+            required
+          ></ki-input>
+        </ki-form-group>
+      </div>
+      <div class="row">
+        <ki-form-group
+          class="col-6"
+          [label]="'نام'"
+          [showRequireSign]="true"
+          [errorMessage]="name.errors?.required ? 'فیلد اجباری' : ''"
+          [hideError]="
+            !((name.touched || companyForm.submitted) && name.errors?.required)
+          "
+        >
+          <ki-input
+            name="name"
+            [fullWidth]="true"
+            [(ngModel)]="benefitDeduction.name"
+            #name="ngModel"
+            required
+          ></ki-input>
+        </ki-form-group>
+        <ki-form-group
+          class="col-6"
+          [label]="'نوع'"
+          [showRequireSign]="true"
+          [errorMessage]="type.errors?.required ? 'فیلد اجباری' : ''"
+          [hideError]="
+            !((type.touched || companyForm.submitted) && type.errors?.required)
+          "
+        >
+          <ki-select
+            [options]="typeOptions"
+            [allowClear]="true"
+            [(ngModel)]="benefitDeduction.type"
+            name="type"
+            #type="ngModel"
+            required
+            [isloading]="lockupsIsLoading"
+          ></ki-select>
+        </ki-form-group>
+      </div>
+      <div class="row">
+        <ki-form-group
+          class="col-6"
+          [label]="'معین'"
+          [showRequireSign]="true"
+          [errorMessage]="idMoin.errors?.required ? 'فیلد اجباری' : ''"
+          [hideError]="
+            !(
+              (idMoin.touched || companyForm.submitted) &&
+              idMoin.errors?.required
+            )
+          "
+        >
+          <ki-input
+            class="ltr"
+            name="idMoin"
+            [onlyNumber]="true"
+            [maskType]="'separator'"
+            [fullWidth]="true"
+            [(ngModel)]="benefitDeduction.idMoin"
+            #idMoin="ngModel"
+            required
+          ></ki-input>
+        </ki-form-group>
+        <ki-form-group
+          class="col-6"
+          [label]="'تفصیلی'"
+          [showRequireSign]="true"
+          [errorMessage]="idTafsili.errors?.required ? 'فیلد اجباری' : ''"
+          [hideError]="
+            !(
+              (idTafsili.touched || companyForm.submitted) &&
+              idTafsili.errors?.required
+            )
+          "
+        >
+          <ki-input
+            class="ltr"
+            name="idTafsili"
+            [fullWidth]="true"
+            [onlyNumber]="true"
+            [maskType]="'separator'"
+            [(ngModel)]="benefitDeduction.idTafsili"
+            #idTafsili="ngModel"
+            required
+          ></ki-input>
+        </ki-form-group>
+      </div>
+      <div class="row">
+        <ki-form-group
+          class="col-6"
+          [label]="' تفصیلی 2'"
+          [showRequireSign]="true"
+          [errorMessage]="idTafsili2.errors?.required ? 'فیلد اجباری' : ''"
+          [hideError]="
+            !(
+              (idTafsili2.touched || companyForm.submitted) &&
+              idTafsili2.errors?.required
+            )
+          "
+        >
+          <ki-input
+            class="ltr"
+            [onlyNumber]="true"
+            [maskType]="'separator'"
+            name="idTafsili2"
+            [fullWidth]="true"
+            [(ngModel)]="benefitDeduction.idTafsili2"
+            #idTafsili2="ngModel"
+            required
+          ></ki-input>
+        </ki-form-group>
+        <ki-form-group
+          class="col-6"
+          [label]="'ترتیب'"
+          [showRequireSign]="true"
+          [errorMessage]="orderIndex.errors?.required ? 'فیلد اجباری' : ''"
+          [hideError]="
+            !(
+              (orderIndex.touched || companyForm.submitted) &&
+              orderIndex.errors?.required
+            )
+          "
+        >
+          <ki-input
+            class="ltr"
+            name="orderIndex"
+            [fullWidth]="true"
+            [onlyNumber]="true"
+            [maskType]="'separator'"
+            [sepLimitation]="'9999'"
+            [(ngModel)]="benefitDeduction.orderIndex"
+            #orderIndex="ngModel"
+            required
+          ></ki-input>
+        </ki-form-group>
+      </div>
+      <div class="row">
+        <ki-form-group
+          class="col-12"
+          [label]="'توضیحات'"
+          [showRequireSign]="false"
+          [errorMessage]="comment.errors?.required ? 'فیلد اجباری' : ''"
+          [hideError]="
+            !(
+              (comment.touched || companyForm.submitted) &&
+              comment.errors?.required
+            )
+          "
+        >
+          <ki-textarea
+            name="comment"
+            [fullWidth]="true"
+            [(ngModel)]="benefitDeduction.comment"
+            #comment="ngModel"
+          ></ki-textarea>
+        </ki-form-group>
+      </div>
+      <input type="submit" [hidden]="true" [attr.id]="submitButtonId" />
+    </form>
+  </nb-card-body>
+</nb-card>

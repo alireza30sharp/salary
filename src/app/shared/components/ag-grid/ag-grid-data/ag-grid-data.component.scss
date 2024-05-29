@@ -1,0 +1,103 @@
+.pointer{
+    cursor: pointer;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  #myGrid {
+    flex: 1 1 0px;
+    width: 100%;
+  }
+  
+  .logo-project {
+    width: 50px;
+    height: 40px;
+  }
+  
+  
+  
+   ::ng-deep .ag-cell-edit-input {
+    border: 1px dashed red !important;
+  }
+  
+  .word-count{
+      height:40px;
+      p{ 
+          padding:0;
+      }
+  }
+  
+  ::ng-deep .bg-warning-light {
+    background-color: #ffecb2 !important;
+  }
+  ::ng-deep .bg-danger-light {
+    background-color: #e89ea5 !important;
+  }
+  ::ng-deep .ag-input-field-input{
+  color: black !important;
+  }
+  
+  ::ng-deep .bg-primary-light{
+      background-color:lightblue !important;
+  }
+  
+  ::ng-deep .bg-success-light{
+      background-color:lightgreen !important;
+  }
+  ::ng-deep .button-action{
+      white-space:nowrap;
+  }
+  
+  ::ng-deep .trash-box {
+    width: 34px !important;
+    height: 16px !important;
+    display: flex;
+    justify-content: center; 
+  }
+  
+  ::ng-deep .ag-row-hover #deleteRow {
+    display: block !important;
+  }
+  ::ng-deep .checked-row #deleteRow {
+    display: block !important;
+  }
+  ::ng-deep .ag-test{
+      position:absolute;
+      top:0 !important;
+      background:pink;
+  }
+  
+  #menuSuggestWord {
+    position: absolute;
+    z-index: 2;
+    direction: rtl;
+    box-shadow: 0 0 10px #e7e5e5;
+    border-radius: 12px;
+    width: 398px;
+  
+    span {
+      color: #343434 !important;
+      padding: 5px;
+      font-weight: 400;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  
+    .scroll-box {
+      max-height: 200px;
+      overflow: hidden;
+      overflow-y: auto;
+    }
+  
+    .pointer {
+      color: #343434;
+      font-size: 13px;
+      text-align: right;
+    }
+  }
+  

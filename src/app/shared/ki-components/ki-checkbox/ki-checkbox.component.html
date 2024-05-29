@@ -1,0 +1,22 @@
+<label
+  class="ki-checkbox"
+  [class.ki-checkbox--large]="size === 'lg'"
+  [class.ki-checkbox--small]="size === 'sm'"
+  [class.ki-checkbox--disabled]="disabled"
+>
+  <input
+    class="ki-checkbox__element"
+    #chk
+    [type]="type"
+    [attr.id]="id"
+    [attr.name]="name"
+    [attr.value]="value"
+    [checked]="checked"
+    [disabled]="disabled"
+    [indeterminate]="indeterminate"
+    (change)="change(chk.checked)"
+  />
+  <span class="ki-checkbox__icon"></span>
+  <span class="ki-checkbox__text" *ngIf="text">{{ text }}</span>
+  <ng-content></ng-content>
+</label>

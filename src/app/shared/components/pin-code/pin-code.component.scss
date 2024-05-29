@@ -1,0 +1,50 @@
+
+.input-group-container .input[type=number],
+.pincode-container input[type=number] {
+    -moz-appearance: textfield
+}
+
+.pincode-container {
+    display: flex;
+    gap: 1rem;
+    direction: ltr
+}
+
+.pincode-container input {
+    width: 50px;
+    height: 50px;
+    border-radius: 14px;
+    color:var(--blue);
+    border: 1px solid #16c39a;
+    font-size: 16px;
+    text-align: center;
+    outline: 0
+}
+
+.pincode-container input:not(:placeholder-shown) {
+    color: #fff;
+    background: linear-gradient(0deg, #26e6b9, #16c39a);
+    box-shadow: 0 4px 0 var(--blue);
+    border-color: transparent
+}
+
+.pincode-container input::-webkit-inner-spin-button,
+.pincode-container input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0
+}
+
+.pincode-container input::-moz-selection {
+    color: #fff;
+    background: #00000010
+}
+
+.pincode-container input::selection {
+    color: #fff;
+    background: #00000010
+}
+.floating-input:focus ~ .highlight {
+  -webkit-animation: inputHighlighter 0.3s ease;
+  -moz-animation: inputHighlighter 0.3s ease;
+  animation: inputHighlighter 0.3s ease;
+}

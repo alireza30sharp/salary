@@ -1,0 +1,14 @@
+.menu{
+  background: var(--light);
+  line-height: 21px;
+  .item{
+    border: 1px solid #ccc;
+    border-radius: 11px;
+  }
+  .fa-trash-alt{
+    color: #EA4335;
+  }
+  .fa-edit,.fa-plus{
+    color: #10C900;
+  }
+}

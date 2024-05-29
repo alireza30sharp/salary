@@ -1,0 +1,19 @@
+<span class="textarea">
+  <textarea
+    class="textarea__element"
+    nbInput
+    [fullWidth]="fullWidth"
+    [fieldSize]="fieldSize"
+    [shape]="shape"
+    [status]="status"
+    [style.height]="height"
+    [attr.placeholder]="placeholder ?? ''"
+    [attr.id]="id"
+    [attr.rows]="rows"
+    [readonly]="readonly"
+    [(ngModel)]="value"
+    (input)="onChange()"
+    (change)="onChange()"
+    (blur)="onTouchedFn()"
+  ></textarea>
+</span>

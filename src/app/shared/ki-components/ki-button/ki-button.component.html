@@ -1,0 +1,67 @@
+<ng-container *ngIf="!!for; else buttonTemplate"
+  ><label
+    #lbl
+    [for]="showLoading ? '' : for"
+    [attr.disabled]="disabled || showLoading"
+    [attr.title]="tooltip"
+    (click)="onBtnClicked($event)"
+  >
+    <ng-container *ngIf="!!iconClassName"
+      ><span class="ki-button__icon" [class]="iconClassName"></span
+    ></ng-container>
+    <button
+      class="ki-button mt-2"
+      nbButton
+      [type]="type"
+      [outline]="_isOutline"
+      [size]="size"
+      [hero]="hero"
+      [shape]="shape"
+      [status]="btnType"
+      [disabled]="disabled || showLoading"
+      [fullWidth]="fullWidth"
+      (click)="lbl.click()"
+    >
+      <ki-spinner
+        [buttonMode]="true"
+        color="dark"
+        [size]="'small'"
+        *ngIf="showLoading"
+      ></ki-spinner>
+      ذخیره
+    </button>
+  </label></ng-container
+>
+<ng-template #buttonTemplate>
+  <button
+    class="ki-button"
+    #buttonRef
+    nbButton
+    [type]="type"
+    [outline]="_isOutline"
+    [size]="size"
+    [hero]="hero"
+    [shape]="shape"
+    [status]="btnType"
+    [fullWidth]="fullWidth"
+    [class.ki-button--disabled]="disabled || showLoading"
+    [class.ki-button--match-parent]="matchParent"
+    [disabled]="disabled || showLoading"
+    [attr.title]="tooltip"
+    (click)="onBtnClicked($event)"
+  >
+    <ki-spinner
+      class="mr-1"
+      [buttonMode]="true"
+      color="dark"
+      [size]="'small'"
+      *ngIf="showLoading"
+    ></ki-spinner>
+    <ng-container *ngIf="!!iconClassName"
+      ><span class="ki-button__icon mr-2" [class]="iconClassName"></span
+    ></ng-container>
+    <span class="ki-button__title" *ngIf="title">{{ title }}</span>
+    <ng-container *ngTemplateOutlet="content"></ng-container>
+  </button>
+</ng-template>
+<ng-template #content> <ng-content></ng-content></ng-template>

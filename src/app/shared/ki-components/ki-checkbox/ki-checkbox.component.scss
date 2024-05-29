@@ -1,0 +1,208 @@
+@import 'variable';
+
+$large-size: 36px;
+$normal-size: 26px;
+$small-size: 16px;
+
+:host {
+  display: inline-flex;
+}
+
+$name: 'ki-checkbox';
+.#{$name} {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  &__icon {
+    position: relative;
+    border: 1px solid $form-element-border-color;
+    background-color: $form-element-background-color;
+    width: $normal-size;
+    height: $normal-size;
+    border-radius: $form-element-border-radius--normal;
+    min-width: $normal-size;
+
+    transition: 0.3s all;
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateY(-50%) translateX(-50%);
+      transition: 0.3s all;
+      opacity: 0;
+    }
+  }
+
+  &__element {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+    &[type='checkbox'] {
+      & ~ .#{$name}__icon {
+        &::after {
+          width: 60%;
+          height: 30%;
+          border: 3px solid $on-primary;
+          border-right: none;
+          border-top: none;
+          border-radius: $radius-x2;
+          margin-top: -1px;
+          transform: translateY(-50%) translateX(-50%) rotate(-45deg) scale(1.5);
+        }
+      }
+      &:checked {
+        & ~ .#{$name}__icon {
+          background-color: $primary;
+          border-color: $primary;
+          &::after {
+            transform: translateY(-50%) translateX(-50%) rotate(-45deg) scale(1);
+            opacity: 1;
+          }
+        }
+      }
+
+      &:indeterminate {
+        & ~ .#{$name}__icon {
+          background-color: $primary;
+          border-color: $primary;
+          &::after {
+            height: 15%;
+            border: none !important;
+            background-color: $on-primary;
+            opacity: 1;
+            transform: translateY(-50%) translateX(-50%) scale(1);
+            margin-top: 0 !important;
+          }
+        }
+      }
+    }
+
+    &[type='radio'] {
+      & ~ .#{$name}__icon {
+        border-radius: 50%;
+        &::after {
+          width: 40%;
+          height: 40%;
+          background-color: $on-primary;
+          border-radius: 50%;
+          transform: translateY(-50%) translateX(-50%) scale(2);
+        }
+      }
+
+      &:checked {
+        & ~ .#{$name}__icon {
+          background-color: $primary;
+          border-color: $primary;
+          &::after {
+            transform: translateY(-50%) translateX(-50%) scale(1);
+            opacity: 1;
+          }
+        }
+      }
+    }
+
+    &:focus {
+      & ~ .#{$name}__icon {
+        border-color: $form-element-border-color--focus;
+        background-color: $form-element-background-color--focus;
+      }
+    }
+
+    &:disabled {
+      & ~ .#{$name}__icon {
+        background-color: $form-element-background-color--disabled !important;
+        border-color: $form-element-border-color--disabled !important;
+
+        &::after {
+          border-color: $form-element-color--disabled !important;
+        }
+      }
+
+      &:checked {
+        & ~ .#{$name}__icon {
+          background-color: $form-element-border-color--disabled !important;
+          &::after {
+            border-color: $on-primary !important;
+          }
+        }
+      }
+
+      & ~ .#{$name}__text {
+        color: $form-element-color--disabled !important;
+      }
+    }
+  }
+
+  &__text {
+    margin-inline-start: $spacing-x2;
+    font-size: $form-element-font-size--normal;
+    color: $form-element-color;
+  }
+
+  &--large {
+    .#{$name} {
+      &__element {
+        &[type='checkbox'] {
+          & ~ .#{$name}__icon {
+            width: $large-size;
+            height: $large-size;
+            border-radius: $form-element-border-radius--large;
+            &::after {
+              border-width: 4px !important;
+              border-radius: $radius-x3 !important;
+            }
+          }
+        }
+
+        &[type='radio'] {
+          & ~ .#{$name}__icon {
+            width: $large-size;
+            height: $large-size;
+          }
+        }
+      }
+
+      &__text {
+        font-size: $form-element-font-size--large;
+      }
+    }
+  }
+
+  &--small {
+    .#{$name} {
+      &__element {
+        &[type='checkbox'] {
+          & ~ .#{$name}__icon {
+            width: $small-size;
+            height: $small-size;
+            border-radius: $form-element-border-radius--small;
+            &::after {
+              border-width: 2px !important;
+              border-radius: $radius-x1 !important;
+            }
+          }
+        }
+
+        &[type='radio'] {
+          & ~ .#{$name}__icon {
+            width: $small-size;
+            height: $small-size;
+          }
+        }
+      }
+
+      &__text {
+        font-size: $form-element-font-size--small;
+      }
+    }
+  }
+
+  &--disabled {
+    cursor: default;
+  }
+}

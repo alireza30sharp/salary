@@ -1,0 +1,101 @@
+@import 'variable';
+
+
+$name: 'date-picker';
+.#{$name} {
+  display: flex;
+  position: relative;
+  &__element {
+    background-color: $form-element-background-color;
+    color: $form-element-color;
+    border: 1px solid $form-element-border-color;
+    box-shadow: $form-element-shadow;
+    font-size: $form-element-font-size--normal;
+    height: $form-element-size--normal;
+    border-radius: $form-element-border-radius--normal;
+    padding: $spacing-x2 $spacing-x3;
+    width: 100%;
+    outline: none;
+    transition: 0.3s all;
+
+    &::placeholder {
+      color: $content-tertiary !important;
+    }
+
+    &:focus {
+      background-color: $form-element-background-color--focus;
+      color: $form-element-color--focus;
+      border-color: $form-element-border-color--focus;
+      box-shadow: $form-element-shadow--focus;
+    }
+
+    &:read-only {
+      background-color: $form-element-background-color--readonly;
+      color: $form-element-color--readonly;
+      border-color: $form-element-border-color--readonly;
+      box-shadow: $form-element-shadow--readonly;
+    }
+
+    &:disabled {
+      background-color: $form-element-background-color--disabled;
+      color: $form-element-color--disabled;
+      border-color: $form-element-border-color--disabled;
+      box-shadow: $form-element-shadow--disabled;
+    }
+
+    &--large {
+      font-size: $form-element-font-size--large;
+      height: $form-element-size--large;
+      border-radius: $form-element-border-radius--large;
+      padding: $spacing-x3;
+    }
+
+    &--small {
+      font-size: $form-element-font-size--small;
+      height: $form-element-size--small;
+      border-radius: $form-element-border-radius--small;
+      padding: $spacing-x1 $spacing-x3;
+    }
+
+    &--error {
+      background-color: $error-light !important;
+      color: $error !important;
+      border-color: $error-medium !important;
+      box-shadow: 0 0 0 transparent !important;
+    }
+
+    &--success {
+      background-color: $success-light !important;
+      color: $success !important;
+      border-color: $success-medium !important;
+      box-shadow: 0 0 0 transparent !important;
+    }
+  }
+
+  &__button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    inset-inline-end: $spacing-x3;
+    color: $content-secondary;
+    transition: 0.3s all;
+    cursor: pointer;
+    &:hover {
+      color: $content-primary;
+    }
+
+    &--disabled {
+      cursor: default !important;
+      color: $content-secondary !important;
+      opacity: 0.4;
+    }
+  }
+}
+
+.validation{
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: .875em;
+  color: #d12941;
+
+}

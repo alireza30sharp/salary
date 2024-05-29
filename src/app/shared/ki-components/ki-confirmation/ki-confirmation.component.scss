@@ -1,0 +1,30 @@
+@import 'variable';
+
+.confirm-content {
+  padding: $side-distance;
+  display: flex;
+  flex-direction: column;
+
+  &__title {
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  &__content {
+    margin-top: $spacing-x2;
+    font-size: 13px;
+    text-align: justify;
+    white-space: pre-line;
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  &__footer {
+    margin-top: $side-distance;
+    display: flex;
+    align-items: center;
+    gap: $spacing-x2;
+    justify-content: flex-end;
+  }
+}

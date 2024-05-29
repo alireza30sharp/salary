@@ -1,0 +1,33 @@
+@import 'variable';
+
+$name: 'form-group';
+
+.#{$name} {
+  margin-bottom: $spacing-x4;
+  position: relative;
+  &__content {
+    position: relative;
+  }
+
+  &__required-sign {
+    position: absolute;
+    top: 0;
+    inset-inline-start: 100%;
+    margin-inline-start: $spacing-x1;
+    color: $error;
+    font-size: 13px;
+    line-height: 1;
+  }
+
+  &--align-center {
+    align-items: center;
+
+    .#{$name}__label {
+      margin: 0 !important;
+    }
+  }
+
+  &--no-bottom-distance {
+    margin-bottom: 0;
+  }
+}

@@ -1,0 +1,66 @@
+@import 'variable';
+
+
+.modal-header {
+  padding: $side-distance !important;
+  background: none !important;
+}
+
+.modal-title {
+  display: flex;
+  align-items: center;
+  gap: $side-distance;
+  color: $content-primary !important;
+  margin: 0 !important;
+  font-size: 26px !important;
+}
+
+.modal-body {
+  padding: $side-distance !important;
+  background: none !important;
+}
+
+.modal-footer {
+  background: none !important;
+  padding: $side-distance !important;
+  padding-top: 0 !important;
+  display: flex;
+  align-items: center;
+  gap: $spacing-x2;
+  & > * {
+    margin: 0 !important;
+  }
+}
+
+.modal-header-actions {
+  display: flex;
+  align-items: center;
+  gap: $spacing-x3;
+  border-inline-start: 1px solid $border;
+  padding-inline-start: $side-distance;
+  &__button {
+    display: flex;
+    align-items: center;
+    gap: $spacing-x2;
+    padding: $spacing-x2;
+    border-radius: $radius-x1;
+    text-decoration: none;
+    transition: 0.3s all;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    &--task {
+      color: $information;
+      &:hover {
+        background-color: $background-secondary;
+      }
+    }
+
+    &--note {
+      color: $warning;
+      &:hover {
+        background-color: $background-secondary;
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+<ki-modal
+  [title]="isEditMode ? 'ویرایش مالیات' : 'ایجاد مالیات'"
+  [showCancelButton]="true"
+  (onCloseCallback)="cancelHandler()"
+  [showPrimaryButton]="true"
+  [primaryButtonFor]="submitButtonId"
+  [hideHeaderActions]="true"
+  [showPrimaryButtonLoading]="isLoadingForm || isLoading || isLoadingSaveChange"
+>
+  <app-skeleton-form-loading
+    *ngIf="isLoading; else content"
+  ></app-skeleton-form-loading>
+  <ng-template #content>
+    <app-tax-form
+      [submitButtonId]="submitButtonId"
+      [taxModel]="initialData"
+      (submitCallback)="saveHandler($event)"
+      [isResetForm]="isResetForm"
+    >
+    </app-tax-form>
+  </ng-template>
+</ki-modal>

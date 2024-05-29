@@ -1,0 +1,268 @@
+@import "variable";
+
+$name: "ki-button";
+$large-icon-size: 20px;
+$normal-icon-size: 16px;
+$small-icon-size: 12px;
+.#{$name} {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-x2;
+  padding: $spacing-x1 $spacing-x4;
+  min-height: $form-element-size--normal;
+  border-radius: $form-element-border-radius--normal;
+  font-size: $form-element-font-size--normal;
+  font-weight: 600;
+
+  width: 100%;
+  outline: none;
+  border: none;
+  transition: 0.3s all;
+  cursor: pointer;
+
+  &__icon {
+    font-size: $normal-icon-size;
+    width: $normal-icon-size;
+    height: $normal-icon-size;
+  }
+
+  &--is-only-icon {
+    padding: 0;
+    width: $form-element-size--normal;
+    height: $form-element-size--normal;
+  }
+
+  &--large {
+    padding: $spacing-x1 $spacing-x6;
+    min-height: $form-element-size--large;
+    border-radius: $form-element-border-radius--large;
+    font-size: $form-element-font-size--large;
+
+    &.#{$name}--is-only-icon {
+      padding: 0;
+      width: $form-element-size--large;
+      height: $form-element-size--large;
+    }
+
+    &.#{$name}__icon {
+      font-size: $large-icon-size;
+      width: $large-icon-size;
+      height: $large-icon-size;
+    }
+  }
+
+  &--small {
+    padding: $spacing-x1 $spacing-x2;
+    min-height: $form-element-size--small;
+    border-radius: $form-element-border-radius--small;
+    font-size: $form-element-font-size--small;
+    gap: $spacing-x1;
+
+    &.#{$name}--is-only-icon {
+      padding: 0;
+      width: $form-element-size--small;
+      height: $form-element-size--small;
+    }
+
+    .#{$name}__icon {
+      font-size: $small-icon-size;
+      width: $small-icon-size;
+      height: $small-icon-size;
+    }
+  }
+
+  &--fill {
+    color: $content-primary;
+    background-color: $background-secondary;
+    &:hover {
+      background-color: $background-tertiary;
+    }
+
+    &.#{$name}--primary {
+      background-color: $primary !important;
+      color: $on-primary !important;
+      &:hover {
+        background-color: darken($color: $primary, $amount: 7) !important;
+      }
+    }
+
+    &.#{$name}--secondary {
+      background-color: $secondary;
+      color: $on-secondary;
+      &:hover {
+        background-color: darken($color: $secondary, $amount: 7);
+      }
+    }
+
+    &.#{$name}--success {
+      background-color: $success;
+      color: $on-success;
+      &:hover {
+        background-color: darken($color: $success, $amount: 7);
+      }
+    }
+
+    &.#{$name}--danger {
+      background-color: $error;
+      color: $on-error;
+      &:hover {
+        background-color: darken($color: $error, $amount: 7);
+      }
+    }
+
+    &.#{$name}--warning {
+      background-color: $warning;
+      color: $on-warning;
+      &:hover {
+        background-color: darken($color: $warning, $amount: 7);
+      }
+    }
+
+    &.#{$name}--info {
+      background-color: $information;
+      color: $on-information;
+      &:hover {
+        background-color: darken($color: $information, $amount: 7);
+      }
+    }
+
+    &.#{$name}--disabled {
+      background-color: $background-secondary !important;
+      color: $content-tertiary !important;
+      cursor: default;
+      opacity: 0.7;
+    }
+  }
+
+  &--outline {
+    color: $content-primary;
+    border: 1px solid $border-varient;
+    &:hover {
+      background-color: $background-secondary;
+    }
+
+    &.#{$name}--primary {
+      border-color: $primary;
+      color: $primary;
+      &:hover {
+        background-color: $primary-light;
+      }
+    }
+
+    &.#{$name}--secondary {
+      border-color: $secondary;
+      color: $secondary;
+      &:hover {
+        background-color: $secondary-light;
+      }
+    }
+
+    &.#{$name}--success {
+      border-color: $success;
+      color: $success;
+      &:hover {
+        background-color: $success-light;
+      }
+    }
+
+    &.#{$name}--danger {
+      border-color: $error;
+      color: $error;
+      &:hover {
+        background-color: $error-light;
+      }
+    }
+
+    &.#{$name}--warning {
+      border-color: $warning;
+      color: $warning;
+      &:hover {
+        background-color: $warning-light;
+      }
+    }
+
+    &.#{$name}--info {
+      border-color: $information;
+      color: $information;
+      &:hover {
+        background-color: $information-light;
+      }
+    }
+
+    &.#{$name}--disabled {
+      border-color: $border !important;
+      background: none !important;
+      color: $content-tertiary !important;
+      cursor: default;
+      opacity: 0.7;
+    }
+  }
+
+  &--text {
+    color: $content-primary;
+    &:hover {
+      background-color: $background-secondary;
+    }
+
+    &.#{$name}--primary {
+      color: $primary;
+      &:hover {
+        background-color: $primary-light;
+      }
+    }
+
+    &.#{$name}--secondary {
+      color: $secondary;
+      &:hover {
+        background-color: $secondary-light;
+      }
+    }
+
+    &.#{$name}--success {
+      color: $success;
+      &:hover {
+        background-color: $success-light;
+      }
+    }
+
+    &.#{$name}--danger {
+      color: $error;
+      &:hover {
+        background-color: $error-light;
+      }
+    }
+
+    &.#{$name}--warning {
+      color: $warning;
+      &:hover {
+        background-color: $warning-light;
+      }
+    }
+
+    &.#{$name}--info {
+      color: $information;
+      &:hover {
+        background-color: $information-light;
+      }
+    }
+
+    &.#{$name}--disabled {
+      background: none !important;
+      color: $content-tertiary !important;
+      opacity: 0.7;
+      cursor: default;
+    }
+  }
+
+  &--disabled {
+    cursor: default;
+  }
+}
+
+.ki-button--match-parent {
+  width: 100%;
+}
+.ki-button__title {
+  text-wrap: nowrap;
+}

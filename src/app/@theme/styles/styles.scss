@@ -1,0 +1,145 @@
+@font-face {
+  font-family: iranYekanNumber;
+  src: url(../../../assets/fonts/ttf/iranyekanwebregularfanum.ttf) format("ttf"),
+    url(../../../assets/fonts/woff/iranyekanwebregularfanum.woff) format("woff"),
+    url(../../../assets/fonts/eot/iranyekanwebregularfanum.eot) format("eot");
+}
+a,
+li,
+ul,
+div:not(.ag-input-wrapper),
+span:not(.ag-icon, .ki-button__icon, .ng-arrow-wrapper),
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+input,
+button:not(.btn-close),
+section,
+textarea,
+label,
+nb-card-header,
+nb-card-body {
+  font-family: iranYekanNumber !important;
+  text-align: start;
+}
+
+input::placeholder {
+  font-family: iranYekanNumber !important;
+}
+body {
+  font-family: iranYekanNumber !important;
+  background-color: #f8f8f8 !important;
+  overflow: hidden;
+  direction: rtl;
+}
+ag-grid-angular {
+  height: 70vh;
+  width: 100%;
+  display: block;
+  flex: 1;
+}
+.btn-close:focus {
+  box-shadow: none !important;
+}
+
+.btn-close {
+  background: transparent url(../../../assets/images/close.svg) center/1em auto
+    no-repeat !important;
+}
+
+.modal {
+  backdrop-filter: blur(5px) !important;
+}
+
+.fade {
+  transition: opacity 0.15s linear !important;
+}
+
+.modal.fade .modal-dialog {
+  transform: unset !important;
+}
+
+.modal-content {
+  box-shadow: 0 0 100px #00000030;
+}
+.modal-content {
+  border-radius: 15px !important;
+}
+
+.modal-body {
+  line-height: 2rem;
+}
+// themes - our custom or/and out of the box themes
+@import "themes";
+
+// framework component themes (styles tied to theme variables)
+@import "@nebular/theme/styles/globals";
+@import "@nebular/auth/styles/globals";
+
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/grid";
+
+// loading progress bar theme
+@import "./pace.theme";
+
+@import "./layout";
+@import "./overrides";
+
+// install the framework and custom global styles
+@include nb-install() {
+  // framework global styles
+  @include nb-theme-global();
+  @include nb-auth-global();
+
+  @include ngx-layout();
+  // loading progress bar
+  @include ngx-pace-theme();
+
+  @include nb-overrides();
+}
+* {
+  text-align: start;
+}
+
+.modal {
+  backdrop-filter: blur(5px);
+}
+
+.fade {
+  transition: opacity 0.15s linear !important;
+}
+
+.modal.fade .modal-dialog {
+  transform: unset !important;
+}
+.modal-backdrop,
+.modal {
+  z-index: 1030 !important;
+}
+nb-layout-header.fixed {
+  z-index: 1020 !important;
+}
+.z-index-9 {
+  z-index: 1060 !important;
+}
+.modal-content {
+  box-shadow: 0 0 100px #00000030;
+  border-radius: 15px !important;
+  padding: 1rem;
+  padding-bottom: 0;
+}
+.rtl {
+  direction: rtl !important;
+  text-align: start;
+}
+
+.ltr {
+  direction: ltr !important;
+  text-align: end;
+}

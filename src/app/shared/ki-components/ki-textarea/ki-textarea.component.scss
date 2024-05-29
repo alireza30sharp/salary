@@ -1,0 +1,76 @@
+@import 'variable';
+
+$name: 'textarea';
+.#{$name} {
+  display: flex;
+  &__element {
+    background-color: $form-element-background-color;
+    color: $form-element-color;
+    border: 1px solid $form-element-border-color;
+    box-shadow: $form-element-shadow;
+    font-size: $form-element-font-size--normal;
+    height: $form-element-size--normal * 3;
+    line-height: 1.5;
+    border-radius: $form-element-border-radius--normal;
+    padding: $spacing-x2 $spacing-x3;
+    width: 100%;
+    outline: none;
+    resize: none;
+    transition: 0.3s all;
+
+    &::placeholder {
+      color: $content-tertiary !important;
+    }
+
+    &:focus {
+      background-color: $form-element-background-color--focus;
+      color: $form-element-color--focus;
+      border-color: $form-element-border-color--focus;
+      box-shadow: $form-element-shadow--focus;
+    }
+
+    &:read-only {
+      background-color: $form-element-background-color--readonly;
+      color: $form-element-color--readonly;
+      border-color: $form-element-border-color--readonly;
+      box-shadow: $form-element-shadow--readonly;
+    }
+
+    &:disabled {
+      background-color: $form-element-background-color--disabled;
+      color: $form-element-color--disabled;
+      border-color: $form-element-border-color--disabled;
+      box-shadow: $form-element-shadow--disabled;
+    }
+
+    &--large {
+      font-size: $form-element-font-size--large;
+      height: $form-element-size--large * 3;
+      border-radius: $form-element-border-radius--large;
+      padding: $spacing-x3;
+      line-height: 1.4;
+    }
+
+    &--small {
+      font-size: $form-element-font-size--small;
+      height: $form-element-size--small * 3;
+      border-radius: $form-element-border-radius--small;
+      padding: $spacing-x1 $spacing-x3;
+      line-height: 1.6;
+    }
+
+    &--error {
+      background-color: $error-light !important;
+      color: $error !important;
+      border-color: $error-medium !important;
+      box-shadow: 0 0 0 transparent !important;
+    }
+
+    &--success {
+      background-color: $success-light !important;
+      color: $success !important;
+      border-color: $success-medium !important;
+      box-shadow: 0 0 0 transparent !important;
+    }
+  }
+}

@@ -1,0 +1,154 @@
+@import 'variable';
+
+$large-size: 36px;
+$knop-large-size: $large-size - 4px;
+$normal-size: 26px;
+$knop-normal-size: $normal-size - 4px;
+$small-size: 16px;
+$knop-small-size: $small-size - 4px;
+
+:host {
+  display: inline-flex;
+}
+
+$name: 'ki-switch';
+.#{$name} {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  &__rail {
+    position: relative;
+    border: 1px solid $form-element-border-color;
+    background-color: $form-element-background-color;
+    width: $normal-size * 1.8;
+    height: $normal-size;
+    border-radius: $normal-size/2;
+    transition: 0.3s all;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      inset-inline-start: 1px;
+      width: $knop-normal-size;
+      height: $knop-normal-size;
+      border-radius: 50%;
+      background-color: $content-tertiary;
+      transition: 0.3s all;
+    }
+  }
+
+  &__element {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+
+    &:focus {
+      & ~ .#{$name}__rail {
+        border-color: $form-element-border-color--focus;
+        background-color: $form-element-background-color--focus;
+      }
+    }
+
+    &:checked {
+      & ~ .#{$name}__rail {
+        background-color: $primary;
+        border-color: $primary;
+        &::after {
+          inset-inline-start: calc(100% - $knop-normal-size - 1px);
+          background-color: $form-element-background-color;
+        }
+      }
+    }
+
+    &:disabled {
+      & ~ .#{$name}__rail {
+        background-color: $form-element-background-color--disabled !important;
+        border-color: $form-element-border-color--disabled !important;
+      }
+
+      &:not(:checked) {
+        & ~ .#{$name}__rail {
+          &::after {
+            background-color: $form-element-border-color--disabled !important;
+          }
+        }
+      }
+
+      & ~ .#{$name}__text {
+        color: $form-element-color--disabled !important;
+      }
+    }
+  }
+
+  &__text {
+    margin-inline-start: $spacing-x2;
+    font-size: $form-element-font-size--normal;
+    color: $form-element-color;
+  }
+
+  &--large {
+    .#{$name} {
+      &__element {
+        & ~ .#{$name}__rail {
+          width: $large-size * 1.8;
+          height: $large-size;
+          border-radius: $large-size/2;
+          &::after {
+            width: $knop-large-size;
+            height: $knop-large-size;
+          }
+        }
+
+        &:checked {
+          & ~ .#{$name}__rail {
+            &::after {
+              inset-inline-start: calc(100% - $knop-large-size - 1px);
+            }
+          }
+        }
+      }
+
+      &__text {
+        font-size: $form-element-font-size--large;
+      }
+    }
+  }
+
+  &--small {
+    .#{$name} {
+      &__element {
+        & ~ .#{$name}__rail {
+          width: $small-size * 1.8;
+          height: $small-size;
+          border-radius: $small-size/2;
+          &::after {
+            width: $knop-small-size;
+            height: $knop-small-size;
+          }
+        }
+
+        &:checked {
+          & ~ .#{$name}__rail {
+            &::after {
+              inset-inline-start: calc(100% - $knop-small-size - 1px);
+            }
+          }
+        }
+      }
+
+      &__text {
+        font-size: $form-element-font-size--small;
+      }
+    }
+  }
+
+  &--disabled {
+    cursor: default;
+  }
+}

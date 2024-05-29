@@ -1,0 +1,35 @@
+<nb-card accent="danger">
+  <nb-card-header>
+    <div class="mb-3">
+      <strong class="strong">لیست گارگاه</strong>
+      <nb-action
+        (click)="startTour()"
+        class="control-item d-inline"
+        icon="question-mark-circle-outline"
+      >
+      </nb-action>
+    </div>
+    <div class="align-content-center d-flex justify-content-between">
+      <app-tools-bar
+        (NewSelected)="newWorkShpps()"
+        (RefrashSelected)="onRefrashSelected()"
+        (DeleteSelected)="removeCell()"
+        (EditSelected)="newWorkShpps(true)"
+        (RefrashSelected)="onRefrashSelected()"
+        [disabled]="selectRow.length != 0 ? false : true"
+        [isShowLoadingDelete]="isShowLoadingDelete"
+        [isShowLoadingRefrash]="isShowLoadingRefrash"
+      ></app-tools-bar>
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <ag-grid-data
+      [rowId]="'workShopId'"
+      [columnsDefault]="columnsDefault"
+      [rowDataDefault]="rowDataDefault"
+      [pagination]="true"
+      (removeCellChange)="onDeleteItem($event)"
+      (selectedRowsChange)="onSelectedRowsChangeEvent($event)"
+    ></ag-grid-data>
+  </nb-card-body>
+</nb-card>

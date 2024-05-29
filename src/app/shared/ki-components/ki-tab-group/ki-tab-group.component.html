@@ -1,0 +1,130 @@
+<section
+  class="ki-tab"
+  [class.ki-tab--vertical]="type === 'vertical'"
+  [class.ki-tab--horizontal]="type === 'horizontal'"
+  [class.ki-tab--no-layout]="noLayout"
+  [class.ki-tab--inverse-theme]="theme === 'inverse'"
+  [class.ki-tab--inverse-secondary-theme]="theme === 'inverse-secondary'"
+  [class.ki-tab--bordered]="bordered"
+  [class.ki-tab--no-outer-border]="noOuterBorder"
+  [style.height]="height"
+  [style.overflow]="overflow"
+  [style.overflow-x]="overflowX"
+>
+  <div
+    #header
+    class="ki-tab__header"
+    [class.ki-tab__header--is-sticky]="isSticky"
+    [style.flex-basis]="tabColWidth"
+  >
+    <div class="ki-tab__actions">
+      <a
+        *ngIf="type === 'horizontal'"
+        class="ki-tab__slide-button ki-tab__slide-button--prev fa fa-angle-left"
+        [class.ki-tab__slide-button--show]="prevButtonIsShow"
+        (click)="prevSlideButtonHandler()"
+      ></a>
+
+      <ng-container
+        *ngIf="type === 'vertical' && groups.length > 0; else normalList"
+      >
+        <div class="ki-tab__group" *ngFor="let group of groups">
+          <strong
+            class="ki-tab__group-title"
+            *ngIf="group; else groupSeparatorTemplate"
+            >{{ group }}</strong
+          >
+          <ng-template #groupSeparatorTemplate
+            ><span class="ki-tab__group-separator"></span
+          ></ng-template>
+          <ng-container *ngFor="let tab of items; let i = index">
+            <ng-container *ngIf="tab.groupName === group">
+              <ng-container
+                *ngTemplateOutlet="
+                  buttonTemplate;
+                  context: {
+                    tab,
+                    index: i
+                  }
+                "
+              ></ng-container>
+            </ng-container>
+          </ng-container>
+        </div>
+        <ng-container *ngIf="hasUngroupedTab()">
+          <div class="ki-tab__group">
+            <span class="ki-tab__group-separator"></span>
+            <ng-container *ngFor="let tab of items; let i = index">
+              <ng-container *ngIf="!tab.groupName || type === 'horizontal'"
+                ><ng-container
+                  *ngTemplateOutlet="
+                    buttonTemplate;
+                    context: {
+                      tab,
+                      index: i
+                    }
+                  "
+                ></ng-container
+              ></ng-container>
+            </ng-container>
+          </div>
+        </ng-container>
+      </ng-container>
+      <ng-template #normalList>
+        <ng-container *ngFor="let tab of items; let i = index">
+          <ng-container
+            *ngTemplateOutlet="
+              buttonTemplate;
+              context: {
+                tab,
+                index: i
+              }
+            "
+          ></ng-container>
+        </ng-container>
+      </ng-template>
+      <a
+        *ngIf="type === 'horizontal'"
+        class="ki-tab__slide-button ki-tab__slide-button--next fa fa-angle-right"
+        [class.ki-tab__slide-button--show]="nextButtonIsShow"
+        (click)="nextSlideButtonHandler()"
+      ></a>
+    </div>
+  </div>
+  <ng-container *ngIf="!noTabContent">
+    <section
+      class="ki-tab__container"
+      [style.overflow]="items[internalSelectedTabIndex]?.overflow"
+      [class.ki-tab__container--inverse-theme]="
+        theme === 'inverse' || theme === 'inverse-secondary'
+      "
+    >
+      <ng-content></ng-content></section
+  ></ng-container>
+</section>
+<ng-template #buttonTemplate let-tab="tab" let-index="index">
+  <a
+    class="ki-tab__button"
+    [title]="tab.text"
+    (click)="selectTab(tab, index)"
+    [routerLink]="tab.link"
+    [routerLinkActive]="'ki-tab__button--active'"
+    [class.ki-tab__button--ellipsis]="tabContentEllipsis"
+    [class.ki-tab__button--active]="internalSelectedTabIndex === index"
+    [class.ki-tab__button--inverse-theme]="
+      theme === 'inverse' || theme === 'inverse-secondary'
+    "
+    [class.ki-tab__button--is-bold]="tab.isBold"
+    [class.ki-tab__button--other-side]="tab.otherSide"
+  >
+    <ng-container *ngIf="tab.iconClassName"
+      ><span [class]="tab.iconClassName"></span
+    ></ng-container>
+    <span
+      class="ki-tab__button-text"
+      [class.ki-tab__button-text--ellipsis]="tabContentEllipsis"
+      [class.ki-tab__button-text--is-bold]="tab.isBold"
+      >{{ tab.text }}</span
+    >
+  </a>
+</ng-template>

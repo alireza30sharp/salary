@@ -1,0 +1,35 @@
+<div
+  class="form-group"
+  [class.row]="!!labelColNumber"
+  [class.form-group--align-center]="alignCenter"
+  [class.form-group--no-bottom-distance]="noBottomDistance"
+>
+  <div
+    [class]="!!labelColNumber ? 'col-sm-' + labelColNumber : ''"
+    *ngIf="!removeLabel"
+  >
+    <label
+      class="form-group__label"
+      [class.form-group__label--is-horizontal]="labelColNumber"
+      [class.invisible]="!label"
+      [attr.for]="for"
+      >{{ label || "Default"
+      }}<sup class="form-group__required-sign" *ngIf="showRequireSign"
+        >*</sup
+      ></label
+    >
+  </div>
+
+  <div
+    class="form-group__content"
+    [class]="!!labelColNumber ? 'col-sm-' + (12 - labelColNumber) : ''"
+  >
+    <ng-content></ng-content>
+    <ng-container *ngIf="errorMessage"
+      ><ki-validation
+        [hide]="hideError"
+        [message]="errorMessage"
+      ></ki-validation
+    ></ng-container>
+  </div>
+</div>

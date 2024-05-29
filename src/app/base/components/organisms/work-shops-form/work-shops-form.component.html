@@ -1,0 +1,155 @@
+<nb-card accent="success">
+  <nb-card-header>لطفا فیلد های اجباری را وارد نمایید</nb-card-header>
+  <nb-card-body>
+    <form
+      #companyForm="ngForm"
+      (ngSubmit)="!companyForm.invalid && submitHandler(companyForm)"
+    >
+      <div class="row">
+        <ki-form-group
+          class="col-6"
+          [label]="'نام کارگاه'"
+          [showRequireSign]="true"
+          [errorMessage]="workShopName.errors?.required ? 'فیلد اجباری' : ''"
+          [hideError]="
+            !(
+              (workShopName.touched || companyForm.submitted) &&
+              workShopName.errors?.required
+            )
+          "
+        >
+          <ki-input
+            name="workShopName"
+            [fullWidth]="true"
+            [(ngModel)]="workShops.workShopName"
+            #workShopName="ngModel"
+            required
+          ></ki-input>
+        </ki-form-group>
+        <ki-form-group
+          class="col-6"
+          [label]="'کد کارگاه'"
+          [showRequireSign]="true"
+          [errorMessage]="workShopCode.errors?.required ? 'فیلد اجباری' : ''"
+          [hideError]="
+            !(
+              (workShopCode.touched || companyForm.submitted) &&
+              workShopCode.errors?.required
+            )
+          "
+        >
+          <ki-input
+            name="workShopCode"
+            [fullWidth]="true"
+            [(ngModel)]="workShops.workShopCode"
+            #workShopCode="ngModel"
+            required
+          ></ki-input>
+        </ki-form-group>
+      </div>
+      <div class="row">
+        <ki-form-group
+          class="col-6"
+          [label]="'نام شرکت'"
+          [showRequireSign]="true"
+          [errorMessage]="companyName.errors?.required ? 'فیلد اجباری' : ''"
+          [hideError]="
+            !(
+              (companyName.touched || companyForm.submitted) &&
+              companyName.errors?.required
+            )
+          "
+        >
+          <ki-input
+            name="companyName"
+            [fullWidth]="true"
+            [(ngModel)]="workShops.companyName"
+            #companyName="ngModel"
+            required
+          ></ki-input>
+        </ki-form-group>
+        <ki-form-group
+          class="col-6"
+          [label]="'نام کارفرما'"
+          [showRequireSign]="true"
+          [errorMessage]="employerName.errors?.required ? 'فیلد اجباری' : ''"
+          [hideError]="
+            !(
+              (employerName.touched || companyForm.submitted) &&
+              employerName.errors?.required
+            )
+          "
+        >
+          <ki-input
+            name="employerName"
+            [fullWidth]="true"
+            [(ngModel)]="workShops.employerName"
+            #employerName="ngModel"
+            required
+          ></ki-input>
+        </ki-form-group>
+      </div>
+      <div class="row">
+        <ki-form-group
+          class="col-6"
+          [label]="'نام شعبه تامین اجتماعی'"
+          [showRequireSign]="true"
+          [errorMessage]="
+            socialSecurityBranchName.errors?.required ? 'فیلد اجباری' : ''
+          "
+          [hideError]="
+            !(
+              (socialSecurityBranchName.touched || companyForm.submitted) &&
+              socialSecurityBranchName.errors?.required
+            )
+          "
+        >
+          <ki-input
+            name="socialSecurityBranchName"
+            [fullWidth]="true"
+            [(ngModel)]="workShops.socialSecurityBranchName"
+            #socialSecurityBranchName="ngModel"
+            required
+          ></ki-input>
+        </ki-form-group>
+        <div class="col-sm-3">
+          <ki-checkbox
+            [text]="'وضعیت'"
+            name="isActive"
+            [(ngModel)]="workShops.isActive"
+          />
+        </div>
+        <div class="col-sm-3">
+          <ki-checkbox
+            [text]="'کارگاه پیش فرض'"
+            name="isDefault"
+            [(ngModel)]="workShops.isDefault"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <ki-form-group
+          class="col-12"
+          [label]="'آدرس کارگاه'"
+          [showRequireSign]="true"
+          [errorMessage]="workShopAddress.errors?.required ? 'فیلد اجباری' : ''"
+          [hideError]="
+            !(
+              (workShopAddress.touched || companyForm.submitted) &&
+              workShopAddress.errors?.required
+            )
+          "
+        >
+          <ki-textarea
+            name="workShopAddress"
+            [fullWidth]="true"
+            [(ngModel)]="workShops.workShopAddress"
+            #workShopAddress="ngModel"
+            required
+          ></ki-textarea>
+        </ki-form-group>
+      </div>
+      <input type="submit" [hidden]="true" [attr.id]="submitButtonId" />
+    </form>
+  </nb-card-body>
+</nb-card>

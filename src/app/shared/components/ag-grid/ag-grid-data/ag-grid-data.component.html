@@ -1,0 +1,55 @@
+<div>
+  <input
+    type="file"
+    accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    class="d-none"
+    #file
+    (change)="onFileChange($event)"
+  />
+  <app-tools-bar
+    *ngIf="activeToolBar"
+    (NewSelected)="onNewSelected()"
+    [countItemEdited]="countItemEdited"
+    (ImportExcelSelected)="file.click()"
+    (CancelSelected)="onCancel()"
+    (SaveSelected)="SaveSelected()"
+    (DesignerclickEvent)="designerclickEvent($event)"
+    [isShowToolbar]="_isEditMode"
+  ></app-tools-bar>
+  <!-- [rowClassRules]="rowClassRules" -->
+  <!-------    (gridSizeChanged)="onGridSizeChanged($event)"-->
+  <ag-grid-angular
+    id="myGrid"
+    [id]="idGrid"
+    [class]="class"
+    [columnDefs]="columnsTable"
+    [suppressAggFuncInHeader]="false"
+    [suppressRowClickSelection]="suppressRowClickSelection"
+    [rowGroupPanelShow]="'always'"
+    [pivotPanelShow]="'always'"
+    [defaultColDef]="defaultColDef"
+    [getContextMenuItems]="getContextMenuItems"
+    [autoGroupColumnDef]="autoGroupColumnDef"
+    [rowData]="rowData"
+    [rowSelection]="rowSelection"
+    [gridOptions]="gridOptions"
+    (selectionChanged)="onSelectionChanged()"
+    (gridReady)="onGridReady($event)"
+    (firstDataRendered)="onFirstDataRendered($event)"
+    (cellValueChanged)="cellValueChanged($event)"
+    [enableFillHandle]="enableFillHandle"
+    [undoRedoCellEditing]="undoRedoCellEditing"
+    [undoRedoCellEditingLimit]="undoRedoCellEditingLimit"
+    [enableCellChangeFlash]="false"
+    [suppressAggFuncInHeader]="suppressAggFuncInHeader"
+    [getRowId]="getRowId"
+    [loadingCellRenderer]="loadingCellRenderer"
+    [loadingCellRendererParams]="loadingCellRendererParams"
+    [pivotPanelShow]="pivotPanelShow"
+    [rowHeight]="50"
+    [pagination]="pagination"
+    [paginationPageSize]="paginationPageSize"
+    [paginationPageSizeSelector]="paginationPageSizeSelector"
+  ></ag-grid-angular>
+  <!-- <div id="myChart" class="ag-theme-quartz my-chart"></div> -->
+</div>

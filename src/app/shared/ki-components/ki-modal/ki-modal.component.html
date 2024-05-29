@@ -1,0 +1,32 @@
+<section>
+  <div class="modal-header" *ngIf="!hideCloseIcon && !!title">
+    <h4 *ngIf="!!title" class="modal-title" id="modal-basic-title">
+      {{ title }}
+    </h4>
+  </div>
+  <div class="modal-body"><ng-content></ng-content></div>
+  <div class="modal-footer" *ngIf="showPrimaryButton || showCancelButton">
+    <ki-button [type]="'button'" (click)="closeModal()" [for]="cancelButtonFor">
+      {{ cancelButtonText ? cancelButtonText : "انصراف" }}
+    </ki-button>
+    <ki-button
+      *ngIf="showSkipButton"
+      [type]="'button'"
+      (click)="closeModal()"
+      [for]="skipButtonFor"
+    >
+      {{ skipButtonText ? skipButtonText : "Skip" }}
+    </ki-button>
+    <ki-button
+      *ngIf="showPrimaryButton"
+      type="button"
+      [for]="primaryButtonFor"
+      [showLoading]="showPrimaryButtonLoading"
+      [btnType]="'primary'"
+      (click)="onPrimaryButtonClicked()"
+      [disabled]="showPrimaryButtonLoading"
+    >
+      {{ primaryButtonText ? primaryButtonText : "ذخیره" }}
+    </ki-button>
+  </div>
+</section>

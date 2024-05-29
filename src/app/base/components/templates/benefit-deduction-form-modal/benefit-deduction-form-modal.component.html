@@ -1,0 +1,22 @@
+<ki-modal
+  [title]="isEditMode ? 'ویرایش مزایا و کسورات' : 'ایجاد مزایا و کسورات'"
+  [showCancelButton]="true"
+  (onCloseCallback)="cancelHandler()"
+  [showPrimaryButton]="true"
+  [primaryButtonFor]="submitButtonId"
+  [hideHeaderActions]="true"
+  [showPrimaryButtonLoading]="isLoadingForm || isLoading || isLoadingSaveChange"
+>
+  <app-skeleton-form-loading
+    *ngIf="isLoading; else content"
+  ></app-skeleton-form-loading>
+  <ng-template #content>
+    <app-benefit-deduction-form
+      [submitButtonId]="submitButtonId"
+      [benefitDeduction]="initialData"
+      (submitCallback)="saveHandler($event)"
+      [isResetForm]="isResetForm"
+    >
+    </app-benefit-deduction-form>
+  </ng-template>
+</ki-modal>

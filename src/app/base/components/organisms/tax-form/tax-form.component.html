@@ -1,0 +1,142 @@
+<nb-card>
+  <nb-card-header>لطفا فیلد های اجباری را وارد نمایید</nb-card-header>
+  <nb-card-body>
+    <form
+      #companyForm="ngForm"
+      (ngSubmit)="!companyForm.invalid && submitHandler(companyForm)"
+    >
+      <div class="row">
+        <ki-form-group
+          class="col-6"
+          [label]="' از مبلغ '"
+          [showRequireSign]="true"
+          [errorMessage]="fromMoney.errors?.required ? 'فیلد اجباری' : ''"
+          [hideError]="
+            !(
+              (fromMoney.touched || companyForm.submitted) &&
+              fromMoney.errors?.required
+            )
+          "
+        >
+          <ki-input
+            name="fromMoney"
+            [fullWidth]="true"
+            class="ltr"
+            [onlyNumber]="true"
+            [(ngModel)]="taxModel.fromMoney"
+            #fromMoney="ngModel"
+            [type]="'currency'"
+            [maskType]="'separator'"
+            required
+          ></ki-input>
+        </ki-form-group>
+        <ki-form-group
+          class="col-6"
+          [label]="'تا مبلغ'"
+          [showRequireSign]="true"
+          [errorMessage]="
+            toMoney.errors?.isCurrency
+              ? 'مبلغ وارد شده کمتر از مبلغ است'
+              : 'فیلد اجباری'
+          "
+          [hideError]="
+            !(
+              ((toMoney.touched || companyForm.submitted) &&
+                toMoney.errors?.required) ||
+              toMoney.errors?.isCurrency
+            )
+          "
+        >
+          <ki-input
+            name="toMoney"
+            [fullWidth]="true"
+            class="ltr"
+            [onlyNumber]="true"
+            [(ngModel)]="taxModel.toMoney"
+            #toMoney="ngModel"
+            (focusCallback)="onEnter($event)"
+            [type]="'currency'"
+            [fromMoney]="fromMoney"
+            [maskType]="'separator'"
+            required
+          ></ki-input>
+        </ki-form-group>
+      </div>
+      <div class="row">
+        <ki-form-group
+          class="col-6"
+          [label]="'درصد'"
+          [showRequireSign]="true"
+          [errorMessage]="
+            taxRate.errors?.isRate
+              ? 'درصد نباید بیشتر از 100 باشد'
+              : 'فیلد اجباری'
+          "
+          [hideError]="
+            !(
+              ((taxRate.touched || companyForm.submitted) &&
+                taxRate.errors?.required) ||
+              taxRate.errors?.isRate
+            )
+          "
+        >
+          <ki-input
+            name="taxRate"
+            [fullWidth]="true"
+            [(ngModel)]="taxModel.taxRate"
+            [maskType]="'percent'"
+            [maskPrefix]="maskPrefixTaxRate"
+            #taxRate="ngModel"
+            class="ltr"
+            [onlyNumber]="true"
+            [type]="'rate'"
+            required
+          ></ki-input>
+        </ki-form-group>
+        <ki-form-group
+          class="col-6"
+          [label]="'نوع'"
+          [showRequireSign]="true"
+          [errorMessage]="type.errors?.required ? 'فیلد اجباری' : ''"
+          [hideError]="
+            !((type.touched || companyForm.submitted) && type.errors?.required)
+          "
+        >
+          <ki-select
+            [options]="typeOptions"
+            [allowClear]="true"
+            [(ngModel)]="taxModel.taxType"
+            name="type"
+            #type="ngModel"
+            required
+            [isloading]="lockupsIsLoading"
+          ></ki-select>
+        </ki-form-group>
+      </div>
+
+      <div class="row">
+        <ki-form-group
+          class="col-12"
+          [label]="'شرح'"
+          [showRequireSign]="true"
+          [errorMessage]="comment.errors?.required ? 'فیلد اجباری' : ''"
+          [hideError]="
+            !(
+              (comment.touched || companyForm.submitted) &&
+              comment.errors?.required
+            )
+          "
+        >
+          <ki-textarea
+            name="comment"
+            [fullWidth]="true"
+            [(ngModel)]="taxModel.comment"
+            #comment="ngModel"
+            required
+          ></ki-textarea>
+        </ki-form-group>
+      </div>
+      <input type="submit" [hidden]="true" [attr.id]="submitButtonId" />
+    </form>
+  </nb-card-body>
+</nb-card>

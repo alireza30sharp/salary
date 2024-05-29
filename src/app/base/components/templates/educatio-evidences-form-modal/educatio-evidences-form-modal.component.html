@@ -1,0 +1,22 @@
+<ki-modal
+  [title]="isEditMode ? 'ویرایش مدارک تحصیلی' : 'ایجاد مدارک تحصیلی'"
+  [showCancelButton]="true"
+  (onCloseCallback)="cancelHandler()"
+  [showPrimaryButton]="true"
+  [primaryButtonFor]="submitButtonId"
+  [hideHeaderActions]="true"
+  [showPrimaryButtonLoading]="isLoadingForm || isLoadingSaveChange"
+>
+  <app-skeleton-form-loading
+    *ngIf="isLoading; else content"
+  ></app-skeleton-form-loading>
+  <ng-template #content>
+    <app-educatio-evidences-form
+      [submitButtonId]="submitButtonId"
+      [evidencesModel]="initialData"
+      (submitCallback)="saveHandler($event)"
+      [isResetForm]="isResetForm"
+    >
+    </app-educatio-evidences-form>
+  </ng-template>
+</ki-modal>

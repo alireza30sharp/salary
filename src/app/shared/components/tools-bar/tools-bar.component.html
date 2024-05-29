@@ -1,0 +1,93 @@
+<div class="d-flex justify-content-bettwen rtl w-100 overflow-auto">
+  <ki-button
+    [varient]="'outline'"
+    btnType="warning"
+    [iconClassName]="'fa-solid fa-arrow-rotate-left'"
+    [title]="'انصراف ESc'"
+    (click)="escapeEvent()"
+    [size]="sizeBtn"
+    class="mx-2 f-10 ESc"
+  ></ki-button>
+  <ki-button
+    [varient]="'outline'"
+    btnType="warning"
+    [iconClassName]="'fa-solid fa-screwdriver-wrench'"
+    [title]="'ابزار'"
+    [size]="sizeBtn"
+    class="mx-2 f-10 tools"
+  ></ki-button>
+  <ki-button
+    [varient]="'outline'"
+    btnType="warning"
+    [iconClassName]="'fa-solid fa-arrows-rotate'"
+    [title]="'بروز رسانی F5'"
+    (click)="refrashEvent()"
+    [showLoading]="isShowLoadingRefrash"
+    [size]="sizeBtn"
+    class="mx-2 f-10 refresh"
+  ></ki-button>
+  <ki-button
+    [varient]="'outline'"
+    btnType="warning"
+    [iconClassName]="'fa-solid fa-circle-info'"
+    [title]="'اطلاعات تماس'"
+    [size]="sizeBtn"
+    class="mx-2 f-10 info"
+  ></ki-button>
+  <ki-button
+    [varient]="'outline'"
+    btnType="warning"
+    [iconClassName]="'fa-solid fa-print'"
+    [title]="'چاپ P'"
+    [size]="sizeBtn"
+    (click)="perintEvent()"
+    class="mx-2 f-10 print"
+  ></ki-button>
+  <ki-button
+    [varient]="'outline'"
+    btnType="warning"
+    [size]="sizeBtn"
+    [iconClassName]="'fa-solid fa-file-excel'"
+    [title]="'اکسل'"
+    class="mx-2 f-10 excel"
+  ></ki-button>
+  <ki-button
+    [varient]="'outline'"
+    btnType="warning"
+    [iconClassName]="'fa-regular fa-circle-check'"
+    [title]="'انتخاب'"
+    [size]="sizeBtn"
+    class="mx-2 f-10 check"
+  ></ki-button>
+  <ki-button
+    [disabled]="disabled"
+    [varient]="'outline'"
+    btnType="warning"
+    [iconClassName]="'fas fa-trash-alt'"
+    [title]="'حذف ctrlKey+D'"
+    [size]="sizeBtn"
+    [showLoading]="isShowLoadingDelete"
+    (click)="deleteEvent()"
+    class="mx-2 f-10 trash"
+  ></ki-button>
+  <ki-button
+    [varient]="'outline'"
+    btnType="warning"
+    [iconClassName]="'fas fa-edit'"
+    [title]="'اصلاح F3'"
+    (click)="editEvent()"
+    [size]="sizeBtn"
+    [disabled]="disabled"
+    class="mx-2 f-10 edit"
+  ></ki-button>
+
+  <ki-button
+    [varient]="'outline'"
+    btnType="warning"
+    [iconClassName]="'fas fa-plus '"
+    [title]="'جدید F2'"
+    (click)="addEvent()"
+    [size]="sizeBtn"
+    class="mx-2 f-10 plus"
+  ></ki-button>
+</div>

@@ -1,0 +1,42 @@
+<div
+  class="dropzone"
+  fileDragDrop
+  [attr.disabled]="isEditMode && disableFileInput"
+  (filesChangeEmiter)="onFileSelected($event)"
+>
+  <div
+    class="d-flex align-items-center justify-content-center flex-column h-100"
+  >
+    <div class="centered m-auto">
+      <input
+        type="file"
+        name="file"
+        id="file"
+        (change)="onFileSelected($event.target.files)"
+        [accept]="accept"
+        [disabled]="isEditMode && disableFileInput"
+        [multiple]="!isEditMode"
+      />
+
+      <label for="file"
+        ><span class="textLink">SelectYourFile</span> OrDropItHere"
+      </label>
+    </div>
+
+    <div
+      class="footer d-flex flex-wrap w-100 pt-3 pb-3"
+      *ngIf="selectedFiles?.length != 0"
+    >
+      <div class="uploaded-file" *ngFor="let item of selectedFiles">
+        <div class="uploaded-file__item">
+          <i [class]="pickFileIcon(item.name) + ' me-1 file-icon'"></i>
+          <span>{{ item?.name ? item.name : item }}</span>
+          <i
+            class="fa fa-regular fa-close close-icon text-muted"
+            (click)="removeFile(item)"
+          ></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

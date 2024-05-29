@@ -1,0 +1,454 @@
+<h1 id="title" class="title">ثبت نام</h1>
+<nb-alert
+  *ngIf="showMessages.error && errors?.length && !submitted"
+  outline="danger"
+  role="alert"
+>
+  <p class="alert-title"><b>اطلاعات</b></p>
+  <ul class="alert-message-list">
+    <li *ngFor="let error of errors" class="alert-message">{{ error }}</li>
+  </ul>
+</nb-alert>
+<nb-alert
+  *ngIf="showMessages.success && messages?.length && !submitted"
+  outline="success"
+  role="alert"
+>
+  <p class="alert-title"><b>اطلاعات!</b></p>
+  <ul class="alert-message-list">
+    <li *ngFor="let message of messages" class="alert-message">
+      {{ message }}
+    </li>
+  </ul>
+</nb-alert>
+<nb-card size="giant" [nbSpinner]="loading" nbSpinnerStatus="danger">
+  <nb-card-body>
+    <nb-stepper
+      #stepper
+      orientation="horizontal"
+      (stepChange)="handleStepChange($event)"
+    >
+      <nb-step [stepControl]="firstForm" label="تلفن همراه">
+        <form [formGroup]="firstForm" class="step-container">
+          <p class="f-14 gray mt-2">لطفاً شماره همراه را وارد کنید</p>
+          <div class="input-group justify-content-center mb-5">
+            <input
+              #input
+              nbInput
+              [(ngModel)]="mobileRequest"
+              [status]="
+                firstForm.dirty
+                  ? firstForm.invalid
+                    ? 'danger'
+                    : 'success'
+                  : ''
+              "
+              pattern="^09\d{9}$"
+              placeholder="شماره همراه"
+              class="form-control"
+              maxlength="11"
+              formControlName="firstCtrl"
+              [ngClass]="{
+                'form-control-danger':
+                  firstForm.invalid && (firstForm.dirty || firstForm.touched)
+              }"
+              (ngModelChange)="VerifyInput$.next(input.value)"
+            />
+          </div>
+          <div class="d-flex justify-content-between">
+            <button
+              [nbSpinner]="loading"
+              nbSpinnerStatus="info"
+              #btn
+              nbButton
+              nbStepperNext
+              [disabled]="stepperNextMobile"
+            >
+              بعدی
+            </button>
+          </div>
+        </form>
+      </nb-step>
+      <nb-step [stepControl]="secondForm" label="دریافت کد">
+        <form [formGroup]="secondForm" class="step-container">
+          <p class="lorem">کد چهار رقمی ارسال شده رو وارد کنید</p>
+          <div
+            class="align-content-center input-group justify-content-center mb-5 mt-5"
+          >
+            <div>
+              <div class="row">
+                <app-pin-code (emitCode)="verifyOtp($event)"></app-pin-code>
+              </div>
+              <div
+                class="d-flex justify-content-between align-items-center w-100 mt-5"
+              >
+                <div *ngIf="otpTimer; else resendOtp_tpl" class="f-12 gray">
+                  {{ otpTimerTextAction$ | async }} مانده تا دریافت مجدد کد
+                </div>
+                <ng-template #resendOtp_tpl>
+                  <div class="f-12 blue pointer" (click)="signupUserName(true)">
+                    ارسال مجدد کد
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+          <button nbButton nbStepperPrevious>قبلی</button>
+          <button
+            nbButton
+            nbStepperNext
+            [nbSpinner]="codeLoading"
+            nbSpinnerStatus="info"
+          >
+            بعدی
+          </button>
+        </form>
+      </nb-step>
+      <nb-step label="ثبت نام">
+        <form (ngSubmit)="register()" #form="ngForm" aria-labelledby="title">
+          <div class="form-control-group">
+            <label class="label" for="input-name">نام</label>
+            <input
+              nbInput
+              [(ngModel)]="user.firstName"
+              #firstName="ngModel"
+              id="input-name"
+              name="firstName"
+              placeholder="نام"
+              autofocus
+              fullWidth
+              [status]="
+                firstName.dirty
+                  ? firstName.invalid
+                    ? 'danger'
+                    : 'success'
+                  : ''
+              "
+              [required]="getConfigValue('forms.validation.firstName.required')"
+              [minlength]="
+                getConfigValue('forms.validation.firstName.minLength')
+              "
+              [maxlength]="
+                getConfigValue('forms.validation.firstName.maxLength')
+              "
+              [attr.aria-invalid]="
+                firstName.invalid && firstName.touched ? true : null
+              "
+            />
+            <ng-container *ngIf="firstName.invalid && firstName.touched">
+              <p
+                class="caption status-danger"
+                *ngIf="firstName.errors?.required"
+              >
+                فیلد اجباری
+              </p>
+              <p
+                class="caption status-danger"
+                *ngIf="
+                  firstName.errors?.minlength || firstName.errors?.maxlength
+                "
+              >
+                این فیلد باید حداقل از
+                {{ getConfigValue("forms.validation.firstName.minLength") }} تا
+                {{ getConfigValue("forms.validation.firstName.maxLength") }}
+                کاراکتر باشد
+              </p>
+            </ng-container>
+          </div>
+          <div class="form-control-group">
+            <label class="label" for="input-name">نام خانوادگی</label>
+            <input
+              nbInput
+              [(ngModel)]="user.lastName"
+              #lastName="ngModel"
+              id="input-name"
+              name="lastName"
+              placeholder="نام خانوادگی"
+              autofocus
+              fullWidth
+              [status]="
+                lastName.dirty ? (lastName.invalid ? 'danger' : 'success') : ''
+              "
+              [required]="getConfigValue('forms.validation.lastName.required')"
+              [minlength]="
+                getConfigValue('forms.validation.lastName.minLength')
+              "
+              [maxlength]="
+                getConfigValue('forms.validation.lastName.maxLength')
+              "
+              [attr.aria-invalid]="
+                lastName.invalid && lastName.touched ? true : null
+              "
+            />
+            <ng-container *ngIf="lastName.invalid && lastName.touched">
+              <p
+                class="caption status-danger"
+                *ngIf="lastName.errors?.required"
+              >
+                فیلد اجباری
+              </p>
+              <p
+                class="caption status-danger"
+                *ngIf="lastName.errors?.minlength || lastName.errors?.maxlength"
+              >
+                این فیلد باید حداقل از
+                {{ getConfigValue("forms.validation.lastName.minLength") }} تا
+                {{ getConfigValue("forms.validation.lastName.maxLength") }}
+                کاراکتر باشد
+              </p>
+            </ng-container>
+          </div>
+          <div class="form-control-group">
+            <label class="label" for="input-name">نام شرکت</label>
+            <input
+              nbInput
+              [(ngModel)]="user.companyName"
+              #companyName="ngModel"
+              id="input-name"
+              name="companyName"
+              placeholder="نام شرکت"
+              autofocus
+              fullWidth
+              [status]="
+                companyName.dirty
+                  ? companyName.invalid
+                    ? 'danger'
+                    : 'success'
+                  : ''
+              "
+              [required]="
+                getConfigValue('forms.validation.companyName.required')
+              "
+              [minlength]="
+                getConfigValue('forms.validation.companyName.minLength')
+              "
+              [maxlength]="
+                getConfigValue('forms.validation.companyName.maxLength')
+              "
+              [attr.aria-invalid]="
+                companyName.invalid && companyName.touched ? true : null
+              "
+            />
+            <ng-container *ngIf="companyName.invalid && companyName.touched">
+              <p
+                class="caption status-danger"
+                *ngIf="companyName.errors?.required"
+              >
+                فیلد اجباری
+              </p>
+              <p
+                class="caption status-danger"
+                *ngIf="
+                  companyName.errors?.minlength || companyName.errors?.maxlength
+                "
+              >
+                این فیلد باید حداقل از
+                {{ getConfigValue("forms.validation.companyName.minLength") }}
+                تا
+                {{ getConfigValue("forms.validation.companyName.maxLength") }}
+                کاراکتر باشد
+              </p>
+            </ng-container>
+          </div>
+          <div class="form-control-group">
+            <label class="label" for="input-name">موبایل ۱</label>
+            <input
+              nbInput
+              [(ngModel)]="user.mobile1"
+              #mobile="ngModel"
+              id="input-name"
+              name="mobile"
+              placeholder="موبایل ۱"
+              autofocus
+              fullWidth
+              disabled
+              pattern="^09\d{9}$"
+              [status]="
+                mobile.dirty ? (mobile.invalid ? 'danger' : 'success') : ''
+              "
+              [required]="getConfigValue('forms.validation.mobile.required')"
+              [minlength]="getConfigValue('forms.validation.mobile.minLength')"
+              [maxlength]="getConfigValue('forms.validation.mobile.maxLength')"
+              [attr.aria-invalid]="
+                mobile.invalid && mobile.touched ? true : null
+              "
+            />
+            <ng-container *ngIf="mobile.invalid && mobile.touched">
+              <p class="caption status-danger" *ngIf="mobile.errors?.required">
+                فیلد اجباری
+              </p>
+              <p
+                class="caption status-danger"
+                *ngIf="mobile.errors?.minlength || mobile.errors?.maxlength"
+              >
+                این فیلد باید حداقل از
+                {{ getConfigValue("forms.validation.mobile.minLength") }} تا
+                {{ getConfigValue("forms.validation.mobile.maxLength") }}
+                کاراکتر باشد
+              </p>
+            </ng-container>
+          </div>
+          <div class="form-control-group">
+            <label class="label" for="input-name">موبایل 2</label>
+            <input
+              nbInput
+              [(ngModel)]="user.mobile2"
+              #mobile2="ngModel"
+              id="input-name"
+              name="mobile2"
+              placeholder="موبایل 2"
+              autofocus
+              fullWidth
+              pattern="^09\d{9}$"
+              [status]="
+                mobile2.dirty ? (mobile2.invalid ? 'danger' : 'success') : ''
+              "
+              [required]="getConfigValue('forms.validation.mobile2.required')"
+              [minlength]="getConfigValue('forms.validation.mobile2.minLength')"
+              [maxlength]="getConfigValue('forms.validation.mobile2.maxLength')"
+              [attr.aria-invalid]="
+                mobile2.invalid && mobile2.touched ? true : null
+              "
+            />
+            <ng-container *ngIf="mobile2.invalid && mobile2.touched">
+              <p class="caption status-danger" *ngIf="mobile2.errors?.required">
+                فیلد اجباری
+              </p>
+              <p
+                class="caption status-danger"
+                *ngIf="mobile2.errors?.minlength || mobile2.errors?.maxlength"
+              >
+                این فیلد باید حداقل از
+                {{ getConfigValue("forms.validation.mobile2.minLength") }} تا
+                {{ getConfigValue("forms.validation.mobile2.maxLength") }}
+                کاراکتر باشد
+              </p>
+            </ng-container>
+          </div>
+          <div class="form-control-group">
+            <label class="label" for="input-name">کد ملی</label>
+            <input
+              nbInput
+              [(ngModel)]="user.nationalCode"
+              #nationalCode="ngModel"
+              id="input-name"
+              name="nationalCode"
+              placeholder="کد ملی"
+              autofocus
+              pattern="\d{10}"
+              fullWidth
+              [status]="
+                nationalCode.dirty
+                  ? nationalCode.invalid
+                    ? 'danger'
+                    : 'success'
+                  : ''
+              "
+              [required]="
+                getConfigValue('forms.validation.nationalCode.required')
+              "
+              [minlength]="
+                getConfigValue('forms.validation.nationalCode.minLength')
+              "
+              [maxlength]="
+                getConfigValue('forms.validation.nationalCode.maxLength')
+              "
+              [attr.aria-invalid]="
+                nationalCode.invalid && nationalCode.touched ? true : null
+              "
+            />
+            <ng-container *ngIf="nationalCode.invalid && nationalCode.touched">
+              <p
+                class="caption status-danger"
+                *ngIf="nationalCode.errors?.required"
+              >
+                فیلد اجباری
+              </p>
+              <p
+                class="caption status-danger"
+                *ngIf="
+                  nationalCode.errors?.minlength ||
+                  nationalCode.errors?.maxlength
+                "
+              >
+                این فیلد باید حداقل از
+                {{ getConfigValue("forms.validation.nationalCode.minLength") }}
+                تا
+                {{ getConfigValue("forms.validation.nationalCode.maxLength") }}
+                کاراکتر باشد
+              </p>
+            </ng-container>
+          </div>
+          <div class="form-control-group">
+            <label class="label" for="Area">توضیحات</label>
+            <textarea
+              id="Area"
+              #comment="ngModel"
+              name="comment"
+              rows="5"
+              nbInput
+              fullWidth
+              shape="round"
+              [(ngModel)]="user.comment"
+              placeholder="توضیحات"
+            ></textarea>
+          </div>
+          <div
+            class="form-control-group accept-group terms-div"
+            *ngIf="getConfigValue('forms.register.terms')"
+          >
+            <nb-checkbox
+              name="terms"
+              [(ngModel)]="user.isAcceptRule"
+              [required]="getConfigValue('forms.register.terms')"
+            >
+              با قوانین و مقررات
+              <a><strong> کیاسیستم آشنا شده و می‌پذیرم</strong></a>
+            </nb-checkbox>
+          </div>
+
+          <button
+            nbButton
+            fullWidth
+            status="success"
+            [disabled]="submitted || !form.valid"
+            [class.btn-pulse]="submitted"
+          >
+            ثبت نام
+          </button>
+        </form>
+      </nb-step>
+    </nb-stepper>
+  </nb-card-body>
+</nb-card>
+
+<section
+  *ngIf="socialLinks && socialLinks.length > 0"
+  class="links"
+  aria-label="Social sign in"
+>
+  or enter with:
+  <div class="socials">
+    <ng-container *ngFor="let socialLink of socialLinks">
+      <a
+        *ngIf="socialLink.link"
+        [routerLink]="socialLink.link"
+        [attr.target]="socialLink.target"
+        [attr.class]="socialLink.icon"
+        [class.with-icon]="socialLink.icon"
+        >{{ socialLink.title }}</a
+      >
+      <a
+        *ngIf="socialLink.url"
+        [attr.href]="socialLink.url"
+        [attr.target]="socialLink.target"
+        [attr.class]="socialLink.icon"
+        [class.with-icon]="socialLink.icon"
+        >{{ socialLink.title }}</a
+      >
+    </ng-container>
+  </div>
+</section>
+<section class="another-action" aria-label="Sign in">
+  قبلا ثبت نام کرده‌اید؟ <a class="text-link" routerLink="../login">ورود</a>
+</section>

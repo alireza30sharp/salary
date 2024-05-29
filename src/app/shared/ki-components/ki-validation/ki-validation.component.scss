@@ -1,0 +1,21 @@
+@import './../../../../assets/base/variable';
+
+$font-size: 13px;
+$name: 'validation';
+.#{$name} {
+  font-size: $font-size;
+  line-height: 2;
+  max-height: 3 * $font-size;
+  transition: 0.3s all;
+  opacity: 1;
+  color: $error;
+  margin: 0;
+  margin-top: $spacing-x1;
+  overflow: hidden;
+
+  &--hide {
+    max-height: 0;
+    opacity: 0;
+    margin-top: 0;
+  }
+}

@@ -1,0 +1,29 @@
+<span
+  class="select-control"
+  [class.select-control--large]="size === 'lg'"
+  [class.select-control--small]="size === 'sm'"
+  [class.select-control--error]="state === 'error'"
+  [class.select-control--success]="state === 'success'"
+  [class.select-control--disabled]="disabled"
+  [class.select-control--readonly]="readonly"
+  ><ng-select
+    [attr.id]="id"
+    [dropdownPosition]="dropDownPosition"
+    [items]="options"
+    [bindLabel]="bindLabel"
+    [bindValue]="bindValue"
+    [placeholder]="placeholder"
+    [readonly]="readonly"
+    [disabled]="disabled"
+    [clearable]="allowClear"
+    [multiple]="multiple"
+    [loading]="isloading"
+    [appendTo]="'body'"
+    [(ngModel)]="value"
+    (change)="change($event)"
+    (open)="openHandler()"
+  >
+    <ng-template ng-option-tmp let-item="item" let-search="searchTerm" *ngIf="allowHighlight">
+      <span [innerHTML]="item[bindLabel] | highlight : search"></span>
+    </ng-template> </ng-select
+></span>

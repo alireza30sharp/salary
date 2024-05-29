@@ -1,0 +1,155 @@
+<h1 id="title" class="title">ورود</h1>
+<div class="sub-title">
+  <p>
+    خوش آمدید به صفحه ورود به <strong>کیاسیستم</strong>. لطفاً اطلاعات کاربری
+    خود را وارد کرده و به دنیای فعالیت‌های ما بپیوندید. در صورت داشتن هرگونه
+    سوال یا مشکل، با تیم پشتیبانی تماس بگیرید. موفق باشید
+  </p>
+</div>
+
+<nb-alert
+  *ngIf="showMessages.error && errors?.length && !submitted"
+  outline="danger"
+  role="alert"
+>
+  <p class="alert-title"><b> اطلاعات!</b></p>
+  <ul class="alert-message-list">
+    <li *ngFor="let error of errors" class="alert-message">{{ error }}</li>
+  </ul>
+</nb-alert>
+
+<nb-alert
+  *ngIf="showMessages.success && messages?.length && !submitted"
+  outline="success"
+  role="alert"
+>
+  <p class="alert-title"><b>اطلاعات!</b></p>
+  <ul class="alert-message-list">
+    <li *ngFor="let message of messages" class="alert-message">
+      {{ message }}
+    </li>
+  </ul>
+</nb-alert>
+
+<form (ngSubmit)="login()" #form="ngForm" aria-labelledby="title">
+  <div class="form-control-group">
+    <label class="label" for="input-email">نام کاربری</label>
+    <input
+      nbInput
+      fullWidth
+      [(ngModel)]="user.userName"
+      #userName="ngModel"
+      name="userName"
+      id="input-userName"
+      placeholder="نام کاربری"
+      autofocus
+      [status]="userName.dirty ? (userName.invalid ? 'danger' : 'success') : ''"
+      [required]="getConfigValue('forms.validation.userName.required')"
+      [minlength]="getConfigValue('forms.validation.userName.minLength')"
+      [maxlength]="getConfigValue('forms.validation.userName.maxLength')"
+      [attr.aria-invalid]="userName.invalid && userName.touched ? true : null"
+    />
+    <ng-container *ngIf="userName.invalid && userName.touched">
+      <p class="caption status-danger" *ngIf="userName.errors?.required">
+        فیلد اجباری
+      </p>
+      <p
+        class="caption status-danger"
+        *ngIf="userName.errors?.minlength || userName.errors?.maxlength"
+      >
+        نام کاربری باید حداقل
+        {{ getConfigValue("forms.validation.userName.minLength") }} از
+        {{ getConfigValue("forms.validation.userName.maxLength") }}
+        کاراکتر باشد
+      </p>
+    </ng-container>
+  </div>
+
+  <div class="form-control-group">
+    <label class="label" for="input-password">رمز عبور</label>
+    <input
+      nbInput
+      fullWidth
+      [(ngModel)]="user.userPass"
+      #userPass="ngModel"
+      name="userPass"
+      type="password"
+      id="input-password"
+      placeholder="رمز عبور"
+      [status]="userPass.dirty ? (userPass.invalid ? 'danger' : 'success') : ''"
+      [required]="getConfigValue('forms.validation.password.required')"
+      [minlength]="getConfigValue('forms.validation.password.minLength')"
+      [maxlength]="getConfigValue('forms.validation.password.maxLength')"
+      [attr.aria-invalid]="userPass.invalid && userPass.touched ? true : null"
+    />
+    <ng-container *ngIf="userPass.invalid && userPass.touched">
+      <p class="caption status-danger" *ngIf="userPass.errors?.required">
+        فیلد اجباری
+      </p>
+      <p
+        class="caption status-danger"
+        *ngIf="userPass.errors?.minlength || userPass.errors?.maxlength"
+      >
+        رمز عبور باید حداقل از
+        {{ getConfigValue("forms.validation.password.minLength") }} تا
+        {{ getConfigValue("forms.validation.password.maxLength") }}
+        کاراکتر داشته باشد
+      </p>
+    </ng-container>
+  </div>
+
+  <div class="form-control-group accept-group">
+    <nb-checkbox
+      name="rememberMe"
+      [(ngModel)]="user.rememberMe"
+      *ngIf="rememberMe"
+      >مرا به خاطر بسپار
+    </nb-checkbox>
+    <a class="forgot-password" routerLink="../request-password"
+      >فراموشی رمز عبور</a
+    >
+  </div>
+
+  <button
+    nbButton
+    fullWidth
+    status="success"
+    [disabled]="submitted || !form.valid"
+    [class.btn-pulse]="submitted"
+  >
+    ورود
+  </button>
+</form>
+
+<section
+  *ngIf="socialLinks && socialLinks.length > 0"
+  class="links"
+  aria-label="Social sign in"
+>
+  or enter with:
+  <div class="socials">
+    <ng-container *ngFor="let socialLink of socialLinks">
+      <a
+        *ngIf="socialLink.link"
+        [routerLink]="socialLink.link"
+        [attr.target]="socialLink.target"
+        [attr.class]="socialLink.icon"
+        [class.with-icon]="socialLink.icon"
+        >{{ socialLink.title }}</a
+      >
+      <a
+        *ngIf="socialLink.url"
+        [attr.href]="socialLink.url"
+        [attr.target]="socialLink.target"
+        [attr.class]="socialLink.icon"
+        [class.with-icon]="socialLink.icon"
+        >{{ socialLink.title }}</a
+      >
+    </ng-container>
+  </div>
+</section>
+
+<section class="another-action" aria-label="Register">
+  حساب کاربری ندارید؟
+  <a class="text-link" routerLink="register">ثبت نام</a>
+</section>

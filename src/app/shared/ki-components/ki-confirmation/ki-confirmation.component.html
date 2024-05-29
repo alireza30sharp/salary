@@ -1,0 +1,22 @@
+<section class="confirm-content">
+  <h3 class="confirm-content__title" *ngIf="title">
+    {{ title }}
+  </h3>
+  <div
+    class="confirm-content__content"
+    *ngIf="description"
+    [innerHtml]="description"
+  ></div>
+  <footer class="confirm-content__footer">
+    <ki-button
+      (clickCallback)="onClick(false)"
+      *ngIf="type === 'Confirm'"
+      [title]="declineText || 'NO'"
+    ></ki-button>
+    <ki-button
+      btnType="primary"
+      (clickCallback)="onClick(true)"
+      [title]="acceptText || 'Yes'"
+    ></ki-button>
+  </footer>
+</section>
