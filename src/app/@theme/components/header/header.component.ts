@@ -125,11 +125,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
 
     this._changeWorkShops.activeWorkShopsSource$.subscribe((res) => {
-      let find = this.WorkShopsOptions.find((f) => f.label == res);
-      if (find) {
-        this.WorkShopsID = +find.value;
+      if(this.WorkShopsOptions && res){
+        let find = this.WorkShopsOptions.find((f) => f.label == res);
+        if (find) {
+          this.WorkShopsID = +find.value;
+        }
+        localStorage.setItem("WorkShopsID", this.WorkShopsID);
       }
-      localStorage.setItem("WorkShopsID", this.WorkShopsID);
+
     });
   }
 
