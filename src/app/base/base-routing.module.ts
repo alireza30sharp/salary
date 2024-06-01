@@ -3,12 +3,17 @@ import { NgModule } from "@angular/core";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { BaseComponent } from "./base.component";
 import * as _pages from "./pages";
+import { RecordsOfChangesListComponent } from "./components/templates/records-of-changes-list/app-records-of-changes-list.component";
 
 const routes: Routes = [
   {
     path: "",
     component: BaseComponent,
     children: [
+      {
+        path: "change-page/:type",
+        component: RecordsOfChangesListComponent,
+      },
       {
         path: "work-shops",
         component: _pages.WorkShopsListComponent,

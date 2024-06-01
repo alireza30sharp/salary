@@ -19,6 +19,8 @@ export class ToolsBarComponent implements OnInit {
   @Output() DeleteSelected: EventEmitter<void> = new EventEmitter();
   @Output() PerintSelected: EventEmitter<void> = new EventEmitter();
   @Output() RefrashSelected: EventEmitter<void> = new EventEmitter();
+  @Output() ToolsSelected: EventEmitter<void> = new EventEmitter();
+
   @Input() disabled: boolean = false;
   @Input() sizeBtn?: NbComponentSize = "medium";
   @Input() isShowLoadingDelete?: boolean = false;
@@ -44,6 +46,9 @@ export class ToolsBarComponent implements OnInit {
   }
   escapeEvent() {
     alert("Escape");
+  }
+  toolsEvent() {
+    this.ToolsSelected.emit();
   }
   refrashEvent() {
     this.RefrashSelected.emit();

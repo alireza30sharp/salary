@@ -8,6 +8,7 @@ import * as _organisms from "./components/organisms";
 import * as _template from "./components/templates";
 import * as _pages from "./pages";
 import { SharedModule } from "../shared/shared.module";
+import { RecordsOfChangesListComponent } from "./components/templates/records-of-changes-list/app-records-of-changes-list.component";
 @NgModule({
   imports: [
     BaseRoutingModule,
@@ -42,6 +43,7 @@ import { SharedModule } from "../shared/shared.module";
     _pages.EmploymentTypesListComponent,
     _pages.OrganizationPostListComponent,
     _pages.PaymentLocationListComponent,
+    RecordsOfChangesListComponent,
   ],
 })
 export class BaseModule {}

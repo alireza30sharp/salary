@@ -9,6 +9,7 @@ import { finalize } from "rxjs";
 import { NbThemeService } from "@nebular/theme";
 import { TourService } from "../../../shared/services/tour.service";
 import { STEPS_BUTTONS } from "../../../shared/models/shepherd-config";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-work-shops-list",
@@ -84,7 +85,8 @@ export class WorkShopsListComponent implements OnInit {
   constructor(
     private _workShopsService: WorkShopsService,
     private _modalService: ModalService,
-    private _tourService: TourService
+    private _tourService: TourService,
+    private _router: Router
   ) {}
   ngOnInit(): void {
     this.getWorkShopList();
@@ -103,6 +105,10 @@ export class WorkShopsListComponent implements OnInit {
       },
       error: (err) => {},
     });
+  }
+
+  onToolsSelected() {
+    this._router.navigateByUrl("salary/change-page/pageName");
   }
   newWorkShpps(isEdit: boolean = false) {
     let entryId = null;

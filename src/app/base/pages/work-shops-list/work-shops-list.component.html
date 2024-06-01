@@ -16,6 +16,7 @@
         (DeleteSelected)="removeCell()"
         (EditSelected)="newWorkShpps(true)"
         (RefrashSelected)="onRefrashSelected()"
+        (ToolsSelected)="onToolsSelected()"
         [disabled]="selectRow.length != 0 ? false : true"
         [isShowLoadingDelete]="isShowLoadingDelete"
         [isShowLoadingRefrash]="isShowLoadingRefrash"
