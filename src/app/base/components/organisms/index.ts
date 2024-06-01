@@ -4,4 +4,5 @@ export * from "./tax-form/tax-form.component";
 export * from "./educatio-evidences-form/educatio-evidences-form.component";
 export * from "./educatio-fields-form/educatio-fields-form.component";
 export * from "./employment-types-form/employment-types-form.component";
-export * from "./organization-post-form/organization-post-form.component"
+export * from "./organization-post-form/organization-post-form.component";
+export * from "./payment-location-form/payment-location-form.component";

@@ -45,6 +45,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: "/salary/organization-post",
       },
       {
+        title: "گروه کاربری",
+        link: "/salary/payment-location",
+      },
+      {
         title: "Tabs",
         pathMatch: "prefix",
         link: "/pages/layout/tabs",

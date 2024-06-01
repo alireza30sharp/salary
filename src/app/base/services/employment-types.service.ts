@@ -57,7 +57,7 @@ export class EmploymentTypesService {
   getWorkShopsID(): number {
     let WorkShopsID = localStorage.getItem("WorkShopsID");
     if (WorkShopsID) {
-      return 1;
+      return +WorkShopsID;
     } else return null;
   }
 }

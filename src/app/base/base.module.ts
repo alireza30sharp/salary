@@ -25,6 +25,7 @@ import { SharedModule } from "../shared/shared.module";
     _organisms.EducationFieldsFormComponent,
     _organisms.EmploymentTypesFormComponent,
     _organisms.OrganizationPostFormComponent,
+    _organisms.PaymentLocationFormComponent,
     _template.WorkShopsFormModalComponent,
     _template.BenefitDeductionFormModalComponent,
     _template.TaxFormModalComponent,
@@ -32,13 +33,15 @@ import { SharedModule } from "../shared/shared.module";
     _template.EducationFieldsFormModalComponent,
     _template.EmploymentTypesFormModalComponent,
     _template.OrganizationPostFormModalComponent,
+    _template.PaymentLocationFormModalComponent,
     _pages.WorkShopsListComponent,
     _pages.BenefitDeductionListComponent,
     _pages.TaxListComponent,
     _pages.EducationEvidencesListComponent,
     _pages.EducationFieldsListComponent,
     _pages.EmploymentTypesListComponent,
-    _pages.OrganizationPostListComponent
+    _pages.OrganizationPostListComponent,
+    _pages.PaymentLocationListComponent,
   ],
 })
 export class BaseModule {}

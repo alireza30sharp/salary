@@ -1,0 +1,26 @@
+<nb-card accent="danger">
+  <nb-card-header>
+    <div class="align-content-center d-flex justify-content-between">
+      <app-tools-bar
+        (NewSelected)="newWorkShpps()"
+        (RefrashSelected)="onRefrashSelected()"
+        (DeleteSelected)="removeCell()"
+        (EditSelected)="newWorkShpps(true)"
+        (RefrashSelected)="onRefrashSelected()"
+        [disabled]="selectRow.length != 0 ? false : true"
+        [isShowLoadingDelete]="isShowLoadingDelete"
+        [isShowLoadingRefrash]="isShowLoadingRefrash"
+      ></app-tools-bar>
+      <span>ثبت گروه کاربری</span>
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <ag-grid-data
+      [columnsDefault]="columnsDefault"
+      [rowDataDefault]="rowDataDefault"
+      (removeCellChange)="onDeleteItem($event)"
+      (selectedRowsChange)="onSelectedRowsChangeEvent($event)"
+      [pagination]="true"
+    ></ag-grid-data>
+  </nb-card-body>
+</nb-card>

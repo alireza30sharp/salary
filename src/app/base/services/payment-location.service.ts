@@ -3,24 +3,24 @@ import { HttpClient } from "@angular/common/http";
 import { ApiUrlService } from "../../api-url.service";
 import { WorkShopsFilter } from "../models";
 import { Data, response } from "../../shared/models";
-import { OrganizationPostDto } from "../models/organization-post.model";
+import { PaymentLocationDto } from "../models/payment-location.model";
 
 @Injectable()
-export class OrganizationPostService {
+export class PaymentLocationService {
   constructor(
     private readonly $http: HttpClient,
     private readonly urlSvc: ApiUrlService
   ) {}
 
-  GetAllOrganizationPosts(params?: WorkShopsFilter) {
+  GetAllPaymentLocations(params?: WorkShopsFilter) {
     let PageNumber: number = 0;
     let PageSize: number = 20;
     return this.$http.get<response<Data<any[]>>>(
-      this.urlSvc.OrganizationPost.GetAllOrganizationPosts,
+      this.urlSvc.PaymentLocation.GetAllPaymentLocations,
       {
         params: {
           Id: 0,
-          Post: "",
+          Location: "",
           WorkShopId: this.getWorkShopsID(),
           PageNumber: PageNumber,
           PageSize: PageSize,
@@ -28,29 +28,29 @@ export class OrganizationPostService {
       }
     );
   }
-  create(model: OrganizationPostDto) {
+  create(model: PaymentLocationDto) {
     model.workShopId = this.getWorkShopsID();
     return this.$http.post<response<any>>(
-      this.urlSvc.OrganizationPost.Add,
+      this.urlSvc.PaymentLocation.Add,
       model
     );
   }
   delete(id) {
     return this.$http.delete<response<string>>(
-      this.urlSvc.OrganizationPost.Delete,
+      this.urlSvc.PaymentLocation.Delete,
       { body: { workShopId: this.getWorkShopsID(), id: id } }
     );
   }
-  update(model: OrganizationPostDto) {
+  update(model: PaymentLocationDto) {
     model.workShopId = this.getWorkShopsID();
     return this.$http.put<response<any>>(
-      this.urlSvc.OrganizationPost.Edit,
+      this.urlSvc.PaymentLocation.Edit,
       model
     );
   }
 
   getById(id) {
-    return this.$http.get<response<any>>(this.urlSvc.OrganizationPost.getById, {
+    return this.$http.get<response<any>>(this.urlSvc.PaymentLocation.getById, {
       params: { workShopId: this.getWorkShopsID(), id: id },
     });
   }

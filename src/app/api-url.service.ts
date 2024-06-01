@@ -53,22 +53,30 @@ export class ApiUrlService {
     Edit: BASE_URL + "BasicInformation/EducationFields/Edit",
     getById: BASE_URL + "BasicInformation/EducationFields/GetById",
   };
-  EmploymentTypes={
+  EmploymentTypes = {
     GetAllEducationEvidences:
-    BASE_URL + "BasicInformation/EmploymentTypes/GetAllEducationEvidences",
-  Add: BASE_URL + "BasicInformation/EmploymentTypes/Add",
-  Delete: BASE_URL + "BasicInformation/EmploymentTypes/Delete",
-  Edit: BASE_URL + "BasicInformation/EmploymentTypes/Edit",
-  getById: BASE_URL + "BasicInformation/EmploymentTypes/GetById",
+      BASE_URL + "BasicInformation/EmploymentTypes/GetAllEducationEvidences",
+    Add: BASE_URL + "BasicInformation/EmploymentTypes/Add",
+    Delete: BASE_URL + "BasicInformation/EmploymentTypes/Delete",
+    Edit: BASE_URL + "BasicInformation/EmploymentTypes/Edit",
+    getById: BASE_URL + "BasicInformation/EmploymentTypes/GetById",
   };
-  OrganizationPost={
+  OrganizationPost = {
     GetAllOrganizationPosts:
-    BASE_URL + "BasicInformation/OrganizationPost/GetAllOrganizationPosts",
-  Add: BASE_URL + "BasicInformation/OrganizationPost/Add",
-  Delete: BASE_URL + "BasicInformation/OrganizationPost/Delete",
-  Edit: BASE_URL + "BasicInformation/OrganizationPost/Edit",
-  getById: BASE_URL + "BasicInformation/OrganizationPost/GetById",
-  }
+      BASE_URL + "BasicInformation/OrganizationPost/GetAllOrganizationPosts",
+    Add: BASE_URL + "BasicInformation/OrganizationPost/Add",
+    Delete: BASE_URL + "BasicInformation/OrganizationPost/Delete",
+    Edit: BASE_URL + "BasicInformation/OrganizationPost/Edit",
+    getById: BASE_URL + "BasicInformation/OrganizationPost/GetById",
+  };
+  PaymentLocation = {
+    GetAllPaymentLocations:
+      BASE_URL + "BasicInformation/PaymentLocation/GetAllPaymentLocations",
+    Add: BASE_URL + "BasicInformation/PaymentLocation/Add",
+    Delete: BASE_URL + "BasicInformation/PaymentLocation/Delete",
+    Edit: BASE_URL + "BasicInformation/PaymentLocation/Edit",
+    getById: BASE_URL + "BasicInformation/PaymentLocation/GetById",
+  };
   clientPrerequisits = {
     GetClientPrerequisits:
       BASE_URL + "ClientPrerequisits/GetMainWorkingTimesReport",
