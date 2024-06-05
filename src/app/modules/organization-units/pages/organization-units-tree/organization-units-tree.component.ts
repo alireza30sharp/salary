@@ -1,44 +1,31 @@
 import { Component, DestroyRef, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToastService } from '@share/services/toast.service';
-import { NavigationActionPackageService } from '@proxy/navigation-action-packages';
-import { NavigationPackageDto } from '@proxy/dtos/navigation-action-package';
-import { Paths } from '@share/utilities/paths';
-import { NavigationActionService } from '@proxy/entity-types';
-import { NavigationActionNode } from '@proxy/dtos/navigation-actions';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { finalize } from 'rxjs';
-import { GeneralActionType } from '@share/types/general-action.type';
-import { LocalizationService } from '@abp/ng.core';
-import { ConfirmInterFace } from '@share/ui-components/ui-confirmation/confirm.interface';
-import { ModalService } from '@share/services/modal.service';
-import {
-  NavigationActionInputDto,
-  NavigationActionSelectByNavigationActionIdSpDto,
-} from '@proxy/sp-dtos/navigation-actions';
-import { Mapper } from '@share/utilities/mapper';
+import { ModalService, ToastService } from 'src/app/shared/services';
+
 @Component({
-  templateUrl: './navigation-action-buttons-tree.component.html',
-  styleUrls: ['./navigation-action-buttons-tree.component.scss'],
+  templateUrl: './organization-units-tree.component.html',
+  styleUrls: ['./organization-units-tree.component.scss'],
 })
-export class NavigationActionButtonsTreeComponent implements OnInit {
+export class OrganizationUnitsTreeComponent implements OnInit {
   isProgressing?: boolean;
   showLoadingForm?: boolean;
   readonly submitButtonId = 'navigation-submit-button-id';
   showInactive: boolean = false;
   clearFormTree: boolean = false;
   navigationActionPackageID: number = 0;
-  model?: NavigationPackageDto = {
+  model?: any = {
     navigationActionPackage: null,
     hideForAdmin: null,
   };
-  modelTreeForm?: NavigationActionInputDto = {};
+  modelTreeForm?: any = {};
   isModeEdit?: boolean = false;
   isLoadingTree?: boolean = false;
   reloadNodeId = null;
-  listNodeDto: NavigationActionNode[];
-  selectNode: NavigationActionNode;
+  listNodeDto: any[];
+  selectNode: any;
   title?: string;
   items: GeneralActionType[] = [
     {
@@ -77,11 +64,8 @@ export class NavigationActionButtonsTreeComponent implements OnInit {
     private readonly _location: Location,
     private readonly _toastService: ToastService,
     private readonly _router: Router,
-    private readonly _localizationService: LocalizationService,
     private _modalService: ModalService,
     private readonly _activatedRoute: ActivatedRoute,
-    private readonly _navigationActionPackageService: NavigationActionPackageService,
-    private readonly _navigationActionService: NavigationActionService,
     private readonly _destroyRef: DestroyRef
   ) {}
 

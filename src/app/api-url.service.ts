@@ -69,6 +69,14 @@ export class ApiUrlService {
     Edit: BASE_URL + "BasicInformation/OrganizationPost/Edit",
     getById: BASE_URL + "BasicInformation/OrganizationPost/GetById",
   };
+  OrganizationUnits = {
+    GetAllOrganizationUnits:
+      BASE_URL + "BasicInformation/OrganizationUnits/GetAllOrganizationUnits",
+    Add: BASE_URL + "BasicInformation/OrganizationUnits/Add",
+    Delete: BASE_URL + "BasicInformation/OrganizationUnits/Delete",
+    Edit: BASE_URL + "BasicInformation/OrganizationUnits/Edit",
+    getById: BASE_URL + "BasicInformation/OrganizationUnits/GetById",
+  };
   PaymentLocation = {
     GetAllPaymentLocations:
       BASE_URL + "BasicInformation/PaymentLocation/GetAllPaymentLocations",
