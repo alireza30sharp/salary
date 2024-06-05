@@ -1,0 +1,37 @@
+@import 'variable';
+$name: 'app-dropdown';
+.#{$name} {
+  display: inline-flex;
+
+  &__arrow {
+    transform: rotate(0);
+    transition: 0.3s transform;
+  }
+
+  &__menu {
+    opacity: 0;
+
+    visibility: hidden;
+    transform: translateY(-$spacing-x2);
+    transition: 0.3s all;
+    margin-top: $spacing-x2;
+
+    &--is-show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+  }
+
+  &--match-parent {
+    display: block;
+  }
+
+  &--is-expanded {
+    .#{$name} {
+      &__arrow {
+        transform: rotate(180deg);
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+<ul class="context-menu">
+  <li class="context-menu__item" *ngFor="let item of items">
+    <ng-container *ngIf="!item.labelFor; else labelTmp">
+      <button
+        type="button"
+        class="context-menu__button"
+        [attr.title]="item.tooltip"
+        (click)="clickHandler($event, item)"
+      >
+        <span
+          *ngIf="item.iconClassName"
+          class="context-menu__item-icon {{ item.iconClassName }}"
+        ></span
+        >{{ item.text }}
+        <span
+          *ngIf="item.items?.length"
+          class="context-menu__item-arrow fa fa-chevron-right"
+        ></span>
+      </button>
+    </ng-container>
+    <ng-template #labelTmp>
+      <label
+        for="{{ item.labelFor }}"
+        class="context-menu__button"
+        [attr.title]="item.tooltip"
+        (click)="clickHandler($event, item)"
+      >
+        <span
+          *ngIf="item.iconClassName"
+          class="context-menu__item-icon {{ item.iconClassName }}"
+        ></span
+        >{{ item.text }}
+      </label>
+    </ng-template>
+    <ng-container *ngIf="item.items?.length">
+      <app-context-menu class="context-menu__sub-menu" [items]="item.items"></app-context-menu>
+    </ng-container>
+  </li>
+</ul>

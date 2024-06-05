@@ -1,0 +1,90 @@
+<app-general-panel
+  [title]="isLoadingTree ? 'LOADING...' : (title | uppercase)"
+  [hideBackButton]="true"
+>
+  <ng-template #header>
+    <ui-button
+      [type]="'button'"
+      [btnType]="'primary'"
+      [varient]="'outline'"
+      (clickCallback)="listButtonClickHandler()"
+      ><span class="fa fa-list"></span> {{ '::Navigation_Action_Packages_List' | abpLocalization }}
+    </ui-button>
+  </ng-template>
+  <as-split direction="horizontal">
+    <as-split-area size="20">
+      <section class="enheritance-settings">
+        <app-skeleton-tree-loading *ngIf="isLoadingTree; else content"></app-skeleton-tree-loading>
+        <ng-template #content>
+          <app-tree
+            [dataSource]="listNodeDto"
+            [dataStructure]="'tree'"
+            [dynamicTemplate]="treeDynamicTemplate"
+            [displayExpr]="'name'"
+            [itemsExpr]="'children'"
+            [itemTemplate]="'dynamicTemplate'"
+            [reloadNodeId]="reloadNodeId"
+          ></app-tree>
+        </ng-template>
+        <ng-template #treeDynamicTemplate let-data="data">
+          <section class="tree-node" (click)="selectNodeDropdown($event, data)">
+            <ng-container *ngIf="data.id === null; else child">
+              <span class="tree-node__icon fa fa-folder-open"></span>
+              <strong class="tree-node__title ellipsis">{{ data.name }}</strong>
+              <div class="tree-node__menu" (click)="menuClickHandler($event)">
+                <app-dropdown
+                  [menuInverseAlign]="true"
+                  [actionRefData]="data"
+                  [actions]="items"
+                  [buttonRef]="customButtonRef"
+                >
+                </app-dropdown>
+              </div>
+            </ng-container>
+            <ng-template #child>
+              <span class="tree-node__icon fa fa-folder-open"></span>
+              <strong class="tree-node__title ellipsis">{{ data.name }}</strong>
+              <div class="tree-node__menu" (click)="menuClickHandler($event)">
+                <app-dropdown
+                  [menuInverseAlign]="true"
+                  [actionRefData]="data"
+                  [actions]="itemsChild"
+                  [buttonRef]="customButtonRef"
+                ></app-dropdown>
+              </div>
+            </ng-template>
+          </section>
+        </ng-template>
+        <ng-template #customButtonRef>
+          <span class="tree-node__more fa fa-ellipsis-v"></span>
+        </ng-template>
+      </section>
+    </as-split-area>
+    <as-split-area size="80">
+      <div class="ms-4 h-100">
+        <ng-container *ngIf="modelTreeForm.navigationActionPackageID">
+          <app-navigation-action-buttons-tree-form
+            [model]="modelTreeForm"
+            [isModeEdit]="isModeEdit"
+            [showLoading]="showLoadingForm"
+            (submitEvent)="submitHandler($event)"
+            [clearForm]="clearFormTree"
+          ></app-navigation-action-buttons-tree-form>
+        </ng-container>
+      </div>
+    </as-split-area>
+  </as-split>
+
+  <ng-template #footer>
+    <ui-button [type]="'button'" (clickCallback)="cancelClickHandler()">{{
+      '::CANEL' | abpLocalization
+    }}</ui-button>
+    <ui-button
+      [for]="submitButtonId"
+      [varient]="'fill'"
+      [btnType]="'primary'"
+      [showLoading]="isProgressing"
+      >{{ '::SAVE' | abpLocalization }}</ui-button
+    >
+  </ng-template>
+</app-general-panel>

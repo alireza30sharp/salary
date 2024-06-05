@@ -1,0 +1,77 @@
+@import 'variable';
+$name: 'context-menu';
+.#{$name} {
+  background-color: $background-primary;
+  box-shadow: $base-shadow;
+  z-index: 10;
+  border-radius: $radius-x2;
+  margin: 0;
+  padding: $spacing-x2 0;
+  list-style-type: none;
+
+  &__item {
+    position: relative;
+
+    &:hover {
+      .#{$name}__sub-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0);
+      }
+    }
+  }
+
+  &__button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: $spacing-x2;
+    @include button-2;
+    padding: $spacing-x2 $side-distance;
+    color: $content-primary;
+    white-space: nowrap;
+    transition: 0.3s all;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+
+    &:hover {
+      background-color: $primary-light;
+      color: $primary;
+    }
+  }
+
+  &__item-icon {
+    width: 16px;
+    height: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    opacity: 0.8;
+  }
+
+  &__item-arrow {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    opacity: 0.8;
+    margin-inline-start: auto;
+    inset-inline-end: -$spacing-x3;
+  }
+
+  &__sub-menu {
+    position: absolute;
+    top: -$spacing-x1;
+    inset-inline-start: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s all 0.2s;
+    transform: translateX(-$spacing-x2);
+  }
+}

@@ -1,0 +1,29 @@
+@import 'variable';
+
+.relationship {
+  border: 1px solid $border;
+  border-radius: $radius-x3;
+  &__header {
+    display: flex;
+    padding: $spacing-x3;
+    border-bottom: 1px solid $border;
+  }
+
+  &__list {
+    flex-wrap: wrap;
+    list-style-type: none;
+    padding: $spacing-x2;
+    margin: 0;
+    overflow: auto;
+    height: 26rem;
+  }
+
+  &__item {
+    margin: 0;
+    padding: $spacing-x1;
+    width: 100%;
+  }
+}
+.extra-data {
+  margin-top: $spacing-x8;
+}

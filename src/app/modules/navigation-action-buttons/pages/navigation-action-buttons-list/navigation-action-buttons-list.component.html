@@ -1,0 +1,41 @@
+<app-general-panel
+  [title]="'::Navigation_Action_Button_Packages' | abpLocalization"
+  [hideBackButton]="true"
+  [height]="'100%'"
+  [contentOverflow]="'hidden'"
+>
+  <ng-template #header>
+    <list-view-filter
+      [showToggleInactive]="true"
+      [showSearchInput]="false"
+      [showAddNew]="true"
+      (onSearchCallback)="searchPayLoadEventHandler($event)"
+      (onAddNewClickCallback)="addButtonClickHandler()"
+    ></list-view-filter>
+  </ng-template>
+  <ui-grid
+    [dataSource]="dataSource"
+    [height]="'100%'"
+    [pageSize]="10"
+    [allowColumnReordering]="true"
+    [allowColumnResizing]="true"
+    [columnAutoWidth]="true"
+    [wordWrapEnabled]="true"
+    [hoverStateEnabled]="true"
+    [remoteOperations]="true"
+    [searchPanel]="true"
+    [columns]="gridColumns"
+    [summary]="summaries"
+    [dataSource]="dataSource"
+    [dynamicTemplate]="gridActionTemplate"
+    (onRowClickCallback)="rowClickHandler($event.data)"
+    (onExportingCallback)="onExporting($event)"
+  ></ui-grid>
+  <ng-template #gridActionTemplate let-data="data">
+    <app-general-actions
+      [items]="items"
+      [data]="data"
+      [menuInverseAlign]="true"
+    ></app-general-actions>
+  </ng-template>
+</app-general-panel>

@@ -1,0 +1,30 @@
+<dx-tree-view
+  id="treeView"
+  [dataSource]="dataSource"
+  [dataStructure]="dataStructure"
+  [keyExpr]="keyExpr"
+  [itemsExpr]="itemsExpr"
+  [displayExpr]="displayExpr"
+  [parentIdExpr]="parentIdExpr"
+  [itemTemplate]="itemTemplate"
+  [searchEnabled]="searchEnabled"
+  searchMode="startswith"
+  [selectionMode]="selectionMode"
+  [selectByClick]="selectByClick"
+  (onItemSelectionChanged)="selectNode($event)"
+>
+  <div *dxTemplate="let item of 'defaultTemplate'">
+    <div class="d-flex justify-content-between">
+      <div class="item">
+        {{ item[displayExpr] }}
+      </div>
+    </div>
+  </div>
+
+  <div *dxTemplate="let item of 'dynamicTemplate'">
+    <ng-container
+      [ngTemplateOutlet]="dynamicTemplate"
+      [ngTemplateOutletContext]="{ data: item }"
+    ></ng-container>
+  </div>
+</dx-tree-view>
