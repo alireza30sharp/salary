@@ -4,20 +4,24 @@
   [class.app-dropdown--is-expanded]="contextMenuIsShow"
 >
   <ng-container *ngIf="buttonRef; else defaultButtonTmp">
-    <div class="app-dropdown__button" #customButtonRef (click)="buttonClickHandler()">
+    <div
+      class="app-dropdown__button"
+      #customButtonRef
+      (click)="buttonClickHandler()"
+    >
       <ng-container *ngTemplateOutlet="buttonRef"></ng-container>
     </div>
   </ng-container>
   <ng-template #defaultButtonTmp>
-    <ui-button
+    <ki-button
       [matchParent]="true"
       #defaultButtonRef
       [type]="'button'"
       [varient]="'outline'"
       (clickCallback)="buttonClickHandler($event)"
-      ><span *ngIf="iconClassName" [attr.class]="iconClassName"></span> {{ text }}
-      <span class="app-dropdown__arrow fa fa-chevron-down"></span
-    ></ui-button>
+      ><span *ngIf="iconClassName" [attr.class]="iconClassName"></span>
+      {{ text }} <span class="app-dropdown__arrow fa fa-chevron-down"></span
+    ></ki-button>
   </ng-template>
   <ng-template #menuTmp>
     <section
@@ -27,7 +31,10 @@
       (click)="menuClickHandler()"
     >
       <ng-container *ngIf="actions?.length; else ngContentTmp">
-        <app-context-menu [items]="actions" [actionRefData]="actionRefData"></app-context-menu>
+        <app-context-menu
+          [items]="actions"
+          [actionRefData]="actionRefData"
+        ></app-context-menu>
       </ng-container>
       <ng-template #ngContentTmp>
         <ng-content></ng-content>

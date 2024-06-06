@@ -5,6 +5,12 @@ import {
   ToolsBarComponent,
   SkeletonFormLoadingComponent,
   TreeComponent,
+  GeneralHeaderComponent,
+  GeneralLayoutComponent,
+  GeneralPanelComponent,
+  PushPullPanelComponent,
+  DropdownComponent,
+  ContextMenuComponent,
 } from "./components";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
@@ -39,11 +45,17 @@ import { HighLightPipe } from "./pipes/highlight.pipe";
 import { PrimengModule } from "./primeng/primeng.module";
 import { DevexpressModule } from "./devexpress.module";
 const component = [
+  ContextMenuComponent,
   TreeComponent,
   ReportComponent,
   PinCodeComponent,
   ToolsBarComponent,
   SkeletonFormLoadingComponent,
+  GeneralHeaderComponent,
+  GeneralLayoutComponent,
+  GeneralPanelComponent,
+  PushPullPanelComponent,
+  DropdownComponent,
   grid.DateFilterComponent,
   grid.DateSelectCellRenderer,
   grid.AgLink,

@@ -1,0 +1,11 @@
+@import 'variable';
+
+$name: 'general-layout';
+.#{$name} {
+  margin-top: $side-distance;
+  height: calc(100vh - $header-height - ($side-distance * 2));
+  background-color: $background-primary;
+  border: 1px solid $border;
+  border-radius: $radius-x3;
+  overflow: auto;
+}

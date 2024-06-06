@@ -7,8 +7,14 @@
 a,
 li,
 ul,
-div:not(.ag-input-wrapper),
-span:not(.ag-icon, .ki-button__icon, .ng-arrow-wrapper),
+div:not(.ag-input-wrapper, .dx-icon-search),
+span:not(
+    .ag-icon,
+    .ki-button__icon,
+    .ng-arrow-wrapper,
+    .dx-icon,
+    .dx-icon-clear
+  ),
 p,
 h1,
 h2,

@@ -1,0 +1,93 @@
+@import 'variable';
+$name: 'general-panel';
+.#{$name} {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  background-color: $background-primary;
+
+  &__content {
+    flex: 1;
+    min-width: 0;
+    padding: $side-distance;
+
+    &--no-padding {
+      padding: 0 !important;
+    }
+  }
+
+  &__header {
+    position: sticky;
+    top: 0;
+    background-color: $background-primary;
+    z-index: 12;
+    padding: $side-distance;
+    &::after {
+      position: absolute;
+      content: '';
+      bottom: 0;
+      right: $side-distance;
+      left: $side-distance;
+      border-bottom: 1px solid $border;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: $spacing-x2;
+    position: sticky;
+    bottom: 0;
+    background-color: $background-primary;
+    z-index: 12;
+    padding: $side-distance;
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: $side-distance;
+      left: $side-distance;
+      border-bottom: 1px solid $border;
+    }
+  }
+
+  &--in-sticky-tab {
+    .#{$name} {
+      &__header {
+        top: $tab-height + 1px;
+        &::after {
+          right: 0;
+          left: 0;
+        }
+      }
+    }
+  }
+
+  &--no-padding {
+    .#{$name} {
+      &__header {
+        padding: 0;
+        padding-bottom: $side-distance;
+        &::after {
+          right: 0;
+          left: 0;
+        }
+      }
+
+      &__content {
+        padding: 0;
+        padding-top: $side-distance;
+      }
+
+      &__footer {
+        padding: 0;
+        padding-top: $side-distance;
+        &::before {
+          right: 0;
+          left: 0;
+        }
+      }
+    }
+  }
+}

@@ -28,6 +28,9 @@
               }
             ],
             "styles": [
+              "node_modules/@devexpress/analytics-core/dist/css/dx-analytics.common.css",
+              "node_modules/@devexpress/analytics-core/dist/css/dx-analytics.light.css",
+              "node_modules/devextreme/dist/css/dx.material.purple.light.css",
               "node_modules/shepherd.js/dist/css/shepherd.css",
               "node_modules/ag-grid-community/styles/ag-grid.css",
               "node_modules/ag-grid-community/styles/ag-theme-balham.min.css",

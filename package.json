@@ -41,6 +41,7 @@
     "@persian-tools/persian-tools": "^3.4.1",
     "angular-split": "^17.2.0",
     "devextreme": "23.1.6",
+    "@devexpress/analytics-core": "23.1.6",
     "devextreme-angular": "23.1.6",
     "@popperjs/core": "^2.11.7",
     "ag-grid-angular": "31.2.1",

@@ -1,0 +1,8 @@
+<section class="push-pull-panel" [class.push-pull-panel--show-detail]="showDetailPanel">
+  <section class="push-pull-panel__master" [hidden]="masterPanelScrollIsDisabled">
+    <ng-content></ng-content>
+  </section>
+  <section class="push-pull-panel__detail" [hidden]="detailPanelScrollIsDisabled">
+    <ng-content select="[detail]"></ng-content>
+  </section>
+</section>

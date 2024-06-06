@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
-import { GeneralActionType } from 'src/app/shared/types/general-action.type';
+import { Component, Input } from "@angular/core";
+import { GeneralActionType } from "../../../shared/types/general-action.type";
 
 @Component({
-  selector: 'app-context-menu',
-  templateUrl: './context-menu.component.html',
-  styleUrls: ['./context-menu.component.scss'],
+  selector: "app-context-menu",
+  templateUrl: "./context-menu.component.html",
+  styleUrls: ["./context-menu.component.scss"],
 })
 export class ContextMenuComponent {
   @Input() items: GeneralActionType[] = [];

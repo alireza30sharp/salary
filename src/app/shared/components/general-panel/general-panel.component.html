@@ -1,0 +1,53 @@
+<section
+  class="general-panel h-100"
+  [style.height]="height"
+  [style.overflow]="overflow"
+  [class.general-panel--no-padding]="noPadding"
+>
+  <ng-container *ngIf="backCallback.observed; else headerWithoutBackButtonEmitter">
+    <app-general-header
+      class="general-panel__header"
+      [title]="title"
+      [subtitle]="subtitle"
+      [hideBackButton]="hideBackButton"
+      [backButtonTooltip]="backButtonTooltip"
+      (backCallback)="backCallback.emit($event)"
+    >
+      <ng-container *ngIf="headerIcon">
+        <ng-template #icon>
+          <ng-container #icon [ngTemplateOutlet]="headerIcon"></ng-container>
+        </ng-template>
+      </ng-container>
+      <ng-container [ngTemplateOutlet]="header"></ng-container>
+    </app-general-header>
+  </ng-container>
+  <ng-template #headerWithoutBackButtonEmitter>
+    <app-general-header
+      class="general-panel__header"
+      [title]="title"
+      [subtitle]="subtitle"
+      [hideBackButton]="hideBackButton"
+      [backButtonTooltip]="backButtonTooltip"
+    >
+      <ng-container *ngIf="headerIcon">
+        <ng-template #icon>
+          <ng-container #icon [ngTemplateOutlet]="headerIcon"></ng-container>
+        </ng-template>
+      </ng-container>
+      <ng-container [ngTemplateOutlet]="header"></ng-container>
+    </app-general-header>
+  </ng-template>
+
+  <section
+    class="general-panel__content h-100 overflow-auto"
+    [style.overflow]="contentOverflow"
+    [class.general-panel__content--no-padding]="noContentPadding"
+  >
+    <ng-content></ng-content>
+  </section>
+  <ng-container *ngIf="footer">
+    <footer class="general-panel__footer">
+      <ng-container [ngTemplateOutlet]="footer"></ng-container>
+    </footer>
+  </ng-container>
+</section>

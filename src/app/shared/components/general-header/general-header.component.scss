@@ -1,0 +1,44 @@
+@import 'variable';
+$name: 'general-header';
+.#{$name} {
+  display: flex;
+  align-items: center;
+  gap: $spacing-x3;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__title {
+    @include heading-4;
+    color: $content-primary;
+    margin: 0;
+  }
+
+  &__subtitle {
+    @include subtitle-2;
+    color: $content-secondary;
+    margin: 0;
+  }
+
+  &__back-button {
+    display: inline-flex;
+    padding: $spacing-x2;
+    font-size: 24px;
+    border: none;
+    background: none;
+    outline: none;
+    border-radius: 50%;
+    transition: 0.3s all;
+    color: $content-primary;
+
+    &:hover {
+      background-color: $primary-light;
+      color: $primary;
+    }
+  }
+}

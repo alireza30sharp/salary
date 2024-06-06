@@ -47,6 +47,13 @@ const routes: Routes = [
         component: _pages.PaymentLocationListComponent,
       },
       {
+        path: "organization-units",
+        loadChildren: () =>
+          import(
+            "../modules/organization-units/organization-units.module"
+          ).then((m) => m.OrganizationUnitsModule),
+      },
+      {
         path: "layout",
         loadChildren: () =>
           import("./layout/layout.module").then((m) => m.LayoutModule),
