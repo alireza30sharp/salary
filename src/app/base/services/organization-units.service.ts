@@ -37,9 +37,10 @@ export class OrganizationUnitsService {
     );
   }
   delete(model: OrganizationUnitsModel) {
+    model.workShopId = this.getWorkShopsID();
     return this.$http.delete<response<string>>(
       this.urlSvc.OrganizationUnits.Delete,
-      { body: { model } }
+      { body: model }
     );
   }
   update(model: OrganizationUnitsDto) {

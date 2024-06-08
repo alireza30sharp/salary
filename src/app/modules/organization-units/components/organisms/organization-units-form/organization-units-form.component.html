@@ -1,56 +1,60 @@
 <nb-card accent="success">
   <nb-card-header>لطفا فیلد های اجباری را وارد نمایید</nb-card-header>
   <nb-card-body>
-    <form
-      #companyForm="ngForm"
-      (ngSubmit)="!companyForm.invalid && submitHandler(companyForm)"
-    >
-      <div class="row">
-        <ki-form-group
-          class="col-12"
-          [label]="'نام واحد سازمانی'"
-          [showRequireSign]="true"
-          [errorMessage]="evidence.errors?.required ? 'فیلد اجباری' : ''"
-          [hideError]="
-            !(
-              (evidence.touched || companyForm.submitted) &&
-              evidence.errors?.required
-            )
-          "
-        >
-          <ki-input
-            name="evidence"
-            [fullWidth]="true"
-            [(ngModel)]="evidencesModel.name"
-            #evidence="ngModel"
-            required
-          ></ki-input>
-        </ki-form-group>
-   
-      </div>
-      <div class="row">
-        <ki-form-group
-          class="col-12"
-          [label]="'توضیحات'"
-          [showRequireSign]="false"
-          [errorMessage]="comment.errors?.required ? 'فیلد اجباری' : ''"
-          [hideError]="
-            !(
-              (comment.touched || companyForm.submitted) &&
-              comment.errors?.required
-            )
-          "
-        >
-          <ki-textarea
-            name="comment"
-            [fullWidth]="true"
-            [(ngModel)]="evidencesModel.comment"
-            #comment="ngModel"
-          ></ki-textarea>
-        </ki-form-group>
-      </div>
+    <app-skeleton-form-loading
+      *ngIf="showLoading || lockupsIsLoading; else formTemplate"
+    ></app-skeleton-form-loading>
+    <ng-template #formTemplate>
+      <form
+        #companyForm="ngForm"
+        (ngSubmit)="!companyForm.invalid && submitHandler(companyForm)"
+      >
+        <div class="row">
+          <ki-form-group
+            class="col-12"
+            [label]="'نام واحد سازمانی'"
+            [showRequireSign]="true"
+            [errorMessage]="evidence.errors?.required ? 'فیلد اجباری' : ''"
+            [hideError]="
+              !(
+                (evidence.touched || companyForm.submitted) &&
+                evidence.errors?.required
+              )
+            "
+          >
+            <ki-input
+              name="evidence"
+              [fullWidth]="true"
+              [(ngModel)]="model.name"
+              #evidence="ngModel"
+              required
+            ></ki-input>
+          </ki-form-group>
+        </div>
+        <div class="row">
+          <ki-form-group
+            class="col-12"
+            [label]="'توضیحات'"
+            [showRequireSign]="false"
+            [errorMessage]="comment.errors?.required ? 'فیلد اجباری' : ''"
+            [hideError]="
+              !(
+                (comment.touched || companyForm.submitted) &&
+                comment.errors?.required
+              )
+            "
+          >
+            <ki-textarea
+              name="comment"
+              [fullWidth]="true"
+              [(ngModel)]="model.comment"
+              #comment="ngModel"
+            ></ki-textarea>
+          </ki-form-group>
+        </div>
 
-      <input type="submit" [hidden]="true" [attr.id]="submitButtonId" />
-    </form>
+        <input type="submit" [hidden]="true" [attr.id]="submitButtonId" />
+      </form>
+    </ng-template>
   </nb-card-body>
 </nb-card>

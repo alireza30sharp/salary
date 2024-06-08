@@ -7,13 +7,21 @@
 a,
 li,
 ul,
-div:not(.ag-input-wrapper, .dx-icon-search),
+div:not(
+    .ag-input-wrapper,
+    .dx-icon-search,
+    .dx-treeview-toggle-item-visibility-opened,
+    .dx-treeview-toggle-item-visibility
+  ),
 span:not(
     .ag-icon,
     .ki-button__icon,
     .ng-arrow-wrapper,
     .dx-icon,
-    .dx-icon-clear
+    .dx-icon-clear,
+    .fa-solid,
+    .fa-share-nodes,
+    .fa-ellipsis-vertical
   ),
 p,
 h1,
@@ -31,6 +39,9 @@ nb-card-header,
 nb-card-body {
   font-family: iranYekanNumber !important;
   text-align: start;
+}
+nb-card-body {
+  direction: rtl;
 }
 
 input::placeholder {

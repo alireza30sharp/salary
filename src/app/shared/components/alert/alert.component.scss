@@ -1,0 +1,67 @@
+@import 'variable';
+$name: 'debtrak-alert';
+.#{$name} {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $side-distance;
+  border: 1px solid $border;
+  border-radius: $radius-x3;
+  background-color: $background-secondary;
+  color: $content-primary;
+
+  &__content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-x1;
+  }
+
+  &__title {
+    @include subtitle-1;
+    margin: 0;
+  }
+
+  &__message {
+    @include body-1;
+    margin: 0;
+  }
+
+  &--text-conter {
+    .#{$name}__content {
+      align-items: center;
+      text-align: center;
+    }
+  }
+
+  &--success {
+    background-color: $success-light;
+    border-color: $success-medium;
+    color: $success;
+  }
+
+  &--error {
+    background-color: $error-light;
+    border-color: $error-medium;
+    color: $error;
+  }
+
+  &--information {
+    background-color: $information-light;
+    border-color: $information-medium;
+    color: $information;
+  }
+
+  &--alert {
+    background-color: $alert-light;
+    border-color: $alert-medium;
+    color: $alert;
+  }
+
+  &--warning {
+    background-color: $warning-light;
+    border-color: $warning-medium;
+    color: $warning;
+  }
+}

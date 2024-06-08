@@ -1,78 +1,63 @@
-<app-general-panel
-  [title]="isLoadingTree ? 'LOADING...' : (title | uppercase)"
-  [hideBackButton]="true"
-  [contentOverflow]="'hidden'"
-  [height]="'100%'"
->
-  <ng-template #header> </ng-template>
-  <div class="h-30-rm">
-    <as-split direction="horizontal">
-      <as-split-area size="20">
-        <section class="enheritance-settings">
-          <app-skeleton-tree-loading
-            *ngIf="isLoadingTree; else content"
-          ></app-skeleton-tree-loading>
-          <ng-template #content>
-            <app-tree
-              [dataSource]="listNodeDto"
-              [dataStructure]="'plain'"
-              [keyExpr]="'id'"
-              [parentIdExpr]="'parentId'"
-              [displayExpr]="'name'"
-              [dynamicTemplate]="treeDynamicTemplate"
-              [itemTemplate]="'dynamicTemplate'"
-              [reloadNodeId]="reloadNodeId"
-            ></app-tree>
-          </ng-template>
-          <ng-template #treeDynamicTemplate let-data="data">
-            <section
-              class="tree-node"
-              (click)="selectNodeDropdown($event, data)"
-            >
-              <span class="tree-node__icon fa fa-folder-open"></span>
-              <strong class="tree-node__title ellipsis">{{ data.name }}</strong>
-              <div class="tree-node__menu" (click)="menuClickHandler($event)">
-                <app-dropdown
-                  [menuInverseAlign]="true"
-                  [actionRefData]="data"
-                  [actions]="itemsChild"
-                  [buttonRef]="customButtonRef"
-                ></app-dropdown>
-              </div>
-            </section>
-          </ng-template>
-          <ng-template #customButtonRef>
-            <span class="tree-node__more fa fa-ellipsis-v"></span>
-          </ng-template>
-        </section>
-      </as-split-area>
-      <as-split-area size="80">
-        <div class="ms-4 h-100">
-          <p>RIGHT</p>
-          <!-- <ng-container *ngIf="modelTreeForm.navigationActionPackageID">
-              <app-navigation-action-buttons-tree-form
-                [model]="modelTreeForm"
-                [isModeEdit]="isModeEdit"
-                [showLoading]="showLoadingForm"
-                (submitEvent)="submitHandler($event)"
-                [clearForm]="clearFormTree"
-              ></app-navigation-action-buttons-tree-form>
-            </ng-container> -->
-        </div>
-      </as-split-area>
-    </as-split>
-  </div>
-
-  <ng-template #footer>
-    <ki-button [type]="'button'" (clickCallback)="cancelClickHandler()">
-      CANEL
-    </ki-button>
-    <ki-button
-      [for]="submitButtonId"
-      [varient]="'fill'"
-      [btnType]="'primary'"
-      [showLoading]="isProgressing"
-      >SAVE</ki-button
-    >
-  </ng-template>
-</app-general-panel>
+<app-general-layout>
+  <app-general-panel
+    [title]="isLoadingTree ? 'درحال دریافت...' : (title | uppercase)"
+    [hideBackButton]="true"
+    [contentOverflow]="'hidden'"
+    [height]="'100%'"
+  >
+    <ng-template #header> </ng-template>
+    <div class="h-100">
+      <as-split direction="horizontal">
+        <as-split-area size="20">
+          <section class="enheritance-settings">
+            <app-skeleton-tree-loading
+              *ngIf="isLoadingTree; else content"
+            ></app-skeleton-tree-loading>
+            <ng-template #content>
+              <app-tree
+                [dataSource]="listNodeDto"
+                [dataStructure]="'plain'"
+                [keyExpr]="'id'"
+                [expandNodeTree]="appliedTreeExpandedNode"
+                [parentIdExpr]="'parentId'"
+                [displayExpr]="'name'"
+                [dynamicTemplate]="treeDynamicTemplate"
+                [itemTemplate]="'dynamicTemplate'"
+                [reloadNodeId]="reloadNodeId"
+              ></app-tree>
+            </ng-template>
+            <ng-template #treeDynamicTemplate let-data="data">
+              <section
+                class="tree-node"
+                (click)="selectNodeDropdown($event, data)"
+              >
+                <span class="tree-node__icon fa-solid fa-share-nodes"></span>
+                <strong class="tree-node__title ellipsis">{{
+                  data.name
+                }}</strong>
+                <div class="tree-node__menu" (click)="menuClickHandler($event)">
+                  <app-dropdown
+                    [menuInverseAlign]="true"
+                    [actionRefData]="data"
+                    [actions]="itemsChild"
+                    [buttonRef]="customButtonRef"
+                  ></app-dropdown>
+                </div>
+              </section>
+            </ng-template>
+            <ng-template #customButtonRef>
+              <span
+                class="tree-node__more fa-solid fa-ellipsis-vertical"
+              ></span>
+            </ng-template>
+          </section>
+        </as-split-area>
+        <as-split-area size="80">
+          <div class="ms-4 h-100">
+            <router-outlet></router-outlet>
+          </div>
+        </as-split-area>
+      </as-split>
+    </div>
+  </app-general-panel>
+</app-general-layout>

@@ -1,0 +1,35 @@
+<ng-container *ngIf="isEmpty; else form">
+  <div class="h-100 d-flex align-items-center justify-content-center">
+    <app-alert
+      [type]="'error'"
+      [textCenter]="true"
+      [message]="'اطلاعاتی یافت نشد'"
+    ></app-alert>
+  </div>
+</ng-container>
+<ng-template #form>
+  <app-general-panel
+    [title]="isLoading ? 'در حال دریافت...' : title || 'اضافه کردن'"
+    [hideBackButton]="true"
+    [height]="''"
+  >
+    <app-organization-units-form
+      [model]="model"
+      [showLoading]="isLoading"
+      [submitButtonId]="submitButtonId"
+      (submitEvent)="submitHandler($event)"
+    ></app-organization-units-form>
+    <ng-template #footer>
+      <ki-button [type]="'button'" (clickCallback)="cancelClickHandler()">
+        انصراف</ki-button
+      >
+      <ki-button
+        [for]="submitButtonId"
+        [varient]="'fill'"
+        [btnType]="'primary'"
+        [showLoading]="isProgressing"
+        >ذخیره</ki-button
+      >
+    </ng-template>
+  </app-general-panel>
+</ng-template>

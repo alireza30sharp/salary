@@ -1,0 +1,15 @@
+<section
+  class="debtrak-alert"
+  [class.debtrak-alert--success]="type === 'success'"
+  [class.debtrak-alert--error]="type === 'error'"
+  [class.debtrak-alert--information]="type === 'information'"
+  [class.debtrak-alert--alert]="type === 'alert'"
+  [class.debtrak-alert--warning]="type === 'warning'"
+  [class.debtrak-alert--text-conter]="textCenter"
+>
+  <div class="debtrak-alert__content">
+    <h2 *ngIf="title" class="debtrak-alert__title">{{ title }}</h2>
+    <p *ngIf="message" class="debtrak-alert__message">{{ message }}</p>
+  </div>
+  <ng-content></ng-content>
+</section>

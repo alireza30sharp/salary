@@ -22,10 +22,20 @@ class Uri {
 
 export class Paths {
   static organizationUnits = class {
-    static base: string = "organization-units";
-    static domain: string = "http://localhost:4200/";
+    static base: string = "salary/organization-units";
+    static domain: string = "http://localhost:4200";
     static list(): Uri {
       return new Uri(this.domain, `/${this.base}/list`, "list");
+    }
+    static edit(id?: number): Uri {
+      return new Uri(this.domain, `/${this.base}/edit/${id ?? ""}`, "edit/:id");
+    }
+    static add(id?: number): Uri {
+      return new Uri(
+        this.domain,
+        `/${this.base}/add/${id ?? ""}`,
+        "add/:parentId"
+      );
     }
   };
 }

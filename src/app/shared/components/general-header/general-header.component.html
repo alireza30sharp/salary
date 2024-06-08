@@ -1,5 +1,8 @@
-<section class="general-header">
-  <ng-container *ngIf="icon; else backButtonTemplate" [ngTemplateOutlet]="icon"></ng-container>
+<section class="general-header text-right">
+  <ng-container
+    *ngIf="icon; else backButtonTemplate"
+    [ngTemplateOutlet]="icon"
+  ></ng-container>
   <ng-template #backButtonTemplate>
     <ng-container *ngIf="!hideBackButton">
       <button
@@ -10,8 +13,10 @@
     </ng-container>
   </ng-template>
   <div class="general-header__content">
-    <h2 class="general-header__title">{{ title }}</h2>
-    <h3 *ngIf="subtitle" class="general-header__subtitle">{{ subtitle }}</h3>
+    <h2 class="general-header__title text-right">{{ title }}</h2>
+    <h3 *ngIf="subtitle" class="general-header__subtitle text-right">
+      {{ subtitle }}
+    </h3>
   </div>
   <ng-content></ng-content>
 </section>
