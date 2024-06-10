@@ -9,13 +9,10 @@ import { EducationFieldsDto } from "../../../models/education-fields.model";
   styleUrls: ["./educatio-fields-form.component.scss"],
 })
 export class EducationFieldsFormComponent implements OnInit {
+  setFocusItem: boolean = false;
+
   @Input() submitButtonId?: string = "submit-button-fields-evidences";
   @Input() evidencesModel: EducationFieldsDto = new EducationFieldsDto();
-  @Input() set isResetForm(reset: boolean) {
-    if (reset) {
-      this.evidencesModel = new EducationFieldsDto();
-    }
-  }
   @Output() submitCallback = new EventEmitter<EducationFieldsDto>();
   lockupsIsLoading: boolean = false;
   fromMoney: number = 0;
@@ -23,5 +20,7 @@ export class EducationFieldsFormComponent implements OnInit {
   ngOnInit(): void {}
   submitHandler(companyForm: any) {
     this.submitCallback.emit(this.evidencesModel);
+    this.evidencesModel = new EducationFieldsDto();
+    this.setFocusItem = Object.assign({}, true);
   }
 }

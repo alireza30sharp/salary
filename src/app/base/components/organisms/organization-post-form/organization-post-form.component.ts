@@ -7,13 +7,11 @@ import { OrganizationPostDto } from "../../../models/organization-post.model";
   styleUrls: ["./organization-post-form.component.scss"],
 })
 export class OrganizationPostFormComponent implements OnInit {
+  setFocusItem: boolean = false;
+
   @Input() submitButtonId?: string = "submit-button-fields-evidences";
   @Input() evidencesModel: OrganizationPostDto = new OrganizationPostDto();
-  @Input() set isResetForm(reset: boolean) {
-    if (reset) {
-      this.evidencesModel = new OrganizationPostDto();
-    }
-  }
+
   @Output() submitCallback = new EventEmitter<OrganizationPostDto>();
   lockupsIsLoading: boolean = false;
   fromMoney: number = 0;
@@ -21,5 +19,7 @@ export class OrganizationPostFormComponent implements OnInit {
   ngOnInit(): void {}
   submitHandler(companyForm: any) {
     this.submitCallback.emit(this.evidencesModel);
+    this.evidencesModel = new OrganizationPostDto();
+    this.setFocusItem = Object.assign({}, true);
   }
 }

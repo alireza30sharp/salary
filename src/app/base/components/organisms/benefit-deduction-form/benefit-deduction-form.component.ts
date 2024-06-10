@@ -12,11 +12,6 @@ import { TypeOptions } from "../../../models/rul";
 export class BenefitDeductionFormComponent implements OnInit {
   @Input() submitButtonId?: string = "submit-button-benefit-deduction";
   @Input() benefitDeduction: BenefitDeductionDto = new BenefitDeductionDto();
-  @Input() set isResetForm(reset: boolean) {
-    if (reset) {
-      this.benefitDeduction = new BenefitDeductionDto();
-    }
-  }
   @Output() submitCallback = new EventEmitter<BenefitDeductionDto>();
   lockupsIsLoading: boolean = false;
   typeOptions?: SelectOptionInterface<any>[];
@@ -26,8 +21,7 @@ export class BenefitDeductionFormComponent implements OnInit {
   }
   submitHandler(companyForm: any) {
     this.submitCallback.emit(this.benefitDeduction);
+    this.benefitDeduction = new BenefitDeductionDto();
   }
-  test(ob) {
-    alert(ob);
-  }
+
 }

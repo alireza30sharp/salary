@@ -18,10 +18,8 @@ export class TaxFormModalComponent extends LoadingStateFrom implements OnInit {
   initialData?: TaxDto = new TaxDto();
   readonly submitButtonId: string = "submit-button";
   isLoading?: boolean;
-  isResetForm?: boolean;
   isEditMode: boolean = false;
   isLoadingSaveChange?: boolean = false;
-
   constructor(
     private _activeModal: NgbActiveModal,
     private _toastService: ToastService,
@@ -45,7 +43,6 @@ export class TaxFormModalComponent extends LoadingStateFrom implements OnInit {
     }
   }
   saveHandler(data: TaxDto) {
-    this.isResetForm = Object.assign(false, false);
     this.isLoadingSaveChange = true;
     if (this.isLoadingForm) {
       //this._toastService.error('::Please_Wait_While_Executing_The_Request');
@@ -65,12 +62,11 @@ export class TaxFormModalComponent extends LoadingStateFrom implements OnInit {
         .subscribe({
           next: (res) => {
             if (res.isOk) {
-              this.isResetForm = true;
               this._toastService.success(res.data.message);
+              this.cancelHandler();
             }
           },
           error: (err) => {
-            this.isResetForm = false;
             let msg = "";
             if (err.error.messages) {
               this._toastService.error(err.error.messages);

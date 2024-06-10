@@ -17,14 +17,11 @@ import { SelectOptionInterface } from "../../../../shared/interfaces/select-opti
 export class TaxFormComponent implements OnInit {
   taxRate = TaxRate;
   maskPrefixTaxRate = maskPrefixTaxRate;
+  setFocusItem: boolean = false;
   maskPrefixCurrencyCharacter = maskPrefixCurrencyCharacter;
   @Input() submitButtonId?: string = "submit-button-tax";
   @Input() taxModel: TaxDto = new TaxDto();
-  @Input() set isResetForm(reset: boolean) {
-    if (reset) {
-      this.taxModel = new TaxDto();
-    }
-  }
+
   @Output() submitCallback = new EventEmitter<TaxDto>();
   lockupsIsLoading: boolean = false;
   typeOptions?: SelectOptionInterface<any>[];
@@ -34,13 +31,12 @@ export class TaxFormComponent implements OnInit {
     this.typeOptions = TaxType;
   }
   submitHandler(companyForm: any) {
-    this.taxModel.workShopId = 1;
     this.submitCallback.emit(this.taxModel);
+    this.taxModel = new TaxDto();
+    this.setFocusItem = Object.assign({}, true);
   }
   onEnter(e) {
     this.fromMoney = +this.taxModel.fromMoney;
   }
-  test(ob) {
-    alert(ob);
-  }
+
 }

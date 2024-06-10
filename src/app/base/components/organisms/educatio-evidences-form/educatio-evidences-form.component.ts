@@ -10,13 +10,11 @@ import { EducationEvidencesDto } from "../../../models/education-evidences.model
   styleUrls: ["./educatio-evidences-form.component.scss"],
 })
 export class EducationEvidencesFormComponent implements OnInit {
+  setFocusItem: boolean = false;
+
   @Input() submitButtonId?: string = "submit-button-educatio-evidences";
   @Input() evidencesModel: EducationEvidencesDto = new EducationEvidencesDto();
-  @Input() set isResetForm(reset: boolean) {
-    if (reset) {
-      this.evidencesModel = new EducationEvidencesDto();
-    }
-  }
+
   @Output() submitCallback = new EventEmitter<EducationEvidencesDto>();
   lockupsIsLoading: boolean = false;
   fromMoney: number = 0;
@@ -24,5 +22,7 @@ export class EducationEvidencesFormComponent implements OnInit {
   ngOnInit(): void {}
   submitHandler(companyForm: any) {
     this.submitCallback.emit(this.evidencesModel);
+    this.evidencesModel = new EducationEvidencesDto();
+    this.setFocusItem = Object.assign({}, true);
   }
 }

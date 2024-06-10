@@ -21,7 +21,6 @@ export class BenefitDeductionFormModalComponent
   initialData?: BenefitDeductionDto = new BenefitDeductionDto();
   readonly submitButtonId: string = "submit-button-benefit-deduction";
   isLoading?: boolean;
-  isResetForm?: boolean;
   isEditMode: boolean = false;
   isLoadingSaveChange?: boolean = false;
 
@@ -49,7 +48,6 @@ export class BenefitDeductionFormModalComponent
     }
   }
   saveHandler(data: BenefitDeductionDto) {
-    this.isResetForm = Object.assign(false, false);
     this.isLoadingSaveChange = true;
     if (this.isLoadingForm) {
       //this._toastService.error('::Please_Wait_While_Executing_The_Request');
@@ -63,17 +61,17 @@ export class BenefitDeductionFormModalComponent
           finalize(() => {
             this.isLoadingSaveChange = false;
             this.finalize();
+            this.cancelHandler();
+
           })
         )
         .subscribe({
           next: (res) => {
             if (res.isOk) {
-              this.isResetForm = true;
               this._toastService.success(res.data.message);
             }
           },
           error: (err) => {
-            this.isResetForm = false;
             let msg = "";
             if (err.error.messages) {
               this._toastService.error(err.error.messages);

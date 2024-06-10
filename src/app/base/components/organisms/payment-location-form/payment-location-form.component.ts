@@ -7,13 +7,10 @@ import { PaymentLocationDto } from "../../../models/payment-location.model";
   styleUrls: ["./payment-location-form.component.scss"],
 })
 export class PaymentLocationFormComponent implements OnInit {
+  setFocusItem: boolean = false;
+
   @Input() submitButtonId?: string = "submit-button-fields-evidences";
   @Input() evidencesModel: PaymentLocationDto = new PaymentLocationDto();
-  @Input() set isResetForm(reset: boolean) {
-    if (reset) {
-      this.evidencesModel = new PaymentLocationDto();
-    }
-  }
   @Output() submitCallback = new EventEmitter<PaymentLocationDto>();
   lockupsIsLoading: boolean = false;
   fromMoney: number = 0;
@@ -21,5 +18,7 @@ export class PaymentLocationFormComponent implements OnInit {
   ngOnInit(): void {}
   submitHandler(companyForm: any) {
     this.submitCallback.emit(this.evidencesModel);
+    this.evidencesModel = new PaymentLocationDto();
+    this.setFocusItem = Object.assign({}, true);
   }
 }
