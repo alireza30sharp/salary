@@ -10,6 +10,7 @@ import { finalize } from "rxjs";
 import { ChangeWorkShopsService } from "../../../services/change-work-shop.service";
 import { EducationFieldsService } from "../../services/education-fields.service";
 import { EducationFieldsDto } from "../../models/education-fields.model";
+import { ConfirmInterFace } from "../../../shared/ki-components/ki-confirmation/confirm.interface";
 
 @Component({
   selector: "app-education-fields-list",
@@ -55,6 +56,7 @@ export class EducationFieldsListComponent implements OnInit {
     private _changeWorkShops: ChangeWorkShopsService
   ) {}
   ngOnInit(): void {
+    this.getEducationFieldsList();
     this._changeWorkShops.activeWorkShopsSource$.subscribe((workShopId) => {
       this.getEducationFieldsList();
     });
@@ -90,13 +92,22 @@ export class EducationFieldsListComponent implements OnInit {
   }
 
   removeCell() {
-    if (this.selectRow.length) {
-      for (let i = 0; i <= this.selectRow.length; i++) {
-        this.onDeleteItem(this.selectRow[i]);
+    const params: ConfirmInterFace = {
+      acceptText: "بله",
+      declineText: "خیر",
+      description: "آیا از عملیات مورد نظر اطمینان دارید؟",
+      title: "حذف" + " " + `"${this.selectRow[0].field.toUpperCase()}"`,
+      type: "Confirm",
+    };
+    this._modalService.showConfirm(params, false).then((res) => {
+      if (res) {
+        if (this.selectRow.length) {
+          for (let i = 0; i <= this.selectRow.length; i++) {
+            this.onDeleteItem(this.selectRow[i]);
+          }
+        }
       }
-    } else {
-      //  this._toaster.error("لطفا یک رکورد انتخاب شود");
-    }
+    });
   }
 
   onDeleteItem(item: EducationFieldsDto) {

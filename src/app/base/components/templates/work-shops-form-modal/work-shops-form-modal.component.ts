@@ -23,7 +23,6 @@ export class WorkShopsFormModalComponent
   readonly submitButtonId: string = "submit-button";
   isLoading?: boolean = false;
   isLoadingSaveChange?: boolean = false;
-  isResetForm?: boolean;
   isEditMode: boolean = false;
   constructor(
     private _activeModal: NgbActiveModal,
@@ -50,7 +49,6 @@ export class WorkShopsFormModalComponent
     }
   }
   saveHandler(data: WorkShopsDto) {
-    this.isResetForm = Object.assign(false, false);
     this.isLoadingSaveChange = true;
     if (this.isLoadingForm) {
       //this._toastService.error('::Please_Wait_While_Executing_The_Request');
@@ -70,15 +68,14 @@ export class WorkShopsFormModalComponent
         .subscribe({
           next: (res) => {
             if (res.isOk) {
-              this.isResetForm = true;
               this._toastService.success(res.data.message);
               this._changeWorkShops.WorkShopsSource$.next(
                 res.data.workerShopName
               );
+              this.cancelHandler();
             }
           },
           error: (err) => {
-            this.isResetForm = false;
             let msg = "";
             if (err.error.messages) {
               this._toastService.error(err.error.messages);

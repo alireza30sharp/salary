@@ -1,24 +1,24 @@
-import { Injectable } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ConfirmInterFace } from '../ki-components/ki-confirmation/confirm.interface';
-import { ModalSizeEnum } from '../ki-components/ki-modal/modal-size-enum';
-import { KiConfirmationComponent } from '../ki-components';
+import { Injectable } from "@angular/core";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { ConfirmInterFace } from "../ki-components/ki-confirmation/confirm.interface";
+import { ModalSizeEnum } from "../ki-components/ki-modal/modal-size-enum";
+import { KiConfirmationComponent } from "../ki-components";
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class ModalService {
   constructor(private modalService: NgbModal) {}
 
   open(
     content: any,
-    size: 'sm' | 'md' | 'lg' | 'xl',
+    size: "sm" | "md" | "lg" | "xl",
     data?: any,
     preventClose?: boolean
   ): Promise<any> {
     const modalRef = this.modalService.open(content, {
       centered: true,
       size: size,
-      backdrop: preventClose ? 'static' : true,
+      backdrop: preventClose ? "static" : true,
       keyboard: !preventClose,
     });
 

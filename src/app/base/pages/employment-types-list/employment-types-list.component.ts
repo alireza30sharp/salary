@@ -3,12 +3,16 @@ import { WorkShopsFilter } from "../../models";
 import { ModalService } from "../../../shared/services";
 import { AgGridInterFace } from "../../../shared/interfaces/ag-grid.interface";
 import { propertyOf } from "../../../shared/utilities/property-of";
-import { EducationFieldsFormModalComponent, EmploymentTypesFormModalComponent } from "../../components/templates";
+import {
+  EducationFieldsFormModalComponent,
+  EmploymentTypesFormModalComponent,
+} from "../../components/templates";
 import { FlagStateCellRenderer } from "../../../shared/components/ag-grid";
 import { finalize } from "rxjs";
 import { ChangeWorkShopsService } from "../../../services/change-work-shop.service";
 import { EmploymentTypesDto } from "../../models/employment-types.model";
 import { EmploymentTypesService } from "../../services/employment-types.service";
+import { ConfirmInterFace } from "../../../shared/ki-components/ki-confirmation/confirm.interface";
 
 @Component({
   selector: "app-employment-types-list",
@@ -54,6 +58,7 @@ export class EmploymentTypesListComponent implements OnInit {
     private _changeWorkShops: ChangeWorkShopsService
   ) {}
   ngOnInit(): void {
+    this.getAllEducationEvidences();
     this._changeWorkShops.activeWorkShopsSource$.subscribe((workShopId) => {
       this.getAllEducationEvidences();
     });
@@ -89,13 +94,22 @@ export class EmploymentTypesListComponent implements OnInit {
   }
 
   removeCell() {
-    if (this.selectRow.length) {
-      for (let i = 0; i <= this.selectRow.length; i++) {
-        this.onDeleteItem(this.selectRow[i]);
+    const params: ConfirmInterFace = {
+      acceptText: "بله",
+      declineText: "خیر",
+      description: "آیا از عملیات مورد نظر اطمینان دارید؟",
+      title: "حذف" + " " + `"${this.selectRow[0].typeText.toUpperCase()}"`,
+      type: "Confirm",
+    };
+    this._modalService.showConfirm(params, false).then((res) => {
+      if (res) {
+        if (this.selectRow.length) {
+          for (let i = 0; i <= this.selectRow.length; i++) {
+            this.onDeleteItem(this.selectRow[i]);
+          }
+        }
       }
-    } else {
-      //  this._toaster.error("لطفا یک رکورد انتخاب شود");
-    }
+    });
   }
 
   onDeleteItem(item: EmploymentTypesDto) {

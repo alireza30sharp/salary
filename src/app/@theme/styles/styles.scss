@@ -59,6 +59,12 @@ ag-grid-angular {
   display: block;
   flex: 1;
 }
+.ag-column-drop,
+.ag-header-row-column {
+  background-color: #d7d6d6 !important;
+  font-size: 15px !important;
+  font-weight: bold !important;
+}
 .btn-close:focus {
   box-shadow: none !important;
 }

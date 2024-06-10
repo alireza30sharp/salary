@@ -20,23 +20,6 @@
       <div class="row">
         <ki-form-group
           class="col-6"
-          [label]="'نام'"
-          [showRequireSign]="true"
-          [errorMessage]="name.errors?.required ? 'فیلد اجباری' : ''"
-          [hideError]="
-            !((name.touched || companyForm.submitted) && name.errors?.required)
-          "
-        >
-          <ki-input
-            name="name"
-            [fullWidth]="true"
-            [(ngModel)]="benefitDeduction.name"
-            #name="ngModel"
-            required
-          ></ki-input>
-        </ki-form-group>
-        <ki-form-group
-          class="col-6"
           [label]="'نوع'"
           [showRequireSign]="true"
           [errorMessage]="type.errors?.required ? 'فیلد اجباری' : ''"
@@ -53,6 +36,23 @@
             required
             [isloading]="lockupsIsLoading"
           ></ki-select>
+        </ki-form-group>
+        <ki-form-group
+          class="col-6"
+          [label]="'نام'"
+          [showRequireSign]="true"
+          [errorMessage]="name.errors?.required ? 'فیلد اجباری' : ''"
+          [hideError]="
+            !((name.touched || companyForm.submitted) && name.errors?.required)
+          "
+        >
+          <ki-input
+            name="name"
+            [fullWidth]="true"
+            [(ngModel)]="benefitDeduction.name"
+            #name="ngModel"
+            required
+          ></ki-input>
         </ki-form-group>
       </div>
       <div class="row">
@@ -72,7 +72,6 @@
             class="ltr"
             name="idMoin"
             [onlyNumber]="true"
-            [maskType]="'separator'"
             [fullWidth]="true"
             [(ngModel)]="benefitDeduction.idMoin"
             #idMoin="ngModel"
@@ -96,7 +95,6 @@
             name="idTafsili"
             [fullWidth]="true"
             [onlyNumber]="true"
-            [maskType]="'separator'"
             [(ngModel)]="benefitDeduction.idTafsili"
             #idTafsili="ngModel"
             required
@@ -119,7 +117,6 @@
           <ki-input
             class="ltr"
             [onlyNumber]="true"
-            [maskType]="'separator'"
             name="idTafsili2"
             [fullWidth]="true"
             [(ngModel)]="benefitDeduction.idTafsili2"
@@ -144,7 +141,6 @@
             name="orderIndex"
             [fullWidth]="true"
             [onlyNumber]="true"
-            [maskType]="'separator'"
             [sepLimitation]="'9999'"
             [(ngModel)]="benefitDeduction.orderIndex"
             #orderIndex="ngModel"

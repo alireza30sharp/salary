@@ -87,6 +87,6 @@ export class ApiUrlService {
   };
   clientPrerequisits = {
     GetClientPrerequisits:
-      BASE_URL + "ClientPrerequisits/GetMainWorkingTimesReport",
+      BASE_URL + "ClientPrerequisits/GetClientPrerequisties",
   };
 }

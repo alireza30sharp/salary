@@ -9,7 +9,7 @@ import { propertyOf } from "../../../shared/utilities/property-of";
 import { BenefitDeductionDto } from "../../models/benefit-deduction.model";
 import { finalize } from "rxjs";
 import { ChangeWorkShopsService } from "../../../services/change-work-shop.service";
-
+import { ConfirmInterFace } from "../../../shared/ki-components/ki-confirmation/confirm.interface";
 @Component({
   selector: "app-benefit-deduction-list",
   templateUrl: "./benefit-deduction-list.component.html",
@@ -31,28 +31,11 @@ export class BenefitDeductionListComponent implements OnInit {
       field: propertyOf<BenefitDeductionDto>("id"),
       hide: true,
     },
-    {
-      field: propertyOf<BenefitDeductionDto>("idMoin"),
-      hide: true,
-    },
-    {
-      field: propertyOf<BenefitDeductionDto>("idTafsili"),
-      hide: true,
-    },
-    {
-      field: propertyOf<BenefitDeductionDto>("idTafsili2"),
-      hide: true,
-      filter: "agTextColumnFilter",
-    },
+
     {
       field: propertyOf<BenefitDeductionDto>("code"),
       headerName: "کد",
       filter: "agNumberColumnFilter",
-    },
-    {
-      field: propertyOf<BenefitDeductionDto>("nameMoin"),
-      headerName: "معین",
-      filter: "agTextColumnFilter",
     },
     {
       field: propertyOf<BenefitDeductionDto>("name"),
@@ -60,18 +43,21 @@ export class BenefitDeductionListComponent implements OnInit {
       filter: "agTextColumnFilter",
     },
     {
-      field: propertyOf<BenefitDeductionDto>("nameTafsili"),
-      headerName: "تفضیلی",
-    },
-    {
-      field: propertyOf<BenefitDeductionDto>("nameTafsili2"),
-      headerName: "تفضیلی2",
-      filter: "agTextColumnFilter",
-    },
-    {
       field: propertyOf<BenefitDeductionDto>("typeName"),
       headerName: "نوع",
       filter: "agTextColumnFilter",
+    },
+    {
+      field: propertyOf<BenefitDeductionDto>("idMoin"),
+      headerName: "معین",
+    },
+    {
+      field: propertyOf<BenefitDeductionDto>("idTafsili"),
+      headerName: "تفضیلی",
+    },
+    {
+      field: propertyOf<BenefitDeductionDto>("idTafsili2"),
+      headerName: "تفضیلی2",
     },
   ];
   rowDataDefault = new Array<BenefitDeductionDto>();
@@ -120,13 +106,22 @@ export class BenefitDeductionListComponent implements OnInit {
   }
 
   removeCell() {
-    if (this.selectRow.length) {
-      for (let i = 0; i <= this.selectRow.length; i++) {
-        this.onDeleteItem(this.selectRow[i]);
+    const params: ConfirmInterFace = {
+      acceptText: "بله",
+      declineText: "خیر",
+      description: "آیا از عملیات مورد نظر اطمینان دارید؟",
+      title: "حذف" + " " + `"${this.selectRow[0].name.toUpperCase()}"`,
+      type: "Confirm",
+    };
+    this._modalService.showConfirm(params, false).then((res) => {
+      if (res) {
+        if (this.selectRow.length) {
+          for (let i = 0; i <= this.selectRow.length; i++) {
+            this.onDeleteItem(this.selectRow[i]);
+          }
+        }
       }
-    } else {
-      //  this._toaster.error("لطفا یک رکورد انتخاب شود");
-    }
+    });
   }
 
   onDeleteItem(item: BenefitDeductionDto) {

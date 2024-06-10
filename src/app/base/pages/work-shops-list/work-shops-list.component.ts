@@ -10,6 +10,8 @@ import { NbThemeService } from "@nebular/theme";
 import { TourService } from "../../../shared/services/tour.service";
 import { STEPS_BUTTONS } from "../../../shared/models/shepherd-config";
 import { Router } from "@angular/router";
+import { FlagStateCellRenderer } from "../../../shared/components/ag-grid";
+import { ConfirmInterFace } from "../../../shared/ki-components/ki-confirmation/confirm.interface";
 
 @Component({
   selector: "app-work-shops-list",
@@ -55,10 +57,11 @@ export class WorkShopsListComponent implements OnInit {
       headerClass: "workShopName",
     },
     {
-      field: propertyOf<WorkShopsDto>("isActiveString"),
+      field: propertyOf<WorkShopsDto>("isActive"),
       headerName: "وضعیت",
       filter: "agTextColumnFilter",
       headerClass: "isActiveString",
+      cellRenderer: FlagStateCellRenderer,
     },
     {
       field: propertyOf<WorkShopsDto>("isDefaultString"),
@@ -123,13 +126,22 @@ export class WorkShopsListComponent implements OnInit {
       .catch((err) => {});
   }
   removeCell() {
-    if (this.selectRow.length) {
-      for (let i = 0; i <= this.selectRow.length; i++) {
-        this.onDeleteItem(this.selectRow[i]);
+    const params: ConfirmInterFace = {
+      acceptText: "بله",
+      declineText: "خیر",
+      description: "آیا از عملیات مورد نظر اطمینان دارید؟",
+      title: "حذف" + " " + `"${this.selectRow[0].workShopName.toUpperCase()}"`,
+      type: "Confirm",
+    };
+    this._modalService.showConfirm(params, false).then((res) => {
+      if (res) {
+        if (this.selectRow.length) {
+          for (let i = 0; i <= this.selectRow.length; i++) {
+            this.onDeleteItem(this.selectRow[i]);
+          }
+        }
       }
-    } else {
-      //  this._toaster.error("لطفا یک رکورد انتخاب شود");
-    }
+    });
   }
 
   onDeleteItem(item: WorkShopsDto) {

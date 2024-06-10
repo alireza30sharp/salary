@@ -10,16 +10,14 @@ import { WorkShopsDto } from "../../../models/work-shops.model";
 export class WorkShopsFormComponent implements OnInit {
   @Input() submitButtonId?: string = "submit-button";
   @Input() workShops: WorkShopsDto = new WorkShopsDto();
-  @Input() set isResetForm(reset: boolean) {
-    if (reset) {
-      this.workShops = new WorkShopsDto();
-    }
-  }
   @Output() submitCallback = new EventEmitter<WorkShopsDto>();
   lockupsIsLoading: boolean = false;
+  setFocusItem: boolean = false;
   constructor() {}
   ngOnInit(): void {}
   submitHandler(companyForm: any) {
     this.submitCallback.emit(this.workShops);
+    this.setFocusItem = Object.assign({}, true);
+    this.workShops = new WorkShopsDto();
   }
 }

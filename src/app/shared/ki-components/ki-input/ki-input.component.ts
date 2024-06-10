@@ -68,6 +68,10 @@ export class KiInputComponent implements ControlValueAccessor, OnChanges {
   @Input() readonly: string;
   @Input() accept: string;
   @Input() fromMoney: NgModel;
+  @Input() set setFocusItem(item: boolean) {
+    this.setFocus();
+  }
+
   _status?: NbComponentStatus = "basic";
   _statusFirst;
   @Input() set status(state: NbComponentStatus) {
