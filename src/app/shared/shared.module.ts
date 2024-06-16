@@ -45,6 +45,7 @@ import { MaterialModule } from "./material.module";
 import { HighLightPipe } from "./pipes/highlight.pipe";
 import { PrimengModule } from "./primeng/primeng.module";
 import { DevexpressModule } from "./devexpress.module";
+import { DatePickerModule } from "./date-picker.module";
 const component = [
   ContextMenuComponent,
   TreeComponent,
@@ -122,6 +123,7 @@ const component = [
     DevexpressModule,
     PrimengModule,
     NgxMaskModule.forRoot(),
+    DatePickerModule,
   ],
 
   exports: [

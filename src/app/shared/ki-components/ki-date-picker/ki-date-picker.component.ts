@@ -43,8 +43,8 @@ export class KiDatePickerComponent implements OnInit, ControlValueAccessor {
   @Input() size?: SizeType;
   @Input() readonly?: string;
   @Input() placeholder?: string;
-  @Input() minDate = { year: 1940, month: 1, day: 1 };
-  @Input() maxDate = { year: 2100, month: 1, day: 1 };
+  @Input() minDate = { year: 1340, month: 1, day: 1 };
+  @Input() maxDate = { year: 1500, month: 1, day: 1 };
 
   @Output() onDateSelectCallback: EventEmitter<any> = new EventEmitter();
 

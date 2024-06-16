@@ -6,3 +6,4 @@ export * from "./educatio-fields-form/educatio-fields-form.component";
 export * from "./employment-types-form/employment-types-form.component";
 export * from "./organization-post-form/organization-post-form.component";
 export * from "./payment-location-form/payment-location-form.component";
+export * from "./employes-form/employes-form.component";

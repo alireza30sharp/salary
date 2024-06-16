@@ -89,4 +89,11 @@ export class ApiUrlService {
     GetClientPrerequisits:
       BASE_URL + "ClientPrerequisits/GetClientPrerequisties",
   };
+  Employees = {
+    GetEmployeeList: BASE_URL + "Employees/GetEmployeeList",
+    Add: BASE_URL + "Employees/Add",
+    Delete: BASE_URL + "Employees/Delete",
+    Edit: BASE_URL + "Employees/Edit",
+    getById: BASE_URL + "Employees/GetEmployeeInformation",
+  };
 }

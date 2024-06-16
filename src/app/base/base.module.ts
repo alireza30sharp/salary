@@ -27,6 +27,7 @@ import { RecordsOfChangesListComponent } from "./components/templates/records-of
     _organisms.EmploymentTypesFormComponent,
     _organisms.OrganizationPostFormComponent,
     _organisms.PaymentLocationFormComponent,
+    _organisms.EmployesFormComponent,
     _template.WorkShopsFormModalComponent,
     _template.BenefitDeductionFormModalComponent,
     _template.TaxFormModalComponent,
@@ -35,6 +36,7 @@ import { RecordsOfChangesListComponent } from "./components/templates/records-of
     _template.EmploymentTypesFormModalComponent,
     _template.OrganizationPostFormModalComponent,
     _template.PaymentLocationFormModalComponent,
+    _template.EmployesFormModalComponent,
     _pages.WorkShopsListComponent,
     _pages.BenefitDeductionListComponent,
     _pages.TaxListComponent,
@@ -43,6 +45,7 @@ import { RecordsOfChangesListComponent } from "./components/templates/records-of
     _pages.EmploymentTypesListComponent,
     _pages.OrganizationPostListComponent,
     _pages.PaymentLocationListComponent,
+    _pages.EmployesListComponent,
     RecordsOfChangesListComponent,
   ],
 })

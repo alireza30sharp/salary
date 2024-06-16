@@ -230,6 +230,8 @@ export class KiInputComponent implements ControlValueAccessor, OnChanges {
   }
 
   setFocus() {
-    this.inputRef.nativeElement.focus();
+    if (this.inputRef && this.inputRef.nativeElement) {
+      this.inputRef.nativeElement.focus();
+    }
   }
 }

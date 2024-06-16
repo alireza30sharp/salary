@@ -12,3 +12,8 @@ export const TypeOptions = [
 
 export const maskPrefixTaxRate = "%";
 export const maskPrefixCurrencyCharacter = "ریال";
+
+export const genderList = [
+  { label: "مرد", value: 1 },
+  { label: "زن", value: 2 },
+];

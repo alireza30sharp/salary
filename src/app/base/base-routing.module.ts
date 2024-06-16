@@ -43,6 +43,10 @@ const routes: Routes = [
         component: _pages.OrganizationPostListComponent,
       },
       {
+        path: "employes-list",
+        component: _pages.EmployesListComponent,
+      },
+      {
         path: "payment-location",
         component: _pages.PaymentLocationListComponent,
       },

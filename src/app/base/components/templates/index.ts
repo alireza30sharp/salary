@@ -6,3 +6,4 @@ export * from "./educatio-fields-form-modal/educatio-fields-form-modal.component
 export * from "./employment-types-form-modal/employment-types-form-modal.component";
 export * from "./organization-post-form-modal/organization-post-form-modal.component";
 export * from "./payment-location-form-modal/payment-location-form-modal.component";
+export * from "./employes-form-modal/employes-form-modal.component";

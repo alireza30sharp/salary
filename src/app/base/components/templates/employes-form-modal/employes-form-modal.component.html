@@ -1,0 +1,21 @@
+<ki-modal
+  [title]="isEditMode ? 'ویرایش کارمند' : 'ایجاد  کارمند'"
+  [showCancelButton]="true"
+  (onCloseCallback)="cancelHandler()"
+  [showPrimaryButton]="true"
+  [primaryButtonFor]="submitButtonId"
+  [hideHeaderActions]="true"
+  [showPrimaryButtonLoading]="isLoadingForm || isLoading || isLoadingSaveChange"
+>
+  <app-skeleton-form-loading
+    *ngIf="isLoading; else content"
+  ></app-skeleton-form-loading>
+  <ng-template #content>
+    <app-employes-form
+      [submitButtonId]="submitButtonId"
+      [model]="initialData"
+      (submitCallback)="saveHandler($event)"
+    >
+    </app-employes-form>
+  </ng-template>
+</ki-modal>

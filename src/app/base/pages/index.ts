@@ -6,3 +6,4 @@ export * from "./education-fields-list/education-fields-list.component";
 export * from "./employment-types-list/employment-types-list.component";
 export * from "./organization-post-list/organization-post-list.component";
 export * from "./payment-location-list/payment-location-list.component";
+export * from "./employes-list/employes-list.component";
