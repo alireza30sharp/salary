@@ -52,6 +52,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: "کارمندان",
         link: "/salary/employes-list",
       },
+      {
+        title: "مزایا و کسورات کارمندان",
+        link: "/salary/benefit-deduction-employees-list",
+      },
     ],
   },
   // {

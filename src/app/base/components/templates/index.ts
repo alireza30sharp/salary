@@ -7,3 +7,4 @@ export * from "./employment-types-form-modal/employment-types-form-modal.compone
 export * from "./organization-post-form-modal/organization-post-form-modal.component";
 export * from "./payment-location-form-modal/payment-location-form-modal.component";
 export * from "./employes-form-modal/employes-form-modal.component";
+export * from './benefit-deduction-employees-form-modal/benefit-deduction-employees-form-modal.component'

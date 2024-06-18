@@ -1,0 +1,119 @@
+<nb-card accent="success">
+  <nb-card-header>لطفا فیلد های اجباری را وارد نمایید</nb-card-header>
+  <nb-card-body>
+    <form
+      #companyForm="ngForm"
+      (ngSubmit)="!companyForm.invalid && submitHandler(companyForm)"
+    >
+      <div class="row">
+        <ki-form-group
+          class="col-6"
+          [label]="'سال '"
+          [showRequireSign]="true"
+          [errorMessage]="firstName.errors?.required ? 'فیلد اجباری' : ''"
+          [hideError]="
+            !(
+              (firstName.touched || companyForm.submitted) &&
+              firstName.errors?.required
+            )
+          "
+        >
+          <ki-input
+            name="firstName"
+            [setFocusItem]="setFocusItem"
+            [fullWidth]="true"
+            [(ngModel)]="model.year"
+            #firstName="ngModel"
+            required
+          ></ki-input>
+        </ki-form-group>
+        <ki-form-group
+          class="col-6"
+          [label]="'ماه'"
+          [showRequireSign]="true"
+          [errorMessage]="lastName.errors?.required ? 'فیلد اجباری' : ''"
+          [hideError]="
+            !(
+              (lastName.touched || companyForm.submitted) &&
+              lastName.errors?.required
+            )
+          "
+        >
+          <ki-input
+            name="lastName"
+            [fullWidth]="true"
+            [(ngModel)]="model.month"
+            #lastName="ngModel"
+            required
+          ></ki-input>
+        </ki-form-group>
+      </div>
+
+      <div class="row">
+        <ki-form-group
+          [label]="'تاریخ عملیات'"
+          [showRequireSign]="true"
+          class="col-6"
+          [errorMessage]="
+            adjDate.errors?.invalidDate ? 'تاریخ نا معتبر' : 'فیلد اجباری'
+          "
+          [hideError]="
+            !(adjDate.errors?.required || adjDate.errors?.invalidDate)
+          "
+        >
+          <ki-date-picker
+            [(ngModel)]="persianBirthDate"
+            name="adjDate"
+            #adjDate="ngModel"
+            required
+          ></ki-date-picker>
+        </ki-form-group>
+          <ki-form-group class="col-6" [label]="' مزایا کسورات'">
+            <ki-select
+              #genderID="ngModel"
+              name="gender"
+              [placeholder]="'جنسیت'"
+              [options]="genderOptions"
+              [allowClear]="true"
+              [(ngModel)]="model.benefitDeductionId"
+            >
+            </ki-select>
+          </ki-form-group>
+      </div>
+      <div class="row">
+        <ki-form-group class="col-6" [label]="'نام کارمند'">
+          <ki-select
+            #genderID="ngModel"
+            name="gender"
+            [placeholder]="'جنسیت'"
+            [options]="genderOptions"
+            [allowClear]="true"
+            [(ngModel)]="model.benefitDeductionId"
+          >
+          </ki-select>
+        </ki-form-group>
+        <ki-form-group
+          class="col-6"
+          [label]="'توضیحات'"
+          [showRequireSign]="true"
+          [errorMessage]="comment.errors?.required ? 'فیلد اجباری' : ''"
+          [hideError]="
+            !(
+              (comment.touched || companyForm.submitted) &&
+              comment.errors?.required
+            )
+          "
+        >
+          <ki-textarea
+            name="comment"
+            [fullWidth]="true"
+            [(ngModel)]="model.comment"
+            #comment="ngModel"
+            required
+          ></ki-textarea>
+        </ki-form-group>
+      </div>
+      <input type="submit" [hidden]="true" [attr.id]="submitButtonId" />
+    </form>
+  </nb-card-body>
+</nb-card>

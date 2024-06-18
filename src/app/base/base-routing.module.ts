@@ -47,6 +47,10 @@ const routes: Routes = [
         component: _pages.EmployesListComponent,
       },
       {
+        path: "benefit-deduction-employees-list",
+        component: _pages.BenefitDeductionEmployeesListComponent,
+      },
+      {
         path: "payment-location",
         component: _pages.PaymentLocationListComponent,
       },
