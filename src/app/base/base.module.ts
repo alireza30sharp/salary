@@ -39,6 +39,7 @@ import { RecordsOfChangesListComponent } from "./components/templates/records-of
     _template.PaymentLocationFormModalComponent,
     _template.EmployesFormModalComponent,
     _template.BenefitDeductionEmployeesFormModalComponent,
+    _pages.EmploymentOrdersListComponent,
     _pages.WorkShopsListComponent,
     _pages.BenefitDeductionListComponent,
     _pages.TaxListComponent,

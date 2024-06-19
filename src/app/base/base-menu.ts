@@ -37,6 +37,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: "/salary/fields",
       },
       {
+        title: "واحد سازمانی",
+        link: "/salary/organization-units",
+      },
+      {
         title: "نوع استخدامی",
         link: "/salary/employment-types",
       },
@@ -55,6 +59,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title: "مزایا و کسورات کارمندان",
         link: "/salary/benefit-deduction-employees-list",
+      },
+      {
+        title: "حکم استخدامی",
+        link: "/salary/employment-orders-list",
       },
     ],
   },

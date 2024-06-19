@@ -103,4 +103,11 @@ export class ApiUrlService {
     Edit: BASE_URL + "BenefitDeductionEmployees/Edit",
     getById: BASE_URL + "BenefitDeductionEmployees/GetEmployeeInformation",
   };
+  EmploymentOrders = {
+    GetAllEmploymentOrder: BASE_URL + "EmploymentOrders/GetAllEmploymentOrder",
+    Add: BASE_URL + "EmploymentOrders/Add",
+    Delete: BASE_URL + "EmploymentOrders/Delete",
+    Edit: BASE_URL + "EmploymentOrders/Edit",
+    getById: BASE_URL + "EmploymentOrders/GetEmployeeInformation",
+  };
 }
