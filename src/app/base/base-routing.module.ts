@@ -66,6 +66,13 @@ const routes: Routes = [
           ).then((m) => m.OrganizationUnitsModule),
       },
       {
+        path: "system-operation",
+        loadChildren: () =>
+          import("../modules/system-operation/system-operation.module").then(
+            (m) => m.SystemOperationModule
+          ),
+      },
+      {
         path: "layout",
         loadChildren: () =>
           import("./layout/layout.module").then((m) => m.LayoutModule),

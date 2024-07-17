@@ -43,7 +43,9 @@ nb-card-body {
 nb-card-body {
   direction: rtl;
 }
-
+app-tools-bar {
+  overflow: auto !important;
+}
 input::placeholder {
   font-family: iranYekanNumber !important;
 }

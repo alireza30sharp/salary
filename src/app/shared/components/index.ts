@@ -10,3 +10,4 @@ export * from "./push-pulll-panel/push-pull-panel.component";
 export * from "./dropdown/dropdown.component";
 export * from "./context-menu/context-menu.component";
 export * from "./alert/alert.component";
+export * from "./list-view-filter/list-view-filter.component";

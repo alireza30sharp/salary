@@ -12,6 +12,7 @@ import {
   DropdownComponent,
   ContextMenuComponent,
   AlertComponent,
+  ListViewFilterComponent,
 } from "./components";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
@@ -59,6 +60,7 @@ const component = [
   PushPullPanelComponent,
   AlertComponent,
   DropdownComponent,
+  ListViewFilterComponent,
   grid.DateFilterComponent,
   grid.DateSelectCellRenderer,
   grid.AgLink,

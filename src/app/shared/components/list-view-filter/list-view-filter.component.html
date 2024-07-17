@@ -1,0 +1,22 @@
+<div class="row">
+  <ng-container *ngIf="configViewFilter.showDatePicker">
+    <ki-form-group [label]="'نام'" class="col">
+      <ki-input [fullWidth]="true"></ki-input>
+    </ki-form-group>
+  </ng-container>
+  <ng-container *ngIf="configViewFilter.showAutoComplate">
+    <ki-form-group [label]="'نام کارمند'" class="col">
+      <ki-select [placeholder]="'نام کارمند'" [allowClear]="true"> </ki-select>
+    </ki-form-group>
+  </ng-container>
+  <ng-container *ngIf="configViewFilter.showDatePicker">
+    <ki-form-group [label]="'نام'" class="col">
+      <ki-input [fullWidth]="true"></ki-input>
+    </ki-form-group>
+  </ng-container>
+  <ng-container *ngIf="configViewFilter.showAutoComplate">
+    <ki-form-group [label]="'نام کارمند'" class="col">
+      <ki-select [placeholder]="'نام کارمند'" [allowClear]="true"> </ki-select>
+    </ki-form-group>
+  </ng-container>
+</div>

@@ -50,14 +50,7 @@
             ],
             
             "scripts": [
-              "src/assets/scripts/stimulsoft.reports.engine.js",
-              "src/assets/scripts/stimulsoft.reports.export.js",
-              "src/assets/scripts/stimulsoft.reports.chart.js",
-              "src/assets/scripts/stimulsoft.reports.maps.js",
-              "src/assets/scripts/stimulsoft.reports.import.xlsx.js",
-              "src/assets/scripts/stimulsoft.viewer.js",
-              "src/assets/scripts/stimulsoft.designer.js",
-              "src/assets/scripts/stimulsoft.blockly.editor.js"
+            
             ],
             "stylePreprocessorOptions": {
               "includePaths": ["src/assets/base"]

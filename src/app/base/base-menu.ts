@@ -40,6 +40,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: "واحد سازمانی",
         link: "/salary/organization-units",
       },
+
       {
         title: "نوع استخدامی",
         link: "/salary/employment-types",
@@ -66,28 +67,16 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
     ],
   },
-  // {
-  //   title: "Forms",
-  //   icon: "edit-2-outline",
-  //   children: [
-  //     {
-  //       title: "Form Inputs",
-  //       link: "/pages/forms/inputs",
-  //     },
-  //     {
-  //       title: "Form Layouts",
-  //       link: "/pages/forms/layouts",
-  //     },
-  //     {
-  //       title: "Buttons",
-  //       link: "/pages/forms/buttons",
-  //     },
-  //     {
-  //       title: "Datepicker",
-  //       link: "/pages/forms/datepicker",
-  //     },
-  //   ],
-  // },
+  {
+    title: "عملیات سیستم",
+    icon: "edit-2-outline",
+    children: [
+      {
+        title: "لیست",
+        link: "/salary/system-operation/list",
+      },
+    ],
+  },
   // {
   //   title: "UI Features",
   //   icon: "keypad-outline",
