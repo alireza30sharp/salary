@@ -72,6 +72,7 @@ const component = [
   grid.DeleteCellRenderer,
   grid.FlagStateCellRenderer,
   grid.percentCalc,
+  grid.SelectUnitComponent,
   grid.CurrencyRendererComponent,
   grid.AgGridDataComponent,
   kiComponent.KiButtonComponent,

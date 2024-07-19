@@ -13,6 +13,7 @@ import * as XLSX from "xlsx";
 import {
   AgChartThemeOverrides,
   AsyncTransactionsFlushed,
+  CellKeyDownEvent,
   ChartToolPanelsDef,
   FirstDataRenderedEvent,
   GetRowIdFunc,
@@ -85,6 +86,7 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
   @Input() suppressRowClickSelection: boolean = false;
   @Input() rowSelection: "single" | "multiple" = "single";
   @Input() suppressAggFuncInHeader: boolean = false;
+  @Input() editType;
   @Input() set rowDataDefault(list: any[]) {
     this.rowData = list;
   }
@@ -117,7 +119,7 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
       console.log(params.data[this.rowId]);
       return params.data[this.rowId];
     } else {
-      return params.data.id;
+      return params.data.uniqueId;
     }
   };
   public chartThemeOverrides: AgChartThemeOverrides = {
@@ -165,6 +167,31 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
     this.selectedRows = this.gridApi.getSelectedRows();
     this.selectedRowsChange.emit(this.selectedRows);
   }
+  onCellKeyDown(e: CellKeyDownEvent) {
+    if (!e.event) {
+      return;
+    }
+    const keyboardEvent = e.event as unknown as KeyboardEvent;
+    const key = keyboardEvent.key;
+    if (key.length) {
+      if (key === "s") {
+        var rowNode = e.node;
+        var newSelection = !rowNode.isSelected();
+        console.log(
+          "setting selection on node " +
+            rowNode.data.athlete +
+            " to " +
+            newSelection
+        );
+        rowNode.setSelected(newSelection);
+      } else if (key === "+") {
+        this.onNewSelected();
+      } else if (key === "Enter") {
+        this.SaveSelected();
+      }
+    }
+  }
+
   designerclickEvent(event) {
     this.DesignerclickEvent.emit();
   }

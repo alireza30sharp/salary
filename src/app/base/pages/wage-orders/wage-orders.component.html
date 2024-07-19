@@ -85,9 +85,11 @@
   <nb-card-body>
     <ag-grid-data
       [isEditMode]="true"
+      [editType]="editType"
       [columnsDefault]="columnsDefault"
       [rowDataDefault]="rowDataDefault"
       [defaultColDef]="defaultColDef"
+      (saveCellChange)="saveCellHandeler($event)"
     ></ag-grid-data>
   </nb-card-body>
 </nb-card>

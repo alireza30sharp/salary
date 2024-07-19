@@ -1,0 +1,12 @@
+<div class="w-100">
+  <ki-select
+    [allowClear]="true"
+    [allowHighlight]="true"
+    [options]="options"
+    [allowClear]="true"
+    (onChange)="onChangeEmitter()"
+    (ngModelChange)="btnClickedHandler()"
+    [(ngModel)]="selectedOption"
+  >
+  </ki-select>
+</div>

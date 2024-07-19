@@ -11,3 +11,4 @@ export { DeleteCellRenderer } from "./delete/delete";
 export { DateSelectCellRenderer } from "./date-select/date-select";
 export { DateFilterComponent } from "./date-filter/date-filter.component";
 export { CurrencyRendererComponent } from "./currency-renderer/currency-renderer.component";
+export { SelectUnitComponent } from "./select-unit/select-unit.component";

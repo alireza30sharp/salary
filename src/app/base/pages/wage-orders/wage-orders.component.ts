@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { WorkShopsService } from "../../services/work-shops.service";
 import { WorkShopsFilter } from "../../models";
-import { ModalService } from "../../../shared/services";
+import { ModalService, SelectListService } from "../../../shared/services";
 import { AgGridInterFace } from "../../../shared/interfaces/ag-grid.interface";
 import { propertyOf } from "../../../shared/utilities/property-of";
 import { BenefitDeductionDto } from "../../models/benefit-deduction.model";
@@ -22,7 +22,8 @@ import {
   maskPrefixTaxRate,
 } from "../../models/rul";
 import { numberCellFormatter_valueFormatter } from "../../../shared/interfaces/aggrid-master";
-import { SelectCellRenderer } from "../../../shared/components/ag-grid/select-cell/select-cell";
+import { SelectUnitComponent } from "../../../shared/components/ag-grid";
+import { SelectCellRendererParams } from "../../../shared/components/ag-grid/select-cell-render/select-cell-render";
 
 @Component({
   selector: "app-wage-orders",
@@ -64,19 +65,17 @@ export class WageOrdersComponent implements OnInit {
     {
       field: propertyOf<wageOrderDetailDto>("benefitDeductionId"),
       headerName: "مزایا و کسورات",
-      chartDataType: "series",
-      sortable: true,
-      cellEditor: "agRichSelectCellEditor",
-      cellRenderer: SelectCellRenderer,
+      cellEditor: SelectUnitComponent,
+      cellRenderer: SelectCellRendererParams,
       cellEditorParams: {
-        values: this.selectListService.getSectionsHoleSize(),
+        values: this._selectListService.getSectionsHoleSize(),
         allowTyping: true,
         filterList: true,
         highlightMatch: true,
         valueListMaxHeight: 220,
       },
       startEditing: true,
-      valueFormatter: numberCellFormatter_valueFormatter,
+      editable: true,
     },
     {
       field: propertyOf<wageOrderDetailDto>("price"),
@@ -84,7 +83,20 @@ export class WageOrdersComponent implements OnInit {
       editable: true,
       filter: "agNumberColumnFilter",
       cellEditor: "agNumberCellEditor",
-      valueFormatter: numberCellFormatter_valueFormatter,
+    },
+    {
+      field: propertyOf<wageOrderDetailDto>("calculateOnInsurance"),
+      headerName: "محاسبه روی بیمه",
+      editable: true,
+      cellRenderer: "agCheckboxCellRenderer",
+      cellEditor: "agCheckboxCellEditor",
+    },
+    {
+      field: propertyOf<wageOrderDetailDto>("calculateOnTax"),
+      headerName: "محاسبه روی مالیات",
+      editable: true,
+      cellRenderer: "agCheckboxCellRenderer",
+      cellEditor: "agCheckboxCellEditor",
     },
   ];
   defaultColDef: AgGridInterFace = {
@@ -94,6 +106,8 @@ export class WageOrdersComponent implements OnInit {
     editable: true,
     resizable: true,
   };
+  editType: "fullRow";
+
   rowDataDefault = new Array<BenefitDeductionDto>();
   selectRow = new Array<BenefitDeductionDto>();
   isShowLoadingDelete: boolean = false;
@@ -104,7 +118,8 @@ export class WageOrdersComponent implements OnInit {
 
   constructor(
     private _modalService: ModalService,
-    private _changeWorkShops: ChangeWorkShopsService
+    private _changeWorkShops: ChangeWorkShopsService,
+    private _selectListService: SelectListService
   ) {}
   ngOnInit(): void {
     this._changeWorkShops.activeWorkShopsSource$.subscribe((workShopId) => {
@@ -112,7 +127,9 @@ export class WageOrdersComponent implements OnInit {
     });
   }
   onRefrashSelected() {}
-
+  saveCellHandeler(e) {
+    console.table(e);
+  }
   onSelectedRowsChangeEvent(event: Array<BenefitDeductionDto>) {
     this.selectRow = new Array<BenefitDeductionDto>();
     this.selectRow = event;
