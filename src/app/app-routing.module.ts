@@ -1,6 +1,13 @@
 import { ExtraOptions, RouterModule, Routes } from "@angular/router";
 import { NgModule } from "@angular/core";
- import { NbAuthComponent, NbLoginComponent, NbLogoutComponent, NbRegisterComponent, NbRequestPasswordComponent, NbResetPasswordComponent } from "./auth";
+import {
+  NbAuthComponent,
+  NbLoginComponent,
+  NbLogoutComponent,
+  NbRegisterComponent,
+  NbRequestPasswordComponent,
+  NbResetPasswordComponent,
+} from "./auth";
 import { AuthGuard } from "./shared/guard/auth-guard.service";
 import { AuthLoginGuard } from "./shared/guard/auth-guard-login.service";
 // import {
@@ -14,52 +21,43 @@ import { AuthLoginGuard } from "./shared/guard/auth-guard-login.service";
 export const routes: Routes = [
   {
     canActivate: [AuthGuard],
-    path: "pages",
-    loadChildren: () =>
-      import("./pages/pages.module").then((m) => m.PagesModule),
-  },
-  {
-    canActivate: [AuthGuard],
     path: "salary",
-    loadChildren: () =>
-      import("./base/base.module").then((m) => m.BaseModule),
+    loadChildren: () => import("./base/base.module").then((m) => m.BaseModule),
   },
   {
-  
-    path: 'auth',
+    path: "auth",
     component: NbAuthComponent,
     children: [
       {
-        path: '',
+        path: "",
         component: NbLoginComponent,
       },
       {
-        path: 'login',
+        path: "login",
         component: NbLoginComponent,
         canActivate: [AuthLoginGuard],
       },
       {
-        path: 'register',
+        path: "register",
         component: NbRegisterComponent,
         canActivate: [AuthLoginGuard],
       },
       {
-        path: 'logout',
+        path: "logout",
         component: NbLogoutComponent,
       },
       {
-        path: 'request-password',
+        path: "request-password",
         component: NbRequestPasswordComponent,
         canActivate: [AuthLoginGuard],
       },
       {
-        path: 'reset-password',
+        path: "reset-password",
         component: NbResetPasswordComponent,
       },
     ],
   },
   { path: "", redirectTo: "salary", pathMatch: "full" },
-  { path: "**", redirectTo: "salary" },
 ];
 
 const config: ExtraOptions = {
@@ -67,7 +65,7 @@ const config: ExtraOptions = {
 };
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, config)],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

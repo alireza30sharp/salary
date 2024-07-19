@@ -56,9 +56,6 @@
               "includePaths": ["src/assets/base"]
             },
             "allowedCommonJsDependencies": [
-              "lodash",
-              "zrender/lib/svg/svg",
-              "zrender/lib/vml/vml",
               "jalali-moment"
             ],
             "vendorChunk": true,
