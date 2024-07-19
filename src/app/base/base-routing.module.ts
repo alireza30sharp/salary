@@ -27,6 +27,10 @@ const routes: Routes = [
         component: _pages.TaxListComponent,
       },
       {
+        path: "wage-orders",
+        component: _pages.WageOrdersComponent,
+      },
+      {
         path: "education",
         component: _pages.EducationEvidencesListComponent,
       },

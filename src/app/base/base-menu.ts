@@ -29,6 +29,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: "/salary/tax",
       },
       {
+        title: "سفارشات دستمزد",
+        link: "/salary/wage-orders",
+      },
+      {
         title: "مدارک تحصیلی",
         link: "/salary/education",
       },

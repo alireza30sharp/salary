@@ -54,6 +54,9 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
   ngAfterViewInit(): void {}
   @Input() set isEditMode(flag: boolean) {
     this._isEditMode = flag;
+    setTimeout(() => {
+      this.onNewSelected();
+    }, 10);
   }
   @Input() set columnsDefault(columns: AgGridInterFace[]) {
     this.columnsTable = columns;
@@ -78,7 +81,7 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
   @Input() activeToolBar: boolean = false;
   @Input() autoGroupColumnDef: AgGridInterFace;
   @Input() popupParent: any;
-
+  @Input() defaultColDef: AgGridInterFace;
   @Input() suppressRowClickSelection: boolean = false;
   @Input() rowSelection: "single" | "multiple" = "single";
   @Input() suppressAggFuncInHeader: boolean = false;
