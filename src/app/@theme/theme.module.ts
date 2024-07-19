@@ -14,8 +14,11 @@ import {
   NbThemeModule,
   DEFAULT_MEDIA_BREAKPOINTS,
   NbLayoutDirection,
+  NbInputModule,
+  NbCardModule,
+  NbCheckboxModule,
+  NbRadioModule,
 } from "@nebular/theme";
-import { NbEvaIconsModule } from "@nebular/eva-icons";
 import { NbSecurityModule } from "@nebular/security";
 
 import {
@@ -57,7 +60,13 @@ const NB_MODULES = [
   NbButtonModule,
   NbSelectModule,
   NbIconModule,
-  NbEvaIconsModule,
+  NbInputModule,
+  NbCardModule,
+  NbButtonModule,
+  NbActionsModule,
+  NbUserModule,
+  NbCheckboxModule,
+  NbRadioModule,
 ];
 const COMPONENTS = [
   kiSelectHeaderComponent,
@@ -85,7 +94,7 @@ const PIPES = [
     CommonModule,
     ...NB_MODULES,
   ],
-  exports: [CommonModule, ...PIPES, ...COMPONENTS],
+  exports: [CommonModule, ...PIPES, ...COMPONENTS, ...NB_MODULES],
   declarations: [...COMPONENTS, ...PIPES],
 })
 export class ThemeModule {

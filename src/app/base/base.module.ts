@@ -1,7 +1,5 @@
 import { NgModule } from "@angular/core";
 import { NbMenuModule } from "@nebular/theme";
-import { ThemeModule } from "../@theme/theme.module";
-import { DashboardModule } from "./dashboard/dashboard.module";
 import { BaseComponent } from "./base.component";
 import { BaseRoutingModule } from "./base-routing.module";
 import * as _organisms from "./components/organisms";
@@ -10,13 +8,7 @@ import * as _pages from "./pages";
 import { SharedModule } from "../shared/shared.module";
 import { RecordsOfChangesListComponent } from "./components/templates/records-of-changes-list/app-records-of-changes-list.component";
 @NgModule({
-  imports: [
-    BaseRoutingModule,
-    ThemeModule,
-    NbMenuModule,
-    DashboardModule,
-    SharedModule,
-  ],
+  imports: [BaseRoutingModule, NbMenuModule, SharedModule],
   declarations: [
     BaseComponent,
     _organisms.WorkShopsFormComponent,

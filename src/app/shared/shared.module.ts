@@ -27,24 +27,8 @@ import { ThemeModule } from "../@theme/theme.module";
 import { FormsModule as ngFormsModule } from "@angular/forms";
 import { NgxMaskModule } from "ngx-mask";
 import { AngularSplitModule } from "angular-split";
-
 import * as kiComponent from "./ki-components";
-
-import {
-  NbActionsModule,
-  NbButtonModule,
-  NbCardModule,
-  NbCheckboxModule,
-  NbDatepickerModule,
-  NbIconModule,
-  NbInputModule,
-  NbRadioModule,
-  NbSelectModule,
-  NbUserModule,
-} from "@nebular/theme";
-import { MaterialModule } from "./material.module";
 import { HighLightPipe } from "./pipes/highlight.pipe";
-import { PrimengModule } from "./primeng/primeng.module";
 import { DevexpressModule } from "./devexpress.module";
 import { DatePickerModule } from "./date-picker.module";
 const component = [
@@ -61,8 +45,6 @@ const component = [
   AlertComponent,
   DropdownComponent,
   ListViewFilterComponent,
-  grid.DateFilterComponent,
-  grid.DateSelectCellRenderer,
   grid.AgLink,
   grid.AssignmentCellRenderer,
   grid.CellEditable,
@@ -105,42 +87,22 @@ const component = [
     Ag.AgGridModule,
     NgbModule,
     AngularSplitModule,
-    ThemeModule,
-    NbInputModule,
-    NbCardModule,
-    NbButtonModule,
-    NbActionsModule,
-    NbUserModule,
-    NbCheckboxModule,
-    NbRadioModule,
+    ThemeModule.forRoot(),
+
     NbToastrModule.forRoot({
       toastClass: "z-index-9",
       duration: 9000,
       limit: 1002,
     }),
-    NbDatepickerModule,
-    NbSelectModule,
-    NbIconModule,
+
     ngFormsModule,
-    MaterialModule,
     DevexpressModule,
-    PrimengModule,
     NgxMaskModule.forRoot(),
     DatePickerModule,
   ],
 
   exports: [
     ThemeModule,
-    NbInputModule,
-    NbCardModule,
-    NbButtonModule,
-    NbActionsModule,
-    NbUserModule,
-    NbCheckboxModule,
-    NbRadioModule,
-    NbDatepickerModule,
-    NbSelectModule,
-    NbIconModule,
     ngFormsModule,
     NgSelectModule,
     FormsModule,
@@ -150,8 +112,6 @@ const component = [
     AngularSplitModule,
     NgbModule,
     NbToastrModule,
-    MaterialModule,
-    PrimengModule,
     DevexpressModule,
     NgxMaskModule,
     ...component,

@@ -13,7 +13,6 @@ import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
 
 import {
-  NbChatModule,
   NbDatepickerModule,
   NbDialogModule,
   NbMenuModule,
@@ -74,11 +73,7 @@ export function GetClientPrerequisits(
     NbWindowModule.forRoot(),
     NbToastrModule.forRoot(),
     SharedModule,
-    NbChatModule.forRoot({
-      messageGoogleMapKey: "AIzaSyA_wNuCzia92MAmdLRzmqitRGvCF7wCZPY",
-    }),
     CoreModule.forRoot(),
-    ThemeModule.forRoot(),
     NgbModule,
   ],
   bootstrap: [AppComponent],

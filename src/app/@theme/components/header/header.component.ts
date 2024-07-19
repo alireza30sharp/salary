@@ -6,11 +6,9 @@ import {
   NbThemeService,
 } from "@nebular/theme";
 
-import { UserData } from "../../../@core/data/users";
 import { LayoutService } from "../../../@core/utils";
 import { map, switchMap, takeUntil } from "rxjs/operators";
 import { Observable, Subject, of } from "rxjs";
-import { NbAuthService, NbAuthToken, strategieName } from "../../../auth";
 import { Router } from "@angular/router";
 import { SelectOptionInterface } from "../../../shared/interfaces/select-option.interface";
 import { ChangeWorkShopsService } from "../../../services/change-work-shop.service";
@@ -61,7 +59,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private sidebarService: NbSidebarService,
     private menuService: NbMenuService,
     private themeService: NbThemeService,
-    private userService: UserData,
     private layoutService: LayoutService,
     private breakpointService: NbMediaBreakpointsService,
     private _changeWorkShops: ChangeWorkShopsService,
@@ -85,11 +82,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.currentTheme = this.themeService.currentTheme;
-
-    this.userService
-      .getUsers()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((users: any) => (this.user = users.nick));
 
     const { xl } = this.breakpointService.getBreakpointsMap();
     this.themeService
@@ -125,14 +117,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
 
     this._changeWorkShops.activeWorkShopsSource$.subscribe((res) => {
-      if(this.WorkShopsOptions && res){
+      if (this.WorkShopsOptions && res) {
         let find = this.WorkShopsOptions.find((f) => f.label == res);
         if (find) {
           this.WorkShopsID = +find.value;
         }
         localStorage.setItem("WorkShopsID", this.WorkShopsID);
       }
-
     });
   }
 
