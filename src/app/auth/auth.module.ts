@@ -5,16 +5,6 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule, HttpRequest } from "@angular/common/http";
 
 import {
-  NbAlertModule,
-  NbButtonModule,
-  NbCardModule,
-  NbCheckboxModule,
-  NbInputModule,
-  NbLayoutModule,
-  NbStepperModule,
-} from "@nebular/theme";
-
-import {
   NB_AUTH_FALLBACK_TOKEN,
   NbAuthService,
   NbAuthSimpleToken,
@@ -97,18 +87,11 @@ export function nbNoOpInterceptorFilter(req: HttpRequest<any>): boolean {
 @NgModule({
   imports: [
     CommonModule,
-    NbLayoutModule,
-    NbCardModule,
-    NbCheckboxModule,
-    NbAlertModule,
-    NbInputModule,
-    NbButtonModule,
     RouterModule.forChild(routes),
     FormsModule,
     ReactiveFormsModule,
-    NbStepperModule,
     HttpClientModule,
-    SharedModule
+    SharedModule,
   ],
   declarations: [
     NbAuthComponent,

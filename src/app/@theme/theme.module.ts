@@ -18,6 +18,7 @@ import {
   NbCardModule,
   NbCheckboxModule,
   NbRadioModule,
+  NbStepperModule,
 } from "@nebular/theme";
 import { NbSecurityModule } from "@nebular/security";
 
@@ -67,6 +68,7 @@ const NB_MODULES = [
   NbUserModule,
   NbCheckboxModule,
   NbRadioModule,
+  NbStepperModule,
 ];
 const COMPONENTS = [
   kiSelectHeaderComponent,

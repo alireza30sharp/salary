@@ -4,6 +4,13 @@
 //     url(../../../assets/fonts/woff/iranyekanwebregularfanum.woff) format("woff"),
 //     url(../../../assets/fonts/eot/iranyekanwebregularfanum.eot) format("eot");
 // }
+@use "themes" as *;
+
+@use "@nebular/theme/styles/globals" as *;
+
+@include nb-install() {
+  @include nb-theme-global();
+}
 a,
 li,
 ul,
@@ -102,35 +109,17 @@ ag-grid-angular {
   line-height: 2rem;
 }
 // themes - our custom or/and out of the box themes
-@import "themes";
+
 
 // framework component themes (styles tied to theme variables)
-@import "@nebular/theme/styles/globals";
-@import "@nebular/auth/styles/globals";
 
-@import "bootstrap/scss/functions";
-@import "bootstrap/scss/variables";
-@import "bootstrap/scss/mixins";
-@import "bootstrap/scss/grid";
 
 // loading progress bar theme
-@import "./pace.theme";
 
-@import "./layout";
-@import "./overrides";
+
 
 // install the framework and custom global styles
-@include nb-install() {
-  // framework global styles
-  @include nb-theme-global();
-  @include nb-auth-global();
 
-  @include ngx-layout();
-  // loading progress bar
-  @include ngx-pace-theme();
-
-  @include nb-overrides();
-}
 * {
   text-align: start;
 }
