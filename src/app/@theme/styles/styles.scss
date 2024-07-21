@@ -56,6 +56,11 @@ app-tools-bar {
 .highlight{
   color: var(--red) !important;
 }
+.center-content{
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
 input::placeholder {
   font-family: iranYekanNumber !important;
 }

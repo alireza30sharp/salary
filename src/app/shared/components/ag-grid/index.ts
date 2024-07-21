@@ -10,3 +10,4 @@ export { AssignmentCellRenderer } from "./assignment/assignment";
 export { DeleteCellRenderer } from "./delete/delete";
 export { CurrencyRendererComponent } from "./currency-renderer/currency-renderer.component";
 export { SelectUnitComponent } from "./select-unit/select-unit.component";
+export { CellEditorNumberComponent } from "./cell-editor-number/cell-editor-number.component";

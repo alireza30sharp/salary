@@ -297,9 +297,9 @@ export class AgGridMaster {
       });
     });
   }
-  startEditingCol(key) {
+  startEditingCol(key, index = 0) {
     this.gridApi.startEditingCell({
-      rowIndex: 0,
+      rowIndex: index,
       colKey: key,
     });
   }

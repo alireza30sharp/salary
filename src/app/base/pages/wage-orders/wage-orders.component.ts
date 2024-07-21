@@ -22,7 +22,10 @@ import {
   maskPrefixTaxRate,
 } from "../../models/rul";
 import { numberCellFormatter_valueFormatter } from "../../../shared/interfaces/aggrid-master";
-import { SelectUnitComponent } from "../../../shared/components/ag-grid";
+import {
+  CellEditorNumberComponent,
+  SelectUnitComponent,
+} from "../../../shared/components/ag-grid";
 import { SelectCellRendererParams } from "../../../shared/components/ag-grid/select-cell-render/select-cell-render";
 
 @Component({
@@ -63,6 +66,10 @@ export class WageOrdersComponent implements OnInit {
       hide: true,
     },
     {
+      headerName: "ردیف",
+      valueGetter: "node.rowIndex + 1",
+    },
+    {
       field: propertyOf<wageOrderDetailDto>("benefitDeductionId"),
       headerName: "مزایا و کسورات",
       cellEditor: SelectUnitComponent,
@@ -81,13 +88,16 @@ export class WageOrdersComponent implements OnInit {
       field: propertyOf<wageOrderDetailDto>("price"),
       headerName: "مبلغ",
       editable: true,
+      cellClass: "text-center",
       filter: "agNumberColumnFilter",
-      cellEditor: "agNumberCellEditor",
+      cellEditor: CellEditorNumberComponent,
+      valueFormatter: numberCellFormatter_valueFormatter,
     },
     {
       field: propertyOf<wageOrderDetailDto>("calculateOnInsurance"),
       headerName: "محاسبه روی بیمه",
       editable: true,
+      cellClass: "text-center center-content",
       cellRenderer: "agCheckboxCellRenderer",
       cellEditor: "agCheckboxCellEditor",
     },
@@ -95,15 +105,16 @@ export class WageOrdersComponent implements OnInit {
       field: propertyOf<wageOrderDetailDto>("calculateOnTax"),
       headerName: "محاسبه روی مالیات",
       editable: true,
+      cellClass: "text-center center-content",
       cellRenderer: "agCheckboxCellRenderer",
       cellEditor: "agCheckboxCellEditor",
     },
   ];
   defaultColDef: AgGridInterFace = {
     flex: 1,
-    cellEditor: true,
+
     filter: true,
-    editable: true,
+
     resizable: true,
   };
   editType: "fullRow";

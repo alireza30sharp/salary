@@ -116,9 +116,10 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
   @Output() DesignerclickEvent = new EventEmitter<any>();
   public getRowId: GetRowIdFunc = (params: GetRowIdParams) => {
     if (this.rowId) {
-      console.log(params.data[this.rowId]);
       return params.data[this.rowId];
     } else {
+      debugger;
+      let aa = params.api;
       return params.data.uniqueId;
     }
   };
@@ -282,9 +283,10 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
     if (this.rowValue) {
       this.rowValue.isEdited = false;
       this.rowValue.uniqueId = uuid.v4();
-      this.rowData.unshift(Object.assign({}, this.rowValue));
+      this.rowData.push(Object.assign({}, this.rowValue));
       this.agGridUpdate();
-      this.startEditingCol(this.startEditingCell);
+      let index = this.rowData.length - 1;
+      this.startEditingCol(this.startEditingCell, index);
     }
 
     this.countItemEdited = this.getCountEdited();
