@@ -29,7 +29,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: "/salary/tax",
       },
       {
-        title: "سفارشات دستمزد",
+        title: "حکم حقوقی",
         link: "/salary/wage-orders",
       },
       {

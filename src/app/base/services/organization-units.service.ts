@@ -55,7 +55,7 @@ export class OrganizationUnitsService {
     return this.$http.get<response<any>>(
       this.urlSvc.OrganizationUnits.getById,
       {
-        params: { workShopId: this.getWorkShopsID(), id: id },
+        params: { workShopId: 1, id: id },
       }
     );
   }
