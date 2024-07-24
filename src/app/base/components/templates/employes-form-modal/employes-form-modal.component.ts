@@ -36,7 +36,6 @@ export class EmployesFormModalComponent
   }
 
   private _getInitialData() {
-    debugger;
     if (this.isEditMode) {
       this.isLoading = true;
       this._employesService.getById(this.entryId).subscribe((res) => {
@@ -48,6 +47,7 @@ export class EmployesFormModalComponent
     }
   }
   saveHandler(data: EmployeDto) {
+    debugger;
     this.isLoadingSaveChange = true;
     if (this.isLoadingForm) {
       //this._toastService.error('::Please_Wait_While_Executing_The_Request');

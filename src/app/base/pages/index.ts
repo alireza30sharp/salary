@@ -8,5 +8,5 @@ export * from "./organization-post-list/organization-post-list.component";
 export * from "./payment-location-list/payment-location-list.component";
 export * from "./employes-list/employes-list.component";
 export * from "./benefit-deduction-employees-list/benefit-deduction-employees-list.component";
-export * from './employment-orders-list/employment-orders-list.component';
-export * from './wage-orders/wage-orders.component';
+export * from "./employment-orders-list/employment-orders-list.component";
+export * from "./wage-orders/wage-orders.component";

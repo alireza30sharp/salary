@@ -18,9 +18,15 @@
       #defaultButtonRef
       [type]="'button'"
       [varient]="'outline'"
+      [size]="buttonSize"
+      [title]="text"
+      [iconClassName]="iconClassName"
       (clickCallback)="buttonClickHandler($event)"
-      ><span *ngIf="iconClassName" [attr.class]="iconClassName"></span>
-      {{ text }} <span class="app-dropdown__arrow fa fa-chevron-down"></span
+    >
+      <span
+        *ngIf="!hideArrow"
+        class="app-dropdown__arrow fa fa-chevron-down"
+      ></span
     ></ki-button>
   </ng-template>
   <ng-template #menuTmp>

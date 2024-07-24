@@ -7,12 +7,13 @@ import {
 } from "@angular/core";
 
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { Subject } from "rxjs";
+import { isEmpty, Subject } from "rxjs";
 import * as uuid from "uuid";
 import * as XLSX from "xlsx";
 import {
   AgChartThemeOverrides,
   AsyncTransactionsFlushed,
+  CellEditingStoppedEvent,
   CellKeyDownEvent,
   ChartToolPanelsDef,
   FirstDataRenderedEvent,
@@ -118,8 +119,6 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
     if (this.rowId) {
       return params.data[this.rowId];
     } else {
-      debugger;
-      let aa = params.api;
       return params.data.uniqueId;
     }
   };
@@ -167,6 +166,33 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
   onSelectionChanged() {
     this.selectedRows = this.gridApi.getSelectedRows();
     this.selectedRowsChange.emit(this.selectedRows);
+  }
+  cellEditingStopped(event: CellEditingStoppedEvent) {
+    if ((event.colDef as any).requerd) {
+      if (this.isEmpty(event.value)) {
+        alert("asdasd");
+      }
+    }
+  }
+  rowClassRules = {
+    // apply green to 2008
+    "not-valid-rowClassRules": (params) => {
+      return this.validateRequiredFields(params.data, this.columnsTable);
+    },
+  };
+  validateRequiredFields(obj, columns) {
+    for (let column of columns) {
+      if (
+        column.requerd &&
+        (obj[column.field] === null ||
+          obj[column.field] === 0 ||
+          obj[column.field] === undefined ||
+          obj[column.field] === "")
+      ) {
+        return true;
+      }
+    }
+    return false;
   }
   onCellKeyDown(e: CellKeyDownEvent) {
     if (!e.event) {
@@ -297,6 +323,9 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
       result[item[field]] = null;
     });
     return result;
+  }
+  isEmpty(value: any): boolean {
+    return value === null || value === undefined || value === "";
   }
   onCancel() {
     this.gridApi.stopEditing(true);

@@ -8,6 +8,7 @@ import {
 } from "@angular/core";
 import { OverlayRef, Overlay } from "@angular/cdk/overlay";
 import { TemplatePortal } from "@angular/cdk/portal";
+import { SizeType } from "../../types/size.type";
 import { GeneralActionType } from "../../types/general-action.type";
 import { KiButtonComponent } from "../../ki-components";
 
@@ -19,12 +20,14 @@ import { KiButtonComponent } from "../../ki-components";
 export class DropdownComponent {
   @Input() text?: string;
   @Input() iconClassName?: string;
+  @Input() buttonSize?: SizeType;
   @Input() actions?: Omit<GeneralActionType, "items">[];
   @Input() buttonRef?: TemplateRef<any>;
   @Input() matchParent?: boolean;
   @Input() menuWidth?: string;
   @Input() menuInverseAlign?: boolean;
   @Input() actionRefData?: any;
+  @Input() hideArrow?: boolean;
 
   @ViewChild("defaultButtonRef", { static: false })
   defaultButtonRef: KiButtonComponent;

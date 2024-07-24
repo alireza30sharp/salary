@@ -49,9 +49,12 @@
     (cellKeyDown)="onCellKeyDown($event)"
     [pivotPanelShow]="pivotPanelShow"
     [rowHeight]="50"
+    [rowClassRules]="rowClassRules"
     [pagination]="pagination"
     [paginationPageSize]="paginationPageSize"
     [paginationPageSizeSelector]="paginationPageSizeSelector"
+    [suppressRowHoverHighlight]="true"
+    [columnHoverHighlight]="true"
   ></ag-grid-angular>
   <!-- <div id="myChart" class="ag-theme-quartz my-chart"></div> -->
 </div>

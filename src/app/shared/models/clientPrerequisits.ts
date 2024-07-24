@@ -19,4 +19,6 @@ export enum cacheKeyEnum {
   barname = "barname-types-access",
   companyStatusType = "company-status-type",
   company_types = "company-types",
+  benefitDeductions = "BenefitDeductions",
+  employees = "Employees",
 }

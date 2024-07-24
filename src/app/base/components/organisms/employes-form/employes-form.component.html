@@ -307,7 +307,7 @@
         <ki-form-group
           class="col-6"
           [label]="'ایمیل'"
-          [showRequireSign]="false"
+          [showRequireSign]="true"
           [errorMessage]="
             email.errors?.isInvalid ? 'فرمت اشتباه' : 'فیلد اجباری'
           "
@@ -324,6 +324,7 @@
             [type]="'emial'"
             [(ngModel)]="model.email"
             #email="ngModel"
+            required
           ></ki-input>
         </ki-form-group>
         <ki-form-group

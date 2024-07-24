@@ -72,6 +72,7 @@ const NB_MODULES = [
   NbStepperModule,
   NbIconModule,
   NbEvaIconsModule,
+  NbContextMenuModule,
 ];
 const COMPONENTS = [
   kiSelectHeaderComponent,

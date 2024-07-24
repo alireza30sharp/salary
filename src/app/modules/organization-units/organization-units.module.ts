@@ -5,6 +5,8 @@ import * as _organisms from "./components/organisms";
 import { OrganizationUnitsRoutingModule } from "./organization-units-routing.module";
 import { SharedModule } from "../../shared/shared.module";
 import { OrganizationUnitsComponent } from "./organization-units.component";
+import { ThemeModule } from "../../@theme/theme.module";
+import { NbLayoutModule, NbThemeModule } from "@nebular/theme";
 
 @NgModule({
   declarations: [

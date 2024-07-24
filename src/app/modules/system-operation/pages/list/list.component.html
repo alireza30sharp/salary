@@ -1,15 +1,10 @@
-<div class="h-100 d-flex flex-column">
-  <nb-card accent="danger">
-    <nb-card-header>
-      <list-view-filter
-        [configViewFilter]="configViewFilter"
-        (onSearchCallback)="searchPayLoadEventHandler($event)"
-      ></list-view-filter>
-    </nb-card-header>
-    <nb-card-body>
-      <div class="overflow-hidden flex-grow-1">
-        <ag-grid-data [rowId]="'id'"></ag-grid-data>
-      </div>
-    </nb-card-body>
-  </nb-card>
-</div>
+<app-general-panel [title]="'لیست کارمندان'" [hideBackButton]="true">
+  <ng-template #header>
+    <list-view-filter
+      [configViewFilter]="configViewFilter"
+      (onSearchCallback)="searchPayLoadEventHandler($event)"
+    ></list-view-filter>
+  </ng-template>
+
+  <ag-grid-data [rowId]="'id'"></ag-grid-data>
+</app-general-panel>

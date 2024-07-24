@@ -6,11 +6,19 @@
   max-height: 100%;
   overflow: auto;
 }
-
+.tree-node__menu:hover {
+  .icons-btn {
+    display: block;
+  }
+}
+.fa-regular {
+  color: $red !important;
+}
 .tree-node {
   display: flex;
   align-items: center;
   gap: $spacing-x2;
+
   &__icon {
     font-size: 16px;
     color: $content-secondary;
@@ -21,9 +29,6 @@
     min-width: 0;
     @include button-2;
     color: $content-primary;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 
   &__more {

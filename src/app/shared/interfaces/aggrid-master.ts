@@ -88,7 +88,7 @@ export class AgGridMaster {
       ],
     },
   };
-  rowClassRules: any;
+
   ckeditorConfig = {
     height: "250px",
     width: "100%",

@@ -50,7 +50,6 @@ export class OrganizationUnitsTreeComponent implements OnInit {
         this._confirmRemoveActionTree(arg.data, arg.data.name);
       },
     },
-
     {
       text: "اضافه",
       click: (event, arg) => {
@@ -95,6 +94,15 @@ export class OrganizationUnitsTreeComponent implements OnInit {
         this.appliedTreeExpandedNode = null;
         this._getTreeViewData(true);
       });
+  }
+  removeActionTree(data) {
+    this._confirmRemoveActionTree(data, data.name);
+  }
+  editActionTree(data) {
+    this._router.navigateByUrl(Paths.organizationUnits.edit(data.id).url);
+  }
+  addActionTree(data) {
+    this._router.navigateByUrl(Paths.organizationUnits.add(data.id).url);
   }
   private _expandTree() {
     if (!this.listNodeDto) return;

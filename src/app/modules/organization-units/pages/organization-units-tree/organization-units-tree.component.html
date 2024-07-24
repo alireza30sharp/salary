@@ -1,4 +1,7 @@
 <app-general-layout>
+  <!-- <button outline  [nbContextMenu]="items2">
+    Show Menu
+  </button> -->
   <app-general-panel
     [title]="isLoadingTree ? 'درحال دریافت...' : (title | uppercase)"
     [hideBackButton]="true"
@@ -35,20 +38,23 @@
                 <strong class="tree-node__title ellipsis">{{
                   data.name
                 }}</strong>
-                <div class="tree-node__menu" (click)="menuClickHandler($event)">
-                  <app-dropdown
-                    [menuInverseAlign]="true"
-                    [actionRefData]="data"
-                    [actions]="itemsChild"
-                    [buttonRef]="customButtonRef"
-                  ></app-dropdown>
+                <div class="tree-node__menu">
+                  <div class="d-flex justify-content-between">
+                    <i
+                      class="px-1 fa-regular fa-trash-can"
+                      (click)="removeActionTree(data)"
+                    ></i>
+                    <i
+                      class="px-1 fa-regular fa-square-plus"
+                      (click)="addActionTree(data)"
+                    ></i>
+                    <i
+                      class="px-1 fa-regular fa-pen-to-square"
+                      (click)="editActionTree(data)"
+                    ></i>
+                  </div>
                 </div>
               </section>
-            </ng-template>
-            <ng-template #customButtonRef>
-              <span
-                class="tree-node__more fa-solid fa-ellipsis-vertical"
-              ></span>
             </ng-template>
           </section>
         </as-split-area>

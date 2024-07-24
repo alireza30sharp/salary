@@ -43,6 +43,7 @@ import { RecordsOfChangesListComponent } from "./components/templates/records-of
     _pages.EmployesListComponent,
     _pages.BenefitDeductionEmployeesListComponent,
     _pages.WageOrdersComponent,
+
     RecordsOfChangesListComponent,
   ],
 })

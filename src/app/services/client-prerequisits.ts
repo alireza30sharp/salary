@@ -25,7 +25,7 @@ export class ClientPrerequisitsService {
       return this.$http
         .get<any>(this.urlSvc.clientPrerequisits.GetClientPrerequisits, {
           params: {
-            Keys: ["WorkShops"],
+            Keys: ["WorkShops", "BenefitDeductions", "Employees"],
           },
         })
         .pipe(

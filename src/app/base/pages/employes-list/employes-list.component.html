@@ -1,14 +1,5 @@
-<nb-card accent="danger">
-  <nb-card-header>
-    <div class="mb-3">
-      <strong class="strong">لیست کارمندان</strong>
-      <nb-action
-        (click)="startTour()"
-        class="control-item d-inline"
-        icon="question-mark-circle-outline"
-      >
-      </nb-action>
-    </div>
+<app-general-panel [title]="' لیست کارمندان'" [hideBackButton]="true">
+  <ng-template #header>
     <div class="align-content-center d-flex justify-content-between">
       <app-tools-bar
         (NewSelected)="newWorkShpps()"
@@ -22,15 +13,14 @@
         [isShowLoadingRefrash]="isShowLoadingRefrash"
       ></app-tools-bar>
     </div>
-  </nb-card-header>
-  <nb-card-body>
-    <ag-grid-data
-      [rowId]="'id'"
-      [columnsDefault]="columnsDefault"
-      [rowDataDefault]="rowDataDefault"
-      [pagination]="true"
-      (removeCellChange)="onDeleteItem($event)"
-      (selectedRowsChange)="onSelectedRowsChangeEvent($event)"
-    ></ag-grid-data>
-  </nb-card-body>
-</nb-card>
+  </ng-template>
+
+  <ag-grid-data
+    [rowId]="'id'"
+    [columnsDefault]="columnsDefault"
+    [rowDataDefault]="rowDataDefault"
+    [pagination]="true"
+    (removeCellChange)="onDeleteItem($event)"
+    (selectedRowsChange)="onSelectedRowsChangeEvent($event)"
+  ></ag-grid-data>
+</app-general-panel>

@@ -10,7 +10,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: "http://37.156.14.41:2087",
+  apiUrl: "http://matin.api.kiasystem.ir",
   login: "/api/UserAuth/Login",
   register: "/api/Parents/Add",
   ReAuth: "/api/UserAuth/ReAuth",

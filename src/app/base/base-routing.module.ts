@@ -3,6 +3,7 @@ import { NgModule } from "@angular/core";
 import { BaseComponent } from "./base.component";
 import * as _pages from "./pages";
 import { RecordsOfChangesListComponent } from "./components/templates/records-of-changes-list/app-records-of-changes-list.component";
+import { Paths } from "../shared/utilities/paths";
 
 const routes: Routes = [
   {
@@ -83,7 +84,7 @@ const routes: Routes = [
       },
       {
         path: "",
-        redirectTo: "work-shops",
+        redirectTo: "system-operation/list",
         pathMatch: "full",
       },
     ],
