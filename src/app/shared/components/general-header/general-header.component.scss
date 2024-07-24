@@ -3,6 +3,7 @@ $name: 'general-header';
 .#{$name} {
   display: flex;
   align-items: center;
+  position: relative;
   gap: $spacing-x3;
 
   &__content {

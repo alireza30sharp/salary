@@ -1,9 +1,7 @@
 @import "variable";
 
 $name: "ki-button";
-$large-icon-size: 20px;
-$normal-icon-size: 16px;
-$small-icon-size: 12px;
+
 .#{$name} {
   display: inline-flex;
   align-items: center;
@@ -22,9 +20,10 @@ $small-icon-size: 12px;
   cursor: pointer;
 
   &__icon {
-    font-size: $normal-icon-size;
+    font-size: $large-icon-size;
     width: $normal-icon-size;
     height: $normal-icon-size;
+    color: $red !important;
   }
 
   &--is-only-icon {

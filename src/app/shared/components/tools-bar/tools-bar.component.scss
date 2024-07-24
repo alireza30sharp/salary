@@ -1,3 +1,5 @@
+@import 'variable';
+
 .menu{
   background: var(--light);
   line-height: 21px;
@@ -5,6 +7,7 @@
     border: 1px solid #ccc;
     border-radius: 11px;
   }
+
   .fa-trash-alt{
     color: #EA4335;
   }

@@ -2,21 +2,13 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import * as _pages from "./pages";
 import { Paths } from "../../shared/utilities/paths";
+import { OrganizationUnitsComponent } from "./organization-units.component";
 
 const routes: Routes = [
   {
     path: "",
-    component: _pages.OrganizationUnitsTreeComponent,
-    children: [
-      {
-        path: Paths.organizationUnits.edit().path,
-        component: _pages.OrganizationUnitsEditComponent,
-      },
-      {
-        path: Paths.organizationUnits.add().path,
-        component: _pages.OrganizationUnitsAddComponent,
-      },
-    ],
+
+    component: OrganizationUnitsComponent,
   },
 ];
 

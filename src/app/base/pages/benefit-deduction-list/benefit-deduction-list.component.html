@@ -1,5 +1,5 @@
-<nb-card accent="danger">
-  <nb-card-header>
+<app-general-panel [title]="'مزایا و کسورات'" [hideBackButton]="true">
+  <ng-template #header>
     <div class="align-content-center d-flex justify-content-between">
       <app-tools-bar
         (NewSelected)="newWorkShpps()"
@@ -11,16 +11,14 @@
         [isShowLoadingDelete]="isShowLoadingDelete"
         [isShowLoadingRefrash]="isShowLoadingRefrash"
       ></app-tools-bar>
-      <span>مزایا و کسورات</span>
     </div>
-  </nb-card-header>
-  <nb-card-body>
-    <ag-grid-data
-      [columnsDefault]="columnsDefault"
-      [rowDataDefault]="rowDataDefault"
-      (removeCellChange)="onDeleteItem($event)"
-      (selectedRowsChange)="onSelectedRowsChangeEvent($event)"
-      [pagination]="true"
-    ></ag-grid-data>
-  </nb-card-body>
-</nb-card>
+  </ng-template>
+
+  <ag-grid-data
+    [columnsDefault]="columnsDefault"
+    [rowDataDefault]="rowDataDefault"
+    (removeCellChange)="onDeleteItem($event)"
+    (selectedRowsChange)="onSelectedRowsChangeEvent($event)"
+    [pagination]="true"
+  ></ag-grid-data>
+</app-general-panel>

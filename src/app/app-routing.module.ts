@@ -25,6 +25,20 @@ export const routes: Routes = [
     loadChildren: () => import("./base/base.module").then((m) => m.BaseModule),
   },
   {
+    path: "organization-units",
+    loadChildren: () =>
+      import("./modules/organization-units/organization-units.module").then(
+        (m) => m.OrganizationUnitsModule
+      ),
+  },
+  {
+    path: "system-operation",
+    loadChildren: () =>
+      import("./modules/system-operation/system-operation.module").then(
+        (m) => m.SystemOperationModule
+      ),
+  },
+  {
     path: "auth",
     component: NbAuthComponent,
     children: [

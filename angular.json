@@ -50,7 +50,8 @@
               "includePaths": ["src/assets/base"]
             },
             "allowedCommonJsDependencies": [
-              "jalali-moment"
+              "jalali-moment",
+              "eva-icons"
             ],
             "vendorChunk": true,
             "extractLicenses": false,

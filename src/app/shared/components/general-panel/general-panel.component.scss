@@ -5,6 +5,9 @@ $name: 'general-panel';
   flex-direction: column;
   min-height: 100%;
   background-color: $background-primary;
+  border: $radius-x1 solid #ccc;
+  border-radius: $radius-x1;
+  position: relative;
 
   &__content {
     flex: 1;
@@ -15,7 +18,16 @@ $name: 'general-panel';
       padding: 0 !important;
     }
   }
-
+  &__title {
+    @include heading-4;
+    color: $content-primary;
+    margin: 0;
+    top: -1rem;
+    background-color:white;
+    color: $red;
+    z-index: 12;
+    position: absolute;
+  }
   &__header {
     position: sticky;
     top: 0;

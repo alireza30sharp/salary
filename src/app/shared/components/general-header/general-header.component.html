@@ -1,4 +1,4 @@
-<section class="general-header text-right">
+<section class="general-header text-right mt-3">
   <ng-container
     *ngIf="icon; else backButtonTemplate"
     [ngTemplateOutlet]="icon"
@@ -12,11 +12,11 @@
       ></button>
     </ng-container>
   </ng-template>
+
+  <ng-content></ng-content>
   <div class="general-header__content">
-    <h2 class="general-header__title text-right">{{ title }}</h2>
     <h3 *ngIf="subtitle" class="general-header__subtitle text-right">
       {{ subtitle }}
     </h3>
   </div>
-  <ng-content></ng-content>
 </section>

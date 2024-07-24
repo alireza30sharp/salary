@@ -19,7 +19,7 @@ import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { HTTP_INTERCEPTORS, HttpRequest } from "@angular/common/http";
 import { NgSelectModule } from "@ng-select/ng-select";
-import { NbSpinnerModule, NbToastrModule } from "@nebular/theme";
+import { NbIconModule, NbSpinnerModule, NbToastrModule } from "@nebular/theme";
 import * as Ag from "ag-grid-angular";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import * as grid from "./components/ag-grid";
@@ -89,13 +89,12 @@ const component = [
     NgbModule,
     AngularSplitModule,
     ThemeModule.forRoot(),
-
+    NbIconModule,
     NbToastrModule.forRoot({
       toastClass: "z-index-9",
       duration: 9000,
       limit: 1002,
     }),
-
     ngFormsModule,
     DevexpressModule,
     NgxMaskModule.forRoot(),
@@ -103,6 +102,7 @@ const component = [
   ],
 
   exports: [
+    NbIconModule,
     ThemeModule,
     ngFormsModule,
     NgSelectModule,

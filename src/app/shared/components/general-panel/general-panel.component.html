@@ -4,10 +4,11 @@
   [style.overflow]="overflow"
   [class.general-panel--no-padding]="noPadding"
 >
-  <ng-container *ngIf="backCallback.observed; else headerWithoutBackButtonEmitter">
+  <ng-container
+    *ngIf="backCallback.observed; else headerWithoutBackButtonEmitter"
+  >
     <app-general-header
       class="general-panel__header"
-      [title]="title"
       [subtitle]="subtitle"
       [hideBackButton]="hideBackButton"
       [backButtonTooltip]="backButtonTooltip"
@@ -24,7 +25,6 @@
   <ng-template #headerWithoutBackButtonEmitter>
     <app-general-header
       class="general-panel__header"
-      [title]="title"
       [subtitle]="subtitle"
       [hideBackButton]="hideBackButton"
       [backButtonTooltip]="backButtonTooltip"
@@ -43,6 +43,8 @@
     [style.overflow]="contentOverflow"
     [class.general-panel__content--no-padding]="noContentPadding"
   >
+    <h2 class="general-panel__title pl-4 pr-4 text-right">{{ title }}</h2>
+
     <ng-content></ng-content>
   </section>
   <ng-container *ngIf="footer">
