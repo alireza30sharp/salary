@@ -48,6 +48,7 @@ import { SharedModule } from "../shared/shared.module";
 import { kiSelectHeaderComponent } from "./components/ki-select-header/ki-select-header.component";
 import { NgSelectModule } from "@ng-select/ng-select";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { NbEvaIconsModule } from "@nebular/eva-icons";
 
 const NB_MODULES = [
   NbLayoutModule,
@@ -69,6 +70,8 @@ const NB_MODULES = [
   NbCheckboxModule,
   NbRadioModule,
   NbStepperModule,
+  NbIconModule,
+  NbEvaIconsModule,
 ];
 const COMPONENTS = [
   kiSelectHeaderComponent,

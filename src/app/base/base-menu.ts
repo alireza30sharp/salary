@@ -42,7 +42,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
       {
         title: "واحد سازمانی",
-        link: "/organization-units",
+        link: "/salary/organization-units",
       },
 
       {
@@ -77,7 +77,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     children: [
       {
         title: "لیست",
-        link: "/system-operation/list",
+        link: "/salary/system-operation/list",
       },
     ],
   },

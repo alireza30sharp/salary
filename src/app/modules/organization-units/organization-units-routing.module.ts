@@ -6,7 +6,7 @@ import { OrganizationUnitsComponent } from "./organization-units.component";
 
 const routes: Routes = [
   {
-    path: "",
+    path: " ",
 
     component: OrganizationUnitsComponent,
   },

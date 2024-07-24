@@ -1,0 +1,424 @@
+@font-face {
+  font-family: iranSansLight;
+  src: url(../../../assets/fonts/ttf/IRANSansDN.ttf) format("ttf"),
+    url(../../../assets/fonts/woff/IRANSansDN_FaNum_Light.woff) format("woff"),
+    url(../../../assets/fonts/eot/IRANSansDN_FaNum_Light.eot) format("eot");
+}
+
+@font-face {
+  font-family: iranYekanNumber;
+  src: url(../../../assets/fonts/iranyekan/ttf/iranyekanwebregularfanum.ttf)
+      format("ttf"),
+    url(../../../assets/fonts/iranyekan/woff/iranyekanwebregularfanum.woff)
+      format("woff"),
+    url(../../../assets/fonts/iranyekan/eot/iranyekanwebregularfanum.eot)
+      format("eot");
+}
+@font-face {
+  font-family: IRANYekanFN;
+  src: url(../../../assets/fonts/iranyekan/ttf/iranyekanwebmediumfanum.ttf)
+      format("ttf"),
+    url(../../../assets/fonts/iranyekan/woff/iranyekanwebmediumfanum.woff)
+      format("woff"),
+    url(../../../assets/fonts/iranyekan/eot/iranyekanwebmediumfanum.eot)
+      format("eot");
+}
+
+@for $i from 10 through 60 {
+  .f-#{$i} {
+    font-size: #{$i}#{px};
+  }
+}
+
+// Border-Radius Css Angular Dynamic:
+@for $i from 0 through 30 {
+  .radius-#{$i} {
+    border-radius: #{$i}#{px};
+  }
+}
+
+// Width-% Css Angular Dynamic:
+@for $i from 0 through 1000 {
+  .w-#{$i} {
+    width: #{$i}#{"%"};
+  }
+}
+
+// Width-px Css Angular Dynamic:
+@for $i from 0 through 1000 {
+  .w-#{$i}px {
+    width: #{$i}#{px};
+  }
+}
+
+// Height-px Css Angular Dynamic:
+@for $i from 0 through 1000 {
+  .h-#{$i}px {
+    height: #{$i}#{px};
+  }
+}
+
+// Height-px Css Angular Dynamic:
+@for $i from -5 through 10 {
+  .z-index-#{$i} {
+    z-index: #{$i};
+  }
+}
+app-accordion {
+  width: 100%;
+}
+.color-primary {
+  color: var(--primary);
+}
+.color-gray {
+  color: var(--gray) !important;
+}
+.bg-primary {
+  background-color: var(--primary);
+}
+.bg-secondery {
+  background-color: var(--color-secondery);
+}
+.br-31xl {
+  border-radius: var(--br-31xl);
+}
+.br-6xl {
+  border-radius: var(--br-6xl);
+}
+.font-bold {
+  font-weight: bold;
+}
+.box-shadow-prim {
+  box-shadow: var(--box-shadow);
+}
+.font-primary {
+  font-family: var(--font-family-primary) !important;
+}
+.font-family-javan {
+  font-family: var(--font-family-javan) !important;
+}
+.row {
+  margin-right: unset;
+  margin-left: unset;
+
+  & .col-lg {
+    width: 33.33333333%;
+  }
+}
+.btn {
+  align-self: stretch;
+  border-radius: var(--br-3xs);
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-mini);
+  box-sizing: border-box;
+  gap: var(--gap-61xl-8);
+  font-family: var(--font-family-iran);
+  box-shadow: var(--box-shadow);
+  border: none;
+}
+.btn-active {
+  background-color: var(--primary);
+  color: var(--color-white);
+}
+.btn-deactive {
+  background-color: var(--color-white);
+  color: var(--primary);
+}
+.btn-info {
+  background-color: var(--color-goldenrod);
+  color: var(--secondery);
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr {
+  margin: 0;
+}
+body {
+  font-family: iranSansLight !important;
+  background-color: #f9fafd;
+  overflow: auto;
+  direction: rtl;
+}
+
+nb-user,
+nb-layout-header,
+nb-card-header,
+nb-menu,
+nb-card-body {
+  font-family: iranSansLight !important;
+  text-align: start;
+}
+a {
+  font-family: iranSansLight !important;
+  text-align: center;
+}
+.rtl {
+  direction: rtl;
+}
+
+.ltr {
+  direction: ltr;
+}
+
+.right-0 {
+  right: 0;
+}
+
+.h-96-5vh {
+  height: 96.5vh;
+}
+
+.m-0-auto {
+  margin: 0 auto;
+}
+
+.min-h-523px {
+  min-height: 523px;
+}
+
+.min-h-544px {
+  min-height: 544px;
+}
+
+.min-w-unset {
+  min-width: unset;
+}
+
+.pb-4-5-rem {
+  padding-bottom: 4.5rem;
+}
+
+@media (min-width: 1000px) {
+  .modal-dialog {
+    max-width: 300px;
+  }
+}
+
+@media (min-width: 576px) {
+  .modal-dialog {
+    max-width: 700px;
+  }
+}
+.modal-content {
+  border-radius: 50px !important;
+}
+// .modal-header {
+//   padding: 1.5rem 0;
+// }
+
+// .modal-body {
+//   padding: 1.5rem 0;
+//   display: flex;
+//   flex-direction: column;
+// }
+
+// .modal-footer {
+//   padding: 1.5rem 0;
+// }
+
+.modal {
+  backdrop-filter: blur(5px);
+  transition: transform 0.3s ease-out;
+}
+
+/* Calendar one week Start */
+ngb-modal-window {
+  .dp-calendar-week {
+    display: none;
+  }
+
+  .dp-calendar-wrapper div:nth-child(2) {
+    display: flex;
+  }
+  /* Calendar one week END */
+
+  dp-calendar-nav .dp-nav-header {
+    left: unset;
+    top: 54%;
+    right: 25px;
+  }
+
+  dp-calendar-nav .dp-nav-btns-container {
+    gap: 25px;
+  }
+
+  .btn-check:checked + .btn,
+  :not(.btn-check) + .btn:active,
+  .btn:first-child:active,
+  .btn.active,
+  .btn.show {
+    color: var(--blue);
+    background-color: var(--blue-sky);
+    border: 1px solid var(--blue);
+  }
+}
+
+@media screen and (min-width: 10px) and (max-width: 1000px) {
+  .row {
+    & .col-lg {
+      width: 100%;
+    }
+  }
+
+  /* Mobile 3D Rotate Modal Start */
+  .modal.fade .modal-dialog {
+    transition: transform 0.5s ease-out;
+    transform: translateY(1000px);
+  }
+
+  .modal.show .modal-dialog {
+    transform: translateX(0);
+  }
+  /* Mobile 3D Rotate Modal END */
+
+  .modal {
+    overflow: hidden;
+
+    &.show .modal-dialog {
+      height: 100%;
+      align-items: end;
+      margin: 0;
+
+      & .modal-content {
+        border-radius: 20px 20px 0 0;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1001px) and (max-width: 6000px) {
+  /* 3D Rotate Modal Start */
+  .modal.fade .modal-dialog {
+    transition: transform 0.5s ease-out;
+    transform: rotate3d(3, 6, 1, 70deg);
+  }
+
+  .modal.show .modal-dialog {
+    transform: none;
+  }
+  /* 3D Rotate Modal END */
+}
+
+@media screen and (min-width: 10px) and (max-width: 1300px) {
+  .w-20 {
+    width: 33%;
+  }
+
+  .ps-child-0 {
+    & div:nth-child(3n + 3) {
+      padding-left: 0;
+    }
+  }
+}
+
+@media screen and (min-width: 1301px) and (max-width: 1600px) {
+  .w-20 {
+    width: 25%;
+  }
+}
+
+@media screen and (min-width: 1601px) and (max-width: 1920px) {
+  .ps-child-0 {
+    & div:nth-child(5n + 5) {
+      padding-left: 0;
+    }
+  }
+}
+
+@media screen and (min-width: 1921px) and (max-width: 2560px) {
+  .w-20 {
+    width: 16.6%;
+  }
+}
+
+@media screen and (min-width: 2561px) and (max-width: 5000px) {
+  .w-20 {
+    width: 14.2%;
+  }
+}
+/* END inputs Styles */
+
+/*  َAnimation Style
+
+
+*/
+@keyframes rotate360 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+//move
+@keyframes moveAcross {
+  0% {
+    top: 0;
+    left: 0;
+  }
+  25% {
+    top: 0;
+    left: 50%;
+  }
+  50% {
+    top: 100%;
+    left: 100%;
+  }
+  75% {
+    top: 100%;
+    left: 50%;
+  }
+  100% {
+    top: 0;
+    left: 0;
+  }
+}
+@keyframes moveAndRotate {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(90vh) rotate(180deg);
+  }
+  100% {
+    transform: translateY(0) rotate(360deg);
+  }
+}
+
+@keyframes moveForward {
+  0% {
+    transform: translateX(0) rotate(0deg);
+  }
+  50% {
+    transform: translateX(20px) rotate(15deg);
+    transform: translateY(20px) rotate(15deg);
+  }
+  100% {
+    transform: translateX(0) rotate(0deg);
+    transform: translateY(0px) rotate(0deg);
+  }
+}
+
+@keyframes moveBackward {
+  0% {
+    transform: translateX(0) rotate(0deg);
+  }
+  50% {
+    transform: translateX(-20px) rotate(-15deg);
+    transform: translateY(20px) rotate(15deg);
+  }
+  100% {
+    transform: translateX(0) rotate(0deg);
+    transform: translateY(0px) rotate(0deg);
+  }
+}

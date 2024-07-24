@@ -1,90 +1,72 @@
-// @nebular theming framework
-@import '@nebular/theme/styles/theming';
-// @nebular out of the box themes
-@import '@nebular/theme/styles/themes';
+@forward "@nebular/theme/styles/theming";
+@use "@nebular/theme/styles/theming" as *;
+@use "@nebular/theme/styles/themes" as *;
+$nb-enable-css-custom-properties: true;
+$nb-themes: nb-register-theme((), dark, dark);
+$nb-themes: nb-register-theme((), cosmic, cosmic);
+$nb-themes: nb-register-theme((), corporate, corporate);
+$nb-themes: nb-register-theme((), default, default);
 
-$nb-themes: nb-register-theme((
-  layout-padding-top: 2.25rem,
-
-  menu-item-icon-margin: 0 0.5rem 0 0,
-
-  card-height-tiny: 13.5rem,
-  card-height-small: 21.1875rem,
-  card-height-medium: 28.875rem,
-  card-height-large: 36.5625rem,
-  card-height-giant: 44.25rem,
-  card-margin-bottom: 1.875rem,
-  card-header-with-select-padding-top: 0.5rem,
-  card-header-with-select-padding-bottom: 0.5rem,
-
-  select-min-width: 6rem,
-
-  slide-out-background: #f7f9fc,
-  slide-out-shadow-color: 0 4px 14px 0 #8f9bb3,
-  slide-out-shadow-color-rtl: 0 4px 14px 0 #8f9bb3,
-), default, default);
-
-$nb-themes: nb-register-theme((
-  layout-padding-top: 2.25rem,
-
-  menu-item-icon-margin: 0 0.5rem 0 0,
-
-  card-height-tiny: 13.5rem,
-  card-height-small: 21.1875rem,
-  card-height-medium: 28.875rem,
-  card-height-large: 36.5625rem,
-  card-height-giant: 44.25rem,
-  card-margin-bottom: 1.875rem,
-  card-header-with-select-padding-top: 0.5rem,
-  card-header-with-select-padding-bottom: 0.5rem,
-
-  select-min-width: 6rem,
-
-  slide-out-background: #252547,
-  slide-out-shadow-color: 2px 0 3px #29157a,
-  slide-out-shadow-color-rtl: -2px 0 3px #29157a,
-), cosmic, cosmic);
-
-$nb-themes: nb-register-theme((
-  layout-padding-top: 2.25rem,
-
-  menu-item-icon-margin: 0 0.5rem 0 0,
-
-  card-height-tiny: 13.5rem,
-  card-height-small: 21.1875rem,
-  card-height-medium: 28.875rem,
-  card-height-large: 36.5625rem,
-  card-height-giant: 44.25rem,
-  card-margin-bottom: 1.875rem,
-  card-header-with-select-padding-top: 0.5rem,
-  card-header-with-select-padding-bottom: 0.5rem,
-
-  select-min-width: 6rem,
-
-  slide-out-background: linear-gradient(270deg, #edf1f7 0%, #e4e9f2 100%),
-  slide-out-shadow-color: 0 4px 14px 0 #8f9bb3,
-  slide-out-shadow-color-rtl: 0 4px 14px 0 #8f9bb3,
-), corporate, corporate);
-
-$nb-themes: nb-register-theme((
-  layout-padding-top: 2.25rem,
-  secondery:#ff9900,
-  gray:#9FA1Af,
-  red:#961B1E,
-  menu-item-icon-margin: 0 0.5rem 0 0,
-
-  card-height-tiny: 13.5rem,
-  card-height-small: 21.1875rem,
-  card-height-medium: 28.875rem,
-  card-height-large: 36.5625rem,
-  card-height-giant: 44.25rem,
-  card-margin-bottom: 1.875rem,
-  card-header-with-select-padding-top: 0.5rem,
-  card-header-with-select-padding-bottom: 0.5rem,
-
-  select-min-width: 6rem,
-
-  slide-out-background: linear-gradient(270deg, #222b45 0%, #151a30 100%),
-  slide-out-shadow-color: 0 4px 14px 0 #8f9bb3,
-  slide-out-shadow-color-rtl: 0 4px 14px 0 #8f9bb3,
-), dark, dark);
+$nb-themes: nb-register-theme(
+  (
+    color-100: #feb800,
+    color-primary-default: #feb800,
+    color-main-100: #019da4,
+    gray: #9fa1af,
+    red: #961b1e,
+    button-hero-primary-left-background-color: #019da4,
+    button-hero-primary-right-background-color: #04656c,
+    border-main-radius: 15px,
+    font-iranyekanfn: IRANYekanFN,
+    font-family-primary: iranYekanNumber,
+    font-family-secondary: iranSansDNBold,
+    font-family-iran: iranSansDNnn,
+    font-iranyekanmsn: IRANYekanFN,
+    font-iranyekanweb: iranSansDNnn,
+    font-size-smi: 13px,
+    font-size-xl: 14px,
+    font-size-lg: 18px,
+    font-size-xs: 10px,
+    font-size-sm: 12px,
+    font-size-5xl: 24px,
+    font-size-base: 16px,
+    color-white: #fff,
+    color-darkslategray: #384045,
+    primary: #019da4,
+    color-powderblue: #b7dce2,
+    color-whitesmoke: #ebebeb,
+    black1: #000,
+    color-black: #000,
+    border-color: #e6e6e6,
+    color-orange: rgba(241, 165, 1, 0.15),
+    color-goldenrod: rgba(231, 166, 0, 0.1),
+    color-gainsboro: #d9d9d9,
+    secondery: #ff9900,
+    color-secondery: #b7dce2,
+    gap-5xl: 24px,
+    gap-xs: 12px,
+    gap-8xs: 5px,
+    gap-5xs: 8px,
+    gap-7xs: 0.375rem,
+    gap-22xl: 41px,
+    gap-base: 16px,
+    gap-41xl: 60px,
+    gap-smi: 13px,
+    padding-5xs: 8px,
+    padding-3xs: 10px,
+    padding-11xl: 30px,
+    padding-xl: 20px,
+    padding-8xs: 5px,
+    padding-6xl: 25px,
+    padding-mini: 15px,
+    br-11xl: 30px,
+    br-8xs: 5px,
+    br-6xl: 25px,
+    br-3xs: 10px,
+    br-31xl: 50px,
+    bold-size: 1rem,
+    box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1),
+  ),
+  default,
+  default
+);

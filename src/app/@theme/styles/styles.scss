@@ -1,9 +1,3 @@
-// @font-face {
-//   font-family: iranYekanNumber;
-//   src: url(../../../assets/fonts/ttf/iranyekanwebregularfanum.ttf) format("ttf"),
-//     url(../../../assets/fonts/woff/iranyekanwebregularfanum.woff) format("woff"),
-//     url(../../../assets/fonts/eot/iranyekanwebregularfanum.eot) format("eot");
-// }
 @use "themes" as *;
 
 @use "@nebular/theme/styles/globals" as *;
@@ -11,6 +5,7 @@
 @include nb-install() {
   @include nb-theme-global();
 }
+@import "app.scss";
 a,
 li,
 ul,
@@ -44,7 +39,7 @@ textarea,
 label,
 nb-card-header,
 nb-card-body {
-  font-family: iranYekanNumber !important;
+  font-family: var(--font-family-primary) !important;
   text-align: start;
 }
 nb-card-body {
@@ -53,19 +48,19 @@ nb-card-body {
 app-tools-bar {
   overflow: auto !important;
 }
-.highlight{
+.highlight {
   color: var(--red) !important;
 }
-.center-content{
+.center-content {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
 }
 input::placeholder {
-  font-family: iranYekanNumber !important;
+  font-family: var(--font-family-primary) !important;
 }
 body {
-  font-family: iranYekanNumber !important;
+  font-family: var(--font-family-primary) !important;
   background-color: #f8f8f8 !important;
   overflow: hidden;
   direction: rtl;
@@ -113,17 +108,6 @@ ag-grid-angular {
 .modal-body {
   line-height: 2rem;
 }
-// themes - our custom or/and out of the box themes
-
-
-// framework component themes (styles tied to theme variables)
-
-
-// loading progress bar theme
-
-
-
-// install the framework and custom global styles
 
 * {
   text-align: start;

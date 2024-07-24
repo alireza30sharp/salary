@@ -89,7 +89,6 @@ const component = [
     NgbModule,
     AngularSplitModule,
     ThemeModule.forRoot(),
-    NbIconModule,
     NbToastrModule.forRoot({
       toastClass: "z-index-9",
       duration: 9000,
@@ -102,7 +101,6 @@ const component = [
   ],
 
   exports: [
-    NbIconModule,
     ThemeModule,
     ngFormsModule,
     NgSelectModule,

@@ -68,6 +68,20 @@ const routes: Routes = [
           import("./layout/layout.module").then((m) => m.LayoutModule),
       },
       {
+        path: "organization-units",
+        loadChildren: () =>
+          import(
+            "../modules/organization-units/organization-units.module"
+          ).then((m) => m.OrganizationUnitsModule),
+      },
+      {
+        path: "system-operation",
+        loadChildren: () =>
+          import("../modules/system-operation/system-operation.module").then(
+            (m) => m.SystemOperationModule
+          ),
+      },
+      {
         path: "",
         redirectTo: "work-shops",
         pathMatch: "full",
