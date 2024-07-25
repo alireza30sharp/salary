@@ -6,7 +6,6 @@ import { WorkShopsFormModalComponent } from "../../components/templates";
 import { AgGridInterFace } from "../../../shared/interfaces/ag-grid.interface";
 import { propertyOf } from "../../../shared/utilities/property-of";
 import { finalize } from "rxjs";
-import { NbThemeService } from "@nebular/theme";
 import { TourService } from "../../../shared/services/tour.service";
 import { STEPS_BUTTONS } from "../../../shared/models/shepherd-config";
 import { Router } from "@angular/router";
@@ -89,7 +88,8 @@ export class WorkShopsListComponent implements OnInit {
     private _workShopsService: WorkShopsService,
     private _modalService: ModalService,
     private _tourService: TourService,
-    private _router: Router
+    private _router: Router,
+    private _toastService: ToastService
   ) {}
   ngOnInit(): void {
     this.getWorkShopList();

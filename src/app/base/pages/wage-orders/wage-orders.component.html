@@ -73,11 +73,20 @@
     </div>
   </div>
   <div class="row">
-    <ki-form-group class="col-12" [label]="'توضیحات'">
+    <ki-form-group class="col-8" [label]="'توضیحات'">
       <ki-textarea
         [fullWidth]="true"
         [(ngModel)]="wageOrdersModel.comment"
       ></ki-textarea>
+    </ki-form-group>
+    <ki-form-group class="col-2">
+      <ki-button
+        [btnType]="'primary'"
+        [showLoading]="showLoading"
+        [title]="'جستجو'"
+        (clickCallback)="clickSearchHander()"
+      >
+      </ki-button>
     </ki-form-group>
   </div>
 

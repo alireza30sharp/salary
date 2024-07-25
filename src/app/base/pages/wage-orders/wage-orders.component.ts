@@ -26,11 +26,14 @@ import {
   clientPrerequisitsInterface,
 } from "../../../shared/models/clientPrerequisits";
 import { SelectOptionInterface } from "../../../shared/interfaces/select-option.interface";
+import { WageOrdersService } from "../../services/wage-orders.service";
+import { DateUtilies } from "../../../shared/utilities/Date";
 
 @Component({
   selector: "app-wage-orders",
   templateUrl: "./wage-orders.component.html",
   styleUrls: ["./wage-orders.component.scss"],
+  providers: [WageOrdersService],
 })
 export class WageOrdersComponent implements OnInit {
   employeList?: SelectOptionInterface<any>[];
@@ -98,6 +101,7 @@ export class WageOrdersComponent implements OnInit {
   rowDataDefault = new Array<BenefitDeductionDto>();
   selectRow = new Array<BenefitDeductionDto>();
   isShowLoadingDelete: boolean = false;
+  showLoading: boolean = false;
   isShowLoadingRefrash: boolean = false;
   wageOrdersModel = new wageOrdersDto();
   persianBirthDate: NgbDateStruct;
@@ -108,7 +112,8 @@ export class WageOrdersComponent implements OnInit {
     private _modalService: ModalService,
     private _changeWorkShops: ChangeWorkShopsService,
     private _selectListService: SelectListService,
-    private _clientPrerequis: ClientPrerequisitsService
+    private _clientPrerequis: ClientPrerequisitsService,
+    private _wageOrdersService: WageOrdersService
   ) {
     this._clientPrerequis.getClientPrerequisits().subscribe((res) => {
       if (res.isOk) {
@@ -133,9 +138,31 @@ export class WageOrdersComponent implements OnInit {
       this.wageOrdersModel.workShopId = +workShopId;
     });
   }
+  clickSearchHander() {
+    debugger;
+    this.showLoading = true;
+    this.wageOrdersModel.persianStartDate = DateUtilies.convertDate(
+      this.persianBirthDate
+    );
+    if (this.wageOrdersModel.details.length > 0) {
+      this._wageOrdersService
+        .create(this.wageOrdersModel)
+        .pipe(
+          finalize(() => {
+            this.showLoading = false;
+          })
+        )
+        .subscribe({
+          next: (res) => {
+            console.table(res);
+          },
+        });
+    }
+  }
   onRefrashSelected() {}
-  saveCellHandeler(e) {
-    console.table(e);
+  saveCellHandeler(details: wageOrderDetailDto[]) {
+    this.wageOrdersModel.details = [];
+    this.wageOrdersModel.details = [...details];
   }
   onSelectedRowsChangeEvent(event: Array<BenefitDeductionDto>) {
     this.selectRow = new Array<BenefitDeductionDto>();

@@ -34,6 +34,7 @@ import { LicenseManager } from "ag-grid-enterprise";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { ShepherdService } from "angular-shepherd";
 import { ClientPrerequisitsService } from "./services/client-prerequisits";
+
 export function GetClientPrerequisits(
   clientPrerequis: ClientPrerequisitsService
 ) {

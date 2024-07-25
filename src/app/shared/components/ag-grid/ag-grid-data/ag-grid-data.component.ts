@@ -7,7 +7,7 @@ import {
 } from "@angular/core";
 
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { isEmpty, Subject } from "rxjs";
+import { Subject } from "rxjs";
 import * as uuid from "uuid";
 import * as XLSX from "xlsx";
 import {
@@ -167,13 +167,7 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
     this.selectedRows = this.gridApi.getSelectedRows();
     this.selectedRowsChange.emit(this.selectedRows);
   }
-  cellEditingStopped(event: CellEditingStoppedEvent) {
-    if ((event.colDef as any).requerd) {
-      if (this.isEmpty(event.value)) {
-        alert("asdasd");
-      }
-    }
-  }
+  cellEditingStopped(event: CellEditingStoppedEvent) {}
   rowClassRules = {
     // apply green to 2008
     "not-valid-rowClassRules": (params) => {
@@ -214,7 +208,11 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
       } else if (key === "+") {
         this.onNewSelected();
       } else if (key === "Enter") {
-        this.SaveSelected();
+        if (!this.validateRequiredFields(e.data, this.columnsTable)) {
+          this.SaveSelected();
+        } else {
+          alert("لطفا فیلد های اجباری را وارد کنید");
+        }
       }
     }
   }
@@ -324,9 +322,7 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
     });
     return result;
   }
-  isEmpty(value: any): boolean {
-    return value === null || value === undefined || value === "";
-  }
+
   onCancel() {
     this.gridApi.stopEditing(true);
     this.rowData = this.rowData.filter((data) => data.isEdited == false);

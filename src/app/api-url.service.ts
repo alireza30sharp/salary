@@ -97,7 +97,8 @@ export class ApiUrlService {
     getById: BASE_URL + "Employees/GetEmployeeInformation",
   };
   BenefitDeductionEmployees = {
-    GetBenefitDeductionEmployeesList: BASE_URL + "BenefitDeductionEmployees/GetBenefitDeductionEmployeesList",
+    GetBenefitDeductionEmployeesList:
+      BASE_URL + "BenefitDeductionEmployees/GetBenefitDeductionEmployeesList",
     Add: BASE_URL + "BenefitDeductionEmployees/Add",
     Delete: BASE_URL + "BenefitDeductionEmployees/Delete",
     Edit: BASE_URL + "BenefitDeductionEmployees/Edit",
@@ -109,5 +110,13 @@ export class ApiUrlService {
     Delete: BASE_URL + "EmploymentOrders/Delete",
     Edit: BASE_URL + "EmploymentOrders/Edit",
     getById: BASE_URL + "EmploymentOrders/GetEmployeeInformation",
+  };
+  WageOrders = {
+    GetWageOrderListOfEmployee:
+      BASE_URL + "WageOrders/GetWageOrderListOfEmployee",
+    Add: BASE_URL + "WageOrders/Add",
+    Delete: BASE_URL + "WageOrders/Delete",
+    Edit: BASE_URL + "WageOrders/Edit",
+    getById: BASE_URL + "WageOrders/GetWageOrderInformationById",
   };
 }
