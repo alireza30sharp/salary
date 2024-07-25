@@ -26,10 +26,7 @@ const routes: Routes = [
         path: "tax",
         component: _pages.TaxListComponent,
       },
-      {
-        path: "wage-orders",
-        component: _pages.WageOrdersComponent,
-      },
+
       {
         path: "education",
         component: _pages.EducationEvidencesListComponent,
@@ -82,6 +79,14 @@ const routes: Routes = [
             (m) => m.SystemOperationModule
           ),
       },
+      {
+        path: "wage-orders",
+        loadChildren: () =>
+          import("../modules/wage-orders/wage-orders.module").then(
+            (m) => m.WageOrdersModule
+          ),
+      },
+
       {
         path: "",
         redirectTo: "system-operation/list",

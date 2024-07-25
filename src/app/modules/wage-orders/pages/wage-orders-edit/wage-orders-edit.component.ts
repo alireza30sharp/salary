@@ -1,41 +1,35 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { ModalService, SelectListService } from "../../../shared/services";
-import { AgGridInterFace } from "../../../shared/interfaces/ag-grid.interface";
-import { propertyOf } from "../../../shared/utilities/property-of";
-import { BenefitDeductionDto } from "../../models/benefit-deduction.model";
-import { ChangeWorkShopsService } from "../../../services/change-work-shop.service";
+import { ModalService, SelectListService } from "../../../../shared/services";
+import { AgGridInterFace } from "../../../../shared/interfaces/ag-grid.interface";
+import { propertyOf } from "../../../../shared/utilities/property-of";
+import { ChangeWorkShopsService } from "../../../../services/change-work-shop.service";
 import { finalize } from "rxjs";
-import {
-  wageOrderDetailDto,
-  wageOrdersDto,
-} from "../../models/wage-orders.model";
 import { NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
-import {
-  maskPrefixCurrencyCharacter,
-  maskPrefixTaxRate,
-} from "../../models/rul";
-import { numberCellFormatter_valueFormatter } from "../../../shared/interfaces/aggrid-master";
+
+import { numberCellFormatter_valueFormatter } from "../../../../shared/interfaces/aggrid-master";
 import {
   CellEditorNumberComponent,
   SelectUnitComponent,
-} from "../../../shared/components/ag-grid";
-import { SelectCellRendererParams } from "../../../shared/components/ag-grid/select-cell-render/select-cell-render";
-import { ClientPrerequisitsService } from "../../../services/client-prerequisits";
+} from "../../../../shared/components/ag-grid";
+import { SelectCellRendererParams } from "../../../../shared/components/ag-grid/select-cell-render/select-cell-render";
+import { ClientPrerequisitsService } from "../../../../services/client-prerequisits";
 import {
   cacheKeyEnum,
   clientPrerequisitsInterface,
-} from "../../../shared/models/clientPrerequisits";
-import { SelectOptionInterface } from "../../../shared/interfaces/select-option.interface";
+} from "../../../../shared/models/clientPrerequisits";
+import { SelectOptionInterface } from "../../../../shared/interfaces/select-option.interface";
+import { DateUtilies } from "../../../../shared/utilities/Date";
 import { WageOrdersService } from "../../services/wage-orders.service";
-import { DateUtilies } from "../../../shared/utilities/Date";
+import { wageOrderDetailDto, wageOrdersDto } from "../../models";
+import { maskPrefixTaxRate } from "../../../../base/models/rul";
 
 @Component({
-  selector: "app-wage-orders",
-  templateUrl: "./wage-orders.component.html",
-  styleUrls: ["./wage-orders.component.scss"],
+  selector: "app-wage-orders-edit",
+  templateUrl: "./wage-orders-edit.component.html",
+  styleUrls: ["./wage-orders-edit.component.scss"],
   providers: [WageOrdersService],
 })
-export class WageOrdersComponent implements OnInit {
+export class WageOrdersEditComponent implements OnInit {
   employeList?: SelectOptionInterface<any>[];
   benefitDeductions?: SelectOptionInterface<any>[];
   columnsDefault: AgGridInterFace[] = [
@@ -98,8 +92,8 @@ export class WageOrdersComponent implements OnInit {
   };
   editType: "fullRow";
 
-  rowDataDefault = new Array<BenefitDeductionDto>();
-  selectRow = new Array<BenefitDeductionDto>();
+  rowDataDefault = new Array<wageOrderDetailDto>();
+  selectRow = new Array<wageOrderDetailDto>();
   isShowLoadingDelete: boolean = false;
   showLoading: boolean = false;
   isShowLoadingRefrash: boolean = false;
@@ -164,8 +158,5 @@ export class WageOrdersComponent implements OnInit {
     this.wageOrdersModel.details = [];
     this.wageOrdersModel.details = [...details];
   }
-  onSelectedRowsChangeEvent(event: Array<BenefitDeductionDto>) {
-    this.selectRow = new Array<BenefitDeductionDto>();
-    this.selectRow = event;
-  }
+  onSelectedRowsChangeEvent(event: Array<wageOrdersDto>) {}
 }

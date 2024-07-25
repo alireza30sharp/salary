@@ -9,6 +9,7 @@ export interface CacheDataInterface {
   name?: string;
   code?: number;
   desc?: string;
+  fullName?: string;
   workShopName?: string;
   isDefault?: boolean;
 }

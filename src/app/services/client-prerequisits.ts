@@ -26,6 +26,7 @@ export class ClientPrerequisitsService {
         .get<any>(this.urlSvc.clientPrerequisits.GetClientPrerequisits, {
           params: {
             Keys: ["WorkShops", "BenefitDeductions", "Employees"],
+            WorkShopId: this.getWorkShopsID(),
           },
         })
         .pipe(
@@ -43,5 +44,12 @@ export class ClientPrerequisitsService {
       console.log(`${operation} failed: ${error.message}`);
       return of(result as T);
     };
+  }
+
+  getWorkShopsID(): number {
+    let WorkShopsID = localStorage.getItem("WorkShopsID");
+    if (WorkShopsID) {
+      return +WorkShopsID;
+    } else return null;
   }
 }
