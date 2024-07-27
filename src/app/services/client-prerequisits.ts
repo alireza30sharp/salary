@@ -47,7 +47,8 @@ export class ClientPrerequisitsService {
   }
 
   getWorkShopsID(): number {
-    let WorkShopsID = localStorage.getItem("WorkShopsID");
+    debugger;
+    let WorkShopsID = +localStorage.getItem("WorkShopsID");
     if (WorkShopsID) {
       return +WorkShopsID;
     } else return null;

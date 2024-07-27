@@ -126,20 +126,7 @@
             </ki-form-group>
           </div>
           <div class="row">
-            <ki-form-group
-              class="col-4"
-              [label]="'تلفن ثابت'"
-              [errorMessage]="
-                telephone.errors?.isInvalid ? 'فرمت اشتباه' : 'فیلد اجباری'
-              "
-              [hideError]="
-                !(
-                  ((telephone.touched || companyForm.submitted) &&
-                    telephone.errors?.required) ||
-                  telephone.errors?.isInvalid
-                )
-              "
-            >
+            <ki-form-group class="col-4" [label]="'تلفن ثابت'">
               <ki-input
                 name="telephone"
                 [type]="'tel'"
@@ -147,20 +134,7 @@
                 #telephone="ngModel"
               ></ki-input>
             </ki-form-group>
-            <ki-form-group
-              class="col-4"
-              [label]="'موبایل'"
-              [errorMessage]="
-                firstMobile.errors?.isInvalid ? 'فرمت اشتباه' : 'فیلد اجباری'
-              "
-              [hideError]="
-                !(
-                  ((firstMobile.touched || companyForm.submitted) &&
-                    firstMobile.errors?.required) ||
-                  firstMobile.errors?.isInvalid
-                )
-              "
-            >
+            <ki-form-group class="col-4" [label]="'موبایل'">
               <ki-input
                 name="firstMobile"
                 [type]="'phone'"
@@ -168,20 +142,7 @@
                 #firstMobile="ngModel"
               ></ki-input>
             </ki-form-group>
-            <ki-form-group
-              class="col-4"
-              [label]="'2 موبایل'"
-              [errorMessage]="
-                firstMobile.errors?.isInvalid ? 'فرمت اشتباه' : 'فیلد اجباری'
-              "
-              [hideError]="
-                !(
-                  ((secondMobile.touched || companyForm.submitted) &&
-                    secondMobile.errors?.required) ||
-                  secondMobile.errors?.isInvalid
-                )
-              "
-            >
+            <ki-form-group class="col-4" [label]="'2 موبایل'">
               <ki-input
                 name="secondMobile"
                 [type]="'phone'"
