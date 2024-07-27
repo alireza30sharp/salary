@@ -14,7 +14,7 @@ export class EmployeDto {
   birthPlace: string;
   insuranceNumber: string;
   issuedPlace: string;
-  gender: number;
+  gender: number = 1;
   firstMobile: string;
   secondMobile: string;
   telephone: string;

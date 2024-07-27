@@ -1,397 +1,286 @@
 <nb-card accent="success">
   <nb-card-header>لطفا فیلد های اجباری را وارد نمایید</nb-card-header>
   <nb-card-body>
-    <form
-      #companyForm="ngForm"
-      (ngSubmit)="!companyForm.invalid && submitHandler(companyForm)"
-    >
-      <div class="row">
-        <ki-form-group
-          class="col-6"
-          [label]="'نام '"
-          [showRequireSign]="true"
-          [errorMessage]="firstName.errors?.required ? 'فیلد اجباری' : ''"
-          [hideError]="
-            !(
-              (firstName.touched || companyForm.submitted) &&
-              firstName.errors?.required
-            )
-          "
-        >
-          <ki-input
-            name="firstName"
-            [setFocusItem]="setFocusItem"
-            [fullWidth]="true"
-            [(ngModel)]="model.firstName"
-            #firstName="ngModel"
-            required
-          ></ki-input>
-        </ki-form-group>
-        <ki-form-group
-          class="col-6"
-          [label]="'نام خانوادگی'"
-          [showRequireSign]="true"
-          [errorMessage]="lastName.errors?.required ? 'فیلد اجباری' : ''"
-          [hideError]="
-            !(
-              (lastName.touched || companyForm.submitted) &&
-              lastName.errors?.required
-            )
-          "
-        >
-          <ki-input
-            name="lastName"
-            [fullWidth]="true"
-            [(ngModel)]="model.lastName"
-            #lastName="ngModel"
-            required
-          ></ki-input>
-        </ki-form-group>
-      </div>
-      <div class="row">
-        <ki-form-group
-          class="col-6"
-          [label]="'نام پدر'"
-          [showRequireSign]="true"
-          [errorMessage]="fatherName.errors?.required ? 'فیلد اجباری' : ''"
-          [hideError]="
-            !(
-              (fatherName.touched || companyForm.submitted) &&
-              fatherName.errors?.required
-            )
-          "
-        >
-          <ki-input
-            name="fatherName"
-            [fullWidth]="true"
-            [(ngModel)]="model.fatherName"
-            #fatherName="ngModel"
-            required
-          ></ki-input>
-        </ki-form-group>
-        <ki-form-group
-          class="col-6"
-          [label]="'کد شناسنامه'"
-          [showRequireSign]="true"
-          [errorMessage]="
-            birthCertificateCode.errors?.required ? 'فیلد اجباری' : ''
-          "
-          [hideError]="
-            !(
-              (birthCertificateCode.touched || companyForm.submitted) &&
-              birthCertificateCode.errors?.required
-            )
-          "
-        >
-          <ki-input
-            name="birthCertificateCode"
-            [fullWidth]="true"
-            [(ngModel)]="model.birthCertificateCode"
-            #birthCertificateCode="ngModel"
-            required
-          ></ki-input>
-        </ki-form-group>
-      </div>
-      <div class="row">
-        <ki-form-group
-          class="col-6"
-          [label]="'کد ملی'"
-          [showRequireSign]="true"
-          [errorMessage]="nationalCode.errors?.required ? 'فیلد اجباری' : ''"
-          [hideError]="
-            !(
-              (nationalCode.touched || companyForm.submitted) &&
-              nationalCode.errors?.required
-            )
-          "
-        >
-          <ki-input
-            name="nationalCode"
-            [fullWidth]="true"
-            [onlyNumber]="true"
-            [maxlength]="10"
-            [(ngModel)]="model.nationalCode"
-            #nationalCode="ngModel"
-            required
-          ></ki-input>
-        </ki-form-group>
-        <ki-form-group
-          class="col-6"
-          [label]="'سریال شناسنامه'"
-          [showRequireSign]="true"
-          [errorMessage]="
-            birthCertificateSerial.errors?.required ? 'فیلد اجباری' : ''
-          "
-          [hideError]="
-            !(
-              (birthCertificateSerial.touched || companyForm.submitted) &&
-              birthCertificateSerial.errors?.required
-            )
-          "
-        >
-          <ki-input
-            name="birthCertificateSerial"
-            [fullWidth]="true"
-            [(ngModel)]="model.birthCertificateSerial"
-            #birthCertificateSerial="ngModel"
-            required
-          ></ki-input>
-        </ki-form-group>
-      </div>
-      <div class="row">
-        <ki-form-group
-          [label]="'تاریخ تولد'"
-          [showRequireSign]="true"
-          class="col-6"
-          [errorMessage]="
-            adjDate.errors?.invalidDate ? 'تاریخ نا معتبر' : 'فیلد اجباری'
-          "
-          [hideError]="
-            !(adjDate.errors?.required || adjDate.errors?.invalidDate)
-          "
-        >
-          <ki-date-picker
-            [(ngModel)]="persianBirthDate"
-            name="adjDate"
-            #adjDate="ngModel"
-            required
-          ></ki-date-picker>
-        </ki-form-group>
-        <ki-form-group
-          class="col-6"
-          [label]="'محل تولد'"
-          [showRequireSign]="true"
-          [errorMessage]="birthPlace.errors?.required ? 'فیلد اجباری' : ''"
-          [hideError]="
-            !(
-              (birthPlace.touched || companyForm.submitted) &&
-              birthPlace.errors?.required
-            )
-          "
-        >
-          <ki-input
-            name="birthPlace"
-            [fullWidth]="true"
-            [(ngModel)]="model.birthPlace"
-            #birthPlace="ngModel"
-            required
-          ></ki-input>
-        </ki-form-group>
-      </div>
-      <div class="row">
-        <ki-form-group
-          class="col-6"
-          [label]="'شماره بیمه'"
-          [showRequireSign]="true"
-          [errorMessage]="insuranceNumber.errors?.required ? 'فیلد اجباری' : ''"
-          [hideError]="
-            !(
-              (insuranceNumber.touched || companyForm.submitted) &&
-              insuranceNumber.errors?.required
-            )
-          "
-        >
-          <ki-input
-            name="insuranceNumber"
-            [fullWidth]="true"
-            [(ngModel)]="model.insuranceNumber"
-            #insuranceNumber="ngModel"
-            required
-          ></ki-input>
-        </ki-form-group>
-        <ki-form-group
-          class="col-6"
-          [label]="'محل صادر شده'"
-          [showRequireSign]="true"
-          [errorMessage]="issuedPlace.errors?.required ? 'فیلد اجباری' : ''"
-          [hideError]="
-            !(
-              (issuedPlace.touched || companyForm.submitted) &&
-              issuedPlace.errors?.required
-            )
-          "
-        >
-          <ki-input
-            name="issuedPlace"
-            [fullWidth]="true"
-            [(ngModel)]="model.issuedPlace"
-            #issuedPlace="ngModel"
-            required
-          ></ki-input>
-        </ki-form-group>
-      </div>
-      <div class="row">
-        <ki-form-group class="col-6" [label]="'جسنیت'">
-          <ki-select
-            #genderID="ngModel"
-            name="gender"
-            [placeholder]="'جنسیت'"
-            [options]="genderOptions"
-            [allowClear]="true"
-            [(ngModel)]="model.gender"
-          >
-          </ki-select>
-        </ki-form-group>
-        <ki-form-group
-          class="col-6"
-          [label]="'موبایل'"
-          [showRequireSign]="true"
-          [errorMessage]="
-            firstMobile.errors?.isInvalid ? 'فرمت اشتباه' : 'فیلد اجباری'
-          "
-          [hideError]="
-            !(
-              ((firstMobile.touched || companyForm.submitted) &&
-                firstMobile.errors?.required) ||
-              firstMobile.errors?.isInvalid
-            )
-          "
-        >
-          <ki-input
-            name="firstMobile"
-            [type]="'phone'"
-            [(ngModel)]="model.firstMobile"
-            #firstMobile="ngModel"
-            required
-          ></ki-input>
-        </ki-form-group>
-      </div>
-      <div class="row">
-        <ki-form-group
-          class="col-6"
-          [label]="'2 موبایل'"
-          [showRequireSign]="false"
-          [errorMessage]="
-            firstMobile.errors?.isInvalid ? 'فرمت اشتباه' : 'فیلد اجباری'
-          "
-          [hideError]="
-            !(
-              ((secondMobile.touched || companyForm.submitted) &&
-                secondMobile.errors?.required) ||
-              secondMobile.errors?.isInvalid
-            )
-          "
-        >
-          <ki-input
-            name="secondMobile"
-            [type]="'phone'"
-            [(ngModel)]="model.secondMobile"
-            #secondMobile="ngModel"
-          ></ki-input>
-        </ki-form-group>
-        <ki-form-group
-          class="col-6"
-          [label]="'تلفن ثابت'"
-          [showRequireSign]="true"
-          [errorMessage]="
-            telephone.errors?.isInvalid ? 'فرمت اشتباه' : 'فیلد اجباری'
-          "
-          [hideError]="
-            !(
-              ((telephone.touched || companyForm.submitted) &&
-                telephone.errors?.required) ||
-              telephone.errors?.isInvalid
-            )
-          "
-        >
-          <ki-input
-            name="telephone"
-            [type]="'tel'"
-            [(ngModel)]="model.telephone"
-            #telephone="ngModel"
-            required
-          ></ki-input>
-        </ki-form-group>
-      </div>
-      <div class="row">
-        <ki-form-group
-          class="col-6"
-          [label]="'ایمیل'"
-          [showRequireSign]="true"
-          [errorMessage]="
-            email.errors?.isInvalid ? 'فرمت اشتباه' : 'فیلد اجباری'
-          "
-          [hideError]="
-            !(
-              ((email.touched || companyForm.submitted) &&
-                email.errors?.required) ||
-              email.errors?.isInvalid
-            )
-          "
-        >
-          <ki-input
-            name="email"
-            [type]="'emial'"
-            [(ngModel)]="model.email"
-            #email="ngModel"
-            required
-          ></ki-input>
-        </ki-form-group>
-        <ki-form-group
-          class="col-6"
-          [label]="'کد پرسنلی'"
-          [showRequireSign]="true"
-          [errorMessage]="personnelCode.errors?.required ? 'فیلد اجباری' : ''"
-          [hideError]="
-            !(
-              (personnelCode.touched || companyForm.submitted) &&
-              personnelCode.errors?.required
-            )
-          "
-        >
-          <ki-input
-            name="personnelCode"
-            [fullWidth]="true"
-            [(ngModel)]="model.personnelCode"
-            #personnelCode="ngModel"
-            required
-          ></ki-input>
-        </ki-form-group>
-      </div>
-      <div class="row">
-        <ki-form-group
-          class="col-12"
-          [label]="'آدرس'"
-          [showRequireSign]="true"
-          [errorMessage]="address.errors?.required ? 'فیلد اجباری' : ''"
-          [hideError]="
-            !(
-              (address.touched || companyForm.submitted) &&
-              address.errors?.required
-            )
-          "
-        >
-          <ki-textarea
-            name="address"
-            [fullWidth]="true"
-            [(ngModel)]="model.address"
-            #address="ngModel"
-            required
-          ></ki-textarea>
-        </ki-form-group>
-      </div>
-      <div class="row">
-        <ki-form-group
-          class="col-12"
-          [label]="'توضیحات'"
-          [showRequireSign]="true"
-          [errorMessage]="comment.errors?.required ? 'فیلد اجباری' : ''"
-          [hideError]="
-            !(
-              (comment.touched || companyForm.submitted) &&
-              comment.errors?.required
-            )
-          "
-        >
-          <ki-textarea
-            name="comment"
-            [fullWidth]="true"
-            [(ngModel)]="model.comment"
-            #comment="ngModel"
-            required
-          ></ki-textarea>
-        </ki-form-group>
-      </div>
+    <form #companyForm="ngForm" (ngSubmit)="submitHandler(companyForm)">
+      <ki-tab-group
+        #tabGroup
+        [height]="'100%'"
+        [overflow]="'auto'"
+        [isSticky]="true"
+        [noLayout]="true"
+        [bordered]="true"
+      >
+        <ki-tab [text]="'اطلاعات پرسنلی'">
+          <div class="row">
+            <ki-form-group
+              class="col-12"
+              [label]="'کد پرسنلی'"
+              [showRequireSign]="true"
+              [errorMessage]="
+                personnelCode.errors?.required ? 'فیلد اجباری' : ''
+              "
+              [hideError]="
+                !(
+                  (personnelCode.touched || companyForm.submitted) &&
+                  personnelCode.errors?.required
+                )
+              "
+            >
+              <ki-input
+                name="personnelCode"
+                [fullWidth]="true"
+                [(ngModel)]="model.personnelCode"
+                #personnelCode="ngModel"
+                required
+              ></ki-input>
+            </ki-form-group>
+          </div>
+          <div class="row">
+            <ki-form-group
+              class="col-4"
+              [label]="'نام '"
+              [showRequireSign]="true"
+              [errorMessage]="firstName.errors?.required ? 'فیلد اجباری' : ''"
+              [hideError]="
+                !(
+                  (firstName.touched || companyForm.submitted) &&
+                  firstName.errors?.required
+                )
+              "
+            >
+              <ki-input
+                name="firstName"
+                [setFocusItem]="setFocusItem"
+                [fullWidth]="true"
+                [(ngModel)]="model.firstName"
+                #firstName="ngModel"
+                required
+              ></ki-input>
+            </ki-form-group>
+            <ki-form-group
+              class="col-4"
+              [label]="'نام خانوادگی'"
+              [showRequireSign]="true"
+              [errorMessage]="lastName.errors?.required ? 'فیلد اجباری' : ''"
+              [hideError]="
+                !(
+                  (lastName.touched || companyForm.submitted) &&
+                  lastName.errors?.required
+                )
+              "
+            >
+              <ki-input
+                name="lastName"
+                [fullWidth]="true"
+                [(ngModel)]="model.lastName"
+                #lastName="ngModel"
+                required
+              ></ki-input>
+            </ki-form-group>
+            <ki-form-group class="col-4" [label]="'جسنیت'">
+              <ki-select
+                #genderID="ngModel"
+                name="gender"
+                [placeholder]="'جنسیت'"
+                [options]="genderOptions"
+                [allowClear]="true"
+                [(ngModel)]="model.gender"
+              >
+              </ki-select>
+            </ki-form-group>
+          </div>
+          <div class="row">
+            <ki-form-group class="col-4" [label]="'کد ملی'">
+              <ki-input
+                name="nationalCode"
+                [fullWidth]="true"
+                [onlyNumber]="true"
+                [maxlength]="10"
+                [(ngModel)]="model.nationalCode"
+                #nationalCode="ngModel"
+              ></ki-input>
+            </ki-form-group>
+            <ki-form-group
+              [label]="'تاریخ تولد'"
+              class="col-4"
+              [errorMessage]="
+                adjDate.errors?.invalidDate ? 'تاریخ نا معتبر' : 'فیلد اجباری'
+              "
+              [hideError]="
+                !(adjDate.errors?.required || adjDate.errors?.invalidDate)
+              "
+            >
+              <ki-date-picker
+                [(ngModel)]="persianBirthDate"
+                name="adjDate"
+                #adjDate="ngModel"
+              ></ki-date-picker>
+            </ki-form-group>
+            <ki-form-group class="col-4" [label]="'شماره بیمه'">
+              <ki-input
+                name="insuranceNumber"
+                [fullWidth]="true"
+                [(ngModel)]="model.insuranceNumber"
+                #insuranceNumber="ngModel"
+              ></ki-input>
+            </ki-form-group>
+          </div>
+          <div class="row">
+            <ki-form-group
+              class="col-4"
+              [label]="'تلفن ثابت'"
+              [errorMessage]="
+                telephone.errors?.isInvalid ? 'فرمت اشتباه' : 'فیلد اجباری'
+              "
+              [hideError]="
+                !(
+                  ((telephone.touched || companyForm.submitted) &&
+                    telephone.errors?.required) ||
+                  telephone.errors?.isInvalid
+                )
+              "
+            >
+              <ki-input
+                name="telephone"
+                [type]="'tel'"
+                [(ngModel)]="model.telephone"
+                #telephone="ngModel"
+              ></ki-input>
+            </ki-form-group>
+            <ki-form-group
+              class="col-4"
+              [label]="'موبایل'"
+              [errorMessage]="
+                firstMobile.errors?.isInvalid ? 'فرمت اشتباه' : 'فیلد اجباری'
+              "
+              [hideError]="
+                !(
+                  ((firstMobile.touched || companyForm.submitted) &&
+                    firstMobile.errors?.required) ||
+                  firstMobile.errors?.isInvalid
+                )
+              "
+            >
+              <ki-input
+                name="firstMobile"
+                [type]="'phone'"
+                [(ngModel)]="model.firstMobile"
+                #firstMobile="ngModel"
+              ></ki-input>
+            </ki-form-group>
+            <ki-form-group
+              class="col-4"
+              [label]="'2 موبایل'"
+              [errorMessage]="
+                firstMobile.errors?.isInvalid ? 'فرمت اشتباه' : 'فیلد اجباری'
+              "
+              [hideError]="
+                !(
+                  ((secondMobile.touched || companyForm.submitted) &&
+                    secondMobile.errors?.required) ||
+                  secondMobile.errors?.isInvalid
+                )
+              "
+            >
+              <ki-input
+                name="secondMobile"
+                [type]="'phone'"
+                [(ngModel)]="model.secondMobile"
+                #secondMobile="ngModel"
+              ></ki-input>
+            </ki-form-group>
+          </div>
+        </ki-tab>
+
+        <ki-tab [text]="'اطلاعات کارمند'">
+          <div class="row">
+            <ki-form-group class="col-4" [label]="'محل تولد'">
+              <ki-input
+                name="birthPlace"
+                [fullWidth]="true"
+                [(ngModel)]="model.birthPlace"
+                #birthPlace="ngModel"
+              ></ki-input>
+            </ki-form-group>
+            <ki-form-group class="col-4" [label]="'محل صدور'">
+              <ki-input
+                name="issuedPlace"
+                [fullWidth]="true"
+                [(ngModel)]="model.issuedPlace"
+                #issuedPlace="ngModel"
+              ></ki-input>
+            </ki-form-group>
+            <ki-form-group class="col-4" [label]="'شماره شناسنامه'">
+              <ki-input
+                name="birthCertificateCode"
+                [fullWidth]="true"
+                [(ngModel)]="model.birthCertificateCode"
+                #birthCertificateCode="ngModel"
+              ></ki-input>
+            </ki-form-group>
+          </div>
+          <div class="row">
+            <ki-form-group class="col-4" [label]="'سریال شناسنامه'">
+              <ki-input
+                name="birthCertificateSerial"
+                [fullWidth]="true"
+                [(ngModel)]="model.birthCertificateSerial"
+                #birthCertificateSerial="ngModel"
+              ></ki-input>
+            </ki-form-group>
+            <ki-form-group class="col-4" [label]="'نام پدر'">
+              <ki-input
+                name="fatherName"
+                [fullWidth]="true"
+                [(ngModel)]="model.fatherName"
+                #fatherName="ngModel"
+              ></ki-input>
+            </ki-form-group>
+            <ki-form-group
+              class="col-3"
+              [label]="'ایمیل'"
+              [errorMessage]="
+                email.errors?.isInvalid ? 'فرمت اشتباه' : 'فیلد اجباری'
+              "
+              [hideError]="
+                !(
+                  ((email.touched || companyForm.submitted) &&
+                    email.errors?.required) ||
+                  email.errors?.isInvalid
+                )
+              "
+            >
+              <ki-input
+                name="email"
+                [type]="'emial'"
+                [(ngModel)]="model.email"
+                #email="ngModel"
+              ></ki-input>
+            </ki-form-group>
+          </div>
+          <div class="row">
+            <ki-form-group class="col-12" [label]="'آدرس'">
+              <ki-textarea
+                name="address"
+                [fullWidth]="true"
+                [(ngModel)]="model.address"
+                #address="ngModel"
+              ></ki-textarea>
+            </ki-form-group>
+          </div>
+          <div class="row">
+            <ki-form-group class="col-12" [label]="'توضیحات'">
+              <ki-textarea
+                name="comment"
+                [fullWidth]="true"
+                [(ngModel)]="model.comment"
+                #comment="ngModel"
+              ></ki-textarea>
+            </ki-form-group>
+          </div>
+        </ki-tab>
+        <!--------------->
+      </ki-tab-group>
       <input type="submit" [hidden]="true" [attr.id]="submitButtonId" />
     </form>
   </nb-card-body>
