@@ -86,10 +86,12 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
         if (WorkShops) {
           this.WorkShopsOptions = WorkShops;
           let findDefult = WorkShops.find((f) => f.isDefault == true);
-          if (findDefult) {
-            this.WorkShopsID = +findDefult.value;
-          } else {
-            this.WorkShopsID = +WorkShops[0].value;
+          if (!this.WorkShopsID) {
+            if (findDefult) {
+              this.WorkShopsID = +findDefult.value;
+            } else {
+              this.WorkShopsID = +WorkShops[0].value;
+            }
           }
         }
       }
