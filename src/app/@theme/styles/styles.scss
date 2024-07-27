@@ -23,7 +23,8 @@ span:not(
     .dx-icon-clear,
     .fa-solid,
     .fa-share-nodes,
-    .fa-ellipsis-vertical
+    .fa-ellipsis-vertical,
+    .ki-tab__button-error
   ),
 p,
 h1,
@@ -33,7 +34,7 @@ h4,
 h5,
 h6,
 input,
-button:not(.btn-close,.general-header__back-button),
+button:not(.btn-close, .general-header__back-button),
 section,
 textarea,
 label,

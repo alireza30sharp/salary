@@ -24,6 +24,7 @@ export class TabDirective implements OnDestroy {
   @Input("appTabOtherSide") otherSide?: boolean;
   @Input("appTabContentHeight") contentHeight?: string;
   @Input("appTabOverflow") overflow?: OverflowType;
+  @Input("appTabError") error?: string;
 
   constructor(
     private vcr: ViewContainerRef,

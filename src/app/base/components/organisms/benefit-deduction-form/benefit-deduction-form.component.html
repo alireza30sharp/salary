@@ -56,18 +56,7 @@
         </ki-form-group>
       </div>
       <div class="row">
-        <ki-form-group
-          class="col-6"
-          [label]="'معین'"
-          [showRequireSign]="true"
-          [errorMessage]="idMoin.errors?.required ? 'فیلد اجباری' : ''"
-          [hideError]="
-            !(
-              (idMoin.touched || companyForm.submitted) &&
-              idMoin.errors?.required
-            )
-          "
-        >
+        <ki-form-group class="col-6" [label]="'معین'">
           <ki-input
             class="ltr"
             name="idMoin"
@@ -75,21 +64,9 @@
             [fullWidth]="true"
             [(ngModel)]="benefitDeduction.idMoin"
             #idMoin="ngModel"
-            required
           ></ki-input>
         </ki-form-group>
-        <ki-form-group
-          class="col-6"
-          [label]="'تفصیلی'"
-          [showRequireSign]="true"
-          [errorMessage]="idTafsili.errors?.required ? 'فیلد اجباری' : ''"
-          [hideError]="
-            !(
-              (idTafsili.touched || companyForm.submitted) &&
-              idTafsili.errors?.required
-            )
-          "
-        >
+        <ki-form-group class="col-6" [label]="'تفصیلی'">
           <ki-input
             class="ltr"
             name="idTafsili"
@@ -97,23 +74,11 @@
             [onlyNumber]="true"
             [(ngModel)]="benefitDeduction.idTafsili"
             #idTafsili="ngModel"
-            required
           ></ki-input>
         </ki-form-group>
       </div>
       <div class="row">
-        <ki-form-group
-          class="col-6"
-          [label]="' تفصیلی 2'"
-          [showRequireSign]="true"
-          [errorMessage]="idTafsili2.errors?.required ? 'فیلد اجباری' : ''"
-          [hideError]="
-            !(
-              (idTafsili2.touched || companyForm.submitted) &&
-              idTafsili2.errors?.required
-            )
-          "
-        >
+        <ki-form-group class="col-6" [label]="' تفصیلی 2'">
           <ki-input
             class="ltr"
             [onlyNumber]="true"
@@ -121,21 +86,9 @@
             [fullWidth]="true"
             [(ngModel)]="benefitDeduction.idTafsili2"
             #idTafsili2="ngModel"
-            required
           ></ki-input>
         </ki-form-group>
-        <ki-form-group
-          class="col-6"
-          [label]="'ترتیب'"
-          [showRequireSign]="true"
-          [errorMessage]="orderIndex.errors?.required ? 'فیلد اجباری' : ''"
-          [hideError]="
-            !(
-              (orderIndex.touched || companyForm.submitted) &&
-              orderIndex.errors?.required
-            )
-          "
-        >
+        <ki-form-group class="col-6" [label]="'ترتیب'">
           <ki-input
             class="ltr"
             name="orderIndex"
@@ -144,23 +97,11 @@
             [sepLimitation]="'9999'"
             [(ngModel)]="benefitDeduction.orderIndex"
             #orderIndex="ngModel"
-            required
           ></ki-input>
         </ki-form-group>
       </div>
       <div class="row">
-        <ki-form-group
-          class="col-12"
-          [label]="'توضیحات'"
-          [showRequireSign]="false"
-          [errorMessage]="comment.errors?.required ? 'فیلد اجباری' : ''"
-          [hideError]="
-            !(
-              (comment.touched || companyForm.submitted) &&
-              comment.errors?.required
-            )
-          "
-        >
+        <ki-form-group class="col-12" [label]="'توضیحات'">
           <ki-textarea
             name="comment"
             [fullWidth]="true"

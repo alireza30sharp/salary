@@ -6,7 +6,7 @@ export class BenefitDeductionDto {
   idMoin: number;
   idTafsili: number;
   idTafsili2: number;
-  orderIndex: number;
+  orderIndex: number = 0;
   row_NO?: number;
   id?: number;
   typeName?: string;

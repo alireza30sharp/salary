@@ -4,9 +4,12 @@ export interface TabInterface {
   link?: string;
   data?: any;
   contentHeight?: string;
-  overflow?: 'scroll' | 'auto' | 'hidden';
+  overflow?: "scroll" | "auto" | "hidden";
   iconClassName?: string;
   groupName?: string;
   isBold?: boolean;
   otherSide?: boolean;
+  error?: string;
+  disabled?: boolean;
+  noPadding?: boolean;
 }

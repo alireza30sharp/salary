@@ -4,12 +4,12 @@ import {
   OnInit,
   TemplateRef,
   ViewContainerRef,
-} from '@angular/core';
-import { TabInterface } from '../tab.interface';
+} from "@angular/core";
+import { TabInterface } from "../tab.interface";
 
 @Component({
-  selector: 'ki-tab',
-  templateUrl: './ki-tab.component.html',
+  selector: "ki-tab",
+  templateUrl: "./ki-tab.component.html",
 })
 export class KiTabComponent implements OnInit, TabInterface {
   @Input() id?: string;
@@ -22,7 +22,7 @@ export class KiTabComponent implements OnInit, TabInterface {
   @Input() groupName?: string;
   @Input() isBold?: boolean;
   @Input() otherSide?: boolean;
-
+  @Input() error?: string;
   constructor() {}
 
   ngOnInit(): void {}

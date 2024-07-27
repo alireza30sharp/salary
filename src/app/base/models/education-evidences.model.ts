@@ -2,6 +2,6 @@ export class EducationEvidencesDto {
   id?: number;
   workShopId: number;
   evidence: string;
-  orderIndex: number;
+  orderIndex: number = 0;
   isDefault: boolean;
 }

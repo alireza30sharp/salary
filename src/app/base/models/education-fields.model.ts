@@ -2,6 +2,6 @@ export class EducationFieldsDto {
   id?: number;
   workShopId: number;
   field: string;
-  orderIndex: number;
+  orderIndex: number = 0;
   isDefault: boolean;
 }

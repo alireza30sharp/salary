@@ -9,6 +9,7 @@
   [class.ki-tab--no-outer-border]="noOuterBorder"
   [style.height]="height"
   [style.overflow]="overflow"
+  [attr.disabled]="true"
   [style.overflow-x]="overflowX"
 >
   <div
@@ -95,6 +96,7 @@
     <section
       class="ki-tab__container"
       [style.overflow]="items[internalSelectedTabIndex]?.overflow"
+      [style.padding]="items[internalSelectedTabIndex]?.noPadding ? 0 : null"
       [class.ki-tab__container--inverse-theme]="
         theme === 'inverse' || theme === 'inverse-secondary'
       "
@@ -116,6 +118,8 @@
     "
     [class.ki-tab__button--is-bold]="tab.isBold"
     [class.ki-tab__button--other-side]="tab.otherSide"
+    [class.ki-tab__button--has-error]="!!tab.error"
+    [class.ki-tab__button--is-disabled]="tab.disabled"
   >
     <ng-container *ngIf="tab.iconClassName"
       ><span [class]="tab.iconClassName"></span
@@ -124,7 +128,16 @@
       class="ki-tab__button-text"
       [class.ki-tab__button-text--ellipsis]="tabContentEllipsis"
       [class.ki-tab__button-text--is-bold]="tab.isBold"
-      >{{ tab.text }}</span
+      [class.ki-tab__button-text--is-disabled]="tab.disabled"
     >
+      {{ tab.text }}</span
+    >
+
+    <span
+      *ngIf="tab.error"
+      class="ki-tab__button-error fa fa-warning"
+      [appTooltip]="tab.error"
+      [appTooltipPosition]="'top'"
+    ></span>
   </a>
 </ng-template>

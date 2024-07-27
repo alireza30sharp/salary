@@ -2,6 +2,6 @@ export class EmploymentTypesDto {
   id?: number;
   workShopId: number;
   typeText: string;
-  orderIndex: number;
+  orderIndex: number = 0;
   isDefault: boolean;
 }

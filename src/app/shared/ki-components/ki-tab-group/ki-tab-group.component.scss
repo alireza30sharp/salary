@@ -1,6 +1,6 @@
-@import 'variable';
+@import "variable";
 
-$name: 'ki-tab';
+$name: "ki-tab";
 $tab-avtive-border-width: 3px;
 
 .#{$name} {
@@ -115,7 +115,7 @@ $tab-avtive-border-width: 3px;
 
     &::before {
       opacity: 0;
-      content: '';
+      content: "";
       position: absolute;
       background-color: $primary;
       transition: 0.3s all;
@@ -141,7 +141,10 @@ $tab-avtive-border-width: 3px;
       font-weight: bold;
       color: $content-primary;
     }
-
+    &--is-disabled {
+      pointer-events: none;
+      opacity: 0.4;
+    }
     &--ellipsis {
       flex: 1;
       min-width: 0;
@@ -165,6 +168,18 @@ $tab-avtive-border-width: 3px;
     &--is-bold {
       font-weight: bold;
     }
+    &--is-disabled {
+      pointer-events: none;
+      opacity: 0.4;
+    }
+  }
+
+  &__button-error {
+    position: absolute;
+    top: $spacing-x1;
+    inset-inline-end: $spacing-x1;
+    color: $error;
+    font-size: 12px;
   }
 
   &__group {
@@ -296,7 +311,7 @@ $tab-avtive-border-width: 3px;
           .#{$name}__button {
             box-shadow: 0 0 0 1px transparent;
             &::after {
-              content: '';
+              content: "";
               position: absolute;
               bottom: -1px;
               right: 0;
@@ -327,7 +342,7 @@ $tab-avtive-border-width: 3px;
         .#{$name}__button {
           box-shadow: 0 0 0 1px transparent;
           &::after {
-            content: '';
+            content: "";
             position: absolute;
             inset-inline-end: -1px;
             top: 0;
@@ -380,10 +395,10 @@ $tab-avtive-border-width: 3px;
       height: 4px;
     }
 
-    & > [aria-selected='false'] {
+    & > [aria-selected="false"] {
       display: none;
     }
-    & > [aria-selected='true'] {
+    & > [aria-selected="true"] {
       display: block;
     }
   }

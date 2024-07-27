@@ -19,7 +19,7 @@
           "
         >
           <ki-input
-          [setFocusItem]="setFocusItem"
+            [setFocusItem]="setFocusItem"
             name="evidence"
             [fullWidth]="true"
             [(ngModel)]="evidencesModel.typeText"
@@ -27,25 +27,13 @@
             required
           ></ki-input>
         </ki-form-group>
-        <ki-form-group
-          class="col-6"
-          [label]="'ترتیب'"
-          [showRequireSign]="true"
-          [errorMessage]="orderIndex.errors?.required ? 'فیلد اجباری' : ''"
-          [hideError]="
-            !(
-              (orderIndex.touched || companyForm.submitted) &&
-              orderIndex.errors?.required
-            )
-          "
-        >
+        <ki-form-group class="col-6" [label]="'ترتیب'" [showRequireSign]="true">
           <ki-input
             name="orderIndex"
             [fullWidth]="true"
             [(ngModel)]="evidencesModel.orderIndex"
             #orderIndex="ngModel"
             [onlyNumber]="true"
-            required
           ></ki-input>
         </ki-form-group>
       </div>
