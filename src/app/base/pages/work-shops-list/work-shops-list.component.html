@@ -1,8 +1,4 @@
-<app-general-panel
-  [title]="'لیست کارگاه'"
-  [hideBackButton]="true"
-  [subtitle]="'asdasdasdasd'"
->
+<app-general-panel [title]="'لیست کارگاه'" [hideBackButton]="true">
   <ng-template #header>
     <div class="align-content-center d-flex justify-content-between">
       <app-tools-bar
@@ -27,7 +23,4 @@
     (removeCellChange)="onDeleteItem($event)"
     (selectedRowsChange)="onSelectedRowsChangeEvent($event)"
   ></ag-grid-data>
-  <ng-template #footer>
-    <ki-button [title]="'asdASDAsd'"> </ki-button>
-  </ng-template>
 </app-general-panel>

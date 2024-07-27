@@ -6,27 +6,33 @@
   </div>
   <div class="modal-body"><ng-content></ng-content></div>
   <div class="modal-footer" *ngIf="showPrimaryButton || showCancelButton">
-    <ki-button [type]="'button'" (click)="closeModal()" [for]="cancelButtonFor">
+    <ki-button
+      btnType="basic"
+      [iconClassName]="'fa-solid fa-arrow-rotate-left'"
+      (click)="closeModal()"
+      [for]="cancelButtonFor"
+    >
       {{ cancelButtonText ? cancelButtonText : "انصراف" }}
     </ki-button>
     <ki-button
       *ngIf="showSkipButton"
-      [type]="'button'"
+      btnType="basic"
       (click)="closeModal()"
       [for]="skipButtonFor"
     >
       {{ skipButtonText ? skipButtonText : "Skip" }}
     </ki-button>
+
     <ki-button
+      btnType="basic"
       *ngIf="showPrimaryButton"
-      type="button"
+      [iconClassName]="'fa-solid fa-square-plus'"
       [for]="primaryButtonFor"
       [showLoading]="showPrimaryButtonLoading"
-      [btnType]="'primary'"
-      (click)="onPrimaryButtonClicked()"
+      [title]="'ذخیره اطلاعات'"
       [disabled]="showPrimaryButtonLoading"
+      (click)="onPrimaryButtonClicked()"
     >
-      {{ primaryButtonText ? primaryButtonText : "ذخیره" }}
     </ki-button>
   </div>
 </section>

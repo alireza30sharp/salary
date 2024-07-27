@@ -1,4 +1,8 @@
-<app-general-panel [title]="'اضافه کردن حکم حقوقی'" [hideBackButton]="false">
+<app-general-panel
+  [title]="'اضافه کردن حکم حقوقی'"
+  [hideBackButton]="false"
+  (backCallback)="cancelClickHandler()"
+>
   <div class="row">
     <ki-form-group class="col-3" [label]="'کد کارگاه '">
       <ki-input

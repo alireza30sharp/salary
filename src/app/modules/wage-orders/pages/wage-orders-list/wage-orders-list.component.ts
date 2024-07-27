@@ -73,10 +73,9 @@ export class WageOrdersListComponent implements OnInit {
     this.getWageOrders();
   }
   newWorkShpps() {
-    this._router.navigate(["/add"]);
+    this._router.navigate(["salary", "wage-orders", "add"]);
   }
   getWageOrders() {
-    debugger;
     this.isShowLoadingRefrash = true;
     this._wageOrdersService.get().subscribe({
       next: (res) => {

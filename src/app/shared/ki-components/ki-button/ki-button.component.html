@@ -6,9 +6,6 @@
     [attr.title]="tooltip"
     (click)="onBtnClicked($event)"
   >
-    <ng-container *ngIf="!!iconClassName"
-      ><span class="ki-button__icon" [class]="iconClassName"></span
-    ></ng-container>
     <button
       class="ki-button mt-2"
       nbButton
@@ -28,7 +25,10 @@
         [size]="'small'"
         *ngIf="showLoading"
       ></ki-spinner>
-      ذخیره
+      <ng-container *ngIf="!!iconClassName"
+        ><span class="ki-button__icon" [class]="iconClassName"></span
+      ></ng-container>
+      <span class="ki-button__title" *ngIf="title">{{ title }}</span>
     </button>
   </label></ng-container
 >

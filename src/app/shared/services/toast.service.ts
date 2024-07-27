@@ -1,15 +1,16 @@
 import { Injectable } from "@angular/core";
-import { NbToastrService } from "@nebular/theme";
+import { ToastrService } from "ngx-toastr";
+
 @Injectable({
   providedIn: "root",
 })
 export class ToastService {
-  constructor(private toaster: NbToastrService) {}
+  constructor(private toaster: ToastrService) {}
   success(message: string, title?: string) {
     this.toaster.success(message, title);
   }
   error(message: string, title?: string) {
-    this.toaster.danger(message, title);
+    this.toaster.error(message, title);
   }
   info(message: string, title?: string) {
     this.toaster.info(message, title);

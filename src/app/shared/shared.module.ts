@@ -17,7 +17,6 @@ import {
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
-import { HTTP_INTERCEPTORS, HttpRequest } from "@angular/common/http";
 import { NgSelectModule } from "@ng-select/ng-select";
 import { NbIconModule, NbSpinnerModule, NbToastrModule } from "@nebular/theme";
 import * as Ag from "ag-grid-angular";
@@ -31,6 +30,8 @@ import * as kiComponent from "./ki-components";
 import { HighLightPipe } from "./pipes/highlight.pipe";
 import { DevexpressModule } from "./devexpress.module";
 import { DatePickerModule } from "./date-picker.module";
+import { ToastrModule } from "ngx-toastr";
+
 const component = [
   ContextMenuComponent,
   TreeComponent,
@@ -89,10 +90,10 @@ const component = [
     NgbModule,
     AngularSplitModule,
     ThemeModule.forRoot(),
-    NbToastrModule.forRoot({
-      toastClass: "z-index-9",
-      duration: 9000,
-      limit: 1002,
+    ToastrModule.forRoot({
+      timeOut: 1000,
+      positionClass: "toast-bottom-right",
+      preventDuplicates: true,
     }),
     ngFormsModule,
     DevexpressModule,
@@ -105,12 +106,12 @@ const component = [
     ngFormsModule,
     NgSelectModule,
     FormsModule,
+    ToastrModule,
     ReactiveFormsModule,
     Ag.AgGridModule,
     NbSpinnerModule,
     AngularSplitModule,
     NgbModule,
-    NbToastrModule,
     DevexpressModule,
     NgxMaskModule,
     ...component,

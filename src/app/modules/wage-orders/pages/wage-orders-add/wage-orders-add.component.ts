@@ -22,7 +22,7 @@ import { DateUtilies } from "../../../../shared/utilities/Date";
 import { WageOrdersService } from "../../services/wage-orders.service";
 import { wageOrderDetailDto, wageOrdersDto } from "../../models";
 import { maskPrefixTaxRate } from "../../../../base/models/rul";
-
+import { Location } from "@angular/common";
 @Component({
   selector: "app-wage-orders-add",
   templateUrl: "./wage-orders-add.component.html",
@@ -107,7 +107,8 @@ export class WageOrdersAddComponent implements OnInit {
     private _changeWorkShops: ChangeWorkShopsService,
     private _selectListService: SelectListService,
     private _clientPrerequis: ClientPrerequisitsService,
-    private _wageOrdersService: WageOrdersService
+    private _wageOrdersService: WageOrdersService,
+    private readonly _location: Location
   ) {
     this._clientPrerequis.getClientPrerequisits().subscribe((res) => {
       if (res.isOk) {
@@ -161,6 +162,9 @@ export class WageOrdersAddComponent implements OnInit {
       return d;
     });
     this.wageOrdersModel.details = [...details];
+  }
+  cancelClickHandler() {
+    this._location.back();
   }
   onSelectedRowsChangeEvent(event: Array<wageOrdersDto>) {}
 }

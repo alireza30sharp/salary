@@ -62,7 +62,6 @@ export class BenefitDeductionFormModalComponent
             this.isLoadingSaveChange = false;
             this.finalize();
             this.cancelHandler();
-
           })
         )
         .subscribe({
