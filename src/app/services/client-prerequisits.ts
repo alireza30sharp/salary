@@ -15,7 +15,8 @@ export class ClientPrerequisitsService {
   ) {}
 
   getClientPrerequisits(
-    forceRefresh: boolean = false
+    forceRefresh: boolean = false,
+    WorkShopId: number = 0
   ): Observable<response<clientPrerequisitsInterface[]>> {
     if (this.cachedPrerequisits && !forceRefresh) {
       // اگر داده‌ها قبلاً کش شده بود و ما نیازی به درخواست مجدد نداریم، آنها را از کش بازیابی می‌کنیم
@@ -26,7 +27,7 @@ export class ClientPrerequisitsService {
         .get<any>(this.urlSvc.clientPrerequisits.GetClientPrerequisits, {
           params: {
             Keys: ["WorkShops", "BenefitDeductions", "Employees"],
-            WorkShopId: this.getWorkShopsID(),
+            WorkShopId: WorkShopId,
           },
         })
         .pipe(
@@ -44,13 +45,5 @@ export class ClientPrerequisitsService {
       console.log(`${operation} failed: ${error.message}`);
       return of(result as T);
     };
-  }
-
-  getWorkShopsID(): number {
-    debugger;
-    let WorkShopsID = +localStorage.getItem("WorkShopsID");
-    if (WorkShopsID) {
-      return +WorkShopsID;
-    } else return null;
   }
 }

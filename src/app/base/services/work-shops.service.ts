@@ -45,11 +45,4 @@ export class WorkShopsService {
   updateWorkShop(model: WorkShopsDto) {
     return this.$http.put<response<any>>(this.urlSvc.WorkShops.Edit, model);
   }
-
-  getWorkShopsID(): number {
-    let WorkShopsID = localStorage.getItem("WorkShopsID");
-    if (WorkShopsID) {
-      return +WorkShopsID;
-    } else return null;
-  }
 }

@@ -1,8 +1,3 @@
-/**
- * @license
- * Copyright Akveo. All Rights Reserved.
- * Licensed under the MIT License. See License.txt in the project root for license information.
- */
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { APP_INITIALIZER, NgModule } from "@angular/core";
@@ -34,13 +29,16 @@ import { LicenseManager } from "ag-grid-enterprise";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { ShepherdService } from "angular-shepherd";
 import { ClientPrerequisitsService } from "./services/client-prerequisits";
+import { NgxWebstorageModule } from "ngx-webstorage";
+import { ChangeWorkShopsService } from "./services/change-work-shop.service";
 
 export function GetClientPrerequisits(
-  clientPrerequis: ClientPrerequisitsService
+  clientPrerequis: ClientPrerequisitsService,
+  changeWorkShopsService: ChangeWorkShopsService
 ) {
   const fn = () =>
     new Promise<void>((resolve, rej) => {
-      clientPrerequis.getClientPrerequisits().subscribe((res) => {
+      clientPrerequis.getClientPrerequisits(true).subscribe((res) => {
         if (res.isOk && res.data) {
           let WorkShopsOptions = res.data
             .find((f) => f.cacheKey == "WorkShops")
@@ -49,10 +47,7 @@ export function GetClientPrerequisits(
               value: item.id,
               isDefault: item.isDefault,
             }));
-          localStorage.setItem(
-            "WorkShopsOptions",
-            JSON.stringify(WorkShopsOptions)
-          );
+          changeWorkShopsService.setWorkShopsOptions(WorkShopsOptions);
         }
         resolve();
       });
@@ -75,6 +70,11 @@ export function GetClientPrerequisits(
     NbToastrModule.forRoot(),
     SharedModule,
     CoreModule.forRoot(),
+    NgxWebstorageModule.forRoot({
+      prefix: "SALARY",
+      separator: ".",
+      caseSensitive: false,
+    }),
     NgbModule,
   ],
   bootstrap: [AppComponent],
@@ -88,7 +88,7 @@ export function GetClientPrerequisits(
     {
       provide: APP_INITIALIZER,
       useFactory: GetClientPrerequisits,
-      deps: [ClientPrerequisitsService],
+      deps: [ClientPrerequisitsService, ChangeWorkShopsService],
       multi: true,
     },
   ],

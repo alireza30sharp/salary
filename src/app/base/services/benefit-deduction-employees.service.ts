@@ -4,9 +4,12 @@ import { ApiUrlService } from "../../api-url.service";
 import { WorkShopsFilter } from "../models";
 import { Data, response } from "../../shared/models";
 import { BenefitDeductionEmployeesDto } from "../models/benefit-deduction-employees.model";
-
+import { SessionNames } from "../../shared/utilities/session-names";
+import { SessionStorage } from "ngx-webstorage";
 @Injectable()
 export class BenefitDeductionEmployeesService {
+  @SessionStorage(SessionNames.WorkShopsID)
+  WorkShopsID: any;
   constructor(
     private readonly $http: HttpClient,
     private readonly urlSvc: ApiUrlService
@@ -20,12 +23,12 @@ export class BenefitDeductionEmployeesService {
       {
         params: {
           YearFrom: 0,
-          DateFrom:new Date().toLocaleString(),
+          DateFrom: new Date().toLocaleString(),
           DateTo: new Date().toLocaleString(),
           YearTo: 0,
-          MonthFrom:0,
-          MonthTo:0,
-          WorkShopId: this.getWorkShopsID(),
+          MonthFrom: 0,
+          MonthTo: 0,
+          WorkShopId: this.WorkShopsID,
           PageNumber: PageNumber,
           PageSize: PageSize,
         },
@@ -33,28 +36,34 @@ export class BenefitDeductionEmployeesService {
     );
   }
   create(model: BenefitDeductionEmployeesDto) {
-    model.workShopId = this.getWorkShopsID();
-    return this.$http.post<response<any>>(this.urlSvc.BenefitDeductionEmployees.Add, model);
+    model.workShopId = this.WorkShopsID;
+    return this.$http.post<response<any>>(
+      this.urlSvc.BenefitDeductionEmployees.Add,
+      model
+    );
   }
   delete(id) {
-    return this.$http.delete<response<string>>(this.urlSvc.BenefitDeductionEmployees.Delete, {
-      body: { workShopId: this.getWorkShopsID(), employeeId: id },
-    });
+    return this.$http.delete<response<string>>(
+      this.urlSvc.BenefitDeductionEmployees.Delete,
+      {
+        body: { workShopId: this.WorkShopsID, employeeId: id },
+      }
+    );
   }
   update(model: BenefitDeductionEmployeesDto) {
-    model.workShopId = this.getWorkShopsID();
-    return this.$http.put<response<any>>(this.urlSvc.BenefitDeductionEmployees.Edit, model);
+    model.workShopId = this.WorkShopsID;
+    return this.$http.put<response<any>>(
+      this.urlSvc.BenefitDeductionEmployees.Edit,
+      model
+    );
   }
 
   getById(employeId) {
-    return this.$http.get<response<any>>(this.urlSvc.BenefitDeductionEmployees.getById, {
-      params: { WorkShopId: this.getWorkShopsID(), EmployeeId: employeId },
-    });
-  }
-  getWorkShopsID(): number {
-    let WorkShopsID = localStorage.getItem("WorkShopsID");
-    if (WorkShopsID) {
-      return +WorkShopsID;
-    } else return null;
+    return this.$http.get<response<any>>(
+      this.urlSvc.BenefitDeductionEmployees.getById,
+      {
+        params: { WorkShopId: this.WorkShopsID, EmployeeId: employeId },
+      }
+    );
   }
 }

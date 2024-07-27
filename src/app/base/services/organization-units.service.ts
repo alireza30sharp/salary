@@ -7,9 +7,12 @@ import {
   OrganizationUnitsDto,
   OrganizationUnitsModel,
 } from "../../base/models/organization-units.model";
-
+import { SessionNames } from "../../shared/utilities/session-names";
+import { SessionStorage } from "ngx-webstorage";
 @Injectable()
 export class OrganizationUnitsService {
+  @SessionStorage(SessionNames.WorkShopsID)
+  WorkShopsID: any;
   constructor(
     private readonly $http: HttpClient,
     private readonly urlSvc: ApiUrlService
@@ -22,7 +25,7 @@ export class OrganizationUnitsService {
       this.urlSvc.OrganizationUnits.GetAllOrganizationUnits,
       {
         params: {
-          WorkShopId: 1, //this.getWorkShopsID(),
+          WorkShopId: this.WorkShopsID,
           PageNumber: PageNumber,
           PageSize: PageSize,
         },
@@ -30,21 +33,21 @@ export class OrganizationUnitsService {
     );
   }
   create(model: OrganizationUnitsDto) {
-    model.workShopId = this.getWorkShopsID();
+    model.workShopId = this.WorkShopsID;
     return this.$http.post<response<any>>(
       this.urlSvc.OrganizationUnits.Add,
       model
     );
   }
   delete(model: OrganizationUnitsModel) {
-    model.workShopId = this.getWorkShopsID();
+    model.workShopId = this.WorkShopsID;
     return this.$http.delete<response<string>>(
       this.urlSvc.OrganizationUnits.Delete,
       { body: model }
     );
   }
   update(model: OrganizationUnitsDto) {
-    model.workShopId = this.getWorkShopsID();
+    model.workShopId = this.WorkShopsID;
     return this.$http.put<response<any>>(
       this.urlSvc.OrganizationUnits.Edit,
       model
@@ -55,14 +58,8 @@ export class OrganizationUnitsService {
     return this.$http.get<response<any>>(
       this.urlSvc.OrganizationUnits.getById,
       {
-        params: { workShopId: 1, id: id },
+        params: { workShopId: this.WorkShopsID, id: id },
       }
     );
-  }
-  getWorkShopsID(): number {
-    let WorkShopsID = localStorage.getItem("WorkShopsID");
-    if (WorkShopsID) {
-      return +WorkShopsID;
-    } else return null;
   }
 }

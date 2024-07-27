@@ -4,9 +4,12 @@ import { ApiUrlService } from "../../api-url.service";
 import { WorkShopsFilter } from "../models";
 import { Data, response } from "../../shared/models";
 import { EmploymentTypesDto } from "../models/employment-types.model";
-
+import { SessionNames } from "../../shared/utilities/session-names";
+import { SessionStorage } from "ngx-webstorage";
 @Injectable()
 export class EmploymentTypesService {
+  @SessionStorage(SessionNames.WorkShopsID)
+  WorkShopsID: any;
   constructor(
     private readonly $http: HttpClient,
     private readonly urlSvc: ApiUrlService
@@ -21,7 +24,7 @@ export class EmploymentTypesService {
         params: {
           Id: 0,
           EmpType: "",
-          WorkShopId: this.getWorkShopsID(),
+          WorkShopId: this.WorkShopsID,
           PageNumber: PageNumber,
           PageSize: PageSize,
         },
@@ -29,7 +32,7 @@ export class EmploymentTypesService {
     );
   }
   create(model: EmploymentTypesDto) {
-    model.workShopId = this.getWorkShopsID();
+    model.workShopId = this.WorkShopsID;
     return this.$http.post<response<any>>(
       this.urlSvc.EmploymentTypes.Add,
       model
@@ -38,11 +41,11 @@ export class EmploymentTypesService {
   delete(id) {
     return this.$http.delete<response<string>>(
       this.urlSvc.EmploymentTypes.Delete,
-      { body: { workShopId: this.getWorkShopsID(), id: id } }
+      { body: { workShopId: this.WorkShopsID, id: id } }
     );
   }
   update(model: EmploymentTypesDto) {
-    model.workShopId = this.getWorkShopsID();
+    model.workShopId = this.WorkShopsID;
     return this.$http.put<response<any>>(
       this.urlSvc.EmploymentTypes.Edit,
       model
@@ -51,7 +54,7 @@ export class EmploymentTypesService {
 
   getById(id) {
     return this.$http.get<response<any>>(this.urlSvc.EmploymentTypes.getById, {
-      params: { workShopId: this.getWorkShopsID(), id: id },
+      params: { workShopId: this.WorkShopsID, id: id },
     });
   }
   getWorkShopsID(): number {

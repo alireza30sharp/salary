@@ -5,9 +5,12 @@ import { WorkShopsFilter } from "../models";
 import { Data, response } from "../../shared/models";
 import { BenefitDeductionDto } from "../models/benefit-deduction.model";
 import { TaxDto } from "../models/tax.model";
-
+import { SessionNames } from "../../shared/utilities/session-names";
+import { SessionStorage } from "ngx-webstorage";
 @Injectable()
 export class TaxService {
+  @SessionStorage(SessionNames.WorkShopsID)
+  WorkShopsID: any;
   constructor(
     private readonly $http: HttpClient,
     private readonly urlSvc: ApiUrlService
@@ -22,34 +25,28 @@ export class TaxService {
         params: {
           PageNumber: PageNumber,
           PageSize: PageSize,
-          WorkShopId: this.getWorkShopsID(),
+          WorkShopId: this.WorkShopsID,
         },
       }
     );
   }
   createTax(model: TaxDto) {
-    model.workShopId = this.getWorkShopsID();
+    model.workShopId = this.WorkShopsID;
     return this.$http.post<response<any>>(this.urlSvc.Tax.Add, model);
   }
 
-  getWorkShopsID(): number {
-    let WorkShopsID = localStorage.getItem("WorkShopsID");
-    if (WorkShopsID) {
-      return +WorkShopsID;
-    } else return null;
-  }
   delete(workShopId, id?: any) {
     return this.$http.delete<response<string>>(this.urlSvc.Tax.Delete, {
-      body: { workShopId: this.getWorkShopsID(), id: id },
+      body: { workShopId: this.WorkShopsID, id: id },
     });
   }
   getById(id) {
     return this.$http.get<response<any>>(this.urlSvc.Tax.getById, {
-      params: { workShopId: this.getWorkShopsID(), id: id },
+      params: { workShopId: this.WorkShopsID, id: id },
     });
   }
   update(model: TaxDto) {
-    model.workShopId = this.getWorkShopsID();
+    model.workShopId = this.WorkShopsID;
     return this.$http.put<response<any>>(this.urlSvc.Tax.Edit, model);
   }
 }

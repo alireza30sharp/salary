@@ -4,6 +4,8 @@ import { ApiUrlService } from "../../api-url.service";
 import { WorkShopsFilter } from "../models";
 import { Data, response } from "../../shared/models";
 import { BenefitDeductionDto } from "../models/benefit-deduction.model";
+import { SessionNames } from "../../shared/utilities/session-names";
+import { SessionStorage } from "ngx-webstorage";
 
 @Injectable()
 export class BenefitDeductionService {
@@ -11,7 +13,8 @@ export class BenefitDeductionService {
     private readonly $http: HttpClient,
     private readonly urlSvc: ApiUrlService
   ) {}
-
+  @SessionStorage(SessionNames.WorkShopsID)
+  WorkShopsID: any;
   getGetBenefitsDeductionsList(params?: WorkShopsFilter) {
     let PageNumber: number = 1;
     let PageSize: number = 20;
@@ -22,13 +25,13 @@ export class BenefitDeductionService {
           Type: 0,
           PageNumber: PageNumber,
           PageSize: PageSize,
-          WorkShopId: this.getWorkShopsID(),
+          WorkShopId: this.WorkShopsID,
         },
       }
     );
   }
   createBenefitDeduction(model: BenefitDeductionDto) {
-    model.workShopId = this.getWorkShopsID();
+    model.workShopId = this.WorkShopsID;
     return this.$http.post<response<any>>(
       this.urlSvc.BenefitDeduction.Add,
       model
@@ -37,11 +40,11 @@ export class BenefitDeductionService {
   deleteBenefitDeduction(id) {
     return this.$http.delete<response<string>>(
       this.urlSvc.BenefitDeduction.Delete,
-      { body: { workShopId: this.getWorkShopsID(), id: id } }
+      { body: { workShopId: this.WorkShopsID, id: id } }
     );
   }
   updateBenefitDeduction(model: BenefitDeductionDto) {
-    model.workShopId = this.getWorkShopsID();
+    model.workShopId = this.WorkShopsID;
     return this.$http.put<response<any>>(
       this.urlSvc.BenefitDeduction.Edit,
       model
@@ -50,14 +53,7 @@ export class BenefitDeductionService {
 
   getById(id) {
     return this.$http.get<response<any>>(this.urlSvc.BenefitDeduction.getById, {
-      params: { workShopId: this.getWorkShopsID(), id: id },
+      params: { workShopId: this.WorkShopsID, id: id },
     });
-  }
-
-  getWorkShopsID(): number {
-    let WorkShopsID = localStorage.getItem("WorkShopsID");
-    if (WorkShopsID) {
-      return +WorkShopsID;
-    } else return null;
   }
 }

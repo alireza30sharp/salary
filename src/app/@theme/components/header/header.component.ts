@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
 import {
   NbMediaBreakpointsService,
   NbMenuService,
@@ -7,13 +13,16 @@ import {
 } from "@nebular/theme";
 
 import { LayoutService } from "../../../@core/utils";
-import { map, switchMap, takeUntil } from "rxjs/operators";
+import { delay, map, switchMap, takeUntil } from "rxjs/operators";
 import { Observable, Subject, of } from "rxjs";
 import { Router } from "@angular/router";
 import { SelectOptionInterface } from "../../../shared/interfaces/select-option.interface";
 import { ChangeWorkShopsService } from "../../../services/change-work-shop.service";
 import { TourService } from "../../../shared/services/tour.service";
 import { STEPS_BUTTONS } from "../../../shared/models/shepherd-config";
+import { SessionStorage } from "ngx-webstorage";
+import { SessionNames } from "../../../shared/utilities/session-names";
+
 export interface CacheDataInterface {
   value?: number;
   label?: string;
@@ -25,12 +34,13 @@ export interface CacheDataInterface {
   styleUrls: ["./header.component.scss"],
   templateUrl: "./header.component.html",
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   //
   private destroy$: Subject<void> = new Subject<void>();
   userPictureOnly: boolean = false;
   user: any;
-
+  @SessionStorage(SessionNames.WorkShopsID)
+  WorkShopsID: any;
   themes = [
     {
       value: "default",
@@ -51,8 +61,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ];
 
   currentTheme = "default";
-  WorkShopsOptions?: SelectOptionInterface<any>[];
-  WorkShopsID: any;
+  WorkShopsOptions: SelectOptionInterface<any>[] = [];
+
   lockupsIsLoading?: boolean = false;
   userMenu = [{ title: "Profile" }, { title: "Log out" }];
   constructor(
@@ -66,18 +76,24 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     private router: Router
   ) {
-    let WorkShops = localStorage.getItem("WorkShopsOptions");
-    if (WorkShops) {
-      let model: CacheDataInterface[] = JSON.parse(WorkShops);
-      let findDefult = model.find((f) => f.isDefault == true);
-      if (findDefult) {
-        this.WorkShopsID = +findDefult.value;
-      } else {
-        this.WorkShopsID = +model[0].value;
-      }
-      localStorage.setItem("WorkShopsID", this.WorkShopsID);
-      this.WorkShopsOptions = JSON.parse(WorkShops);
+    if (!this.WorkShopsID) {
+      this.WorkShopsID = 0;
     }
+  }
+  ngAfterViewInit(): void {
+    this._changeWorkShops.WorkShopsOptionsData$.pipe(delay(100)).subscribe(
+      (WorkShops) => {
+        if (WorkShops) {
+          this.WorkShopsOptions = WorkShops;
+          let findDefult = WorkShops.find((f) => f.isDefault == true);
+          if (findDefult) {
+            this.WorkShopsID = +findDefult.value;
+          } else {
+            this.WorkShopsID = +WorkShops[0].value;
+          }
+        }
+      }
+    );
   }
 
   ngOnInit() {
@@ -107,13 +123,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       if (res.item.title === "Log out") {
         this.router.navigate(["auth/logout"]);
       }
-      // this.service.getToken().pipe(
-      //   switchMap((token: NbAuthToken) => {
-      //     const JWT = `Bearer ${token.getValue()}`;
-      //     return    this.service.refreshToken(strategieName,{refToken:token.getValue()})
-      //   })).subscribe(res=>{
-      //     console.log(res)
-      //   })
     });
 
     this._changeWorkShops.activeWorkShopsSource$.subscribe((res) => {
@@ -122,7 +131,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
         if (find) {
           this.WorkShopsID = +find.value;
         }
-        localStorage.setItem("WorkShopsID", this.WorkShopsID);
       }
     });
   }
@@ -143,7 +151,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     return false;
   }
   workShopsChange() {
-    localStorage.setItem("WorkShopsID", this.WorkShopsID);
     this._changeWorkShops.WorkShopsSource$.next(this.WorkShopsID);
   }
   navigateHome() {

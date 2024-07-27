@@ -39,6 +39,7 @@
     "@persian-tools/persian-tools": "^3.4.1",
     "ngx-toastr": "^16.2.0",
     "angular-split": "^17.2.0",
+    "ngx-webstorage": "^11.1.1",
     "devextreme": "23.1.6",
     "@devexpress/analytics-core": "23.1.6",
     "devextreme-angular": "23.1.6",

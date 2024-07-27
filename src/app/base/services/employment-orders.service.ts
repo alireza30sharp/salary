@@ -4,9 +4,12 @@ import { ApiUrlService } from "../../api-url.service";
 import { WorkShopsFilter } from "../models";
 import { Data, response } from "../../shared/models";
 import { EmploymentOrdersDto } from "../models/employment-orders.model";
-
+import { SessionNames } from "../../shared/utilities/session-names";
+import { SessionStorage } from "ngx-webstorage";
 @Injectable()
 export class EmploymentOrdersService {
+  @SessionStorage(SessionNames.WorkShopsID)
+  WorkShopsID: any;
   constructor(
     private readonly $http: HttpClient,
     private readonly urlSvc: ApiUrlService
@@ -20,7 +23,7 @@ export class EmploymentOrdersService {
       {
         params: {
           EmployeeId: 0,
-          WorkShopId: this.getWorkShopsID(),
+          WorkShopId: this.WorkShopsID,
           PageNumber: PageNumber,
           PageSize: PageSize,
         },
@@ -28,28 +31,31 @@ export class EmploymentOrdersService {
     );
   }
   create(model: EmploymentOrdersDto) {
-    model.workShopId = this.getWorkShopsID();
-    return this.$http.post<response<any>>(this.urlSvc.EmploymentOrders.Add, model);
+    model.workShopId = this.WorkShopsID;
+    return this.$http.post<response<any>>(
+      this.urlSvc.EmploymentOrders.Add,
+      model
+    );
   }
   delete(id) {
-    return this.$http.delete<response<string>>(this.urlSvc.EmploymentOrders.Delete, {
-      body: { workShopId: this.getWorkShopsID(), employeeId: id },
-    });
+    return this.$http.delete<response<string>>(
+      this.urlSvc.EmploymentOrders.Delete,
+      {
+        body: { workShopId: this.WorkShopsID, employeeId: id },
+      }
+    );
   }
   update(model: EmploymentOrdersDto) {
-    model.workShopId = this.getWorkShopsID();
-    return this.$http.put<response<any>>(this.urlSvc.EmploymentOrders.Edit, model);
+    model.workShopId = this.WorkShopsID;
+    return this.$http.put<response<any>>(
+      this.urlSvc.EmploymentOrders.Edit,
+      model
+    );
   }
 
   getById(employeId) {
     return this.$http.get<response<any>>(this.urlSvc.EmploymentOrders.getById, {
-      params: { WorkShopId: this.getWorkShopsID(), EmployeeId: employeId },
+      params: { WorkShopId: this.WorkShopsID, EmployeeId: employeId },
     });
-  }
-  getWorkShopsID(): number {
-    let WorkShopsID = localStorage.getItem("WorkShopsID");
-    if (WorkShopsID) {
-      return +WorkShopsID;
-    } else return null;
   }
 }

@@ -4,9 +4,12 @@ import { ApiUrlService } from "../../api-url.service";
 import { WorkShopsFilter } from "../models";
 import { Data, response } from "../../shared/models";
 import { EducationFieldsDto } from "../models/education-fields.model";
-
+import { SessionNames } from "../../shared/utilities/session-names";
+import { SessionStorage } from "ngx-webstorage";
 @Injectable()
 export class EducationFieldsService {
+  @SessionStorage(SessionNames.WorkShopsID)
+  WorkShopsID: any;
   constructor(
     private readonly $http: HttpClient,
     private readonly urlSvc: ApiUrlService
@@ -21,7 +24,7 @@ export class EducationFieldsService {
         params: {
           Id: 0,
           Field: "",
-          WorkShopId: this.getWorkShopsID(),
+          WorkShopId: this.WorkShopsID,
           PageNumber: PageNumber,
           PageSize: PageSize,
         },
@@ -29,7 +32,7 @@ export class EducationFieldsService {
     );
   }
   createEducationFields(model: EducationFieldsDto) {
-    model.workShopId = this.getWorkShopsID();
+    model.workShopId = this.WorkShopsID;
     return this.$http.post<response<any>>(
       this.urlSvc.EducationFields.Add,
       model
@@ -38,11 +41,11 @@ export class EducationFieldsService {
   delete(id) {
     return this.$http.delete<response<string>>(
       this.urlSvc.EducationFields.Delete,
-      { body: { workShopId: this.getWorkShopsID(), id: id } }
+      { body: { workShopId: this.WorkShopsID, id: id } }
     );
   }
   update(model: EducationFieldsDto) {
-    model.workShopId = this.getWorkShopsID();
+    model.workShopId = this.WorkShopsID;
     return this.$http.put<response<any>>(
       this.urlSvc.EducationFields.Edit,
       model
@@ -51,13 +54,7 @@ export class EducationFieldsService {
 
   getById(id) {
     return this.$http.get<response<any>>(this.urlSvc.EducationFields.getById, {
-      params: { workShopId: this.getWorkShopsID(), id: id },
+      params: { workShopId: this.WorkShopsID, id: id },
     });
-  }
-  getWorkShopsID(): number {
-    let WorkShopsID = localStorage.getItem("WorkShopsID");
-    if (WorkShopsID) {
-      return +WorkShopsID;
-    } else return null;
   }
 }
