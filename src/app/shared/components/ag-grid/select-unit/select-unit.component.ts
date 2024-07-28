@@ -22,7 +22,8 @@ export class SelectUnitComponent implements ICellEditorAngularComp {
 
   agInit(params: any): void {
     this.params = params;
-    params.colDef.cellEditorParams.values.then((f) => {
+    debugger;
+    params.colDef.cellEditorParams.values.subscribe((f) => {
       this.options = Object.assign([], f);
     });
     this.selectedOption = this.params.value;

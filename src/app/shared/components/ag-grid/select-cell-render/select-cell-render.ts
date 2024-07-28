@@ -11,7 +11,7 @@ export class SelectCellRendererParams {
   params: any;
   agInit(params: ICellRendererParams): void {
     if (params.value) {
-      params.colDef.cellEditorParams.values.then((f) => {
+      params.colDef.cellEditorParams.values.subscribe((f) => {
         let find = f.find((f) => f.value == params.value);
         if (find) {
           this.name = find.label;

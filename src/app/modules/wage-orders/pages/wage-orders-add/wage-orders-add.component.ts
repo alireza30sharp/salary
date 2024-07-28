@@ -49,7 +49,7 @@ export class WageOrdersAddComponent implements OnInit {
       cellEditor: SelectUnitComponent,
       cellRenderer: SelectCellRendererParams,
       cellEditorParams: {
-        values: this._selectListService.getSectionsHoleSize(),
+        values: this._changeWorkShops.benefitDeductionsData$,
         allowTyping: true,
         filterList: true,
         highlightMatch: true,

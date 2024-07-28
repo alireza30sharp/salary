@@ -9,6 +9,7 @@ import { ChangeWorkShopsService } from "../../../../services/change-work-shop.se
 import { Router } from "@angular/router";
 import { wageOrderListDto } from "../../models/wage-orders.model";
 import { CellOperationsClickEvent } from "../../../../shared/components/ag-grid";
+import { Paths } from "../../../../shared/utilities/paths";
 
 @Component({
   selector: "app-wage-orders-list",
@@ -58,7 +59,7 @@ export class WageOrdersListComponent implements OnInit {
           });
         },
         onClickEdit: (params) => {
-          console.table(params);
+          this._router.navigateByUrl(Paths.wageOrders.edit(params.node.id).url);
         },
       },
     },
@@ -120,7 +121,7 @@ export class WageOrdersListComponent implements OnInit {
     this.getWageOrders();
   }
   newWorkShpps() {
-    this._router.navigate(["salary", "wage-orders", "add"]);
+    this._router.navigateByUrl(Paths.wageOrders.add().url);
   }
   getWageOrders() {
     this.isShowLoadingRefrash = true;

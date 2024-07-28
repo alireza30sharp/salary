@@ -56,7 +56,7 @@ export function GetClientPrerequisits(
           let benefitDeductions = res.data
             .find((f) => f.cacheKey == "BenefitDeductions")
             .cacheData.map((item) => ({
-              label: item.fullName,
+              label: item.name,
               value: item.id,
             }));
           changeWorkShopsService.setWorkShopsOptions(WorkShopsOptions);

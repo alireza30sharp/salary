@@ -11,12 +11,16 @@ const routes: Routes = [
     children: [
       { path: "", redirectTo: "list", pathMatch: "full" },
       {
-        path: "list",
+        path: Paths.wageOrders.list().path,
         component: _pages.WageOrdersListComponent,
       },
       {
-        path: "add",
+        path: Paths.wageOrders.add().path,
         component: _pages.WageOrdersAddComponent,
+      },
+      {
+        path: Paths.wageOrders.edit().path,
+        component: _pages.WageOrdersEditComponent,
       },
     ],
   },
