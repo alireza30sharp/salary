@@ -21,18 +21,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: "/salary/work-shops",
       },
       {
-        title: "مزایا و کسورات",
-        link: "/salary/benefit-deduction",
-      },
-      {
-        title: "مالیات",
-        link: "/salary/tax",
-      },
-      {
-        title: "حکم حقوقی",
-        link: "/salary/wage-orders",
-      },
-      {
         title: "مدارک تحصیلی",
         link: "/salary/education",
       },
@@ -54,17 +42,27 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: "/salary/organization-post",
       },
       {
-        title: "گروه کاربری",
+        title: "محل های پرداخت",
         link: "/salary/payment-location",
+      },
+      {
+        title: "مزایا و کسورات",
+        link: "/salary/benefit-deduction",
+      },
+      {
+        title: "جدول مالیاتی",
+        link: "/salary/tax",
       },
       {
         title: "کارمندان",
         link: "/salary/employes-list",
       },
       {
-        title: "مزایا و کسورات کارمندان",
-        link: "/salary/benefit-deduction-employees-list",
+        title: "حکم حقوقی",
+        link: "/salary/wage-orders",
       },
+      
+      
       {
         title: "حکم استخدامی",
         link: "/salary/employment-orders-list",
@@ -79,6 +77,13 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: "لیست",
         link: "/salary/system-operation/list",
       },
+
+      
+      {
+        title: "مزایا و کسورات کارمندان",
+        link: "/salary/benefit-deduction-employees-list",
+      },
+      
     ],
   },
   // {
