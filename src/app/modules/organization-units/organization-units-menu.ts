@@ -54,7 +54,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: "/salary/organization-post",
       },
       {
-        title: "گروه کاربری",
+        title: "محل های پرداخت",
         link: "/salary/payment-location",
       },
       {
