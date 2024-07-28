@@ -2,9 +2,15 @@ import { NgbDate, NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
 
 export class DateUtilies {
   static convertDate(date: NgbDateStruct | null) {
-    return date == null
-      ? null
-      : new Date(date.year, date.month - 1, date.day).toLocaleDateString();
+    if (date == null) {
+      return null;
+    }
+
+    const year = date.year.toString();
+    const month = date.month.toString().padStart(2, "0");
+    const day = date.day.toString().padStart(2, "0");
+
+    return `${year}/${day}/${month}`;
   }
 
   static convertDateToNgbDateStruct(date: string): NgbDateStruct {

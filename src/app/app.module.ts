@@ -47,7 +47,21 @@ export function GetClientPrerequisits(
               value: item.id,
               isDefault: item.isDefault,
             }));
+          let employeList = res.data
+            .find((f) => f.cacheKey == "Employees")
+            .cacheData.map((item) => ({
+              label: item.fullName,
+              value: item.id,
+            }));
+          let benefitDeductions = res.data
+            .find((f) => f.cacheKey == "BenefitDeductions")
+            .cacheData.map((item) => ({
+              label: item.fullName,
+              value: item.id,
+            }));
           changeWorkShopsService.setWorkShopsOptions(WorkShopsOptions);
+          changeWorkShopsService.setEmployeList(employeList);
+          changeWorkShopsService.setBenefitDeductionsList(benefitDeductions);
         }
         resolve();
       });

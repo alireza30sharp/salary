@@ -7,22 +7,30 @@ import { WorkShopsOptionsInterFace } from "../shared/interfaces/work-shops-optio
 
 @Injectable({ providedIn: "root" })
 export class ChangeWorkShopsService {
-  WorkShopsSource$ = new Subject<string>();
+  WorkShopsSource$ = new ReplaySubject<string>(1);
   activeWorkShopsSource$ = this.WorkShopsSource$.asObservable();
   //-
-  employeListSource$ = new Subject<string>();
+  employeListSource$ = new ReplaySubject<Array<WorkShopsOptionsInterFace>>(1);
   employeListData$ = this.employeListSource$.asObservable();
   //
   //-
-  benefitDeductionsSource$ = new Subject<string>();
+  benefitDeductionsSource$ = new ReplaySubject<
+    Array<WorkShopsOptionsInterFace>
+  >(1);
   benefitDeductionsData$ = this.benefitDeductionsSource$.asObservable();
   //-
   private _WorkShopsOptionsSource$ = new ReplaySubject<
     Array<WorkShopsOptionsInterFace>
-  >();
+  >(1);
   WorkShopsOptionsData$ = this._WorkShopsOptionsSource$.asObservable();
   setWorkShopsOptions(list: Array<WorkShopsOptionsInterFace>) {
     this._WorkShopsOptionsSource$.next(list);
+  }
+  setEmployeList(list: Array<WorkShopsOptionsInterFace>) {
+    this.employeListSource$.next(list);
+  }
+  setBenefitDeductionsList(list: Array<WorkShopsOptionsInterFace>) {
+    this.benefitDeductionsSource$.next(list);
   }
   constructor() {}
 }

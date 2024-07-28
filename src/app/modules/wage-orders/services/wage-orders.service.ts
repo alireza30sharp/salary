@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { ApiUrlService } from "../../../api-url.service";
 import { Data, response } from "../../../shared/models";
-import { wageOrdersDto } from "../models/wage-orders.model";
+import { wageOrderListDto, wageOrdersDto } from "../models/wage-orders.model";
 import { SessionNames } from "../../../shared/utilities/session-names";
 import { SessionStorage } from "ngx-webstorage";
 @Injectable()
@@ -17,7 +17,7 @@ export class WageOrdersService {
   get(params?: any) {
     let PageNumber: number = 1;
     let PageSize: number = 20;
-    return this.$http.get<response<Data<wageOrdersDto[]>>>(
+    return this.$http.get<response<Data<wageOrderListDto[]>>>(
       this.urlSvc.WageOrders.GetWageOrderListOfEmployee,
       {
         params: {

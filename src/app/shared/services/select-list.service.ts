@@ -9,9 +9,9 @@ export class SelectListService {
   getSectionsHoleSize(): Promise<any[]> {
     return new Promise((resolve) => {
       let a = [
-        { label: "alireza", value: "1" },
-        { label: "علیرضا", value: "2" },
-        { label: "یاصر", value: "3" },
+        { label: "alireza", value: "5" },
+        { label: "علیرضا", value: "6" },
+        { label: "یاصر", value: "7" },
         { label: "امین", value: "4" },
         { label: "حامد", value: "5" },
         { label: "احمد", value: "6" },

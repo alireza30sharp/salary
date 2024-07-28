@@ -7,6 +7,7 @@ import { ConfirmInterFace } from "../../../../shared/ki-components/ki-confirmati
 import { WageOrdersService } from "../../services/wage-orders.service";
 import { ChangeWorkShopsService } from "../../../../services/change-work-shop.service";
 import { Router } from "@angular/router";
+import { wageOrderListDto } from "../../models/wage-orders.model";
 
 @Component({
   selector: "app-wage-orders-list",
@@ -15,47 +16,66 @@ import { Router } from "@angular/router";
   providers: [WageOrdersService],
 })
 export class WageOrdersListComponent implements OnInit {
-  // columnsDefault: AgGridInterFace[] = [
-  //   {
-  //     field: propertyOf<TaxDto>("row_No"),
-  //     headerName: "row_NO",
-  //     hide: true,
-  //   },
-  //   {
-  //     field: propertyOf<TaxDto>("workShopId"),
-  //     hide: true,
-  //   },
-  //   {
-  //     field: propertyOf<TaxDto>("id"),
-  //     hide: true,
-  //   },
-  //   {
-  //     field: propertyOf<TaxDto>("code"),
-  //     hide: true,
-  //   },
-  //   {
-  //     field: propertyOf<TaxDto>("taxTypeName"),
-  //     headerName: "نوع",
-  //   },
-  //   {
-  //     field: propertyOf<TaxDto>("fromMoneyStr"),
-  //     filter: "agTextColumnFilter",
-  //     headerName: "از مبلغ",
-  //   },
-  //   {
-  //     field: propertyOf<TaxDto>("toMoneyStr"),
-  //     headerName: "تا مبلغ",
-  //     filter: "agTextColumnFilter",
-  //   },
+  columnsDefault: AgGridInterFace[] = [
+    {
+      field: propertyOf<wageOrderListDto>("row_NO"),
+      headerName: "row_NO",
+      hide: true,
+    },
+    {
+      field: propertyOf<wageOrderListDto>("id"),
+      hide: true,
+    },
 
-  //   {
-  //     field: propertyOf<TaxDto>("comment"),
-  //     headerName: "توضحیات",
-  //     filter: "agTextColumnFilter",
-  //   },
-  // ];
-  rowDataDefault = new Array<any>();
-  selectRow = new Array<any>();
+    {
+      field: propertyOf<wageOrderListDto>("code"),
+      hide: true,
+    },
+    {
+      field: propertyOf<wageOrderListDto>("employeeId"),
+      hide: true,
+    },
+    {
+      field: propertyOf<wageOrderListDto>("employeeName"),
+      filter: "agTextColumnFilter",
+      headerName: "نام کارمند",
+    },
+    {
+      field: propertyOf<wageOrderListDto>("employerInsurance"),
+      headerName: "سهم بیمه کارمند",
+      filter: "agNumberColumnFilter",
+    },
+
+    {
+      field: propertyOf<wageOrderListDto>("unEmploymentInsurance"),
+      headerName: "سهم بیمه بیکاری",
+      filter: "agNumberColumnFilter",
+    },
+    {
+      field: propertyOf<wageOrderListDto>("persianStartDate"),
+      headerName: "تاریخ",
+      filter: "agTextColumnFilter",
+    },
+    {
+      field: propertyOf<wageOrderListDto>("personnelCode"),
+      headerName: "کد",
+      filter: "agTextColumnFilter",
+    },
+    {
+      field: propertyOf<wageOrderListDto>("comment"),
+      headerName: "توضیحات",
+      filter: "agTextColumnFilter",
+    },
+  ];
+  rowDataDefault = new Array<wageOrderListDto>();
+  defaultColDef: AgGridInterFace = {
+    flex: 1,
+
+    filter: true,
+
+    resizable: true,
+  };
+  selectRow = new Array<wageOrderListDto>();
   isShowLoadingDelete: boolean = false;
   isShowLoadingRefrash: boolean = false;
   constructor(
@@ -95,7 +115,7 @@ export class WageOrdersListComponent implements OnInit {
       acceptText: "بله",
       declineText: "خیر",
       description: "آیا از عملیات مورد نظر اطمینان دارید؟",
-      title: "حذف" + " " + `"${this.selectRow[0].name.toUpperCase()}"`,
+      title: "حذف" + " " + `"${this.selectRow[0].employeeName.toUpperCase()}"`,
       type: "Confirm",
     };
     this._modalService.showConfirm(params, false).then((res) => {

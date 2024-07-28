@@ -5,9 +5,12 @@ import { Observable, ReplaySubject, Subject, of } from "rxjs";
 import { ApiUrlService } from "../api-url.service";
 import { clientPrerequisitsInterface } from "../shared/models/clientPrerequisits";
 import { catchError, tap } from "rxjs/operators";
-
+import { SessionNames } from "../shared/utilities/session-names";
+import { SessionStorage } from "ngx-webstorage";
 @Injectable({ providedIn: "root" })
 export class ClientPrerequisitsService {
+  @SessionStorage(SessionNames.WorkShopsID)
+  WorkShopsID: any;
   private cachedPrerequisits: any;
   constructor(
     private readonly $http: HttpClient,
@@ -15,8 +18,7 @@ export class ClientPrerequisitsService {
   ) {}
 
   getClientPrerequisits(
-    forceRefresh: boolean = false,
-    WorkShopId: number = 0
+    forceRefresh: boolean = false
   ): Observable<response<clientPrerequisitsInterface[]>> {
     if (this.cachedPrerequisits && !forceRefresh) {
       // اگر داده‌ها قبلاً کش شده بود و ما نیازی به درخواست مجدد نداریم، آنها را از کش بازیابی می‌کنیم
@@ -27,7 +29,7 @@ export class ClientPrerequisitsService {
         .get<any>(this.urlSvc.clientPrerequisits.GetClientPrerequisits, {
           params: {
             Keys: ["WorkShops", "BenefitDeductions", "Employees"],
-            WorkShopId: WorkShopId,
+            WorkShopId: this.WorkShopsID,
           },
         })
         .pipe(

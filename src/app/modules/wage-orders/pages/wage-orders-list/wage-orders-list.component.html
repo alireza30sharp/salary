@@ -14,5 +14,10 @@
     </div>
   </ng-template>
 
-  <ag-grid-data [pagination]="true"></ag-grid-data>
+  <ag-grid-data
+    [columnsDefault]="columnsDefault"
+    [rowDataDefault]="rowDataDefault"
+    [defaultColDef]="defaultColDef"
+    [pagination]="true"
+  ></ag-grid-data>
 </app-general-panel>

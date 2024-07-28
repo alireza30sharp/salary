@@ -57,7 +57,9 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
   @Input() set isEditMode(flag: boolean) {
     this._isEditMode = flag;
     setTimeout(() => {
-      this.onNewSelected();
+      if (this._isEditMode) {
+        this.onNewSelected();
+      }
     }, 10);
   }
   @Input() set columnsDefault(columns: AgGridInterFace[]) {

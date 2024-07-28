@@ -18,7 +18,8 @@ export class BenefitDeductionEmployeesFormModalComponent
   implements OnInit
 {
   @Input() entryId?: number;
-  initialData?: BenefitDeductionEmployeesDto = new BenefitDeductionEmployeesDto();
+  initialData?: BenefitDeductionEmployeesDto =
+    new BenefitDeductionEmployeesDto();
   readonly submitButtonId: string = "submit-button-employes";
   isLoading?: boolean = false;
   isLoadingSaveChange?: boolean = false;
@@ -36,15 +37,16 @@ export class BenefitDeductionEmployeesFormModalComponent
   }
 
   private _getInitialData() {
-    debugger;
     if (this.isEditMode) {
       this.isLoading = true;
-      this._benefitDeductionEmployeesService.getById(this.entryId).subscribe((res) => {
-        if (res.isOk) {
-          this.initialData = res.data;
-        }
-        this.isLoading = false;
-      });
+      this._benefitDeductionEmployeesService
+        .getById(this.entryId)
+        .subscribe((res) => {
+          if (res.isOk) {
+            this.initialData = res.data;
+          }
+          this.isLoading = false;
+        });
     }
   }
   saveHandler(data: BenefitDeductionEmployeesDto) {
