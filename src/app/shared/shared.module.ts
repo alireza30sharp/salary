@@ -59,6 +59,7 @@ const component = [
   grid.CurrencyRendererComponent,
   grid.AgGridDataComponent,
   grid.CellEditorNumberComponent,
+  grid.CellOperationsClickEvent,
   kiComponent.KiButtonComponent,
   kiComponent.KiCheckboxComponent,
   kiComponent.KiConfirmationComponent,

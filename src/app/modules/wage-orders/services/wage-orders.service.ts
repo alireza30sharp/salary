@@ -34,9 +34,13 @@ export class WageOrdersService {
     return this.$http.post<response<any>>(this.urlSvc.WageOrders.Add, model);
   }
 
-  delete(workShopId, id?: any) {
+  delete(employeeId?: any, wageOrderId?: any) {
     return this.$http.delete<response<string>>(this.urlSvc.WageOrders.Delete, {
-      body: { workShopId: this.WorkShopsID, id: id },
+      body: {
+        workShopId: this.WorkShopsID,
+        employeeId: employeeId,
+        wageOrderId: wageOrderId,
+      },
     });
   }
   getById(id) {

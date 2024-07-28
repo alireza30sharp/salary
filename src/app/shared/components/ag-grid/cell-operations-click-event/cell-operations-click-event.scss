@@ -1,0 +1,19 @@
+.trash-box {
+  width: 34px !important;
+  height: 16px !important;
+  display: flex;
+  justify-content: center;
+}
+::ng-deep .ag-row-hover #deleteRow {
+  display: block !important;
+}
+::ng-deep .checked-row #deleteRow {
+  display: block !important;
+}
+
+::ng-deep .ag-row-hover #editRow {
+  display: block !important;
+}
+::ng-deep .checked-row #editRow {
+  display: block !important;
+}

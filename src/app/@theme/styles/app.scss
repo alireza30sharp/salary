@@ -91,6 +91,9 @@ app-accordion {
 .box-shadow-prim {
   box-shadow: var(--box-shadow);
 }
+.pointer {
+  cursor: pointer !important;
+}
 .font-primary {
   font-family: var(--font-family-primary) !important;
 }

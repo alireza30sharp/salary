@@ -8,6 +8,7 @@ import { WageOrdersService } from "../../services/wage-orders.service";
 import { ChangeWorkShopsService } from "../../../../services/change-work-shop.service";
 import { Router } from "@angular/router";
 import { wageOrderListDto } from "../../models/wage-orders.model";
+import { CellOperationsClickEvent } from "../../../../shared/components/ag-grid";
 
 @Component({
   selector: "app-wage-orders-list",
@@ -34,6 +35,32 @@ export class WageOrdersListComponent implements OnInit {
     {
       field: propertyOf<wageOrderListDto>("employeeId"),
       hide: true,
+    },
+    {
+      field: "عملیات",
+      cellClass: "d-flex justify-content-center align-items-center",
+      editable: false,
+      width: 15,
+      cellRenderer: CellOperationsClickEvent,
+      cellRendererParams: {
+        onClickRemove: (params) => {
+          const param: ConfirmInterFace = {
+            acceptText: "بله",
+            declineText: "خیر",
+            description: "آیا از عملیات مورد نظر اطمینان دارید؟",
+            title: "حذف" + " " + `"${params.node?.employeeName.toUpperCase()}"`,
+            type: "Confirm",
+          };
+          this._modalService.showConfirm(param, false).then((res) => {
+            if (res) {
+              this.onDeleteItem(params.node);
+            }
+          });
+        },
+        onClickEdit: (params) => {
+          console.table(params);
+        },
+      },
     },
     {
       field: propertyOf<wageOrderListDto>("employeeName"),
@@ -122,27 +149,27 @@ export class WageOrdersListComponent implements OnInit {
       if (res) {
         if (this.selectRow.length) {
           for (let i = 0; i <= this.selectRow.length; i++) {
-            //this.onDeleteItem(this.selectRow[i]);
+            this.onDeleteItem(this.selectRow[i]);
           }
         }
       }
     });
   }
-  // onDeleteItem(item: BenefitDeductionDto) {
-  //   this.isShowLoadingDelete = true;
-  //   this._taxService
-  //     .delete(item.workShopId, item.id)
-  //     .pipe(
-  //       finalize(() => {
-  //         this.isShowLoadingDelete = false;
-  //       })
-  //     )
-  //     .subscribe((res) => {
-  //       if (res.isOk) {
-  //         this.getTaxList();
-  //       }
-  //     });
-  // }
+  onDeleteItem(item: wageOrderListDto) {
+    this.isShowLoadingDelete = true;
+    this._wageOrdersService
+      .delete(item.employeeId, item.id)
+      .pipe(
+        finalize(() => {
+          this.isShowLoadingDelete = false;
+        })
+      )
+      .subscribe((res) => {
+        if (res.isOk) {
+          this.getWageOrders();
+        }
+      });
+  }
   // onSelectedRowsChangeEvent(event: Array<BenefitDeductionDto>) {
   //   this.selectRow = new Array<BenefitDeductionDto>();
   //   this.selectRow = event;
