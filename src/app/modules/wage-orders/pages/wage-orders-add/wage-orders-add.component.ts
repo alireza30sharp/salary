@@ -140,7 +140,10 @@ export class WageOrdersAddComponent implements OnInit {
     this.wageOrdersModel.persianStartDate = DateUtilies.convertDate(
       this.persianBirthDate
     );
-    if (this.wageOrdersModel.details.length > 0) {
+    if (
+      this.wageOrdersModel?.details &&
+      this.wageOrdersModel.details.length > 0
+    ) {
       this._wageOrdersService
         .create(this.wageOrdersModel)
         .pipe(
@@ -169,6 +172,11 @@ export class WageOrdersAddComponent implements OnInit {
             }
           },
         });
+    } else {
+      this._toastService.error(
+        "لطفا لیست مزایاو کسورات را برای کارمند مشخص کنید"
+      );
+      this.showLoading = false;
     }
   }
   onRefrashSelected() {}
