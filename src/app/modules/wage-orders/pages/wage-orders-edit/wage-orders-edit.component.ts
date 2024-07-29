@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import {
+  Component,
+  DestroyRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from "@angular/core";
 import { ModalService, SelectListService } from "../../../../shared/services";
 import { AgGridInterFace } from "../../../../shared/interfaces/ag-grid.interface";
 import { propertyOf } from "../../../../shared/utilities/property-of";
@@ -25,6 +32,8 @@ import { WageOrdersService } from "../../services/wage-orders.service";
 import { wageOrderDetailDto, wageOrdersDto } from "../../models";
 import { maskPrefixTaxRate } from "../../../../base/models/rul";
 import { Location } from "@angular/common";
+import { ActivatedRoute } from "@angular/router";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 @Component({
   selector: "app-wage-orders-edit",
   templateUrl: "./wage-orders-edit.component.html",
@@ -101,18 +110,25 @@ export class WageOrdersEditComponent implements OnInit {
   isShowLoadingRefrash: boolean = false;
   wageOrdersModel = new wageOrdersDto();
   persianBirthDate: NgbDateStruct;
+  wageOrderId: number = 0;
   maskPrefixTaxRate = maskPrefixTaxRate;
   listclientPrerequisits: clientPrerequisitsInterface[];
   cacheKeyType = cacheKeyEnum;
+  isLoading: boolean = false;
   constructor(
     private _modalService: ModalService,
     private _changeWorkShops: ChangeWorkShopsService,
     private _selectListService: SelectListService,
     private _toastService: ToastService,
     private _wageOrdersService: WageOrdersService,
-    private readonly _location: Location
+    private readonly _location: Location,
+    private readonly _activatedRoute: ActivatedRoute,
+    private readonly _destroyRef: DestroyRef
   ) {}
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.wageOrderId = this._activatedRoute.snapshot.params["id"];
+    this._getData();
+  }
   ngAfterViewInit(): void {
     this._changeWorkShops.employeListData$
       .pipe(delay(100))
@@ -203,6 +219,20 @@ export class WageOrdersEditComponent implements OnInit {
     this.wageOrdersModel.workerInsurance = null;
     this.wageOrdersModel.employeeId = null;
     this.persianBirthDate = null;
+  }
+  private _getData() {
+    this.isLoading = true;
+    this._wageOrdersService
+      .getById(this.wageOrderId)
+      .pipe(
+        takeUntilDestroyed(this._destroyRef),
+        finalize(() => {
+          this.isLoading = false;
+        })
+      )
+      .subscribe((res) => {
+        debugger;
+      });
   }
   onSelectedRowsChangeEvent(event: Array<wageOrdersDto>) {}
 }

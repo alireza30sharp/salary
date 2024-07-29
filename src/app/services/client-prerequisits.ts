@@ -7,6 +7,7 @@ import { clientPrerequisitsInterface } from "../shared/models/clientPrerequisits
 import { catchError, tap } from "rxjs/operators";
 import { SessionNames } from "../shared/utilities/session-names";
 import { SessionStorage } from "ngx-webstorage";
+import { ChangeWorkShopsService } from "./change-work-shop.service";
 @Injectable({ providedIn: "root" })
 export class ClientPrerequisitsService {
   @SessionStorage(SessionNames.WorkShopsID)
@@ -14,7 +15,8 @@ export class ClientPrerequisitsService {
   private cachedPrerequisits: any;
   constructor(
     private readonly $http: HttpClient,
-    private readonly urlSvc: ApiUrlService
+    private readonly urlSvc: ApiUrlService,
+    private _changeWorkShopsService: ChangeWorkShopsService
   ) {}
 
   getClientPrerequisits(
@@ -35,6 +37,34 @@ export class ClientPrerequisitsService {
         .pipe(
           tap((prerequisits) => {
             this.cachedPrerequisits = prerequisits; // ذخیره نتایج در کش
+            if (prerequisits.isOk && prerequisits.data) {
+              let WorkShopsOptions = prerequisits.data
+                .find((f) => f.cacheKey == "WorkShops")
+                .cacheData.map((item) => ({
+                  label: item.workShopName,
+                  value: item.id,
+                  isDefault: item.isDefault,
+                }));
+              let employeList = prerequisits.data
+                .find((f) => f.cacheKey == "Employees")
+                .cacheData.map((item) => ({
+                  label: item.fullName,
+                  value: item.id,
+                }));
+              let benefitDeductions = prerequisits.data
+                .find((f) => f.cacheKey == "BenefitDeductions")
+                .cacheData.map((item) => ({
+                  label: item.name,
+                  value: item.id,
+                }));
+              this._changeWorkShopsService.setWorkShopsOptions(
+                WorkShopsOptions
+              );
+              this._changeWorkShopsService.setEmployeList(employeList);
+              this._changeWorkShopsService.setBenefitDeductionsList(
+                benefitDeductions
+              );
+            }
           }),
           catchError(this.handleError<any>("getClientPrerequisits", []))
         );

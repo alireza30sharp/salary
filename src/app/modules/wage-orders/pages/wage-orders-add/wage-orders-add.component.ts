@@ -107,11 +107,17 @@ export class WageOrdersAddComponent implements OnInit {
   constructor(
     private _modalService: ModalService,
     private _changeWorkShops: ChangeWorkShopsService,
+    clientPrerequis: ClientPrerequisitsService,
     private _selectListService: SelectListService,
     private _toastService: ToastService,
     private _wageOrdersService: WageOrdersService,
     private readonly _location: Location
-  ) {}
+  ) {
+    this.persianBirthDate = DateUtilies.convertDateToNgbDateStruct(
+      new Date().toLocaleString()
+    );
+    clientPrerequis.getClientPrerequisits(true).subscribe();
+  }
   ngOnInit(): void {}
   ngAfterViewInit(): void {
     this._changeWorkShops.employeListData$

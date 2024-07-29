@@ -78,7 +78,8 @@ export class ToolsBarComponent implements OnInit {
     if (event.key === "Escape") {
       this.escapeEvent();
     }
-    if ((event.shiftKey && event.code === "KeyP") || event.code === "KeyP") {
+
+    if (event.shiftKey && event.code === "KeyP") {
       event.stopPropagation();
       event.preventDefault();
       this.perintEvent();

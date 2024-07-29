@@ -3,103 +3,111 @@
   [hideBackButton]="false"
   (backCallback)="cancelClickHandler()"
 >
-  <div class="row">
-    <ki-form-group class="col-3" [label]="'کد کارگاه '">
-      <ki-input
-        [fullWidth]="true"
-        [(ngModel)]="wageOrdersModel.workShopId"
-        [readonly]="true"
-      ></ki-input>
-    </ki-form-group>
+  <app-skeleton-form-loading
+    *ngIf="showLoading; else formTemplate"
+  ></app-skeleton-form-loading>
+  <ng-template #formTemplate>
+    <div class="row">
+      <ki-form-group class="col-3" [label]="'کد کارگاه '">
+        <ki-input
+          [fullWidth]="true"
+          [(ngModel)]="wageOrdersModel.workShopId"
+          [readonly]="true"
+        ></ki-input>
+      </ki-form-group>
 
-    <ki-form-group class="col-3" [label]="'نام کارمند'">
-      <ki-select
-        [placeholder]="'نام کارمند'"
-        [allowClear]="true"
-        [allowHighlight]="true"
-        [options]="employeList"
-        bindLabel="name"
-        bindValue="id"
-        [allowClear]="true"
-        [(ngModel)]="wageOrdersModel.employeeId"
-      >
-      </ki-select>
-    </ki-form-group>
-    <ki-form-group [label]="'تاریخ'" class="col-3">
-      <ki-date-picker [(ngModel)]="persianBirthDate"></ki-date-picker>
-    </ki-form-group>
-    <ki-form-group class="col-3" [label]="'سهم بیمه کارمند'">
-      <ki-input
-        [fullWidth]="true"
-        [(ngModel)]="wageOrdersModel.employerInsurance"
-        [maskType]="'percent'"
-        [maskPrefix]="maskPrefixTaxRate"
-        class="ltr"
-        [onlyNumber]="true"
-        [type]="'rate'"
-      ></ki-input>
-    </ki-form-group>
-  </div>
-  <div class="row">
-    <ki-form-group class="col-3" [label]="'سهم بیمه کارفرما'">
-      <ki-input
-        [fullWidth]="true"
-        [(ngModel)]="wageOrdersModel.workerInsurance"
-        [maskType]="'percent'"
-        [maskPrefix]="maskPrefixTaxRate"
-        class="ltr"
-        [onlyNumber]="true"
-        [type]="'rate'"
-      ></ki-input>
-    </ki-form-group>
-    <ki-form-group class="col-3" [label]="'سهم بیمه بیکاری'">
-      <ki-input
-        [fullWidth]="true"
-        [(ngModel)]="wageOrdersModel.unEmploymentInsurance"
-        [maskType]="'percent'"
-        [maskPrefix]="maskPrefixTaxRate"
-        class="ltr"
-        [onlyNumber]="true"
-        [type]="'rate'"
-      ></ki-input>
-    </ki-form-group>
-    <div class="col-3 align-content-center">
-      <ki-checkbox
-        [text]="'بیمه پذیر'"
-        [(ngModel)]="wageOrdersModel.hasInsurance"
-      />
+      <ki-form-group class="col-3" [label]="'نام کارمند'">
+        <ki-select
+          [placeholder]="'نام کارمند'"
+          [allowClear]="true"
+          [allowHighlight]="true"
+          [options]="employeList"
+          bindLabel="name"
+          bindValue="id"
+          [allowClear]="true"
+          [(ngModel)]="wageOrdersModel.employeeId"
+        >
+        </ki-select>
+      </ki-form-group>
+      <ki-form-group [label]="'تاریخ'" class="col-3">
+        <ki-date-picker [(ngModel)]="persianBirthDate"></ki-date-picker>
+      </ki-form-group>
+      <ki-form-group class="col-3" [label]="'سهم بیمه کارمند'">
+        <ki-input
+          [fullWidth]="true"
+          [(ngModel)]="wageOrdersModel.employerInsurance"
+          [maskType]="'percent'"
+          [maskPrefix]="maskPrefixTaxRate"
+          class="ltr"
+          [onlyNumber]="true"
+          [type]="'rate'"
+        ></ki-input>
+      </ki-form-group>
     </div>
-    <div class="col-3 align-content-center">
-      <ki-checkbox
-        [text]="'مالیات پذیر'"
-        [(ngModel)]="wageOrdersModel.isTaxable"
-      />
+    <div class="row">
+      <ki-form-group class="col-3" [label]="'سهم بیمه کارفرما'">
+        <ki-input
+          [fullWidth]="true"
+          [(ngModel)]="wageOrdersModel.workerInsurance"
+          [maskType]="'percent'"
+          [maskPrefix]="maskPrefixTaxRate"
+          class="ltr"
+          [onlyNumber]="true"
+          [type]="'rate'"
+        ></ki-input>
+      </ki-form-group>
+      <ki-form-group class="col-3" [label]="'سهم بیمه بیکاری'">
+        <ki-input
+          [fullWidth]="true"
+          [(ngModel)]="wageOrdersModel.unEmploymentInsurance"
+          [maskType]="'percent'"
+          [maskPrefix]="maskPrefixTaxRate"
+          class="ltr"
+          [onlyNumber]="true"
+          [type]="'rate'"
+        ></ki-input>
+      </ki-form-group>
+      <div class="col-3 align-content-center">
+        <ki-checkbox
+          [text]="'بیمه پذیر'"
+          [(ngModel)]="wageOrdersModel.hasInsurance"
+        />
+      </div>
+      <div class="col-3 align-content-center">
+        <ki-checkbox
+          [text]="'مالیات پذیر'"
+          [(ngModel)]="wageOrdersModel.isTaxable"
+        />
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <ki-form-group class="col-8" [label]="'توضیحات'">
-      <ki-textarea
-        [fullWidth]="true"
-        [(ngModel)]="wageOrdersModel.comment"
-      ></ki-textarea>
-    </ki-form-group>
-    <ki-form-group class="col-2">
-      <ki-button
-        [btnType]="'primary'"
-        [showLoading]="showLoading"
-        [title]="'جستجو'"
-        (clickCallback)="clickSearchHander()"
-      >
-      </ki-button>
-    </ki-form-group>
-  </div>
+    <div class="row">
+      <ki-form-group class="col-8" [label]="'توضیحات'">
+        <ki-textarea
+          [fullWidth]="true"
+          [(ngModel)]="wageOrdersModel.comment"
+        ></ki-textarea>
+      </ki-form-group>
+      <ki-form-group class="col-2">
+        <ki-button
+          [btnType]="'primary'"
+          [showLoading]="showLoading"
+          [title]="'جستجو'"
+          (clickCallback)="clickSearchHander()"
+        >
+        </ki-button>
+      </ki-form-group>
+    </div>
+  </ng-template>
 
-  <ag-grid-data
-    [isEditMode]="true"
-    [editType]="editType"
-    [columnsDefault]="columnsDefault"
-    [rowDataDefault]="rowDataDefault"
-    [defaultColDef]="defaultColDef"
-    (saveCellChange)="saveCellHandeler($event)"
-  ></ag-grid-data>
+  <div class="w-100 position-relative">
+    <ki-spinner [color]="'primary'" [matchParent]="true"></ki-spinner>
+    <ag-grid-data
+      [isEditMode]="true"
+      [editType]="editType"
+      [columnsDefault]="columnsDefault"
+      [rowDataDefault]="rowDataDefault"
+      [defaultColDef]="defaultColDef"
+      (saveCellChange)="saveCellHandeler($event)"
+    ></ag-grid-data>
+  </div>
 </app-general-panel>

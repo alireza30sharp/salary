@@ -33,36 +33,11 @@ import { NgxWebstorageModule } from "ngx-webstorage";
 import { ChangeWorkShopsService } from "./services/change-work-shop.service";
 
 export function GetClientPrerequisits(
-  clientPrerequis: ClientPrerequisitsService,
-  changeWorkShopsService: ChangeWorkShopsService
+  clientPrerequis: ClientPrerequisitsService
 ) {
   const fn = () =>
     new Promise<void>((resolve, rej) => {
       clientPrerequis.getClientPrerequisits(true).subscribe((res) => {
-        if (res.isOk && res.data) {
-          let WorkShopsOptions = res.data
-            .find((f) => f.cacheKey == "WorkShops")
-            .cacheData.map((item) => ({
-              label: item.workShopName,
-              value: item.id,
-              isDefault: item.isDefault,
-            }));
-          let employeList = res.data
-            .find((f) => f.cacheKey == "Employees")
-            .cacheData.map((item) => ({
-              label: item.fullName,
-              value: item.id,
-            }));
-          let benefitDeductions = res.data
-            .find((f) => f.cacheKey == "BenefitDeductions")
-            .cacheData.map((item) => ({
-              label: item.name,
-              value: item.id,
-            }));
-          changeWorkShopsService.setWorkShopsOptions(WorkShopsOptions);
-          changeWorkShopsService.setEmployeList(employeList);
-          changeWorkShopsService.setBenefitDeductionsList(benefitDeductions);
-        }
         resolve();
       });
     });
@@ -102,7 +77,7 @@ export function GetClientPrerequisits(
     {
       provide: APP_INITIALIZER,
       useFactory: GetClientPrerequisits,
-      deps: [ClientPrerequisitsService, ChangeWorkShopsService],
+      deps: [ClientPrerequisitsService],
       multi: true,
     },
   ],
