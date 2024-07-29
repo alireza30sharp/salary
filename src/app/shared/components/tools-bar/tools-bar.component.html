@@ -1,5 +1,7 @@
 <div class="d-flex justify-content-bettwen rtl w-100 overflow-auto">
   <ki-button
+    [appTooltip]="'بازگشت'"
+    [appTooltipPosition]="'top'"
     btnType="basic"
     [iconClassName]="'fa-solid fa-arrow-rotate-left'"
     (click)="escapeEvent()"
@@ -7,6 +9,8 @@
     class="mx-2 f-15 ESc"
   ></ki-button>
   <ki-button
+    [appTooltip]="'ابزار'"
+    [appTooltipPosition]="'top'"
     btnType="basic"
     [iconClassName]="'fa-solid fa-screwdriver-wrench'"
     [size]="sizeBtn"
@@ -14,6 +18,8 @@
     class="mx-2 f-15 tools"
   ></ki-button>
   <ki-button
+    [appTooltip]="'بروز رسانی'"
+    [appTooltipPosition]="'top'"
     btnType="basic"
     [iconClassName]="'fa-solid fa-arrows-rotate'"
     (click)="refrashEvent()"
@@ -22,12 +28,16 @@
     class="mx-2 f-15 refresh"
   ></ki-button>
   <ki-button
+    [appTooltip]="'اطلاعات'"
+    [appTooltipPosition]="'top'"
     btnType="basic"
     [iconClassName]="'fa-solid fa-circle-info'"
     [size]="sizeBtn"
     class="mx-2 f-15 info"
   ></ki-button>
   <ki-button
+    [appTooltip]="'چاپ'"
+    [appTooltipPosition]="'top'"
     btnType="basic"
     [iconClassName]="'fa-solid fa-print'"
     [size]="sizeBtn"
@@ -35,18 +45,24 @@
     class="mx-2 f-15 print"
   ></ki-button>
   <ki-button
+    [appTooltip]="'خروجی اکسل'"
+    [appTooltipPosition]="'top'"
     btnType="basic"
     [size]="sizeBtn"
     [iconClassName]="'fa-solid fa-file-excel'"
     class="mx-2 f-15 excel"
   ></ki-button>
   <ki-button
+    [appTooltip]="'تایید'"
+    [appTooltipPosition]="'top'"
     btnType="basic"
     [iconClassName]="'fa-regular fa-circle-check'"
     [size]="sizeBtn"
     class="mx-2 f-15 check"
   ></ki-button>
   <ki-button
+    [appTooltip]="'حذف'"
+    [appTooltipPosition]="'top'"
     [disabled]="disabled"
     btnType="basic"
     [iconClassName]="'fas fa-trash-alt'"
@@ -56,6 +72,8 @@
     class="mx-2 f-15 trash"
   ></ki-button>
   <ki-button
+    [appTooltip]="'ویرایش'"
+    [appTooltipPosition]="'top'"
     btnType="basic"
     [iconClassName]="'fas fa-edit'"
     (click)="editEvent()"
@@ -65,6 +83,8 @@
   ></ki-button>
 
   <ki-button
+    [appTooltip]="'اضافه'"
+    [appTooltipPosition]="'top'"
     btnType="basic"
     [iconClassName]="'fas fa-plus '"
     (click)="addEvent()"

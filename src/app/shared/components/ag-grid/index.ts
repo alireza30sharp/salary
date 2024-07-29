@@ -12,3 +12,4 @@ export { CurrencyRendererComponent } from "./currency-renderer/currency-renderer
 export { SelectUnitComponent } from "./select-unit/select-unit.component";
 export { CellEditorNumberComponent } from "./cell-editor-number/cell-editor-number.component";
 export { CellOperationsClickEvent } from "./cell-operations-click-event/cell-operations-click-event";
+export { SelectCellRendererParams } from "./select-cell-render/select-cell-render";

@@ -31,6 +31,8 @@ import { HighLightPipe } from "./pipes/highlight.pipe";
 import { DevexpressModule } from "./devexpress.module";
 import { DatePickerModule } from "./date-picker.module";
 import { ToastrModule } from "ngx-toastr";
+import { TooltipComponent } from "./components/tooltip/tooltip.component";
+import { TooltipDirective } from "./components/tooltip/tooltip.directive";
 
 const component = [
   ContextMenuComponent,
@@ -38,6 +40,8 @@ const component = [
   ReportComponent,
   PinCodeComponent,
   ToolsBarComponent,
+  TooltipComponent,
+  TooltipDirective,
   SkeletonFormLoadingComponent,
   GeneralHeaderComponent,
   GeneralLayoutComponent,
@@ -47,6 +51,7 @@ const component = [
   DropdownComponent,
   ListViewFilterComponent,
   grid.AgLink,
+  grid.SelectCellRendererParams,
   grid.AssignmentCellRenderer,
   grid.CellEditable,
   grid.CheckClickable,

@@ -1,0 +1,15 @@
+<span
+  #tooltipRef
+  class="debtrak-tooltip"
+  [class.debtrak-tooltip--top]="position === 'top'"
+  [class.debtrak-tooltip--bottom]="position === 'bottom'"
+  [class.debtrak-tooltip--start]="position === 'start'"
+  [class.debtrak-tooltip--end]="position === 'end'"
+  [class.debtrak-tooltip--show]="show"
+  [class.debtrak-tooltip--fixed]="top || left"
+  [class.debtrak-tooltip--inverse-color]="inverseColor"
+  [style.top]="top"
+  [style.left]="left"
+  [style.transform]="transform"
+  >{{ title }}</span
+>

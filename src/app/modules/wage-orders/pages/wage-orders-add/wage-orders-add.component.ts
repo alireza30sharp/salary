@@ -58,6 +58,7 @@ export class WageOrdersAddComponent implements OnInit {
       startEditing: true,
       editable: true,
       requerd: true,
+      messageRequerd: "لطفا فیلد اجباری را وارد کنید",
     },
     {
       field: propertyOf<wageOrderDetailDto>("price"),
