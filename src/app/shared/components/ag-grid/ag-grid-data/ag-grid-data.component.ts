@@ -200,20 +200,13 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
       if (key === "s") {
         var rowNode = e.node;
         var newSelection = !rowNode.isSelected();
-        console.log(
-          "setting selection on node " +
-            rowNode.data.athlete +
-            " to " +
-            newSelection
-        );
+
         rowNode.setSelected(newSelection);
-      } else if (key === "+") {
-        this.onNewSelected();
       } else if (key === "Enter") {
         if (!this.validateRequiredFields(e.data, this.columnsTable)) {
-          this.SaveSelected();
+          //  this.SaveSelected();
         } else {
-          alert("لطفا فیلد های اجباری را وارد کنید");
+          // alert("لطفا فیلد های اجباری را وارد کنید");
         }
       }
     }

@@ -1,18 +1,18 @@
 @import "variable";
 
 :host {
-    overflow: hidden;
-  }
-  .danger{
-    background-color: var(--color-100);
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex: 1;
-  }
+  overflow: hidden;
+}
+.danger {
+  background-color: var(--color-100);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex: 1;
+}
 
-  .ki-tab__button-error {
- 
-    color: $error;
-    font-size: 25px;
-  }
+.ki-tab__button-error {
+  line-height: 43px;
+  color: $error;
+  font-size: 25px;
+}

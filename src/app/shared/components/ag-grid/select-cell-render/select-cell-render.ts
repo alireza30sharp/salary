@@ -1,7 +1,6 @@
 import { Component } from "@angular/core";
 import { ICellRendererAngularComp } from "ag-grid-angular";
 import { ICellRendererParams } from "ag-grid-community";
-import { MessageUtilies } from "../../../../shared/utilities/message";
 
 @Component({
   selector: "app-ag-grid-select-cell-render",
@@ -24,9 +23,6 @@ export class SelectCellRendererParams implements ICellRendererAngularComp {
       });
     } else if (!params.value && (params.colDef as any).requerd) {
       this.errorInvalid = true;
-      this.messageErrorRequerd = (params.colDef as any).messageRequerd
-        ? (params.colDef as any).messageRequerd
-        : MessageUtilies.messageErrorRequerd();
     }
   }
   refresh(params: ICellRendererParams): boolean {

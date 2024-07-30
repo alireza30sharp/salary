@@ -57,6 +57,11 @@ app-tools-bar {
   align-items: center !important;
   justify-content: center !important;
 }
+.start-content {
+  display: flex !important;
+  align-items: start !important;
+  justify-content: start !important;
+}
 input::placeholder {
   font-family: var(--font-family-primary) !important;
 }

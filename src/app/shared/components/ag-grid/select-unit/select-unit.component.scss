@@ -1,0 +1,11 @@
+@import "variable";
+
+.ki-tab__button-error {
+  line-height: 43px;
+  color: $error;
+  font-size: 25px;
+  position: absolute;
+  top: 0;
+  right: 1rem;
+  z-index: 1;
+}

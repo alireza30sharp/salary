@@ -29,6 +29,9 @@ export class ApiUrlService {
     Delete: BASE_URL + "BasicInformation/BenefitDeduction/Delete",
     Edit: BASE_URL + "BasicInformation/BenefitDeduction/Edit",
     getById: BASE_URL + "BasicInformation/BenefitDeduction/GetById",
+    GetBenefitDaductionClientPrerequisites:
+      BASE_URL +
+      "BasicInformation/BenefitDeduction/GetBenefitDaductionClientPrerequisites",
   };
   Tax = {
     GetAllTaxData: BASE_URL + "BasicInformation/TaxTable/GetAllTaxData",
@@ -95,6 +98,8 @@ export class ApiUrlService {
     Delete: BASE_URL + "Employees/Delete",
     Edit: BASE_URL + "Employees/Edit",
     getById: BASE_URL + "Employees/GetEmployeeInformation",
+    GetEmployeeClientPrerequisites:
+      BASE_URL + "Employees/GetEmployeeClientPrerequisites",
   };
   BenefitDeductionEmployees = {
     GetBenefitDeductionEmployeesList:

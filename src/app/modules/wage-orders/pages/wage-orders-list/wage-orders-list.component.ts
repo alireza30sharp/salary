@@ -10,6 +10,7 @@ import { Router } from "@angular/router";
 import { wageOrderListDto } from "../../models/wage-orders.model";
 import { CellOperationsClickEvent } from "../../../../shared/components/ag-grid";
 import { Paths } from "../../../../shared/utilities/paths";
+import { ClientPrerequisitsService } from "../../../../services/client-prerequisits";
 
 @Component({
   selector: "app-wage-orders-list",
@@ -110,7 +111,8 @@ export class WageOrdersListComponent implements OnInit {
     private _wageOrdersService: WageOrdersService,
     private _modalService: ModalService,
     private _changeWorkShops: ChangeWorkShopsService,
-    private _router: Router
+    private _router: Router,
+    private _clientPrerequisitsService: ClientPrerequisitsService
   ) {}
   ngOnInit(): void {
     this._changeWorkShops.activeWorkShopsSource$.subscribe((workShopId) => {

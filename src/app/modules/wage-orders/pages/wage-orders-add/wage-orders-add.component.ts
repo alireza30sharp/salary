@@ -58,7 +58,6 @@ export class WageOrdersAddComponent implements OnInit {
       startEditing: true,
       editable: true,
       requerd: true,
-      messageRequerd: "لطفا فیلد اجباری را وارد کنید",
     },
     {
       field: propertyOf<wageOrderDetailDto>("price"),
@@ -117,7 +116,8 @@ export class WageOrdersAddComponent implements OnInit {
     this.persianBirthDate = DateUtilies.convertDateToNgbDateStruct(
       new Date().toLocaleString()
     );
-    clientPrerequis.getClientPrerequisits(true).subscribe();
+    clientPrerequis.getEmployeeClientPrerequisites(true).subscribe();
+    clientPrerequis.getBenefitDaductionClientPrerequisites(true).subscribe();
   }
   ngOnInit(): void {}
   ngAfterViewInit(): void {

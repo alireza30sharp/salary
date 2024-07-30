@@ -30,19 +30,19 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { ShepherdService } from "angular-shepherd";
 import { ClientPrerequisitsService } from "./services/client-prerequisits";
 import { NgxWebstorageModule } from "ngx-webstorage";
-import { ChangeWorkShopsService } from "./services/change-work-shop.service";
 
-export function GetClientPrerequisits(
-  clientPrerequis: ClientPrerequisitsService
-) {
-  const fn = () =>
-    new Promise<void>((resolve, rej) => {
-      clientPrerequis.getClientPrerequisits(true).subscribe((res) => {
-        resolve();
-      });
-    });
-  return fn;
-}
+// export function GetClientPrerequisits(
+//   clientPrerequis: ClientPrerequisitsService
+// ) {
+//   const fn = () =>
+//     new Promise<void>((resolve, rej) => {
+//       clientPrerequis.getClientPrerequisits(true).subscribe((res) => {
+//         resolve();
+//       });
+//     });
+//   return fn;
+// }
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -69,17 +69,16 @@ export function GetClientPrerequisits(
   bootstrap: [AppComponent],
   providers: [
     ShepherdService,
-    ClientPrerequisitsService,
     AuthGuard,
     AuthLoginGuard,
     { provide: HTTP_INTERCEPTORS, useClass: NbAuthJWTInterceptor, multi: true },
 
-    {
-      provide: APP_INITIALIZER,
-      useFactory: GetClientPrerequisits,
-      deps: [ClientPrerequisitsService],
-      multi: true,
-    },
+    // {
+    //   provide: APP_INITIALIZER,
+    //   useFactory: GetClientPrerequisits,
+    //   deps: [ClientPrerequisitsService],
+    //   multi: true,
+    // },
   ],
 })
 export class AppModule {

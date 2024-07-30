@@ -1,11 +1,16 @@
-<div class="w-100">
+<div class="w-100 position-relative px-1">
+  <span
+    *ngIf="errorInvalid"
+    class="ki-tab__button-error fa-solid fa-circle-xmark start-content"
+  ></span>
+
   <ki-select
     [allowClear]="true"
     [allowHighlight]="true"
     [options]="options"
     [allowClear]="true"
     (onChange)="onChangeEmitter()"
-    (ngModelChange)="btnClickedHandler()"
+    (onChangeCalback)="btnClickedHandler()"
     [(ngModel)]="selectedOption"
   >
   </ki-select>
