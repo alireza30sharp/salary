@@ -4,12 +4,14 @@ import {
   forwardRef,
   Input,
   Output,
+  ViewChild,
   ViewEncapsulation,
 } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { propertyOf } from "../../utilities/property-of";
 import { SelectOptionInterface } from "../../interfaces/select-option.interface";
 import { SizeType } from "../../types/size.type";
+import { NgSelectComponent } from "@ng-select/ng-select";
 
 @Component({
   selector: "ki-select",
@@ -25,6 +27,15 @@ import { SizeType } from "../../types/size.type";
   ],
 })
 export class kiSelectComponent implements ControlValueAccessor {
+  @ViewChild("select") set select(elm: NgSelectComponent) {
+    if (elm) {
+      this._select = elm;
+      if (this.setFocusItem) {
+        this.setFocus();
+      }
+    }
+  }
+
   @Input() options: Array<any>;
   @Input() _value: any;
   @Input() placeholder: string;
@@ -40,8 +51,10 @@ export class kiSelectComponent implements ControlValueAccessor {
   @Input() id?: string;
   @Input() isloading?: boolean = false;
   @Input() allowHighlight?: boolean = false;
+  @Input() setFocusItem: boolean;
   @Output() onChangeCalback: EventEmitter<any> = new EventEmitter();
 
+  _select: NgSelectComponent;
   get value() {
     return this._value;
   }
@@ -81,7 +94,11 @@ export class kiSelectComponent implements ControlValueAccessor {
     }*/
     this.onChangeCalback.emit(this.value);
   }
-
+  setFocus = () => {
+    setTimeout(() => {
+      this._select.focus();
+    }, 10);
+  };
   openHandler() {
     setTimeout(() => {
       const classNames: string[] = [];

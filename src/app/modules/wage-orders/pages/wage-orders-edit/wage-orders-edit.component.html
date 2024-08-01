@@ -22,8 +22,6 @@
           [allowClear]="true"
           [allowHighlight]="true"
           [options]="employeList"
-          bindLabel="name"
-          bindValue="id"
           [allowClear]="true"
           [(ngModel)]="wageOrdersModel.employeeId"
         >
@@ -87,27 +85,26 @@
           [(ngModel)]="wageOrdersModel.comment"
         ></ki-textarea>
       </ki-form-group>
-      <ki-form-group class="col-2">
-        <ki-button
-          [btnType]="'primary'"
-          [showLoading]="showLoading"
-          [title]="'جستجو'"
-          (clickCallback)="clickSearchHander()"
-        >
-        </ki-button>
-      </ki-form-group>
     </div>
   </ng-template>
 
-  <div class="w-100 position-relative">
-    <ki-spinner [color]="'primary'" [matchParent]="true"></ki-spinner>
-    <ag-grid-data
-      [isEditMode]="true"
-      [editType]="editType"
-      [columnsDefault]="columnsDefault"
-      [rowDataDefault]="rowDataDefault"
-      [defaultColDef]="defaultColDef"
-      (saveCellChange)="saveCellHandeler($event)"
-    ></ag-grid-data>
-  </div>
+  <ag-grid-data
+    [rowId]="'id'"
+    [isEditMode]="isEditMode"
+    [editType]="editType"
+    [columnsDefault]="columnsDefault"
+    [rowDataDefault]="rowDataDefault"
+    [defaultColDef]="defaultColDef"
+    (saveCellChange)="saveCellHandeler($event)"
+  ></ag-grid-data>
+  <ng-template #footer>
+    <ki-button
+      btnType="basic"
+      [iconClassName]="'fa-solid fa-floppy-disk'"
+      [showLoading]="showLoading"
+      [title]="'ویرایش اطلاعات'"
+      (clickCallback)="clickSearchHander()"
+    >
+    </ki-button>
+  </ng-template>
 </app-general-panel>

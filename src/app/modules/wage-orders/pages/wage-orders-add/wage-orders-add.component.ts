@@ -8,6 +8,7 @@ import { NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
 
 import { numberCellFormatter_valueFormatter } from "../../../../shared/interfaces/aggrid-master";
 import {
+  CellEditorCheckboxComponent,
   CellEditorNumberComponent,
   SelectUnitComponent,
 } from "../../../../shared/components/ag-grid";
@@ -74,7 +75,7 @@ export class WageOrdersAddComponent implements OnInit {
       editable: true,
       cellClass: "text-center center-content",
       cellRenderer: "agCheckboxCellRenderer",
-      cellEditor: "agCheckboxCellEditor",
+      cellEditor: CellEditorCheckboxComponent,
     },
     {
       field: propertyOf<wageOrderDetailDto>("calculateOnTax"),
@@ -82,7 +83,7 @@ export class WageOrdersAddComponent implements OnInit {
       editable: true,
       cellClass: "text-center center-content",
       cellRenderer: "agCheckboxCellRenderer",
-      cellEditor: "agCheckboxCellEditor",
+      cellEditor: CellEditorCheckboxComponent, //"agCheckboxCellEditor",
     },
   ];
   defaultColDef: AgGridInterFace = {
@@ -105,10 +106,7 @@ export class WageOrdersAddComponent implements OnInit {
   listclientPrerequisits: clientPrerequisitsInterface[];
   cacheKeyType = cacheKeyEnum;
   constructor(
-    private _modalService: ModalService,
     private _changeWorkShops: ChangeWorkShopsService,
-    clientPrerequis: ClientPrerequisitsService,
-    private _selectListService: SelectListService,
     private _toastService: ToastService,
     private _wageOrdersService: WageOrdersService,
     private readonly _location: Location
@@ -116,8 +114,6 @@ export class WageOrdersAddComponent implements OnInit {
     this.persianBirthDate = DateUtilies.convertDateToNgbDateStruct(
       new Date().toLocaleString()
     );
-    clientPrerequis.getEmployeeClientPrerequisites(true).subscribe();
-    clientPrerequis.getBenefitDaductionClientPrerequisites(true).subscribe();
   }
   ngOnInit(): void {}
   ngAfterViewInit(): void {
@@ -195,6 +191,7 @@ export class WageOrdersAddComponent implements OnInit {
     });
     this.wageOrdersModel.details = [...details];
   }
+
   cancelClickHandler() {
     this._location.back();
   }

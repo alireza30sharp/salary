@@ -150,6 +150,48 @@ export class WageOrdersEditComponent implements OnInit {
         this.wageOrdersModel.workShopId = +workShopId;
       });
   }
+
+  onRefrashSelected() {}
+  saveCellHandeler(details: wageOrderDetailDto[]) {
+    this.wageOrdersModel.details = [];
+
+    this.wageOrdersModel.details = [...details];
+  }
+  cancelClickHandler() {
+    this._location.back();
+  }
+  resateData() {
+    this.rowDataDefault = new Array<wageOrderDetailDto>();
+    this.wageOrdersModel.comment = null;
+    this.wageOrdersModel.details = null;
+    this.wageOrdersModel.employerInsurance = null;
+    this.wageOrdersModel.hasInsurance = false;
+    this.wageOrdersModel.isTaxable = false;
+    this.wageOrdersModel.persianStartDate = null;
+    this.wageOrdersModel.unEmploymentInsurance = null;
+    this.wageOrdersModel.workerInsurance = null;
+    this.wageOrdersModel.employeeId = null;
+    this.persianBirthDate = null;
+  }
+  private _getData() {
+    this.isLoading = true;
+    this._wageOrdersService
+      .getById(this.wageOrderId)
+      .pipe(
+        takeUntilDestroyed(this._destroyRef),
+        finalize(() => {
+          this.isLoading = false;
+        })
+      )
+      .subscribe((res) => {
+        if (res.isOk) {
+          this.wageOrdersModel = res.data;
+          this.persianBirthDate = this.wageOrdersModel.persianStartDate as any;
+          this.rowDataDefault = this.wageOrdersModel.details;
+        }
+      });
+  }
+  onSelectedRowsChangeEvent(event: Array<wageOrdersDto>) {}
   clickSearchHander() {
     this.showLoading = true;
 
@@ -161,7 +203,7 @@ export class WageOrdersEditComponent implements OnInit {
       this.wageOrdersModel.details.length > 0
     ) {
       this._wageOrdersService
-        .create(this.wageOrdersModel)
+        .update(this.wageOrdersModel)
         .pipe(
           finalize(() => {
             this.showLoading = false;
@@ -195,44 +237,4 @@ export class WageOrdersEditComponent implements OnInit {
       this.showLoading = false;
     }
   }
-  onRefrashSelected() {}
-  saveCellHandeler(details: wageOrderDetailDto[]) {
-    this.wageOrdersModel.details = [];
-    details = details.map((d) => {
-      d.id = "0";
-      return d;
-    });
-    this.wageOrdersModel.details = [...details];
-  }
-  cancelClickHandler() {
-    this._location.back();
-  }
-  resateData() {
-    this.rowDataDefault = new Array<wageOrderDetailDto>();
-    this.wageOrdersModel.comment = null;
-    this.wageOrdersModel.details = null;
-    this.wageOrdersModel.employerInsurance = null;
-    this.wageOrdersModel.hasInsurance = false;
-    this.wageOrdersModel.isTaxable = false;
-    this.wageOrdersModel.persianStartDate = null;
-    this.wageOrdersModel.unEmploymentInsurance = null;
-    this.wageOrdersModel.workerInsurance = null;
-    this.wageOrdersModel.employeeId = null;
-    this.persianBirthDate = null;
-  }
-  private _getData() {
-    this.isLoading = true;
-    this._wageOrdersService
-      .getById(this.wageOrderId)
-      .pipe(
-        takeUntilDestroyed(this._destroyRef),
-        finalize(() => {
-          this.isLoading = false;
-        })
-      )
-      .subscribe((res) => {
-        debugger;
-      });
-  }
-  onSelectedRowsChangeEvent(event: Array<wageOrdersDto>) {}
 }

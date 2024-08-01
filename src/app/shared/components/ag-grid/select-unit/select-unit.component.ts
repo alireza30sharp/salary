@@ -19,9 +19,11 @@ export class SelectUnitComponent implements ICellEditorAngularComp {
   options = [];
   SelectedUnitType: string;
   errorInvalid: boolean = true;
+  setFocusItem: boolean;
   constructor() {}
 
   agInit(params: any): void {
+    this.setFocusItem = true;
     this.params = params;
 
     params.colDef.cellEditorParams.values.subscribe((f) => {
@@ -39,8 +41,6 @@ export class SelectUnitComponent implements ICellEditorAngularComp {
     this.errorInvalid = this.selectedOption ? false : true;
 
     this.params.data[this.params.colDef.field] = this.selectedOption;
-  }
-  onChangeEmitter() {
     this.params.stopEditing();
   }
 }

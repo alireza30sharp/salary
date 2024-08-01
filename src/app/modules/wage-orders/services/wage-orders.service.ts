@@ -45,7 +45,7 @@ export class WageOrdersService {
   }
   getById(id) {
     return this.$http.get<response<any>>(this.urlSvc.WageOrders.getById, {
-      params: { workShopId: this.WorkShopsID, id: id },
+      params: { workShopId: this.WorkShopsID, WageOrderId: id },
     });
   }
   update(model: wageOrdersDto) {

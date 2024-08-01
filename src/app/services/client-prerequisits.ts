@@ -58,74 +58,59 @@ export class ClientPrerequisitsService {
     }
   }
 
-  getBenefitDaductionClientPrerequisites(
-    forceRefresh: boolean = false
-  ): Observable<response<clientPrerequisitsInterface[]>> {
-    if (this.cachedBenefitDaductionPrerequisites && !forceRefresh) {
-      // اگر داده‌ها قبلاً کش شده بود و ما نیازی به درخواست مجدد نداریم، آنها را از کش بازیابی می‌کنیم
-      return of(this.cachedBenefitDaductionPrerequisites);
-    } else {
-      // در غیر این صورت، درخواست جدید را ارسال می‌کنیم
-      return this.$http
-        .get<any>(
-          this.urlSvc.BenefitDeduction.GetBenefitDaductionClientPrerequisites,
-          {
-            params: {
-              WorkShopId: this.WorkShopsID,
-            },
-          }
-        )
-        .pipe(
-          tap((prerequisits) => {
-            this.cachedBenefitDaductionPrerequisites = prerequisits; // ذخیره نتایج در کش
-            if (prerequisits.isOk && prerequisits.data) {
-              let benefitDeductions = prerequisits.data.map((item) => ({
-                label: item.name,
-                value: item.id,
-              }));
-
-              this._changeWorkShopsService.setBenefitDeductionsList(
-                benefitDeductions
-              );
-            }
-          }),
-          catchError(
-            this.handleError<any>("cachedBenefitDaductionPrerequisites", [])
-          )
-        );
-    }
-  }
-  getEmployeeClientPrerequisites(
-    forceRefresh: boolean = false
-  ): Observable<response<clientPrerequisitsInterface[]>> {
-    if (this.cachedEmployeeClientPrerequisites && !forceRefresh) {
-      // اگر داده‌ها قبلاً کش شده بود و ما نیازی به درخواست مجدد نداریم، آنها را از کش بازیابی می‌کنیم
-      return of(this.cachedEmployeeClientPrerequisites);
-    } else {
-      // در غیر این صورت، درخواست جدید را ارسال می‌کنیم
-      return this.$http
-        .get<any>(this.urlSvc.Employees.GetEmployeeClientPrerequisites, {
+  getBenefitDaductionClientPrerequisites(forceRefresh: boolean = false) {
+    // در غیر این صورت، درخواست جدید را ارسال می‌کنیم
+    return this.$http
+      .get<any>(
+        this.urlSvc.BenefitDeduction.GetBenefitDaductionClientPrerequisites,
+        {
           params: {
             WorkShopId: this.WorkShopsID,
           },
-        })
-        .pipe(
-          tap((prerequisits) => {
-            this.cachedEmployeeClientPrerequisites = prerequisits; // ذخیره نتایج در کش
-            if (prerequisits.isOk && prerequisits.data) {
-              let employeList = prerequisits.data.map((item) => ({
-                label: item.fullName,
-                value: item.id,
-              }));
+        }
+      )
+      .pipe(
+        tap((prerequisits) => {
+          this.cachedBenefitDaductionPrerequisites = prerequisits; // ذخیره نتایج در کش
+          if (prerequisits.isOk && prerequisits.data) {
+            let benefitDeductions = prerequisits.data.map((item) => ({
+              label: item.name,
+              value: item.id,
+            }));
 
-              this._changeWorkShopsService.setEmployeList(employeList);
-            }
-          }),
-          catchError(
-            this.handleError<any>("cachedEmployeeClientPrerequisites", [])
-          )
-        );
-    }
+            this._changeWorkShopsService.setBenefitDeductionsList(
+              benefitDeductions
+            );
+          }
+        }),
+        catchError(
+          this.handleError<any>("cachedBenefitDaductionPrerequisites", [])
+        )
+      );
+  }
+  getEmployeeClientPrerequisites(forceRefresh: boolean = false) {
+    return this.$http
+      .get<any>(this.urlSvc.Employees.GetEmployeeClientPrerequisites, {
+        params: {
+          WorkShopId: this.WorkShopsID,
+        },
+      })
+      .pipe(
+        tap((prerequisits) => {
+          this.cachedEmployeeClientPrerequisites = prerequisits; // ذخیره نتایج در کش
+          if (prerequisits.isOk && prerequisits.data) {
+            let employeList = prerequisits.data.map((item) => ({
+              label: item.fullName,
+              value: item.id,
+            }));
+
+            this._changeWorkShopsService.setEmployeList(employeList);
+          }
+        }),
+        catchError(
+          this.handleError<any>("cachedEmployeeClientPrerequisites", [])
+        )
+      );
   }
   private handleError<T>(operation = "operation", result?: T) {
     return (error: any): Observable<T> => {

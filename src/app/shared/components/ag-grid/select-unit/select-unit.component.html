@@ -7,9 +7,9 @@
   <ki-select
     [allowClear]="true"
     [allowHighlight]="true"
+    [setFocusItem]="setFocusItem"
     [options]="options"
     [allowClear]="true"
-    (onChange)="onChangeEmitter()"
     (onChangeCalback)="btnClickedHandler()"
     [(ngModel)]="selectedOption"
   >

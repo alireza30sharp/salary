@@ -11,9 +11,9 @@ import { Subject } from "rxjs";
 import * as uuid from "uuid";
 import * as XLSX from "xlsx";
 import {
-  AgChartThemeOverrides,
   AsyncTransactionsFlushed,
   CellEditingStoppedEvent,
+  CellFocusedEvent,
   CellKeyDownEvent,
   ChartToolPanelsDef,
   FirstDataRenderedEvent,
@@ -23,6 +23,7 @@ import {
   GridReadyEvent,
   GridSizeChangedEvent,
   PaginationNumberFormatterParams,
+  SuppressKeyboardEventParams,
   ValueParserParams,
 } from "ag-grid-community";
 import "ag-grid-enterprise";
@@ -52,6 +53,7 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
         this.class = "ag-theme-balham";
       }
     });
+    // this.gridOptions.onCellFocused = this.cellFocused.bind(this);
   }
   ngAfterViewInit(): void {}
   @Input() set isEditMode(flag: boolean) {
@@ -124,7 +126,7 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
       return params.data.uniqueId;
     }
   };
-  public chartThemeOverrides: AgChartThemeOverrides = {
+  public chartThemeOverrides: any = {
     common: {
       title: {
         enabled: true,
@@ -159,6 +161,7 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
   currentChartRef: any;
   recorder: any;
   isShowToolbar: boolean = false;
+  private lastFocusedColumn: string = null;
   currentRowDataEditing: any = {};
   ///------undo
   enableFillHandle: boolean = false;
@@ -169,13 +172,88 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
     this.selectedRows = this.gridApi.getSelectedRows();
     this.selectedRowsChange.emit(this.selectedRows);
   }
-  cellEditingStopped(event: CellEditingStoppedEvent) {}
-  rowClassRules = {
-    // apply green to 2008
-    "not-valid-rowClassRules": (params) => {
-      return this.validateRequiredFields(params.data, this.columnsTable);
-    },
-  };
+  cellEditingStopped(event: CellEditingStoppedEvent) {
+    event.data.isEdited = true;
+    const columnId = event.column.getColId();
+    const lastColumnId = this.gridApi
+      .getAllGridColumns()
+      .slice(-1)[0]
+      .getColId();
+
+    if (columnId === lastColumnId) {
+      // Check if all required fields are filled
+      const isValid = this.validateRequiredFields(
+        event.data,
+        this.columnsTable
+      );
+      if (!isValid) {
+        this.onNewSelected(); // Create a new record
+        this.SaveSelected();
+      }
+    }
+  }
+  tabToNextCell(params: any) {
+    const lastColumnIndex = this.columnsTable.length - 1;
+    const nextCell = params.nextCellPosition;
+    if (
+      nextCell.column.getColId() === this.columnsTable[lastColumnIndex].field
+    ) {
+      if (this.validateRequiredFields(this.rowData, this.columnsTable)) {
+        this.onNewSelected();
+      }
+    }
+    return nextCell;
+  }
+  cellFocused(event: any) {
+    if (
+      this.lastFocusedColumn ===
+        this.columnsTable[this.columnsTable.length - 1].field &&
+      event.column.getColId() !==
+        this.columnsTable[this.columnsTable.length - 1].field
+    ) {
+      const previousRowNode = this.gridApi.getDisplayedRowAtIndex(
+        event.rowIndex
+      );
+      if (
+        !this.validateRequiredFields(previousRowNode.data, this.columnsTable)
+      ) {
+        this.onNewSelected();
+      }
+    }
+    this.lastFocusedColumn = event.column.getColId();
+  }
+  onCellKeyDown(e: CellKeyDownEvent) {
+    if (!e.event) {
+      return;
+    }
+    const keyboardEvent = e.event as unknown as KeyboardEvent;
+    const key = keyboardEvent.key;
+    if (key.length) {
+      if (key === "s") {
+        var rowNode = e.node;
+        var newSelection = !rowNode.isSelected();
+        console.log(
+          "setting selection on node " +
+            rowNode.data.athlete +
+            " to " +
+            newSelection
+        );
+        rowNode.setSelected(newSelection);
+      } else if (key === "+") {
+        if (!this.validateRequiredFields(e.data, this.columnsTable)) {
+          this.onNewSelected();
+        } else {
+          alert("لطفا فیلد های اجباری را وارد کنید");
+        }
+      }
+    }
+  }
+  // rowClassRules = {
+  //   // apply green to 2008
+  //   "not-valid-rowClassRules": (params) => {
+  //     return this.validateRequiredFields(params.data, this.columnsTable);
+  //   },
+  //};
   validateRequiredFields(obj, columns) {
     for (let column of columns) {
       if (
@@ -189,27 +267,6 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
       }
     }
     return false;
-  }
-  onCellKeyDown(e: CellKeyDownEvent) {
-    if (!e.event) {
-      return;
-    }
-    const keyboardEvent = e.event as unknown as KeyboardEvent;
-    const key = keyboardEvent.key;
-    if (key.length) {
-      if (key === "s") {
-        var rowNode = e.node;
-        var newSelection = !rowNode.isSelected();
-
-        rowNode.setSelected(newSelection);
-      } else if (key === "Enter") {
-        if (!this.validateRequiredFields(e.data, this.columnsTable)) {
-          //  this.SaveSelected();
-        } else {
-          // alert("لطفا فیلد های اجباری را وارد کنید");
-        }
-      }
-    }
   }
 
   designerclickEvent(event) {

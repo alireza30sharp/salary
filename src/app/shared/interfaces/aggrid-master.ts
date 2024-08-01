@@ -273,7 +273,7 @@ export class AgGridMaster {
   }
   agGridUpdate() {
     if (this.gridApi) {
-      this.gridApi.setRowData(this.rowData);
+      this.gridApi.setGridOption("rowData", this.rowData);
       this.gridApi.redrawRows();
       this.gridApi.sizeColumnsToFit();
       this.countItemEdited = this.getCountEdited();

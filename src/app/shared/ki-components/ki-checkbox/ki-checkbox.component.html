@@ -15,6 +15,7 @@
     [disabled]="disabled"
     [indeterminate]="indeterminate"
     (change)="change(chk.checked)"
+    (keydown)="handleKeydown($event)"
   />
   <span class="ki-checkbox__icon"></span>
   <span class="ki-checkbox__text" *ngIf="text">{{ text }}</span>

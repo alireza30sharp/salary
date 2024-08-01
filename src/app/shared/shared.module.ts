@@ -65,6 +65,7 @@ const component = [
   grid.AgGridDataComponent,
   grid.CellEditorNumberComponent,
   grid.CellOperationsClickEvent,
+  grid.CellEditorCheckboxComponent,
   kiComponent.KiButtonComponent,
   kiComponent.KiCheckboxComponent,
   kiComponent.KiConfirmationComponent,
