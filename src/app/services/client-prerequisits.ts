@@ -4,7 +4,7 @@ import { response } from "../shared/models";
 import { Observable, ReplaySubject, Subject, of } from "rxjs";
 import { ApiUrlService } from "../api-url.service";
 import { clientPrerequisitsInterface } from "../shared/models/clientPrerequisits";
-import { catchError, tap } from "rxjs/operators";
+import { catchError, delay, tap } from "rxjs/operators";
 import { SessionNames } from "../shared/utilities/session-names";
 import { SessionStorage } from "ngx-webstorage";
 import { ChangeWorkShopsService } from "./change-work-shop.service";
@@ -70,6 +70,7 @@ export class ClientPrerequisitsService {
         }
       )
       .pipe(
+        delay(2000),
         tap((prerequisits) => {
           this.cachedBenefitDaductionPrerequisites = prerequisits; // ذخیره نتایج در کش
           if (prerequisits.isOk && prerequisits.data) {

@@ -53,7 +53,7 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
         this.class = "ag-theme-balham";
       }
     });
-    // this.gridOptions.onCellFocused = this.cellFocused.bind(this);
+    this.gridOptions.onCellFocused = this.cellFocused.bind(this);
   }
   ngAfterViewInit(): void {}
   @Input() set isEditMode(flag: boolean) {
@@ -205,32 +205,51 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
     return nextCell;
   }
   cellFocused(event: any) {
-    if (
-      this.lastFocusedColumn ===
-        this.columnsTable[this.columnsTable.length - 1].field &&
-      event.column.getColId() !==
-        this.columnsTable[this.columnsTable.length - 1].field
-    ) {
-      const previousRowNode = this.gridApi.getDisplayedRowAtIndex(
-        event.rowIndex
-      );
-      if (
-        !this.validateRequiredFields(previousRowNode.data, this.columnsTable)
-      ) {
-        this.onNewSelected();
+    const focusedCell = this.gridApi.getFocusedCell();
+    if (focusedCell) {
+      const column = focusedCell.column;
+      const colDef = column.getColDef();
+      if (colDef.editable) {
+        this.gridApi.startEditingCell({
+          rowIndex: focusedCell.rowIndex,
+          colKey: column.getColId(),
+        });
       }
     }
-    this.lastFocusedColumn = event.column.getColId();
   }
-  onCellKeyDown(e: CellKeyDownEvent) {
-    if (!e.event) {
+  onCellKeyDown(event: any) {
+    if (!event.event) {
       return;
     }
-    const keyboardEvent = e.event as unknown as KeyboardEvent;
+    const keyboardEvent = event.event as unknown as KeyboardEvent;
     const key = keyboardEvent.key;
     if (key.length) {
-      if (key === "s") {
-        var rowNode = e.node;
+      if (key === "ArrowLeft" || key === "ArrowRight") {
+        const key = event.event.key;
+        const rowIndex = event.rowIndex;
+        const column = event.column;
+        const gridApi = event.api;
+        const columnApi = event.columnApi;
+        let nextColumn;
+        if (key === "ArrowLeft") {
+          nextColumn =
+            columnApi.getAllColumns()[
+              columnApi.getAllColumns().indexOf(column) - 1
+            ];
+        } else {
+          nextColumn =
+            columnApi.getAllColumns()[
+              columnApi.getAllColumns().indexOf(column) + 1
+            ];
+        }
+
+        if (nextColumn) {
+          gridApi.stopEditing();
+          gridApi.setFocusedCell(rowIndex, nextColumn.getColId());
+          gridApi.startEditingCell({ rowIndex, colKey: nextColumn.getColId() });
+        }
+      } else if (key === "s") {
+        var rowNode = event.node;
         var newSelection = !rowNode.isSelected();
         console.log(
           "setting selection on node " +
@@ -240,13 +259,24 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
         );
         rowNode.setSelected(newSelection);
       } else if (key === "+") {
-        if (!this.validateRequiredFields(e.data, this.columnsTable)) {
+        if (!this.validateRequiredFields(event.data, this.columnsTable)) {
           this.onNewSelected();
         } else {
           alert("لطفا فیلد های اجباری را وارد کنید");
         }
       }
     }
+  }
+  getPreviousColId(colId: string): string {
+    const colIndex = this.columnsTable.findIndex((col) => col.field === colId);
+    return colIndex > 0 ? this.columnsTable[colIndex - 1].field : colId;
+  }
+
+  getNextColId(colId: string): string {
+    const colIndex = this.columnsTable.findIndex((col) => col.field === colId);
+    return colIndex < this.columnsTable.length - 1
+      ? this.columnsTable[colIndex + 1].field
+      : colId;
   }
   // rowClassRules = {
   //   // apply green to 2008

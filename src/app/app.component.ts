@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
     private seoService: SeoService,
     private _clientPrerequisitsService: ClientPrerequisitsService
   ) {
-    _clientPrerequisitsService.getClientPrerequisits(true).subscribe();
+    //_clientPrerequisitsService.getClientPrerequisits(true).subscribe();
   }
 
   ngOnInit(): void {

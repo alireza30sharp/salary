@@ -175,21 +175,25 @@ export class WageOrdersEditComponent implements OnInit {
   }
   private _getData() {
     this.isLoading = true;
-    this._wageOrdersService
-      .getById(this.wageOrderId)
-      .pipe(
-        takeUntilDestroyed(this._destroyRef),
-        finalize(() => {
-          this.isLoading = false;
-        })
-      )
-      .subscribe((res) => {
-        if (res.isOk) {
-          this.wageOrdersModel = res.data;
-          this.persianBirthDate = this.wageOrdersModel.persianStartDate as any;
-          this.rowDataDefault = this.wageOrdersModel.details;
-        }
-      });
+    setTimeout(() => {
+      this._wageOrdersService
+        .getById(this.wageOrderId)
+        .pipe(
+          takeUntilDestroyed(this._destroyRef),
+          finalize(() => {
+            this.isLoading = false;
+          })
+        )
+        .subscribe((res) => {
+          if (res.isOk) {
+            this.wageOrdersModel = res.data;
+            this.persianBirthDate = DateUtilies.convertDateToNgbDateStruct(
+              this.wageOrdersModel.persianStartDate
+            );
+            this.rowDataDefault = this.wageOrdersModel.details;
+          }
+        });
+    }, 3000);
   }
   onSelectedRowsChangeEvent(event: Array<wageOrdersDto>) {}
   clickSearchHander() {

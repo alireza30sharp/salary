@@ -7,7 +7,7 @@ import { ClientPrerequisitsService } from "../../services/client-prerequisits";
 })
 export class WageOrdersComponent {
   constructor(private clientPrerequis: ClientPrerequisitsService) {
-    clientPrerequis.getEmployeeClientPrerequisites(true).subscribe();
-    clientPrerequis.getBenefitDaductionClientPrerequisites(true).subscribe();
+    clientPrerequis.getEmployeeClientPrerequisites(true).subscribe((res) => {});
+    ///clientPrerequis.getBenefitDaductionClientPrerequisites().subscribe();
   }
 }
