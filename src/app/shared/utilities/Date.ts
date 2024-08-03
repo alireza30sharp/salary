@@ -15,17 +15,31 @@ export class DateUtilies {
   }
 
   static convertDateToNgbDateStruct(date: string): NgbDateStruct {
-    if (date == null || date == "") return null;
+    if (date == null || date === "") return null;
 
-    const jalaliDate = moment(date, "MM/DD/YYYY, h:mm:ss A")
-      .locale("fa")
-      .format("jYYYY/jM/jD")
-      .split("/");
-    let convertedDate: NgbDateStruct = {
-      year: +jalaliDate[0],
-      month: +jalaliDate[1],
-      day: +jalaliDate[2],
-    };
+    let convertedDate: NgbDateStruct;
+
+    // Check if the date is in Jalali format
+    if (moment(date, "jYYYY/jMM/jDD", true).isValid()) {
+      const jalaliDate = moment.from(date, "fa", "jYYYY/jMM/jDD");
+      convertedDate = {
+        year: jalaliDate.jYear(),
+        month: jalaliDate.jMonth() + 1, // moment.js months are zero-indexed
+        day: jalaliDate.jDate(),
+      };
+    } else {
+      // Assume date is in Gregorian format
+      const gregorianDate = moment(date, "MM/DD/YYYY, h:mm:ss A");
+      const jalaliDate = gregorianDate
+        .locale("fa")
+        .format("jYYYY/jMM/jDD")
+        .split("/");
+      convertedDate = {
+        year: +jalaliDate[0],
+        month: +jalaliDate[1],
+        day: +jalaliDate[2],
+      };
+    }
 
     return convertedDate;
   }

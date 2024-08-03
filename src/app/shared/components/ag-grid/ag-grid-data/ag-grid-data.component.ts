@@ -229,21 +229,18 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
         const rowIndex = event.rowIndex;
         const column = event.column;
         const gridApi = event.api;
-        const columnApi = event.columnApi;
         let nextColumn;
+        const allColumns = this.gridApi.getColumns();
+        const currentColumnIndex = allColumns.indexOf(column);
+
         if (key === "ArrowLeft") {
-          nextColumn =
-            columnApi.getAllColumns()[
-              columnApi.getAllColumns().indexOf(column) - 1
-            ];
+          nextColumn = allColumns[currentColumnIndex + 1]; // جلو رفتن
         } else {
-          nextColumn =
-            columnApi.getAllColumns()[
-              columnApi.getAllColumns().indexOf(column) + 1
-            ];
+          nextColumn = allColumns[currentColumnIndex - 1]; // عقب رفتن
         }
 
         if (nextColumn) {
+          event.event.preventDefault(); // جلوگیری از رفتار پیش‌فرض کلید جهت‌نما
           gridApi.stopEditing();
           gridApi.setFocusedCell(rowIndex, nextColumn.getColId());
           gridApi.startEditingCell({ rowIndex, colKey: nextColumn.getColId() });
@@ -267,17 +264,7 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
       }
     }
   }
-  getPreviousColId(colId: string): string {
-    const colIndex = this.columnsTable.findIndex((col) => col.field === colId);
-    return colIndex > 0 ? this.columnsTable[colIndex - 1].field : colId;
-  }
 
-  getNextColId(colId: string): string {
-    const colIndex = this.columnsTable.findIndex((col) => col.field === colId);
-    return colIndex < this.columnsTable.length - 1
-      ? this.columnsTable[colIndex + 1].field
-      : colId;
-  }
   // rowClassRules = {
   //   // apply green to 2008
   //   "not-valid-rowClassRules": (params) => {

@@ -15,6 +15,7 @@ import { NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
 
 import { numberCellFormatter_valueFormatter } from "../../../../shared/interfaces/aggrid-master";
 import {
+  CellEditorCheckboxComponent,
   CellEditorNumberComponent,
   SelectUnitComponent,
 } from "../../../../shared/components/ag-grid";
@@ -83,7 +84,7 @@ export class WageOrdersEditComponent implements OnInit {
       editable: true,
       cellClass: "text-center center-content",
       cellRenderer: "agCheckboxCellRenderer",
-      cellEditor: "agCheckboxCellEditor",
+      cellEditor: CellEditorCheckboxComponent, //"agCheckboxCellEditor",
     },
     {
       field: propertyOf<wageOrderDetailDto>("calculateOnTax"),
@@ -91,7 +92,7 @@ export class WageOrdersEditComponent implements OnInit {
       editable: true,
       cellClass: "text-center center-content",
       cellRenderer: "agCheckboxCellRenderer",
-      cellEditor: "agCheckboxCellEditor",
+      cellEditor: CellEditorCheckboxComponent, //"agCheckboxCellEditor",
     },
   ];
   defaultColDef: AgGridInterFace = {
@@ -116,9 +117,7 @@ export class WageOrdersEditComponent implements OnInit {
   cacheKeyType = cacheKeyEnum;
   isLoading: boolean = false;
   constructor(
-    private _modalService: ModalService,
     private _changeWorkShops: ChangeWorkShopsService,
-    private _selectListService: SelectListService,
     private _toastService: ToastService,
     private _wageOrdersService: WageOrdersService,
     private readonly _location: Location,
@@ -188,7 +187,7 @@ export class WageOrdersEditComponent implements OnInit {
           if (res.isOk) {
             this.wageOrdersModel = res.data;
             this.persianBirthDate = DateUtilies.convertDateToNgbDateStruct(
-              this.wageOrdersModel.persianStartDate
+              res.data.persianStartDate
             );
             this.rowDataDefault = this.wageOrdersModel.details;
           }
