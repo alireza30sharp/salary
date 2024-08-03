@@ -253,12 +253,19 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
     }
   }
 
-  // rowClassRules = {
-  //   // apply green to 2008
-  //   "not-valid-rowClassRules": (params) => {
-  //     return this.validateRequiredFields(params.data, this.columnsTable);
-  //   },
-  //};
+  rowClassRules = {
+    // apply green to 2008
+    "edit-rowClassRules": (params) => {
+      if (params.data.isEdited && params.data.id) {
+        return true;
+      }
+    },
+    "add-rowClassRules": (params) => {
+      if (params.data.isEdited && !params.data.id) {
+        return true;
+      }
+    },
+  };
   validateRequiredFields(obj, columns) {
     for (let column of columns) {
       if (

@@ -37,8 +37,10 @@ import {
 } from "../../models";
 import { maskPrefixTaxRate } from "../../../../base/models/rul";
 import { Location } from "@angular/common";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { Paths } from "../../../../shared/utilities/paths";
+
 @Component({
   selector: "app-wage-orders-edit",
   templateUrl: "./wage-orders-edit.component.html",
@@ -127,7 +129,8 @@ export class WageOrdersEditComponent implements OnInit {
     private _wageOrdersService: WageOrdersService,
     private readonly _location: Location,
     private readonly _activatedRoute: ActivatedRoute,
-    private readonly _destroyRef: DestroyRef
+    private readonly _destroyRef: DestroyRef,
+    private _router: Router
   ) {}
   ngOnInit(): void {
     this.wageOrderId = this._activatedRoute.snapshot.params["id"];
@@ -162,6 +165,7 @@ export class WageOrdersEditComponent implements OnInit {
       if (f.id) {
         f.actionType = this.actionTypeEnum.edit;
       } else {
+        f.id = "0";
         f.actionType = this.actionTypeEnum.add;
       }
       return f;
@@ -229,12 +233,8 @@ export class WageOrdersEditComponent implements OnInit {
         .subscribe({
           next: (res) => {
             if (res.isOk) {
-              this.isEditMode = false;
               this._toastService.success(res.data.message);
-              this.resateData();
-              setTimeout(() => {
-                this.isEditMode = true;
-              }, 100);
+              this._router.navigateByUrl(Paths.wageOrders.list().url);
             }
           },
           error: (err) => {

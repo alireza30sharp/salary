@@ -134,6 +134,12 @@ app-accordion {
 .not-valid-rowClassRules {
   background-color: var(--red) !important;
 }
+.edit-rowClassRules{
+  background-color: #ffafcc !important;
+}
+.add-rowClassRules{
+  background-color: #bbd0ff !important;
+}
 .btn-info {
   background-color: var(--color-goldenrod);
   color: var(--secondery);
