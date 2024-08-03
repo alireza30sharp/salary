@@ -1,8 +1,8 @@
 <div class="d-flex justify-content-between w-100 h-100">
-  <div class="trash-box" (click)="onClickRemove($event)">
+  <div class="trash-box" (click)="onClickRemove($event)" *ngIf="canRemoveIcon">
     <i id="deleteRow" class="d-none pointer text-danger fa fa-trash"></i>
   </div>
-  <div class="trash-box" (click)="onClickEdit($event)">
+  <div class="trash-box" (click)="onClickEdit($event)" *ngIf="canEditIcon">
     <i
       id="editRow"
       class="d-none pointer text-success fa-solid fa-pen-to-square"

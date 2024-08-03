@@ -17,6 +17,7 @@ import { numberCellFormatter_valueFormatter } from "../../../../shared/interface
 import {
   CellEditorCheckboxComponent,
   CellEditorNumberComponent,
+  CellOperationsClickEvent,
   SelectUnitComponent,
 } from "../../../../shared/components/ag-grid";
 import { SelectCellRendererParams } from "../../../../shared/components/ag-grid/select-cell-render/select-cell-render";
@@ -40,6 +41,7 @@ import { Location } from "@angular/common";
 import { ActivatedRoute, Router } from "@angular/router";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { Paths } from "../../../../shared/utilities/paths";
+import { ConfirmInterFace } from "../../../../shared/ki-components/ki-confirmation/confirm.interface";
 
 @Component({
   selector: "app-wage-orders-edit",
@@ -54,6 +56,32 @@ export class WageOrdersEditComponent implements OnInit {
     {
       field: propertyOf<wageOrderDetailDto>("id"),
       hide: true,
+    },
+    {
+      field: "عملیات",
+      cellClass: "d-flex justify-content-center align-items-center",
+      editable: false,
+      width: 15,
+      cellRenderer: CellOperationsClickEvent,
+      cellRendererParams: {
+        onClickRemove: (params) => {
+          const param: ConfirmInterFace = {
+            acceptText: "بله",
+            declineText: "خیر",
+            description: "آیا از عملیات مورد نظر اطمینان دارید؟",
+            title:
+              "حذف" +
+              " " +
+              `"${params.node?.benefitDeductionName.toUpperCase()}"`,
+            type: "Confirm",
+          };
+          this._modalService.showConfirm(param, false).then((res) => {
+            if (res) {
+              this.wageOrdersModel.deleteDetails.push(params.node?.id);
+            }
+          });
+        },
+      },
     },
     {
       headerName: "ردیف",
@@ -130,7 +158,8 @@ export class WageOrdersEditComponent implements OnInit {
     private readonly _location: Location,
     private readonly _activatedRoute: ActivatedRoute,
     private readonly _destroyRef: DestroyRef,
-    private _router: Router
+    private _router: Router,
+    private _modalService: ModalService
   ) {}
   ngOnInit(): void {
     this.wageOrderId = this._activatedRoute.snapshot.params["id"];
@@ -165,7 +194,6 @@ export class WageOrdersEditComponent implements OnInit {
       if (f.id) {
         f.actionType = this.actionTypeEnum.edit;
       } else {
-        f.id = "0";
         f.actionType = this.actionTypeEnum.add;
       }
       return f;
@@ -175,19 +203,7 @@ export class WageOrdersEditComponent implements OnInit {
   cancelClickHandler() {
     this._location.back();
   }
-  resateData() {
-    this.rowDataDefault = new Array<wageOrderDetailDto>();
-    this.wageOrdersModel.comment = null;
-    this.wageOrdersModel.details = null;
-    this.wageOrdersModel.employerInsurance = null;
-    this.wageOrdersModel.hasInsurance = false;
-    this.wageOrdersModel.isTaxable = false;
-    this.wageOrdersModel.persianStartDate = null;
-    this.wageOrdersModel.unEmploymentInsurance = null;
-    this.wageOrdersModel.workerInsurance = null;
-    this.wageOrdersModel.employeeId = null;
-    this.persianBirthDate = null;
-  }
+
   private _getData() {
     this.isLoading = true;
     setTimeout(() => {
@@ -207,6 +223,7 @@ export class WageOrdersEditComponent implements OnInit {
             );
             this.rowDataDefault = this.wageOrdersModel.details;
             this.wageOrdersModel.details = [];
+            this.wageOrdersModel.deleteDetails = [];
           }
         });
     }, 3000);
@@ -214,7 +231,6 @@ export class WageOrdersEditComponent implements OnInit {
   onSelectedRowsChangeEvent(event: Array<wageOrdersDto>) {}
   clickSearchHander() {
     this.showLoading = true;
-
     this.wageOrdersModel.persianStartDate = DateUtilies.convertDate(
       this.persianBirthDate
     );
@@ -222,7 +238,6 @@ export class WageOrdersEditComponent implements OnInit {
       this.wageOrdersModel?.details &&
       this.wageOrdersModel.details.length > 0
     ) {
-      this.wageOrdersModel.deleteDetails = [];
       this._wageOrdersService
         .update(this.wageOrdersModel)
         .pipe(

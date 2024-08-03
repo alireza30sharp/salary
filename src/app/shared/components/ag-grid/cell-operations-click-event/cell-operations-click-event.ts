@@ -7,8 +7,16 @@ import { Component } from "@angular/core";
 })
 export class CellOperationsClickEvent {
   private params: any;
+  canRemoveIcon: boolean = false;
+  canEditIcon: boolean = false;
   agInit(params: any): void {
     this.params = params;
+    if (this.params.onClickRemove) {
+      this.canRemoveIcon = true;
+    }
+    if (this.params.onClickEdit) {
+      this.canEditIcon = true;
+    }
   }
   onClickRemove($event) {
     if (this.params.onClickRemove instanceof Function) {
