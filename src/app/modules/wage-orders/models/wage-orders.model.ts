@@ -9,6 +9,7 @@ export class wageOrdersDto {
   isTaxable: boolean;
   comment: string;
   details: wageOrderDetailDto[];
+  deleteDetails: Array<string>;
 }
 
 export class wageOrderDetailDto {
@@ -17,7 +18,7 @@ export class wageOrderDetailDto {
   calculateOnInsurance: boolean;
   calculateOnTax: boolean;
   id: string;
-  actionType: number;
+  actionType: actionTypeEnum;
 }
 export class wageOrderListDto {
   row_NO: number;
@@ -33,4 +34,9 @@ export class wageOrderListDto {
   code: number;
   firstName: string;
   lastName: string;
+}
+
+export enum actionTypeEnum {
+  add = 0,
+  edit = 1,
 }

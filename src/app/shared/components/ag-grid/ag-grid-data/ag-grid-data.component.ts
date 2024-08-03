@@ -173,23 +173,11 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
     this.selectedRowsChange.emit(this.selectedRows);
   }
   cellEditingStopped(event: CellEditingStoppedEvent) {
-    event.data.isEdited = true;
-    const columnId = event.column.getColId();
-    const lastColumnId = this.gridApi
-      .getAllGridColumns()
-      .slice(-1)[0]
-      .getColId();
-
-    if (columnId === lastColumnId) {
-      // Check if all required fields are filled
-      const isValid = this.validateRequiredFields(
-        event.data,
-        this.columnsTable
-      );
-      if (!isValid) {
-        this.onNewSelected(); // Create a new record
-        this.SaveSelected();
-      }
+    // Check if all required fields are filled
+    const isValid = this.validateRequiredFields(event.data, this.columnsTable);
+    if (!isValid) {
+      event.data.isEdited = true;
+      this.SaveSelected();
     }
   }
   tabToNextCell(params: any) {
@@ -494,18 +482,3 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
     }
   }
 }
-// {
-//   headerName: 'Total',
-//   valueGetter: 'data.a + data.b + data.c + data.d',
-//   enableValue: true,
-//   aggFunc: 'sum',
-//   valueFormatter: numberCellFormatter_valueFormatter,
-//   cellClass: 'number',
-//   cellRenderer: 'agAnimateShowChangeCellRenderer',
-// },
-// {
-//   headerName: 'Average',
-//   valueGetter: '(data.a + data.b + data.c + data.d) / 4',
-//   minWidth: 135,
-//   cellRenderer: 'agAnimateSlideCellRenderer',
-// },

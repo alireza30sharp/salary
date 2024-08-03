@@ -30,7 +30,11 @@ import { DateUtilies } from "../../../../shared/utilities/Date";
 import { ToastService } from "../../../../shared/services";
 
 import { WageOrdersService } from "../../services/wage-orders.service";
-import { wageOrderDetailDto, wageOrdersDto } from "../../models";
+import {
+  actionTypeEnum,
+  wageOrderDetailDto,
+  wageOrdersDto,
+} from "../../models";
 import { maskPrefixTaxRate } from "../../../../base/models/rul";
 import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
@@ -115,6 +119,7 @@ export class WageOrdersEditComponent implements OnInit {
   maskPrefixTaxRate = maskPrefixTaxRate;
   listclientPrerequisits: clientPrerequisitsInterface[];
   cacheKeyType = cacheKeyEnum;
+  actionTypeEnum = actionTypeEnum;
   isLoading: boolean = false;
   constructor(
     private _changeWorkShops: ChangeWorkShopsService,
@@ -153,7 +158,14 @@ export class WageOrdersEditComponent implements OnInit {
   onRefrashSelected() {}
   saveCellHandeler(details: wageOrderDetailDto[]) {
     this.wageOrdersModel.details = [];
-
+    details = details.map((f) => {
+      if (f.id) {
+        f.actionType = this.actionTypeEnum.edit;
+      } else {
+        f.actionType = this.actionTypeEnum.add;
+      }
+      return f;
+    });
     this.wageOrdersModel.details = [...details];
   }
   cancelClickHandler() {
@@ -190,6 +202,7 @@ export class WageOrdersEditComponent implements OnInit {
               res.data.persianStartDate
             );
             this.rowDataDefault = this.wageOrdersModel.details;
+            this.wageOrdersModel.details = [];
           }
         });
     }, 3000);
@@ -205,6 +218,7 @@ export class WageOrdersEditComponent implements OnInit {
       this.wageOrdersModel?.details &&
       this.wageOrdersModel.details.length > 0
     ) {
+      this.wageOrdersModel.deleteDetails = [];
       this._wageOrdersService
         .update(this.wageOrdersModel)
         .pipe(
