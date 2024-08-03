@@ -77,6 +77,13 @@ export class WageOrdersEditComponent implements OnInit {
           };
           this._modalService.showConfirm(param, false).then((res) => {
             if (res) {
+              let index = this.rowDataDefault.findIndex(
+                (f) => f.id === params.node.id
+              );
+              if (index != -1) {
+                this.rowDataDefault.splice(index, 1);
+                this.rowDataDefault = Object.assign([], this.rowDataDefault);
+              }
               this.wageOrdersModel.deleteDetails.push(params.node?.id);
             }
           });

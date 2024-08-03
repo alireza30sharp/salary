@@ -236,12 +236,6 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
       } else if (key === "s") {
         var rowNode = event.node;
         var newSelection = !rowNode.isSelected();
-        console.log(
-          "setting selection on node " +
-            rowNode.data.athlete +
-            " to " +
-            newSelection
-        );
         rowNode.setSelected(newSelection);
       } else if (key === "+") {
         if (!this.validateRequiredFields(event.data, this.columnsTable)) {
