@@ -10,6 +10,8 @@ import { BenefitDeductionDto } from "../../models/benefit-deduction.model";
 import { finalize } from "rxjs";
 import { ChangeWorkShopsService } from "../../../services/change-work-shop.service";
 import { ConfirmInterFace } from "../../../shared/ki-components/ki-confirmation/confirm.interface";
+import { Location } from "@angular/common";
+
 @Component({
   selector: "app-benefit-deduction-list",
   templateUrl: "./benefit-deduction-list.component.html",
@@ -67,7 +69,8 @@ export class BenefitDeductionListComponent implements OnInit {
   constructor(
     private _benefitDeductionService: BenefitDeductionService,
     private _modalService: ModalService,
-    private _changeWorkShops: ChangeWorkShopsService
+    private _changeWorkShops: ChangeWorkShopsService,
+    private readonly _location: Location
   ) {}
   ngOnInit(): void {
     this.getGetBenefitsDeductionsList();
@@ -75,7 +78,9 @@ export class BenefitDeductionListComponent implements OnInit {
       this.getGetBenefitsDeductionsList();
     });
   }
-
+  cancelClickHandler() {
+    this._location.back();
+  }
   newWorkShpps(isEdit: boolean = false) {
     let entryId = null;
     if (isEdit) {

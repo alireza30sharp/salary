@@ -10,11 +10,14 @@
   <footer class="confirm-content__footer">
     <ki-button
       (clickCallback)="onClick(false)"
+      btnType="basic"
+      [iconClassName]="'fa-solid fa-xmark'"
       *ngIf="type === 'Confirm'"
       [title]="declineText || 'NO'"
     ></ki-button>
     <ki-button
-      btnType="primary"
+      btnType="basic"
+      [iconClassName]="'fa-solid fa-check'"
       (clickCallback)="onClick(true)"
       [title]="acceptText || 'Yes'"
     ></ki-button>

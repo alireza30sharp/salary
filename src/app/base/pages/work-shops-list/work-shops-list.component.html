@@ -8,6 +8,7 @@
         (EditSelected)="newWorkShpps(true)"
         (RefrashSelected)="onRefrashSelected()"
         (ToolsSelected)="onToolsSelected()"
+        (EscapeSelected)="cancelClickHandler()"
         [disabled]="selectRow.length != 0 ? false : true"
         [isShowLoadingDelete]="isShowLoadingDelete"
         [isShowLoadingRefrash]="isShowLoadingRefrash"

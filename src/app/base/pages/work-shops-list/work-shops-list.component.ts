@@ -11,6 +11,7 @@ import { STEPS_BUTTONS } from "../../../shared/models/shepherd-config";
 import { Router } from "@angular/router";
 import { FlagStateCellRenderer } from "../../../shared/components/ag-grid";
 import { ConfirmInterFace } from "../../../shared/ki-components/ki-confirmation/confirm.interface";
+import { Location } from "@angular/common";
 
 @Component({
   selector: "app-work-shops-list",
@@ -89,7 +90,8 @@ export class WorkShopsListComponent implements OnInit {
     private _modalService: ModalService,
     private _tourService: TourService,
     private _router: Router,
-    private _toastService: ToastService
+    private _toastService: ToastService,
+    private readonly _location: Location
   ) {}
   ngOnInit(): void {
     this.getWorkShopList();
@@ -109,7 +111,9 @@ export class WorkShopsListComponent implements OnInit {
       error: (err) => {},
     });
   }
-
+  cancelClickHandler() {
+    this._location.back();
+  }
   onToolsSelected() {
     this._router.navigateByUrl("salary/change-page/pageName");
   }

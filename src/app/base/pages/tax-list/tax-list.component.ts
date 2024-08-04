@@ -11,6 +11,7 @@ import { ChangeWorkShopsService } from "../../../services/change-work-shop.servi
 import { finalize } from "rxjs";
 import { TaxDto } from "../../models/tax.model";
 import { ConfirmInterFace } from "../../../shared/ki-components/ki-confirmation/confirm.interface";
+import { Location } from "@angular/common";
 
 @Component({
   selector: "app-tax-list",
@@ -65,7 +66,8 @@ export class TaxListComponent implements OnInit {
   constructor(
     private _taxService: TaxService,
     private _modalService: ModalService,
-    private _changeWorkShops: ChangeWorkShopsService
+    private _changeWorkShops: ChangeWorkShopsService,
+    private readonly _location: Location
   ) {}
   ngOnInit(): void {
     this.getTaxList();
@@ -75,6 +77,9 @@ export class TaxListComponent implements OnInit {
   }
   onRefrashSelected() {
     this.getTaxList();
+  }
+  cancelClickHandler() {
+    this._location.back();
   }
   newWorkShpps(isEdit: boolean = false) {
     let entryId = null;

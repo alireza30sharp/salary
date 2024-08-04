@@ -15,6 +15,7 @@ import { EducationEvidencesDto } from "../../models/education-evidences.model";
 import { FlagStateCellRenderer } from "../../../shared/components/ag-grid";
 import { finalize } from "rxjs";
 import { ChangeWorkShopsService } from "../../../services/change-work-shop.service";
+import { Location } from "@angular/common";
 
 @Component({
   selector: "app-educatio-evidences-list",
@@ -57,7 +58,8 @@ export class EducationEvidencesListComponent implements OnInit {
   constructor(
     private _educationEvidencesService: EducationEvidencesService,
     private _modalService: ModalService,
-    private _changeWorkShops: ChangeWorkShopsService
+    private _changeWorkShops: ChangeWorkShopsService,
+    private readonly _location: Location
   ) {}
   ngOnInit(): void {
     this.getEducationEvidencesList();
@@ -82,6 +84,9 @@ export class EducationEvidencesListComponent implements OnInit {
         this.getEducationEvidencesList();
       })
       .catch((err) => {});
+  }
+  cancelClickHandler() {
+    this._location.back();
   }
   getEducationEvidencesList() {
     let model = new WorkShopsFilter();

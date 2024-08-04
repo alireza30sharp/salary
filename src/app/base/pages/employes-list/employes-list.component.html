@@ -7,6 +7,7 @@
         (DeleteSelected)="removeCell()"
         (EditSelected)="newWorkShpps(true)"
         (RefrashSelected)="onRefrashSelected()"
+        (EscapeSelected)="cancelClickHandler()"
         (ToolsSelected)="onToolsSelected()"
         [disabled]="selectRow.length != 0 ? false : true"
         [isShowLoadingDelete]="isShowLoadingDelete"

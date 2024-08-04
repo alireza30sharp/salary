@@ -6,6 +6,7 @@ import { propertyOf } from "../../../shared/utilities/property-of";
 import {
   EducationFieldsFormModalComponent,
   EmploymentTypesFormModalComponent,
+  OrganizationPostFormModalComponent,
 } from "../../components/templates";
 import { FlagStateCellRenderer } from "../../../shared/components/ag-grid";
 import { finalize } from "rxjs";
@@ -13,6 +14,7 @@ import { ChangeWorkShopsService } from "../../../services/change-work-shop.servi
 import { OrganizationPostDto } from "../../models/organization-post.model";
 import { OrganizationPostService } from "../../services/organization-post.service";
 import { ConfirmInterFace } from "../../../shared/ki-components/ki-confirmation/confirm.interface";
+import { Location } from "@angular/common";
 
 @Component({
   selector: "app-organization-post-list",
@@ -55,7 +57,8 @@ export class OrganizationPostListComponent implements OnInit {
   constructor(
     private _OrganizationPostService: OrganizationPostService,
     private _modalService: ModalService,
-    private _changeWorkShops: ChangeWorkShopsService
+    private _changeWorkShops: ChangeWorkShopsService,
+    private readonly _location: Location
   ) {}
   ngOnInit(): void {
     this.getAllOrganizationPosts();
@@ -70,11 +73,19 @@ export class OrganizationPostListComponent implements OnInit {
       entryId = this.selectRow[0].id;
     }
     this._modalService
-      .open(EmploymentTypesFormModalComponent, "lg", { entryId: entryId }, true)
+      .open(
+        OrganizationPostFormModalComponent,
+        "lg",
+        { entryId: entryId },
+        true
+      )
       .then((value) => {
         this.getAllOrganizationPosts();
       })
       .catch((err) => {});
+  }
+  cancelClickHandler() {
+    this._location.back();
   }
   getAllOrganizationPosts() {
     let model = new WorkShopsFilter();

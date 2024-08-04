@@ -11,6 +11,7 @@ import { ChangeWorkShopsService } from "../../../services/change-work-shop.servi
 import { EducationFieldsService } from "../../services/education-fields.service";
 import { EducationFieldsDto } from "../../models/education-fields.model";
 import { ConfirmInterFace } from "../../../shared/ki-components/ki-confirmation/confirm.interface";
+import { Location } from "@angular/common";
 
 @Component({
   selector: "app-education-fields-list",
@@ -53,7 +54,8 @@ export class EducationFieldsListComponent implements OnInit {
   constructor(
     private _educationFieldsService: EducationFieldsService,
     private _modalService: ModalService,
-    private _changeWorkShops: ChangeWorkShopsService
+    private _changeWorkShops: ChangeWorkShopsService,
+    private readonly _location: Location
   ) {}
   ngOnInit(): void {
     this.getEducationFieldsList();
@@ -73,6 +75,9 @@ export class EducationFieldsListComponent implements OnInit {
         this.getEducationFieldsList();
       })
       .catch((err) => {});
+  }
+  cancelClickHandler() {
+    this._location.back();
   }
   getEducationFieldsList() {
     let model = new WorkShopsFilter();

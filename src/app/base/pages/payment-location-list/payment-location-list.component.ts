@@ -10,6 +10,7 @@ import { ChangeWorkShopsService } from "../../../services/change-work-shop.servi
 import { PaymentLocationDto } from "../../models/payment-location.model";
 import { PaymentLocationService } from "../../services/payment-location.service";
 import { ConfirmInterFace } from "../../../shared/ki-components/ki-confirmation/confirm.interface";
+import { Location } from "@angular/common";
 
 @Component({
   selector: "app-payment-location-list",
@@ -52,7 +53,8 @@ export class PaymentLocationListComponent implements OnInit {
   constructor(
     private _paymentLocationService: PaymentLocationService,
     private _modalService: ModalService,
-    private _changeWorkShops: ChangeWorkShopsService
+    private _changeWorkShops: ChangeWorkShopsService,
+    private readonly _location: Location
   ) {}
   ngOnInit(): void {
     this.getAllPaymentLocations();
@@ -60,7 +62,9 @@ export class PaymentLocationListComponent implements OnInit {
       this.getAllPaymentLocations();
     });
   }
-
+  cancelClickHandler() {
+    this._location.back();
+  }
   newWorkShpps(isEdit: boolean = false) {
     let entryId = null;
     if (isEdit) {

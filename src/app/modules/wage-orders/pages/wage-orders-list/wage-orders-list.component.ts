@@ -11,6 +11,7 @@ import { wageOrderListDto } from "../../models/wage-orders.model";
 import { CellOperationsClickEvent } from "../../../../shared/components/ag-grid";
 import { Paths } from "../../../../shared/utilities/paths";
 import { ClientPrerequisitsService } from "../../../../services/client-prerequisits";
+import { Location } from "@angular/common";
 
 @Component({
   selector: "app-wage-orders-list",
@@ -112,7 +113,8 @@ export class WageOrdersListComponent implements OnInit {
     private _modalService: ModalService,
     private _changeWorkShops: ChangeWorkShopsService,
     private _router: Router,
-    private _clientPrerequisitsService: ClientPrerequisitsService
+    private _clientPrerequisitsService: ClientPrerequisitsService,
+    private readonly _location: Location
   ) {}
   ngOnInit(): void {
     this._changeWorkShops.activeWorkShopsSource$.subscribe((workShopId) => {
@@ -121,6 +123,9 @@ export class WageOrdersListComponent implements OnInit {
   }
   onRefrashSelected() {
     this.getWageOrders();
+  }
+  cancelClickHandler() {
+    this._location.back();
   }
   newWorkShpps() {
     this._router.navigateByUrl(Paths.wageOrders.add().url);

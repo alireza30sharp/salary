@@ -6,6 +6,7 @@
         (RefrashSelected)="onRefrashSelected()"
         (DeleteSelected)="removeCell()"
         (EditSelected)="newWorkShpps(true)"
+        (EscapeSelected)="cancelClickHandler()"
         (RefrashSelected)="onRefrashSelected()"
         [disabled]="selectRow.length != 0 ? false : true"
         [isShowLoadingDelete]="isShowLoadingDelete"
@@ -15,6 +16,7 @@
   </ng-template>
 
   <ag-grid-data
+    [rowId]="'id'"
     [columnsDefault]="columnsDefault"
     [rowDataDefault]="rowDataDefault"
     (removeCellChange)="onDeleteItem($event)"

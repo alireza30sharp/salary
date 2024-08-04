@@ -11,6 +11,7 @@ import { Router } from "@angular/router";
 import { ConfirmInterFace } from "../../../shared/ki-components/ki-confirmation/confirm.interface";
 import { EmployesService } from "../../services/employes.service";
 import { EmployeDto } from "../../models/employee.model";
+import { Location } from "@angular/common";
 
 @Component({
   selector: "app-employes-list",
@@ -52,7 +53,8 @@ export class EmployesListComponent implements OnInit {
     private _employesService: EmployesService,
     private _modalService: ModalService,
     private _tourService: TourService,
-    private _router: Router
+    private _router: Router,
+    private readonly _location: Location
   ) {}
   ngOnInit(): void {
     this.getList();
@@ -72,7 +74,9 @@ export class EmployesListComponent implements OnInit {
       error: (err) => {},
     });
   }
-
+  cancelClickHandler() {
+    this._location.back();
+  }
   onToolsSelected() {
     this._router.navigateByUrl("salary/change-page/pageName");
   }

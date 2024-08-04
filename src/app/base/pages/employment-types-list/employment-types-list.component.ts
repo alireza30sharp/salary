@@ -13,6 +13,7 @@ import { ChangeWorkShopsService } from "../../../services/change-work-shop.servi
 import { EmploymentTypesDto } from "../../models/employment-types.model";
 import { EmploymentTypesService } from "../../services/employment-types.service";
 import { ConfirmInterFace } from "../../../shared/ki-components/ki-confirmation/confirm.interface";
+import { Location } from "@angular/common";
 
 @Component({
   selector: "app-employment-types-list",
@@ -55,7 +56,8 @@ export class EmploymentTypesListComponent implements OnInit {
   constructor(
     private _employmentTypesService: EmploymentTypesService,
     private _modalService: ModalService,
-    private _changeWorkShops: ChangeWorkShopsService
+    private _changeWorkShops: ChangeWorkShopsService,
+    private readonly _location: Location
   ) {}
   ngOnInit(): void {
     this.getAllEducationEvidences();
@@ -63,7 +65,9 @@ export class EmploymentTypesListComponent implements OnInit {
       this.getAllEducationEvidences();
     });
   }
-
+  cancelClickHandler() {
+    this._location.back();
+  }
   newWorkShpps(isEdit: boolean = false) {
     let entryId = null;
     if (isEdit) {

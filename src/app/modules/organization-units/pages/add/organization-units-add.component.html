@@ -20,16 +20,22 @@
       (submitEvent)="submitHandler($event)"
     ></app-organization-units-form>
     <ng-template #footer>
-      <ki-button [type]="'button'" (clickCallback)="cancelClickHandler()">
-        انصراف</ki-button
+      <ki-button
+        [type]="'button'"
+        [type]="'button'"
+        btnType="basic"
+        [iconClassName]="'fa-solid fa-arrow-rotate-left'"
+        [title]="'انصراف'"
+        (clickCallback)="cancelClickHandler()"
       >
+      </ki-button>
       <ki-button
         [for]="submitButtonId"
-        [varient]="'fill'"
-        [btnType]="'primary'"
+        btnType="basic"
+        [iconClassName]="'fa-solid fa-floppy-disk'"
+        [title]="'ذخیره اطلاعات'"
         [showLoading]="isProgressing"
-        >ذخیره</ki-button
-      >
+      ></ki-button>
     </ng-template>
   </app-general-panel>
 </ng-template>

@@ -11,6 +11,7 @@ import { Router } from "@angular/router";
 import { ConfirmInterFace } from "../../../shared/ki-components/ki-confirmation/confirm.interface";
 import { BenefitDeductionEmployeesService } from "../../services/benefit-deduction-employees.service";
 import { BenefitDeductionEmployeesDto } from "../../models/benefit-deduction-employees.model";
+import { Location } from "@angular/common";
 
 @Component({
   selector: "app-benefit-deduction-employees-list",
@@ -52,7 +53,8 @@ export class BenefitDeductionEmployeesListComponent implements OnInit {
     private _benefitDeductionEmployeesService: BenefitDeductionEmployeesService,
     private _modalService: ModalService,
     private _tourService: TourService,
-    private _router: Router
+    private _router: Router,
+    private readonly _location: Location
   ) {}
   ngOnInit(): void {
     this.getList();
@@ -72,7 +74,9 @@ export class BenefitDeductionEmployeesListComponent implements OnInit {
       error: (err) => {},
     });
   }
-
+  cancelClickHandler() {
+    this._location.back();
+  }
   onToolsSelected() {
     this._router.navigateByUrl("salary/change-page/pageName");
   }
@@ -82,7 +86,12 @@ export class BenefitDeductionEmployeesListComponent implements OnInit {
       entryId = this.selectRow[0].id;
     }
     this._modalService
-      .open(BenefitDeductionEmployeesFormModalComponent, "lg", { entryId: entryId }, true)
+      .open(
+        BenefitDeductionEmployeesFormModalComponent,
+        "lg",
+        { entryId: entryId },
+        true
+      )
       .then((value) => {
         this.getList();
       })

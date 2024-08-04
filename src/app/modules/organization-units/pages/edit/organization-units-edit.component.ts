@@ -40,12 +40,19 @@ export class OrganizationUnitsEditComponent implements OnInit {
 
   submitHandler(data: OrganizationUnitsDto) {
     this.isProgressing = true;
-    this._organizationUnitsService.update(data).subscribe((res) => {
-      if (res) {
-        this._toastService.success("ویرایش با موفقیت انجام شد");
-        this._event.cast(Events.RefreshLetterDesignerTree);
-      }
-    });
+    this._organizationUnitsService
+      .update(data)
+      .pipe(
+        finalize(() => {
+          this.isProgressing = false;
+        })
+      )
+      .subscribe((res) => {
+        if (res) {
+          this._toastService.success("ویرایش با موفقیت انجام شد");
+          this._event.cast(Events.RefreshLetterDesignerTree);
+        }
+      });
   }
 
   cancelClickHandler() {

@@ -11,6 +11,7 @@ import { Router } from "@angular/router";
 import { ConfirmInterFace } from "../../../shared/ki-components/ki-confirmation/confirm.interface";
 import { EmploymentOrdersService } from "../../services/employment-orders.service";
 import { EmploymentOrdersDto } from "../../models/employment-orders.model";
+import { Location } from "@angular/common";
 
 @Component({
   selector: "app-employment-orders-list",
@@ -38,7 +39,8 @@ export class EmploymentOrdersListComponent implements OnInit {
     private _employmentOrdersService: EmploymentOrdersService,
     private _modalService: ModalService,
     private _tourService: TourService,
-    private _router: Router
+    private _router: Router,
+    private readonly _location: Location
   ) {}
   ngOnInit(): void {
     this.getList();
@@ -62,13 +64,21 @@ export class EmploymentOrdersListComponent implements OnInit {
   onToolsSelected() {
     this._router.navigateByUrl("salary/change-page/pageName");
   }
+  cancelClickHandler() {
+    this._location.back();
+  }
   newWorkShpps(isEdit: boolean = false) {
     let entryId = null;
     if (isEdit) {
       entryId = this.selectRow[0].id;
     }
     this._modalService
-      .open(BenefitDeductionEmployeesFormModalComponent, "lg", { entryId: entryId }, true)
+      .open(
+        BenefitDeductionEmployeesFormModalComponent,
+        "lg",
+        { entryId: entryId },
+        true
+      )
       .then((value) => {
         this.getList();
       })
@@ -79,7 +89,8 @@ export class EmploymentOrdersListComponent implements OnInit {
       acceptText: "بله",
       declineText: "خیر",
       description: "آیا از عملیات مورد نظر اطمینان دارید؟",
-      title: "حذف" + " " + `"${this.selectRow[0].persianDateStr.toUpperCase()}"`,
+      title:
+        "حذف" + " " + `"${this.selectRow[0].persianDateStr.toUpperCase()}"`,
       type: "Confirm",
     };
     this._modalService.showConfirm(params, false).then((res) => {
