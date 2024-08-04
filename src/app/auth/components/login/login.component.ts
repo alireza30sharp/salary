@@ -15,6 +15,7 @@ import { getDeepFromObject } from "../../helpers";
 
 import { NbAuthService } from "../../services/auth.service";
 import { NbAuthResult } from "../../services/auth-result";
+import { finalize } from "rxjs";
 
 @Component({
   selector: "nb-login",
@@ -25,7 +26,7 @@ export class NbLoginComponent {
   redirectDelay: number = 0;
   showMessages: any = {};
   strategy: string = "";
-
+  loading: boolean = false;
   errors: string[] = [];
   messages: string[] = [];
   user: any = {};
@@ -50,9 +51,14 @@ export class NbLoginComponent {
     this.errors = [];
     this.messages = [];
     this.submitted = true;
-
+    this.loading = true;
     this.service
       .authenticate(this.strategy, this.user)
+      .pipe(
+        finalize(() => {
+          this.loading = false;
+        })
+      )
       .subscribe((result: NbAuthResult) => {
         this.submitted = false;
 

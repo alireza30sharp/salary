@@ -4,7 +4,7 @@
   (backCallback)="cancelClickHandler()"
 >
   <app-skeleton-form-loading
-    *ngIf="showLoading; else formTemplate"
+    *ngIf="isLoading; else formTemplate"
   ></app-skeleton-form-loading>
   <ng-template #formTemplate>
     <div class="row">
@@ -89,6 +89,9 @@
   </ng-template>
 
   <ag-grid-data
+    [nbSpinner]="isLoading"
+    nbSpinnerStatus="danger"
+    nbSpinnerSize="giant"
     [rowId]="'id'"
     [isEditMode]="isEditMode"
     [editType]="editType"

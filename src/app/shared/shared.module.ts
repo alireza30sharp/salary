@@ -33,6 +33,7 @@ import { DatePickerModule } from "./date-picker.module";
 import { ToastrModule } from "ngx-toastr";
 import { TooltipComponent } from "./components/tooltip/tooltip.component";
 import { TooltipDirective } from "./components/tooltip/tooltip.directive";
+import { PrimengModule } from "./primeng.module";
 
 const component = [
   ContextMenuComponent,
@@ -106,6 +107,7 @@ const component = [
     DevexpressModule,
     NgxMaskModule.forRoot(),
     DatePickerModule,
+    PrimengModule,
   ],
 
   exports: [
@@ -121,6 +123,7 @@ const component = [
     NgbModule,
     DevexpressModule,
     NgxMaskModule,
+    PrimengModule,
     ...component,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

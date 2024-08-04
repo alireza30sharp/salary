@@ -116,6 +116,9 @@
     status="success"
     [disabled]="submitted || !form.valid"
     [class.btn-pulse]="submitted"
+    [nbSpinner]="loading"
+    nbSpinnerSize="tiny"
+    nbSpinnerStatus="basic"
   >
     ورود
   </button>
