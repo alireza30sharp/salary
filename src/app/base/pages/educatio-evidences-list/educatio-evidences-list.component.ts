@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { WorkShopsService } from "../../services/work-shops.service";
 import { WorkShopsFilter } from "../../models";
-import { ModalService } from "../../../shared/services";
+import { ModalService, ToastService } from "../../../shared/services";
 import { AgGridInterFace } from "../../../shared/interfaces/ag-grid.interface";
 import { propertyOf } from "../../../shared/utilities/property-of";
 import { ConfirmInterFace } from "../../../shared/ki-components/ki-confirmation/confirm.interface";
@@ -59,7 +59,8 @@ export class EducationEvidencesListComponent implements OnInit {
     private _educationEvidencesService: EducationEvidencesService,
     private _modalService: ModalService,
     private _changeWorkShops: ChangeWorkShopsService,
-    private readonly _location: Location
+    private readonly _location: Location,
+    private _toastService: ToastService
   ) {}
   ngOnInit(): void {
     this.getEducationEvidencesList();
@@ -125,10 +126,22 @@ export class EducationEvidencesListComponent implements OnInit {
   }
 
   onDeleteItem(item: EducationEvidencesDto) {
-    this._educationEvidencesService.delete(item.id).subscribe((res) => {
-      if (res.isOk) {
-        this.getEducationEvidencesList();
-      }
+    this._educationEvidencesService.delete(item.id).subscribe({
+      next: (res) => {
+        if (res.isOk) {
+          this.getEducationEvidencesList();
+        }
+      },
+      error: (err) => {
+        let msg = "";
+        if (err.error.messages) {
+          this._toastService.error(err.error.messages);
+          msg = err.error.messages.join(" ");
+        } else if (err.error.message) {
+          this._toastService.error(err.error.message);
+          msg = err.error.message.join(" ");
+        }
+      },
     });
   }
   onSelectedRowsChangeEvent(event: Array<EducationEvidencesDto>) {

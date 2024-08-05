@@ -54,6 +54,8 @@ export class EmployesListComponent implements OnInit {
     private _modalService: ModalService,
     private _tourService: TourService,
     private _router: Router,
+    private _toastService: ToastService,
+
     private readonly _location: Location
   ) {}
   ngOnInit(): void {
@@ -120,10 +122,22 @@ export class EmployesListComponent implements OnInit {
           this.isShowLoadingDelete = false;
         })
       )
-      .subscribe((res) => {
-        if (res.isOk) {
-          this.getList();
-        }
+      .subscribe({
+        next: (res) => {
+          if (res.isOk) {
+            this.getList();
+          }
+        },
+        error: (err) => {
+          let msg = "";
+          if (err.error.messages) {
+            this._toastService.error(err.error.messages);
+            msg = err.error.messages.join(" ");
+          } else if (err.error.message) {
+            this._toastService.error(err.error.message);
+            msg = err.error.message.join(" ");
+          }
+        },
       });
   }
   onSelectedRowsChangeEvent(event: Array<EmployeDto>) {

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { WorkShopsFilter } from "../../models";
-import { ModalService } from "../../../shared/services";
+import { ModalService, ToastService } from "../../../shared/services";
 import { AgGridInterFace } from "../../../shared/interfaces/ag-grid.interface";
 import { propertyOf } from "../../../shared/utilities/property-of";
 import {
@@ -57,7 +57,8 @@ export class EmploymentTypesListComponent implements OnInit {
     private _employmentTypesService: EmploymentTypesService,
     private _modalService: ModalService,
     private _changeWorkShops: ChangeWorkShopsService,
-    private readonly _location: Location
+    private readonly _location: Location,
+    private _toastService: ToastService
   ) {}
   ngOnInit(): void {
     this.getAllEducationEvidences();
@@ -117,10 +118,22 @@ export class EmploymentTypesListComponent implements OnInit {
   }
 
   onDeleteItem(item: EmploymentTypesDto) {
-    this._employmentTypesService.delete(item.id).subscribe((res) => {
-      if (res.isOk) {
-        this.getAllEducationEvidences();
-      }
+    this._employmentTypesService.delete(item.id).subscribe({
+      next: (res) => {
+        if (res.isOk) {
+          this.getAllEducationEvidences();
+        }
+      },
+      error: (err) => {
+        let msg = "";
+        if (err.error.messages) {
+          this._toastService.error(err.error.messages);
+          msg = err.error.messages.join(" ");
+        } else if (err.error.message) {
+          this._toastService.error(err.error.message);
+          msg = err.error.message.join(" ");
+        }
+      },
     });
   }
   onSelectedRowsChangeEvent(event: Array<EmploymentTypesDto>) {

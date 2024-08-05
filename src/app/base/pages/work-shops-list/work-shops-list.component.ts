@@ -157,10 +157,22 @@ export class WorkShopsListComponent implements OnInit {
           this.isShowLoadingDelete = false;
         })
       )
-      .subscribe((res) => {
-        if (res.isOk) {
-          this.getWorkShopList();
-        }
+      .subscribe({
+        next: (res) => {
+          if (res.isOk) {
+            this.getWorkShopList();
+          }
+        },
+        error: (err) => {
+          let msg = "";
+          if (err.error.messages) {
+            this._toastService.error(err.error.messages);
+            msg = err.error.messages.join(" ");
+          } else if (err.error.message) {
+            this._toastService.error(err.error.message);
+            msg = err.error.message.join(" ");
+          }
+        },
       });
   }
   onSelectedRowsChangeEvent(event: Array<WorkShopsDto>) {

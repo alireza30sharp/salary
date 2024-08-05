@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { WorkShopsService } from "../../services/work-shops.service";
 import { WorkShopsFilter } from "../../models";
-import { ModalService } from "../../../shared/services";
+import { ModalService, ToastService } from "../../../shared/services";
 import { BenefitDeductionService } from "../../services/benefit-deduction.service";
 import { BenefitDeductionFormModalComponent } from "../../components/templates/benefit-deduction-form-modal/benefit-deduction-form-modal.component";
 import { AgGridInterFace } from "../../../shared/interfaces/ag-grid.interface";
@@ -70,7 +70,8 @@ export class BenefitDeductionListComponent implements OnInit {
     private _benefitDeductionService: BenefitDeductionService,
     private _modalService: ModalService,
     private _changeWorkShops: ChangeWorkShopsService,
-    private readonly _location: Location
+    private readonly _location: Location,
+    private _toastService: ToastService
   ) {}
   ngOnInit(): void {
     this.getGetBenefitsDeductionsList();
@@ -138,10 +139,22 @@ export class BenefitDeductionListComponent implements OnInit {
           this.isShowLoadingDelete = false;
         })
       )
-      .subscribe((res) => {
-        if (res.isOk) {
-          this.getGetBenefitsDeductionsList();
-        }
+      .subscribe({
+        next: (res) => {
+          if (res.isOk) {
+            this.getGetBenefitsDeductionsList();
+          }
+        },
+        error: (err) => {
+          let msg = "";
+          if (err.error.messages) {
+            this._toastService.error(err.error.messages);
+            msg = err.error.messages.join(" ");
+          } else if (err.error.message) {
+            this._toastService.error(err.error.message);
+            msg = err.error.message.join(" ");
+          }
+        },
       });
   }
   onSelectedRowsChangeEvent(event: Array<BenefitDeductionDto>) {

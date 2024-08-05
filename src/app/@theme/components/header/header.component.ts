@@ -38,7 +38,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   //
   private destroy$: Subject<void> = new Subject<void>();
   userPictureOnly: boolean = false;
-  user: any;
+  user: { name: "sd" };
   @SessionStorage(SessionNames.WorkShopsID)
   WorkShopsID: any;
   themes = [
