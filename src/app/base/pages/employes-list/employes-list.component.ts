@@ -37,7 +37,12 @@ export class EmployesListComponent implements OnInit {
       filter: "agTextColumnFilter",
       headerClass: "displayName",
     },
-
+    {
+      field: propertyOf<EmployeDto>("personnelCode"),
+      headerName: "کد پرسنلی",
+      filter: "agTextColumnFilter",
+      headerClass: "displayName",
+    },
     {
       field: propertyOf<EmployeDto>("nationalCode"),
       headerName: "کد ملی",

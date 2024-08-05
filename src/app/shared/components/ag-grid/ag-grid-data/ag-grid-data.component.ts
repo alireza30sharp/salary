@@ -70,7 +70,6 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
       this.isShowToolbar = true;
       this.enableFillHandle = false;
       this.undoRedoCellEditing = true;
-      this.enableCellChangeFlash = false;
       let col = columns.filter((col) => col.editable);
       if (col.length > 0) {
         let findEditing = col.find((f) => f.startEditing);
@@ -87,7 +86,9 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
   @Input() activeToolBar: boolean = false;
   @Input() autoGroupColumnDef: AgGridInterFace;
   @Input() popupParent: any;
-  @Input() defaultColDef: AgGridInterFace;
+  @Input() defaultColDef: AgGridInterFace = {
+    rowGroup: false,
+  };
   @Input() suppressRowClickSelection: boolean = false;
   @Input() rowSelection: "single" | "multiple" = "single";
   @Input() suppressAggFuncInHeader: boolean = false;
@@ -106,7 +107,7 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
   @Input() idGrid: string;
   @Input() rowId: string;
   @Input() pagination: boolean = true;
-  @Input() paginationPageSize: number = 175;
+  @Input() paginationPageSize: number = 10;
   paginationPageSizeSelector: number[] | boolean = [10, 20, 50, 100];
   paginationNumberFormatter: (
     params: PaginationNumberFormatterParams
@@ -121,7 +122,7 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
   @Output() DesignerclickEvent = new EventEmitter<any>();
   public getRowId: GetRowIdFunc = (params: GetRowIdParams) => {
     if (this.rowId) {
-      return params.data[this.rowId];
+      return params.data[this.rowId].toString();
     } else {
       return params.data.uniqueId;
     }
@@ -167,7 +168,6 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
   enableFillHandle: boolean = false;
   undoRedoCellEditing: boolean = false;
   undoRedoCellEditingLimit: number = 0;
-  enableCellChangeFlash: boolean = false;
   onSelectionChanged() {
     this.selectedRows = this.gridApi.getSelectedRows();
     this.selectedRowsChange.emit(this.selectedRows);

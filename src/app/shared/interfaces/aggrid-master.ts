@@ -38,12 +38,11 @@ export class AgGridMaster {
     // allow every column to be aggregated
     // allow every column to be grouped
     // allow every column to be pivoted
-    pivotColumnGroupTotals: "before",
-    enableRangeSelection: true,
+    enableRangeSelection: false,
     rowSelection: "multiple",
-    suppressDragLeaveHidesColumns: true,
-    suppressMakeColumnVisibleAfterUnGroup: true,
-    rowGroupPanelShow: "always",
+    suppressDragLeaveHidesColumns: false,
+    suppressMakeColumnVisibleAfterUnGroup: false,
+    rowGroupPanelShow: "onlyWhenGrouping",
     // sideBar: true,
     sideBar: {
       toolPanels: [
@@ -98,42 +97,22 @@ export class AgGridMaster {
   };
 
   constructor(public modalService: NgbModal) {}
-  public defaultColDef: AgGridInterFace = {
-    wrapText: true,
-    suppressSizeToFit: true,
-    enableRowGroup: true,
-    enablePivot: true,
-    sortable: true,
-    filterParams: true,
-    width: 300,
-    resizable: true,
-    filter: true,
-    floatingFilter: true,
-    floatingFilterComponentParams: {
-      suppressFilterButton: true,
-    },
-    flex: 1,
-    minWidth: 200,
-    enableValue: true,
 
-    chartDataType: "series",
-  };
   onFilterChanged($event) {}
 
   onGridReady(params) {
     this.gridApi = params.api;
     params.api.sizeColumnsToFit();
 
-    var columnDefs = this.gridApi.getColumnDefs();
+    // var columnDefs = this.gridApi.getColumnDefs();
 
-    this.gridApi.updateGridOptions(columnDefs as any);
+    // this.gridApi.updateGridOptions(columnDefs as any);
     // if (params.api.setGridOption) {
     //   params.api.setGridOption('rowData', this.rowData);
     //   this.startFeed(params.api);
     // }
   }
   startFeed(api: GridApi) {
-    debugger;
     var count = 1;
     setInterval(() => {
       var thisCount = count++;
