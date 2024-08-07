@@ -51,4 +51,15 @@ export class Paths {
       return new Uri(this.domain, `/${this.base}/add`, "add");
     }
   };
+  static MonthlyPerformance = class {
+    static base: string = "salary/system-operation/monthly-performance";
+    static domain: string = "http://localhost:4200";
+
+    static edit(id?: number): Uri {
+      return new Uri(this.domain, `/${this.base}/edit/${id ?? ""}`, "edit/:id");
+    }
+    static add(): Uri {
+      return new Uri(this.domain, `/${this.base}/add`, "add");
+    }
+  };
 }

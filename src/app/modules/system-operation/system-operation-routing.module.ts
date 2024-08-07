@@ -13,6 +13,13 @@ const routes: Routes = [
         path: "list",
         component: _pages.ListComponent,
       },
+      {
+        path: "monthly-performance",
+        loadChildren: () =>
+          import("../monthly-performance/monthly-performance.module").then(
+            (m) => m.MonthlyPerformanceModule
+          ),
+      },
     ],
   },
 ];

@@ -61,8 +61,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: "حکم حقوقی",
         link: "/salary/wage-orders",
       },
-      
-      
+
       {
         title: "حکم استخدامی",
         link: "/salary/employment-orders-list",
@@ -78,12 +77,14 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: "/salary/system-operation/list",
       },
 
-      
+      {
+        title: "کارکرد ماهانه ",
+        link: "/salary/system-operation/monthly-performance",
+      },
       {
         title: "مزایا و کسورات کارمندان",
         link: "/salary/benefit-deduction-employees-list",
       },
-      
     ],
   },
   // {

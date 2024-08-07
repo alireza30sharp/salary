@@ -4,6 +4,7 @@ export interface AgGridInterFace extends ColDef {
   startEditing?: boolean;
   requerd?: boolean;
   messageRequerd?: string;
+  children?: any;
 }
 
 export enum TypeRcordModel {
