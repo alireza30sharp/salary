@@ -1,0 +1,19 @@
+<div class="input-group">
+  <input
+    class="form-control"
+    placeholder="Select month"
+    [value]="displayValue"
+    readonly
+    (click)="dp.toggle()"
+  />
+  <button class="btn btn-outline-secondary" (click)="dp.toggle()" type="button">
+    <i class="fa fa-calendar"></i>
+  </button>
+</div>
+<ngb-datepicker
+  #dp
+  (dateSelect)="onMonthSelect($event)"
+  [displayMonths]="1"
+  [navigation]="'select'"
+  outsideDays="hidden"
+></ngb-datepicker>

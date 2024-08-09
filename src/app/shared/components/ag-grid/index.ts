@@ -14,3 +14,4 @@ export { CellEditorNumberComponent } from "./cell-editor-number/cell-editor-numb
 export { CellOperationsClickEvent } from "./cell-operations-click-event/cell-operations-click-event";
 export { SelectCellRendererParams } from "./select-cell-render/select-cell-render";
 export { CellEditorCheckboxComponent } from "./cell-editor-checkbox/cell-editor-checkbox.component";
+export { CellEditorTimeComponent } from "./cell-editor-time/cell-editor-time.component";

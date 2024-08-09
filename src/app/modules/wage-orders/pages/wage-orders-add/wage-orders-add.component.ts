@@ -70,6 +70,15 @@ export class WageOrdersAddComponent implements OnInit {
       valueFormatter: numberCellFormatter_valueFormatter,
     },
     {
+      field: propertyOf<wageOrderDetailDto>("price1"),
+      headerName: "2مبلغ",
+      editable: true,
+      cellClass: "text-center",
+      filter: "agNumberColumnFilter",
+      cellEditor: CellEditorNumberComponent,
+      valueFormatter: numberCellFormatter_valueFormatter,
+    },
+    {
       field: propertyOf<wageOrderDetailDto>("calculateOnInsurance"),
       headerName: "محاسبه روی بیمه",
       editable: true,

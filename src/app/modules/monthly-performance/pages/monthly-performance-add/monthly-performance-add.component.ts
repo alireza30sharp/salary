@@ -6,10 +6,14 @@ import { ChangeWorkShopsService } from "../../../../services/change-work-shop.se
 import { delay, finalize } from "rxjs";
 import { NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
 
-import { numberCellFormatter_valueFormatter } from "../../../../shared/interfaces/aggrid-master";
+import {
+  numberCellFormatter_valueFormatter,
+  timeCellFormatter,
+} from "../../../../shared/interfaces/aggrid-master";
 import {
   CellEditorCheckboxComponent,
   CellEditorNumberComponent,
+  CellEditorTimeComponent,
   SelectUnitComponent,
 } from "../../../../shared/components/ag-grid";
 import { SelectCellRendererParams } from "../../../../shared/components/ag-grid/select-cell-render/select-cell-render";
@@ -47,6 +51,11 @@ export class MonthlyPerformanceAddComponent implements OnInit {
     {
       field: propertyOf<addWorkingTimesDetailDto>("code"),
       headerName: "کد",
+      editable: true,
+      cellClass: "text-center",
+      filter: "agNumberColumnFilter",
+      cellEditor: CellEditorNumberComponent,
+      valueFormatter: numberCellFormatter_valueFormatter,
     },
     {
       field: propertyOf<addWorkingTimesDetailDto>("employeeId"),
@@ -62,17 +71,28 @@ export class MonthlyPerformanceAddComponent implements OnInit {
       },
       startEditing: true,
       editable: true,
-      requerd: true,
+      requerd: false,
     },
     {
       headerName: "کارکرد روزانه",
       cellClass: "text-center",
       children: [
-        { field: "روز", editable: true, cellEditor: CellEditorNumberComponent },
         {
-          field: "ساعت",
+          headerName: "روز",
           editable: true,
-          cellEditor: CellEditorNumberComponent,
+          cellEditor: "agNumberCellEditor",
+          cellEditorParams: {
+            min: 0,
+            max: 31,
+          },
+          field: propertyOf<addWorkingTimesDetailDto>("dayWorkShiftDays"),
+        },
+        {
+          field: propertyOf<addWorkingTimesDetailDto>("dayWorkShiftHours"),
+          headerName: "ساعت",
+          editable: true,
+          valueFormatter: timeCellFormatter,
+          cellEditor: CellEditorTimeComponent,
         },
       ],
     },
@@ -80,11 +100,22 @@ export class MonthlyPerformanceAddComponent implements OnInit {
       headerName: "شب کاری",
       cellClass: "text-center",
       children: [
-        { field: "روز", editable: true, cellEditor: CellEditorNumberComponent },
         {
-          field: "ساعت",
+          headerName: "روز",
           editable: true,
-          cellEditor: CellEditorNumberComponent,
+          cellEditor: "agNumberCellEditor",
+          cellEditorParams: {
+            min: 0,
+            max: 31,
+          },
+          field: propertyOf<addWorkingTimesDetailDto>("nightWorkShiftDays"),
+        },
+        {
+          field: propertyOf<addWorkingTimesDetailDto>("nightWorkShiftHours"),
+          headerName: "ساعت",
+          editable: true,
+          valueFormatter: timeCellFormatter,
+          cellEditor: CellEditorTimeComponent,
         },
       ],
     },
@@ -92,11 +123,22 @@ export class MonthlyPerformanceAddComponent implements OnInit {
       headerName: "اضافه کاری",
       cellClass: "text-center",
       children: [
-        { field: "روز", editable: true, cellEditor: CellEditorNumberComponent },
         {
-          field: "ساعت",
+          headerName: "روز",
           editable: true,
-          cellEditor: CellEditorNumberComponent,
+          cellEditor: "agNumberCellEditor",
+          cellEditorParams: {
+            min: 0,
+            max: 31,
+          },
+          field: propertyOf<addWorkingTimesDetailDto>("overTimeWorkShiftDays"),
+        },
+        {
+          field: propertyOf<addWorkingTimesDetailDto>("overTimeWorkShiftHours"),
+          headerName: "ساعت",
+          editable: true,
+          valueFormatter: timeCellFormatter,
+          cellEditor: CellEditorTimeComponent,
         },
       ],
     },
@@ -104,11 +146,22 @@ export class MonthlyPerformanceAddComponent implements OnInit {
       headerName: "تعطیل کاری",
       cellClass: "text-center",
       children: [
-        { field: "روز", editable: true, cellEditor: CellEditorNumberComponent },
         {
-          field: "ساعت",
+          headerName: "روز",
           editable: true,
-          cellEditor: CellEditorNumberComponent,
+          cellEditor: "agNumberCellEditor",
+          cellEditorParams: {
+            min: 0,
+            max: 31,
+          },
+          field: propertyOf<addWorkingTimesDetailDto>("vacationDays"),
+        },
+        {
+          field: propertyOf<addWorkingTimesDetailDto>("vacationHours"),
+          headerName: "ساعت",
+          editable: true,
+          valueFormatter: timeCellFormatter,
+          cellEditor: CellEditorTimeComponent,
         },
       ],
     },
@@ -124,6 +177,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
   isEditMode: boolean = true;
   rowDataDefault = new Array<addWorkingTimesDetailDto>();
   selectRow = new Array<addWorkingTimesDetailDto>();
+  listResult = new Array<addWorkingTimesDetailDto>();
   isShowLoadingDelete: boolean = false;
   showLoading: boolean = false;
   isShowLoadingRefrash: boolean = false;
@@ -132,6 +186,9 @@ export class MonthlyPerformanceAddComponent implements OnInit {
   maskPrefixTaxRate = maskPrefixTaxRate;
   listclientPrerequisits: clientPrerequisitsInterface[];
   cacheKeyType = cacheKeyEnum;
+
+  model: NgbDateStruct;
+  date: { year: number; month: number };
   constructor(
     private _changeWorkShops: ChangeWorkShopsService,
     private _toastService: ToastService,
@@ -163,6 +220,9 @@ export class MonthlyPerformanceAddComponent implements OnInit {
       .subscribe((workShopId) => {
         this.wageOrdersModel.workShopId = +workShopId;
       });
+  }
+  handleMonthSelect(event: { month: number; year: number }) {
+    console.log("Selected month:", event.month, "Selected year:", event.year);
   }
   clickSearchHander() {
     this.showLoading = true;
@@ -210,13 +270,54 @@ export class MonthlyPerformanceAddComponent implements OnInit {
     }
   }
   onRefrashSelected() {}
-  saveCellHandeler(details: addWorkingTimesDetailDto[]) {
-    this.wageOrdersModel.details = [];
-    // details = details.map((d) => {
-    //   d.id = "0";
-    //   return d;
-    // });
-    this.wageOrdersModel.details = [...details];
+
+  saveCellHandeler(details: any[]) {
+    this.listResult = details.map((detail) => {
+      const dayWorkShiftHours = detail.dayWorkShiftHours
+        ? Math.floor(Number(detail.dayWorkShiftHours) / 100)
+        : 0;
+      const dayWorkShiftMinutes = detail.dayWorkShiftHours
+        ? Number(detail.dayWorkShiftHours) % 100
+        : 0;
+
+      const nightWorkShiftHours = detail.nightWorkShiftHours
+        ? Math.floor(Number(detail.nightWorkShiftHours) / 100)
+        : 0;
+      const nightWorkShiftMinutes = detail.nightWorkShiftHours
+        ? Number(detail.nightWorkShiftHours) % 100
+        : 0;
+
+      const overTimeWorkShiftHours = detail.overTimeWorkShiftHours
+        ? Math.floor(Number(detail.overTimeWorkShiftHours) / 100)
+        : 0;
+      const overTimeWorkShiftMinutes = detail.overTimeWorkShiftHours
+        ? Number(detail.overTimeWorkShiftHours) % 100
+        : 0;
+
+      return {
+        employeeId: detail.employeeId,
+        personalCode: detail.personalCode,
+        yearNum: detail.yearNum,
+        monthNum: detail.monthNum,
+        dayWorkShiftDays: detail.dayWorkShiftDays,
+        dayWorkShiftHours: dayWorkShiftHours,
+        dayWorkShiftMinutes: dayWorkShiftMinutes,
+        nightWorkShiftDays: detail.nightWorkShiftDays,
+        nightWorkShiftHours: nightWorkShiftHours,
+        nightWorkShiftMinutes: nightWorkShiftMinutes,
+        overTimeWorkShiftDays: detail.overTimeWorkShiftDays,
+        overTimeWorkShiftHours: overTimeWorkShiftHours,
+        overTimeWorkShiftMinutes: overTimeWorkShiftMinutes,
+        vacationWorkShiftDays: detail.vacationWorkShiftDays,
+        vacationWorkShiftHours: detail.vacationWorkShiftHours,
+        vacationWorkShiftMinutes: detail.vacationWorkShiftMinutes,
+        vacationDays: detail.vacationDays,
+        vacationHours: detail.vacationHours,
+        vacationMinutes: detail.vacationMinutes,
+        code: detail.code,
+        id: detail.id,
+      } as addWorkingTimesDetailDto;
+    });
   }
 
   cancelClickHandler() {

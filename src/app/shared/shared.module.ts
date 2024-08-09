@@ -13,6 +13,7 @@ import {
   ContextMenuComponent,
   AlertComponent,
   ListViewFilterComponent,
+  MonthPickerComponent,
 } from "./components";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
@@ -36,6 +37,7 @@ import { TooltipDirective } from "./components/tooltip/tooltip.directive";
 import { PrimengModule } from "./primeng.module";
 
 const component = [
+  MonthPickerComponent,
   ContextMenuComponent,
   TreeComponent,
   ReportComponent,
@@ -66,6 +68,7 @@ const component = [
   grid.AgGridDataComponent,
   grid.CellEditorNumberComponent,
   grid.CellOperationsClickEvent,
+  grid.CellEditorTimeComponent,
   grid.CellEditorCheckboxComponent,
   kiComponent.KiButtonComponent,
   kiComponent.KiCheckboxComponent,

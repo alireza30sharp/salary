@@ -11,3 +11,4 @@ export * from "./dropdown/dropdown.component";
 export * from "./context-menu/context-menu.component";
 export * from "./alert/alert.component";
 export * from "./list-view-filter/list-view-filter.component";
+export * from "./month-picker/month-picker.component";

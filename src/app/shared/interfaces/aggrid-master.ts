@@ -811,6 +811,17 @@ export function numberCellFormatter_valueFormatter(
     .toString()
     .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 }
+export function timeCellFormatter(params: ValueFormatterParams) {
+  if (params.value) {
+    let valueStr = params.value.toString().padStart(4, "0"); // Ensure the value is 4 digits long
+    let hours = valueStr.substring(0, 2); // First two digits for hours
+    let minutes = valueStr.substring(2, 4); // Last two digits for minutes
+
+    return `${hours}:${minutes}`;
+  } else {
+    return `00:00`;
+  }
+}
 export function number_valueParser(params: ValueParserParams) {
   return Number(params.newValue);
 }

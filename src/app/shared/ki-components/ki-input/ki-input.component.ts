@@ -116,14 +116,17 @@ export class KiInputComponent implements ControlValueAccessor, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes["maskType"]) {
-      this.mask =
-        this.maskType === "separator" || this.maskType === "percent"
-          ? this.maskType +
-            (this.maskDecimalDigit ? "." + this.maskDecimalDigit : "")
-          : this.maskType;
+      if (this.maskType === "time") {
+        this.mask = "00:00"; // ماسک برای فرمت زمان
+      } else if (this.maskType === "separator" || this.maskType === "percent") {
+        this.mask =
+          this.maskType +
+          (this.maskDecimalDigit ? "." + this.maskDecimalDigit : "");
+      } else {
+        this.mask = this.maskType;
+      }
     }
   }
-
   validate(): ValidationErrors {
     let isInvalid = true;
     this.min = null;
