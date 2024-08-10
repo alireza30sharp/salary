@@ -29,18 +29,18 @@
     [defaultColDef]="defaultColDef"
     [editType]="editType"
     [getContextMenuItems]="getContextMenuItems"
+    [autoGroupColumnDef]="autoGroupColumnDef"
     [rowData]="rowData"
     [rowSelection]="rowSelection"
     [gridOptions]="gridOptions"
     (selectionChanged)="onSelectionChanged()"
-    (cellEditingStopped)="cellEditingStopped($event)"
     (gridReady)="onGridReady($event)"
     (firstDataRendered)="onFirstDataRendered($event)"
     (cellKeyDown)="onCellKeyDown($event)"
     [enableFillHandle]="enableFillHandle"
     [undoRedoCellEditing]="undoRedoCellEditing"
     [undoRedoCellEditingLimit]="undoRedoCellEditingLimit"
-    [suppressAggFuncInHeader]="suppressAggFuncInHeader"
+    [enableCellChangeFlash]="false"
     [getRowId]="getRowId"
     [loadingCellRenderer]="loadingCellRenderer"
     [loadingCellRendererParams]="loadingCellRendererParams"
@@ -48,8 +48,8 @@
     [rowHeight]="50"
     [pagination]="pagination"
     [paginationPageSize]="paginationPageSize"
-    [rowClassRules]="rowClassRules"
     [paginationPageSizeSelector]="paginationPageSizeSelector"
   ></ag-grid-angular>
+
   <!-- <div id="myChart" class="ag-theme-quartz my-chart"></div> -->
 </div>

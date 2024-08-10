@@ -21,7 +21,11 @@ export class SelectCellRendererParams implements ICellRendererAngularComp {
           this.name = find.label;
         }
       });
-    } else if (!params.value && (params.colDef as any).requerd) {
+    } else if (
+      !params.value &&
+      params.colDef.context &&
+      params.colDef.context.requerd
+    ) {
       this.errorInvalid = true;
     }
   }

@@ -56,9 +56,11 @@ export class WageOrdersAddComponent implements OnInit {
         highlightMatch: true,
         valueListMaxHeight: 220,
       },
-      startEditing: true,
+      context: {
+        requerd: true,
+        startEditing: true,
+      },
       editable: true,
-      requerd: true,
     },
     {
       field: propertyOf<wageOrderDetailDto>("price"),
@@ -69,15 +71,7 @@ export class WageOrdersAddComponent implements OnInit {
       cellEditor: CellEditorNumberComponent,
       valueFormatter: numberCellFormatter_valueFormatter,
     },
-    {
-      field: propertyOf<wageOrderDetailDto>("price1"),
-      headerName: "2مبلغ",
-      editable: true,
-      cellClass: "text-center",
-      filter: "agNumberColumnFilter",
-      cellEditor: CellEditorNumberComponent,
-      valueFormatter: numberCellFormatter_valueFormatter,
-    },
+
     {
       field: propertyOf<wageOrderDetailDto>("calculateOnInsurance"),
       headerName: "محاسبه روی بیمه",

@@ -72,7 +72,7 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
       this.undoRedoCellEditing = true;
       let col = columns.filter((col) => col.editable);
       if (col.length > 0) {
-        let findEditing = col.find((f) => f.startEditing);
+        let findEditing = col.find((f) => f.context?.startEditing);
         if (findEditing) {
           this.startEditingCell = findEditing.field;
         } else {
@@ -263,7 +263,8 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
   validateRequiredFields(obj, columns) {
     for (let column of columns) {
       if (
-        column.requerd &&
+        column.context &&
+        column.context.requerd &&
         (obj[column.field] === null ||
           obj[column.field] === 0 ||
           obj[column.field] === undefined ||

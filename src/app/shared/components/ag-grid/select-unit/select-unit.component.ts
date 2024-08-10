@@ -30,7 +30,7 @@ export class SelectUnitComponent implements ICellEditorAngularComp {
       this.options = Object.assign([], f);
     });
     this.selectedOption = this.params.value;
-    if ((params.colDef as any).requerd) {
+    if (params.colDef.context && params.colDef.context.requerd) {
       this.errorInvalid = params.value ? false : true;
     }
   }
@@ -39,7 +39,6 @@ export class SelectUnitComponent implements ICellEditorAngularComp {
   }
   btnClickedHandler() {
     this.errorInvalid = this.selectedOption ? false : true;
-
     this.params.data[this.params.colDef.field] = this.selectedOption;
     this.params.stopEditing();
   }
