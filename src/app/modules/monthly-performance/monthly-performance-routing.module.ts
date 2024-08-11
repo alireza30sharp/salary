@@ -15,10 +15,6 @@ const routes: Routes = [
         path: Paths.MonthlyPerformance.add().path,
         component: _pages.MonthlyPerformanceAddComponent,
       },
-      {
-        path: Paths.MonthlyPerformance.edit().path,
-        component: _pages.MonthlyPerformanceEditComponent,
-      },
     ],
   },
 ];

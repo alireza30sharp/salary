@@ -8,7 +8,6 @@ import { MonthlyPerformanceRoutingModule } from "./monthly-performance-routing.m
   declarations: [
     MonthlyPerformanceComponent,
     _pages.MonthlyPerformanceAddComponent,
-    _pages.MonthlyPerformanceEditComponent,
   ],
   imports: [CommonModule, MonthlyPerformanceRoutingModule, SharedModule],
 })

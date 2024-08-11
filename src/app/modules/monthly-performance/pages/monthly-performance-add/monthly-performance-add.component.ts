@@ -168,9 +168,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
   ];
   defaultColDef: AgGridInterFace = {
     flex: 1,
-
-    filter: true,
-
+    filter: false,
     resizable: true,
   };
   editType: "fullRow";
@@ -184,11 +182,14 @@ export class MonthlyPerformanceAddComponent implements OnInit {
   wageOrdersModel = new wageOrdersDto();
   persianBirthDate: NgbDateStruct;
   maskPrefixTaxRate = maskPrefixTaxRate;
+  yearlyList = [];
   listclientPrerequisits: clientPrerequisitsInterface[];
   cacheKeyType = cacheKeyEnum;
   monthlyList = monthlyList;
   model: NgbDateStruct;
   date: { year: number; month: number };
+  monthly: number;
+  yearly: number;
   constructor(
     private _changeWorkShops: ChangeWorkShopsService,
     private _toastService: ToastService,
@@ -199,7 +200,11 @@ export class MonthlyPerformanceAddComponent implements OnInit {
       new Date().toLocaleString()
     );
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.generateYearlyList();
+    this.monthly = DateUtilies.getCurrentMonth().value;
+    this.yearly = DateUtilies.getCurrentYear();
+  }
   ngAfterViewInit(): void {
     this._changeWorkShops.employeListData$
       .pipe(delay(100))
@@ -337,4 +342,9 @@ export class MonthlyPerformanceAddComponent implements OnInit {
     this.persianBirthDate = null;
   }
   onSelectedRowsChangeEvent(event: Array<wageOrdersDto>) {}
+  private generateYearlyList() {
+    for (let year = 1360; year <= 1500; year++) {
+      this.yearlyList.push({ label: year.toString(), value: year });
+    }
+  }
 }
