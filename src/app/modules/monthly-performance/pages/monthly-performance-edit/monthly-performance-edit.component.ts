@@ -30,7 +30,7 @@ import { SelectOptionInterface } from "../../../../shared/interfaces/select-opti
 import { DateUtilies } from "../../../../shared/utilities/Date";
 import { ToastService } from "../../../../shared/services";
 
-import { WageOrdersService } from "../../services/wage-orders.service";
+import { WageOrdersService } from "../../services/monthlyPerformance.service";
 import {
   actionTypeEnum,
   addWorkingTimesDetailDto,

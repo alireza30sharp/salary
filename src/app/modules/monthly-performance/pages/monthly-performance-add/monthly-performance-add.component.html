@@ -4,10 +4,14 @@
   (backCallback)="cancelClickHandler()"
 >
   <div class="row">
-    <ki-form-group [label]="'تاریخ'" class="col-3">
-      <app-month-picker
-        (monthSelect)="handleMonthSelect($event)"
-      ></app-month-picker>
+    <ki-form-group [label]="'انتخاب ماه'" class="col-3">
+      <ki-select
+        [placeholder]="'انتخاب ماه'"
+        [options]="monthlyList"
+        [allowClear]="true"
+        [(ngModel)]="wageOrdersModel.employeeId"
+      >
+      </ki-select>
     </ki-form-group>
   </div>
 

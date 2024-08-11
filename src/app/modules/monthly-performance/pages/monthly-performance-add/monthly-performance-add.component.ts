@@ -26,15 +26,15 @@ import { SelectOptionInterface } from "../../../../shared/interfaces/select-opti
 import { DateUtilies } from "../../../../shared/utilities/Date";
 import { ToastService } from "../../../../shared/services";
 
-import { WageOrdersService } from "../../services/wage-orders.service";
+import { MonthlyPerformanceService } from "../../services/monthlyPerformance.service";
 import { addWorkingTimesDetailDto, wageOrdersDto } from "../../models";
-import { maskPrefixTaxRate } from "../../../../base/models/rul";
+import { maskPrefixTaxRate, monthlyList } from "../../../../base/models/rul";
 import { Location } from "@angular/common";
 @Component({
   selector: "app-monthly-performance-add",
   templateUrl: "./monthly-performance-add.component.html",
   styleUrls: ["./monthly-performance-add.component.scss"],
-  providers: [WageOrdersService],
+  providers: [MonthlyPerformanceService],
 })
 export class MonthlyPerformanceAddComponent implements OnInit {
   employeList?: SelectOptionInterface<any>[];
@@ -186,13 +186,13 @@ export class MonthlyPerformanceAddComponent implements OnInit {
   maskPrefixTaxRate = maskPrefixTaxRate;
   listclientPrerequisits: clientPrerequisitsInterface[];
   cacheKeyType = cacheKeyEnum;
-
+  monthlyList = monthlyList;
   model: NgbDateStruct;
   date: { year: number; month: number };
   constructor(
     private _changeWorkShops: ChangeWorkShopsService,
     private _toastService: ToastService,
-    private _wageOrdersService: WageOrdersService,
+    private _monthlyPerformanceService: MonthlyPerformanceService,
     private readonly _location: Location
   ) {
     this.persianBirthDate = DateUtilies.convertDateToNgbDateStruct(
@@ -234,7 +234,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
       this.wageOrdersModel?.details &&
       this.wageOrdersModel.details.length > 0
     ) {
-      this._wageOrdersService
+      this._monthlyPerformanceService
         .create(this.wageOrdersModel)
         .pipe(
           finalize(() => {
