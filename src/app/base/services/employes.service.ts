@@ -26,6 +26,7 @@ export class EmployesService {
           DisplayName: "",
           NationalCode: "",
           OrganizationUnitId: 0,
+          isActive :true,
           WorkShopId: this.WorkShopsID,
           PageNumber: PageNumber,
           PageSize: PageSize,

@@ -12,10 +12,12 @@
       >
         <ki-tab [text]="'اطلاعات پرسنلی'">
           <div class="row">
+
             <ki-form-group
-              class="col-12"
+              class="col-6"
               [label]="'کد پرسنلی'"
               [showRequireSign]="true"
+            
               [errorMessage]="
                 personnelCode.errors?.required ? 'فیلد اجباری' : ''
               "
@@ -26,14 +28,42 @@
                 )
               "
             >
+
+      
+          
+
               <ki-input
                 name="personnelCode"
                 [fullWidth]="true"
                 [(ngModel)]="model.personnelCode"
                 #personnelCode="ngModel"
+                [onlyNumber]="true"
                 required
               ></ki-input>
+
+
             </ki-form-group>
+
+
+            <ki-form-group
+            class="col-6"
+            [label]="'وضعیت'"
+            [showRequireSign]="false"    
+          >    
+        
+
+            <ki-checkbox
+              name="isActive"
+             [checked] = "true"
+             [(ngModel)]="model.isActive"
+                         
+            ></ki-checkbox>
+
+            test : {{model.isActive}}
+            
+          </ki-form-group>
+
+
           </div>
           <div class="row">
             <ki-form-group

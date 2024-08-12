@@ -11,7 +11,8 @@
 export const environment = {
   production: false,
   //apiUrl: "http://matin.api.kiasystem.ir",
-  apiUrl: "http://37.156.14.41:2087",
+ // apiUrl: "http://37.156.14.41:2087",
+  apiUrl: "http://192.168.1.80:2087",
 
   login: "/api/UserAuth/Login",
   register: "/api/Parents/Add",

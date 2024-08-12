@@ -61,6 +61,7 @@ export class EmployesFormComponent implements OnInit, AfterViewInit {
     this.model.persianBirthDate = DateUtilies.convertDate(
       this.persianBirthDate
     );
+    debugger;
     this.submitCallback.emit(this.model);
     this.setFocusItem = Object.assign({}, true);
     this.model = new EmployeDto();

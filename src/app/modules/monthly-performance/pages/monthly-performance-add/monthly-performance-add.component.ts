@@ -293,7 +293,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
       const overTimeWorkShiftMinutes = detail.overTimeWorkShiftHours
         ? Number(detail.overTimeWorkShiftHours) % 100
         : 0;
-
+        console.table(this.listResult)
       return {
         employeeId: detail.employeeId,
         personalCode: detail.personalCode,
@@ -317,6 +317,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
         code: detail.code,
         id: detail.id,
       } as addWorkingTimesDetailDto;
+ 
     });
   }
 

@@ -20,5 +20,6 @@ export class EmployeDto {
   telephone: string;
   email: string;
   address: string;
+  isActive:boolean=true;
   comment: string;
 }
