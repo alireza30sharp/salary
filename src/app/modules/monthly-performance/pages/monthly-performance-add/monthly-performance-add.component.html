@@ -8,7 +8,7 @@
       <ki-select
         [placeholder]="'انتخاب ماه'"
         [options]="monthlyList"
-        [(ngModel)]="monthly"
+        [(ngModel)]="addDraftDto.monthNum"
       >
       </ki-select>
     </ki-form-group>
@@ -16,9 +16,20 @@
       <ki-select
         [placeholder]="'انتخاب سال'"
         [options]="yearlyList"
-        [(ngModel)]="yearly"
+        [(ngModel)]="addDraftDto.yearNum"
       >
       </ki-select>
+    </ki-form-group>
+
+    <ki-form-group class="col-3">
+      <ki-button
+        btnType="basic"
+        [iconClassName]="'fa-solid fa-magnifying-glass'"
+        [showLoading]="showLoading"
+        [title]="'نمایش'"
+        (clickCallback)="clickSearchHander()"
+      >
+      </ki-button>
     </ki-form-group>
   </div>
 

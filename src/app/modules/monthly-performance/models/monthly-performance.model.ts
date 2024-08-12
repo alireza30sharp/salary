@@ -1,15 +1,7 @@
-export class wageOrdersDto {
+export class addWorkingTimesDto {
   workShopId: number;
-  employeeId: number;
-  persianStartDate: string;
-  employerInsurance: number;
-  workerInsurance: number;
-  unEmploymentInsurance: number;
-  hasInsurance: boolean;
-  isTaxable: boolean;
-  comment: string;
-  details: any[];
-  deleteDetails: Array<string>;
+
+  addWorkingTimes: addWorkingTimesDetailDto[];
 }
 
 export class addWorkingTimesDetailDto {
@@ -35,23 +27,13 @@ export class addWorkingTimesDetailDto {
   code: number;
   id?: number;
 }
-export class wageOrderListDto {
-  row_NO: number;
-  id: number;
-  employeeName: string;
-  persianStartDate: string;
-  comment: string;
-  employerInsurance: string;
-  unEmploymentInsurance: string;
-  workerInsurance: string;
-  personnelCode: string;
-  employeeId: number;
-  code: number;
-  firstName: string;
-  lastName: string;
+export class addDraftDto {
+  workShopId: number;
+  yearNum: number;
+  monthNum: number;
 }
 
-export enum actionTypeEnum {
-  add = 0,
-  edit = 1,
+export class addWorkingTimesDeleteDto {
+  workShopId: number;
+  deleteWorkingTimesId: any[];
 }

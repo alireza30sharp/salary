@@ -27,7 +27,11 @@ import { DateUtilies } from "../../../../shared/utilities/Date";
 import { ToastService } from "../../../../shared/services";
 
 import { MonthlyPerformanceService } from "../../services/monthlyPerformance.service";
-import { addWorkingTimesDetailDto, wageOrdersDto } from "../../models";
+import {
+  addDraftDto,
+  addWorkingTimesDetailDto,
+  addWorkingTimesDto,
+} from "../../models";
 import { maskPrefixTaxRate, monthlyList } from "../../../../base/models/rul";
 import { Location } from "@angular/common";
 @Component({
@@ -179,7 +183,6 @@ export class MonthlyPerformanceAddComponent implements OnInit {
   isShowLoadingDelete: boolean = false;
   showLoading: boolean = false;
   isShowLoadingRefrash: boolean = false;
-  wageOrdersModel = new wageOrdersDto();
   persianBirthDate: NgbDateStruct;
   maskPrefixTaxRate = maskPrefixTaxRate;
   yearlyList = [];
@@ -187,9 +190,8 @@ export class MonthlyPerformanceAddComponent implements OnInit {
   cacheKeyType = cacheKeyEnum;
   monthlyList = monthlyList;
   model: NgbDateStruct;
-  date: { year: number; month: number };
-  monthly: number;
-  yearly: number;
+  addDraftDto = new addDraftDto();
+  addWorkingTimesDto = new addWorkingTimesDto();
   constructor(
     private _changeWorkShops: ChangeWorkShopsService,
     private _toastService: ToastService,
@@ -202,8 +204,8 @@ export class MonthlyPerformanceAddComponent implements OnInit {
   }
   ngOnInit(): void {
     this.generateYearlyList();
-    this.monthly = DateUtilies.getCurrentMonth().value;
-    this.yearly = DateUtilies.getCurrentYear();
+    this.addDraftDto.monthNum = DateUtilies.getCurrentMonth().value;
+    this.addDraftDto.yearNum = DateUtilies.getCurrentYear();
   }
   ngAfterViewInit(): void {
     this._changeWorkShops.employeListData$
@@ -223,7 +225,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
     this._changeWorkShops.activeWorkShopsSource$
       .pipe(delay(100))
       .subscribe((workShopId) => {
-        this.wageOrdersModel.workShopId = +workShopId;
+        //   this.wageOrdersModel.workShopId = +workShopId;
       });
   }
   handleMonthSelect(event: { month: number; year: number }) {
@@ -231,16 +233,34 @@ export class MonthlyPerformanceAddComponent implements OnInit {
   }
   clickSearchHander() {
     this.showLoading = true;
-
-    this.wageOrdersModel.persianStartDate = DateUtilies.convertDate(
-      this.persianBirthDate
-    );
+    this._monthlyPerformanceService.AddDraft(this.addDraftDto).subscribe({
+      next: (res) => {
+        if (res.isOk) {
+          this.isEditMode = false;
+          this._toastService.success(res.data.message);
+          setTimeout(() => {
+            this.isEditMode = true;
+          }, 100);
+        }
+      },
+      error: (err) => {
+        let msg = "";
+        if (err.error.messages) {
+          this._toastService.error(err.error.messages);
+          msg = err.error.messages.join(" ");
+        } else if (err.error.message) {
+          this._toastService.error(err.error.message);
+        }
+      },
+    });
+  }
+  save() {
     if (
-      this.wageOrdersModel?.details &&
-      this.wageOrdersModel.details.length > 0
+      this.addWorkingTimesDto?.addWorkingTimes &&
+      this.addWorkingTimesDto.addWorkingTimes.length > 0
     ) {
       this._monthlyPerformanceService
-        .create(this.wageOrdersModel)
+        .Add(this.addWorkingTimesDto)
         .pipe(
           finalize(() => {
             this.showLoading = false;
@@ -251,7 +271,6 @@ export class MonthlyPerformanceAddComponent implements OnInit {
             if (res.isOk) {
               this.isEditMode = false;
               this._toastService.success(res.data.message);
-              this.resateData();
               setTimeout(() => {
                 this.isEditMode = true;
               }, 100);
@@ -298,7 +317,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
       const overTimeWorkShiftMinutes = detail.overTimeWorkShiftHours
         ? Number(detail.overTimeWorkShiftHours) % 100
         : 0;
-        console.table(this.listResult)
+      console.table(this.listResult);
       return {
         employeeId: detail.employeeId,
         personalCode: detail.personalCode,
@@ -322,27 +341,14 @@ export class MonthlyPerformanceAddComponent implements OnInit {
         code: detail.code,
         id: detail.id,
       } as addWorkingTimesDetailDto;
- 
     });
   }
 
   cancelClickHandler() {
     this._location.back();
   }
-  resateData() {
-    this.rowDataDefault = new Array<addWorkingTimesDetailDto>();
-    this.wageOrdersModel.comment = null;
-    this.wageOrdersModel.details = null;
-    this.wageOrdersModel.employerInsurance = null;
-    this.wageOrdersModel.hasInsurance = false;
-    this.wageOrdersModel.isTaxable = false;
-    this.wageOrdersModel.persianStartDate = null;
-    this.wageOrdersModel.unEmploymentInsurance = null;
-    this.wageOrdersModel.workerInsurance = null;
-    this.wageOrdersModel.employeeId = null;
-    this.persianBirthDate = null;
-  }
-  onSelectedRowsChangeEvent(event: Array<wageOrdersDto>) {}
+
+  onSelectedRowsChangeEvent(event: Array<any>) {}
   private generateYearlyList() {
     for (let year = 1360; year <= 1500; year++) {
       this.yearlyList.push({ label: year.toString(), value: year });

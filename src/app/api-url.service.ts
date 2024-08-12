@@ -124,4 +124,10 @@ export class ApiUrlService {
     Edit: BASE_URL + "WageOrders/Edit",
     getById: BASE_URL + "WageOrders/GetWageOrderInformationById",
   };
+  WorkingTimes = {
+    AddDraft: BASE_URL + "WorkingTimes/AddDraft",
+    Add: BASE_URL + "WorkingTimes/Add",
+    Edit: BASE_URL + "WorkingTimes/Edit",
+    Delete: BASE_URL + "WorkingTimes/Delete",
+  };
 }
