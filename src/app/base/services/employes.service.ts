@@ -18,6 +18,7 @@ export class EmployesService {
   getAll(params?: WorkShopsFilter) {
     let PageNumber: number = 0;
     let PageSize: number = 20;
+    debugger;
     return this.$http.get<response<Data<any[]>>>(
       this.urlSvc.Employees.GetEmployeeList,
       {
@@ -26,7 +27,7 @@ export class EmployesService {
           DisplayName: "",
           NationalCode: "",
           OrganizationUnitId: 0,
-          isActive :true,
+          isActive :1,
           WorkShopId: this.WorkShopsID,
           PageNumber: PageNumber,
           PageSize: PageSize,
