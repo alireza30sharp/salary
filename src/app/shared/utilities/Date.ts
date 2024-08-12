@@ -55,4 +55,32 @@ export class DateUtilies {
 
     return convertedDate;
   }
+
+  // Method to get the current month as an object
+  static getCurrentMonth(): { label: string; value: number } {
+    const now = moment();
+    const month = now.jMonth() + 1;
+    const monthNames = [
+      "فروردین",
+      "اردیبهشت",
+      "خرداد",
+      "تیر",
+      "مرداد",
+      "شهریور",
+      "مهر",
+      "آبان",
+      "آذر",
+      "دی",
+      "بهمن",
+      "اسفند",
+    ];
+
+    return { label: monthNames[month - 1], value: month };
+  }
+
+  // Method to get the current year as a numeric value
+  static getCurrentYear(): number {
+    const now = moment();
+    return now.jYear();
+  }
 }

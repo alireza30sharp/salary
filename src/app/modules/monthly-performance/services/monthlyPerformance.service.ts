@@ -9,7 +9,7 @@ import {
 import { SessionNames } from "../../../shared/utilities/session-names";
 import { SessionStorage } from "ngx-webstorage";
 @Injectable()
-export class WageOrdersService {
+export class MonthlyPerformanceService {
   @SessionStorage(SessionNames.WorkShopsID)
   WorkShopsID: any;
   constructor(
