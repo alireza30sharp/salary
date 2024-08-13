@@ -86,7 +86,13 @@ const routes: Routes = [
             (m) => m.WageOrdersModule
           ),
       },
-
+      {
+        path: "employment-order",
+        loadChildren: () =>
+          import("../modules/employment-order/employment-order.module").then(
+            (m) => m.EmploymentOrderModule
+          ),
+      },
       {
         path: "",
         redirectTo: "system-operation/list",

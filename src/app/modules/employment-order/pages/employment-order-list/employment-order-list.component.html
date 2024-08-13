@@ -1,0 +1,24 @@
+<app-general-panel [title]="'حکم استخدامی '" [hideBackButton]="true">
+  <ng-template #header>
+    <div class="align-content-center d-flex justify-content-between">
+      <app-tools-bar
+        (NewSelected)="newWorkShpps()"
+        (RefrashSelected)="onRefrashSelected()"
+        (DeleteSelected)="removeCell()"
+        (EditSelected)="newWorkShpps(true)"
+        (EscapeSelected)="cancelClickHandler()"
+        (RefrashSelected)="onRefrashSelected()"
+        [disabled]="selectRow.length != 0 ? false : true"
+        [isShowLoadingDelete]="isShowLoadingDelete"
+        [isShowLoadingRefrash]="isShowLoadingRefrash"
+      ></app-tools-bar>
+    </div>
+  </ng-template>
+
+  <ag-grid-data
+    [columnsDefault]="columnsDefault"
+    [rowDataDefault]="rowDataDefault"
+    [defaultColDef]="defaultColDef"
+    [pagination]="true"
+  ></ag-grid-data>
+</app-general-panel>

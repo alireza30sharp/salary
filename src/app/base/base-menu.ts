@@ -61,11 +61,14 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: "حکم حقوقی",
         link: "/salary/wage-orders",
       },
-
       {
         title: "حکم استخدامی",
-        link: "/salary/employment-orders-list",
+        link: "/salary/employment-order",
       },
+      // {
+      //   title: "حکم استخدامی",
+      //   link: "/salary/employment-orders-list",
+      // },
     ],
   },
   {
