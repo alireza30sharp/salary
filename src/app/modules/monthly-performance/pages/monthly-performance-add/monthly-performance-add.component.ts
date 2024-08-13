@@ -233,26 +233,29 @@ export class MonthlyPerformanceAddComponent implements OnInit {
   }
   clickSearchHander() {
     this.showLoading = true;
-    this._monthlyPerformanceService.AddDraft(this.addDraftDto).subscribe({
-      next: (res) => {
-        if (res.isOk) {
-          this.isEditMode = false;
-          this._toastService.success(res.data.message);
-          setTimeout(() => {
-            this.isEditMode = true;
-          }, 100);
-        }
-      },
-      error: (err) => {
-        let msg = "";
-        if (err.error.messages) {
-          this._toastService.error(err.error.messages);
-          msg = err.error.messages.join(" ");
-        } else if (err.error.message) {
-          this._toastService.error(err.error.message);
-        }
-      },
-    });
+    this._monthlyPerformanceService
+      .AddDraft(this.addDraftDto)
+      .pipe(
+        finalize(() => {
+          this.showLoading = false;
+        })
+      )
+      .subscribe({
+        next: (res) => {
+          if (res.isOk) {
+            this._toastService.success(res.data.message);
+          }
+        },
+        error: (err) => {
+          let msg = "";
+          if (err.error.messages) {
+            this._toastService.error(err.error.messages);
+            msg = err.error.messages.join(" ");
+          } else if (err.error.message) {
+            this._toastService.error(err.error.message);
+          }
+        },
+      });
   }
   save() {
     if (
