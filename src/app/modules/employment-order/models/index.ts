@@ -1,1 +1,1 @@
-export * from "./wage-orders.model";
+export * from "./employment-orders.model";

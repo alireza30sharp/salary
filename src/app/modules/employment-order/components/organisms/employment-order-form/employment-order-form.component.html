@@ -1,0 +1,165 @@
+<nb-card>
+  <nb-card-header>لطفا فیلد های اجباری را وارد نمایید</nb-card-header>
+  <nb-card-body>
+    <form
+      #companyForm="ngForm"
+      (ngSubmit)="!companyForm.invalid && submitHandler(companyForm)"
+    >
+      <div class="row">
+        <ki-form-group
+          class="col-3"
+          [label]="'نام کارمند'"
+          [showRequireSign]="true"
+          [errorMessage]="employeeId.errors?.required ? 'فیلد اجباری' : ''"
+          [hideError]="
+            !(
+              (employeeId.touched || companyForm.submitted) &&
+              employeeId.errors?.required
+            )
+          "
+        >
+          <ki-select
+            [placeholder]="'نام کارمند'"
+            [allowClear]="true"
+            [allowHighlight]="true"
+            [options]="employeList"
+            [allowClear]="true"
+            [(ngModel)]="employmentOrdersModel.employeeId"
+            name="employeeId"
+            #employeeId="ngModel"
+            required
+          >
+          </ki-select>
+        </ki-form-group>
+        <ki-form-group
+          class="col-3"
+          [label]="'نوع استخدام'"
+          [showRequireSign]="true"
+          [errorMessage]="
+            employmentTypeId.errors?.required ? 'فیلد اجباری' : ''
+          "
+          [hideError]="
+            !(
+              (employmentTypeId.touched || companyForm.submitted) &&
+              employmentTypeId.errors?.required
+            )
+          "
+        >
+          <ki-select
+            [placeholder]="'نوع استخدام '"
+            [allowClear]="true"
+            [allowHighlight]="true"
+            [options]="employmentTypeData"
+            [allowClear]="true"
+            [(ngModel)]="employmentOrdersModel.employmentTypeId"
+            name="employmentTypeId"
+            #employmentTypeId="ngModel"
+            required
+          >
+          </ki-select>
+        </ki-form-group>
+        <ki-form-group
+          class="col-3"
+          [label]="'واحد سازمانی '"
+          [showRequireSign]="true"
+          [errorMessage]="
+            organizationUnitId.errors?.required ? 'فیلد اجباری' : ''
+          "
+          [hideError]="
+            !(
+              (organizationUnitId.touched || companyForm.submitted) &&
+              organizationUnitId.errors?.required
+            )
+          "
+        >
+          <ki-select
+            [placeholder]="'واحد سازمانی'"
+            [allowClear]="true"
+            [allowHighlight]="true"
+            [options]="organizationUnitsData"
+            [allowClear]="true"
+            [(ngModel)]="employmentOrdersModel.organizationUnitId"
+            name="organizationUnitId"
+            #organizationUnitId="ngModel"
+            required
+          >
+          </ki-select>
+        </ki-form-group>
+        <ki-form-group
+          class="col-3"
+          [label]="'پست سازمانی'"
+          [showRequireSign]="true"
+          [errorMessage]="
+            organizationPostId.errors?.required ? 'فیلد اجباری' : ''
+          "
+          [hideError]="
+            !(
+              (organizationPostId.touched || companyForm.submitted) &&
+              organizationPostId.errors?.required
+            )
+          "
+        >
+          <ki-select
+            [placeholder]="'پست سازمانی'"
+            [allowClear]="true"
+            [allowHighlight]="true"
+            [options]="organizationPostData"
+            [allowClear]="true"
+            [(ngModel)]="employmentOrdersModel.organizationPostId"
+            name="organizationPostId"
+            #organizationPostId="ngModel"
+            required
+          >
+          </ki-select>
+        </ki-form-group>
+        <ki-form-group
+          class="col-3"
+          [label]="'محل پرداخت'"
+          [showRequireSign]="true"
+          [errorMessage]="
+            paymentLocationId.errors?.required ? 'فیلد اجباری' : ''
+          "
+          [hideError]="
+            !(
+              (paymentLocationId.touched || companyForm.submitted) &&
+              paymentLocationId.errors?.required
+            )
+          "
+        >
+          <ki-select
+            [placeholder]="'محل پرداخت'"
+            [allowClear]="true"
+            [allowHighlight]="true"
+            [options]="paymentLocationIdData"
+            [allowClear]="true"
+            [(ngModel)]="employmentOrdersModel.paymentLocationId"
+            name="paymentLocationId"
+            #paymentLocationId="ngModel"
+            required
+          >
+          </ki-select>
+        </ki-form-group>
+        <ki-form-group
+          [label]="'تاریخ'"
+          class="col-3"
+          [showRequireSign]="true"
+          [errorMessage]="adjDate.errors?.required ? 'فیلد اجباری' : ''"
+          [errorMessage]="
+            adjDate.errors?.invalidDate ? 'تاریخ نا معتبر' : 'فیلد اجباری'
+          "
+          [hideError]="
+            !(adjDate.errors?.required || adjDate.errors?.invalidDate)
+          "
+        >
+          <ki-date-picker
+            [(ngModel)]="persianBirthDate"
+            name="adjDate"
+            #adjDate="ngModel"
+            required
+          ></ki-date-picker>
+        </ki-form-group>
+      </div>
+      <input type="submit" [hidden]="true" [attr.id]="submitButtonId" />
+    </form>
+  </nb-card-body>
+</nb-card>

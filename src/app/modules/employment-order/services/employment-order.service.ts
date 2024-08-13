@@ -2,9 +2,10 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { ApiUrlService } from "../../../api-url.service";
 import { Data, response } from "../../../shared/models";
-import { wageOrderListDto, wageOrdersDto } from "../models/wage-orders.model";
 import { SessionNames } from "../../../shared/utilities/session-names";
 import { SessionStorage } from "ngx-webstorage";
+import { WorkShopsFilter } from "../../../base/models";
+import { EmploymentOrdersDto } from "../models";
 @Injectable()
 export class EmploymentOrderService {
   @SessionStorage(SessionNames.WorkShopsID)
@@ -14,42 +15,47 @@ export class EmploymentOrderService {
     private readonly urlSvc: ApiUrlService
   ) {}
 
-  get(params?: any) {
-    let PageNumber: number = 1;
+  getAll(params?: WorkShopsFilter) {
+    let PageNumber: number = 0;
     let PageSize: number = 20;
-    return this.$http.get<response<Data<wageOrderListDto[]>>>(
-      this.urlSvc.WageOrders.GetWageOrderListOfEmployee,
+    return this.$http.get<response<Data<any[]>>>(
+      this.urlSvc.EmploymentOrders.GetAllEmploymentOrder,
       {
         params: {
           EmployeeId: 0,
+          WorkShopId: this.WorkShopsID,
           PageNumber: PageNumber,
           PageSize: PageSize,
-          WorkShopId: this.WorkShopsID,
         },
       }
     );
   }
-  create(model: wageOrdersDto) {
+  create(model: EmploymentOrdersDto) {
     model.workShopId = this.WorkShopsID;
-    return this.$http.post<response<any>>(this.urlSvc.WageOrders.Add, model);
+    return this.$http.post<response<any>>(
+      this.urlSvc.EmploymentOrders.Add,
+      model
+    );
+  }
+  delete(id, employeeId) {
+    return this.$http.delete<response<string>>(
+      this.urlSvc.EmploymentOrders.Delete,
+      {
+        body: { workShopId: this.WorkShopsID, employeeId: employeeId, id: id },
+      }
+    );
+  }
+  update(model: EmploymentOrdersDto) {
+    model.workShopId = this.WorkShopsID;
+    return this.$http.put<response<any>>(
+      this.urlSvc.EmploymentOrders.Edit,
+      model
+    );
   }
 
-  delete(employeeId?: any, wageOrderId?: any) {
-    return this.$http.delete<response<string>>(this.urlSvc.WageOrders.Delete, {
-      body: {
-        workShopId: this.WorkShopsID,
-        employeeId: employeeId,
-        wageOrderId: wageOrderId,
-      },
+  getById(employeId) {
+    return this.$http.get<response<any>>(this.urlSvc.EmploymentOrders.getById, {
+      params: { WorkShopId: this.WorkShopsID, Id: employeId },
     });
-  }
-  getById(id) {
-    return this.$http.get<response<any>>(this.urlSvc.WageOrders.getById, {
-      params: { workShopId: this.WorkShopsID, WageOrderId: id },
-    });
-  }
-  update(model: wageOrdersDto) {
-    model.workShopId = this.WorkShopsID;
-    return this.$http.put<response<any>>(this.urlSvc.WageOrders.Edit, model);
   }
 }

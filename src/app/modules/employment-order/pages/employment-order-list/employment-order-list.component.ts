@@ -1,17 +1,18 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { ModalService } from "../../../../shared/services";
+import { ModalService, ToastService } from "../../../../shared/services";
 import { AgGridInterFace } from "../../../../shared/interfaces/ag-grid.interface";
 import { propertyOf } from "../../../../shared/utilities/property-of";
 import { finalize } from "rxjs";
 import { ConfirmInterFace } from "../../../../shared/ki-components/ki-confirmation/confirm.interface";
-import { ChangeWorkShopsService } from "../../../../services/change-work-shop.service";
 import { Router } from "@angular/router";
-import { wageOrderListDto } from "../../models/wage-orders.model";
 import { CellOperationsClickEvent } from "../../../../shared/components/ag-grid";
-import { Paths } from "../../../../shared/utilities/paths";
-import { ClientPrerequisitsService } from "../../../../services/client-prerequisits";
 import { Location } from "@angular/common";
+import { STEPS_BUTTONS } from "../../../../shared/models/shepherd-config";
+import { EmploymentOrdersListDto } from "../../models";
+import { WorkShopsFilter } from "../../../../base/models";
+import { TourService } from "../../../../shared/services/tour.service";
 import { EmploymentOrderService } from "../../services/employment-order.service";
+import { EmploymentOrderFormModalComponent } from "../../components/templates";
 
 @Component({
   selector: "app-employment-order-list",
@@ -19,120 +20,69 @@ import { EmploymentOrderService } from "../../services/employment-order.service"
   styleUrls: ["./employment-order-list.component.scss"],
   providers: [EmploymentOrderService],
 })
-export class EmploymentOrderListComponent implements OnInit {
+export class EmploymentOrdersListComponent implements OnInit {
   columnsDefault: AgGridInterFace[] = [
     {
-      field: propertyOf<wageOrderListDto>("row_NO"),
+      field: propertyOf<EmploymentOrdersListDto>("row_NO"),
       headerName: "row_NO",
       hide: true,
     },
     {
-      field: propertyOf<wageOrderListDto>("id"),
-      hide: true,
-    },
-
-    {
-      field: propertyOf<wageOrderListDto>("code"),
+      field: propertyOf<EmploymentOrdersListDto>("workShopId"),
       hide: true,
     },
     {
-      field: propertyOf<wageOrderListDto>("employeeId"),
+      field: propertyOf<EmploymentOrdersListDto>("employeeId"),
       hide: true,
     },
     {
-      field: "عملیات",
-      cellClass: "d-flex justify-content-center align-items-center",
-      editable: false,
-      width: 15,
-      cellRenderer: CellOperationsClickEvent,
-      cellRendererParams: {
-        onClickRemove: (params) => {
-          const param: ConfirmInterFace = {
-            acceptText: "بله",
-            declineText: "خیر",
-            description: "آیا از عملیات مورد نظر اطمینان دارید؟",
-            title: "حذف" + " " + `"${params.node?.employeeName.toUpperCase()}"`,
-            type: "Confirm",
-          };
-          this._modalService.showConfirm(param, false).then((res) => {
-            if (res) {
-              this.onDeleteItem(params.node);
-            }
-          });
-        },
-        onClickEdit: (params) => {
-          this._router.navigateByUrl(Paths.wageOrders.edit(params.node.id).url);
-        },
-      },
+      field: propertyOf<EmploymentOrdersListDto>("id"),
+      hide: true,
     },
     {
-      field: propertyOf<wageOrderListDto>("employeeName"),
-      filter: "agTextColumnFilter",
+      field: propertyOf<EmploymentOrdersListDto>("fullEmployeeName"),
       headerName: "نام کارمند",
     },
     {
-      field: propertyOf<wageOrderListDto>("employerInsurance"),
-      headerName: "سهم بیمه کارمند",
-      filter: "agNumberColumnFilter",
-    },
-
-    {
-      field: propertyOf<wageOrderListDto>("unEmploymentInsurance"),
-      headerName: "سهم بیمه بیکاری",
-      filter: "agNumberColumnFilter",
+      field: propertyOf<EmploymentOrdersListDto>("employmentTypeName"),
+      headerName: "نوع استخدام",
     },
     {
-      field: propertyOf<wageOrderListDto>("persianStartDate"),
+      field: propertyOf<EmploymentOrdersListDto>("organizationPostName"),
+      headerName: "واحد سازمانی",
+    },
+    {
+      field: propertyOf<EmploymentOrdersListDto>("organizationUnitName"),
+      headerName: "نوع استخدام ",
+    },
+    {
+      field: propertyOf<EmploymentOrdersListDto>("paymentLocationName"),
+      headerName: "محل پرداخت",
+    },
+    {
+      field: propertyOf<EmploymentOrdersListDto>("persianStartDate"),
       headerName: "تاریخ",
-      filter: "agTextColumnFilter",
-    },
-    {
-      field: propertyOf<wageOrderListDto>("personnelCode"),
-      headerName: "کد",
-      filter: "agTextColumnFilter",
-    },
-    {
-      field: propertyOf<wageOrderListDto>("comment"),
-      headerName: "توضیحات",
-      filter: "agTextColumnFilter",
     },
   ];
-  rowDataDefault = new Array<wageOrderListDto>();
-  defaultColDef: AgGridInterFace = {
-    flex: 1,
-
-    filter: true,
-
-    resizable: true,
-  };
-  selectRow = new Array<wageOrderListDto>();
+  rowDataDefault = new Array<EmploymentOrdersListDto>();
+  selectRow = new Array<EmploymentOrdersListDto>();
   isShowLoadingDelete: boolean = false;
   isShowLoadingRefrash: boolean = false;
   constructor(
-    private _wageOrdersService: EmploymentOrderService,
+    private _employmentOrdersService: EmploymentOrderService,
     private _modalService: ModalService,
-    private _changeWorkShops: ChangeWorkShopsService,
+    private _tourService: TourService,
     private _router: Router,
-    private _clientPrerequisitsService: ClientPrerequisitsService,
+    private _toastService: ToastService,
     private readonly _location: Location
   ) {}
   ngOnInit(): void {
-    this._changeWorkShops.activeWorkShopsSource$.subscribe((workShopId) => {
-      this.getWageOrders();
-    });
+    this.getList();
   }
-  onRefrashSelected() {
-    this.getWageOrders();
-  }
-  cancelClickHandler() {
-    this._location.back();
-  }
-  newWorkShpps() {
-    this._router.navigateByUrl(Paths.wageOrders.add().url);
-  }
-  getWageOrders() {
+  getList() {
+    let model = new WorkShopsFilter();
     this.isShowLoadingRefrash = true;
-    this._wageOrdersService.get().subscribe({
+    this._employmentOrdersService.getAll(model).subscribe({
       next: (res) => {
         if (res.isOk) {
           this.rowDataDefault = res.data.data;
@@ -145,12 +95,31 @@ export class EmploymentOrderListComponent implements OnInit {
     });
   }
 
+  onToolsSelected() {
+    this._router.navigateByUrl("salary/change-page/pageName");
+  }
+  cancelClickHandler() {
+    this._location.back();
+  }
+  newWorkShpps(isEdit: boolean = false) {
+    let entryId = null;
+    if (isEdit) {
+      entryId = this.selectRow[0].id;
+    }
+    this._modalService
+      .open(EmploymentOrderFormModalComponent, "lg", { entryId: entryId }, true)
+      .then((value) => {
+        this.getList();
+      })
+      .catch((err) => {});
+  }
   removeCell() {
     const params: ConfirmInterFace = {
       acceptText: "بله",
       declineText: "خیر",
       description: "آیا از عملیات مورد نظر اطمینان دارید؟",
-      title: "حذف" + " " + `"${this.selectRow[0].employeeName.toUpperCase()}"`,
+      title:
+        "حذف" + " " + `"${this.selectRow[0].fullEmployeeName.toUpperCase()}"`,
       type: "Confirm",
     };
     this._modalService.showConfirm(params, false).then((res) => {
@@ -163,23 +132,242 @@ export class EmploymentOrderListComponent implements OnInit {
       }
     });
   }
-  onDeleteItem(item: wageOrderListDto) {
+
+  onDeleteItem(item: EmploymentOrdersListDto) {
     this.isShowLoadingDelete = true;
-    this._wageOrdersService
-      .delete(item.employeeId, item.id)
+    this._employmentOrdersService
+      .delete(item.id, item.employeeId)
       .pipe(
         finalize(() => {
           this.isShowLoadingDelete = false;
         })
       )
-      .subscribe((res) => {
-        if (res.isOk) {
-          this.getWageOrders();
-        }
+      .subscribe({
+        next: (res) => {
+          if (res.isOk) {
+            this.getList();
+          }
+        },
+        error: (err) => {
+          let msg = "";
+          if (err.error.messages) {
+            this._toastService.error(err.error.messages);
+            msg = err.error.messages.join(" ");
+          } else if (err.error.message) {
+            this._toastService.error(err.error.message);
+            msg = err.error.message.join(" ");
+          }
+        },
       });
   }
-  // onSelectedRowsChangeEvent(event: Array<BenefitDeductionDto>) {
-  //   this.selectRow = new Array<BenefitDeductionDto>();
-  //   this.selectRow = event;
-  // }
+  onSelectedRowsChangeEvent(event: Array<EmploymentOrdersListDto>) {
+    this.selectRow = new Array<EmploymentOrdersListDto>();
+    this.selectRow = event;
+  }
+  onRefrashSelected() {
+    this.getList();
+  }
+  startTour() {
+    const steps = [
+      {
+        attachTo: {
+          element: ".strong",
+          on: "bottom",
+        },
+        id: "WorkShop",
+        buttons: [STEPS_BUTTONS.next],
+        classes: "custom-class-name-1 custom-class-name-2",
+        title: "لیست تمام گارگاه نسبت به گارگاه انتخابی بالا",
+        text: ` در این لیست شما تمام کارگاه های رو میبینید که از منو بالا انتخاب کرده اید`,
+      },
+      {
+        attachTo: {
+          element: ".ESc",
+          on: "bottom",
+        },
+        id: "WorkShop",
+        buttons: [STEPS_BUTTONS.back, STEPS_BUTTONS.next, STEPS_BUTTONS.cancel],
+        classes: "custom-class-name-1 custom-class-name-2",
+        title: "انصراف",
+        text: `انصراف از کار که کرده اید `,
+      },
+      {
+        attachTo: {
+          element: ".tools",
+          on: "bottom",
+        },
+        id: "WorkShop",
+        buttons: [STEPS_BUTTONS.back, STEPS_BUTTONS.next, STEPS_BUTTONS.cancel],
+        classes: "custom-class-name-1 custom-class-name-2",
+        title: "ابزار",
+        text: `tools`,
+      },
+      {
+        attachTo: {
+          element: ".refresh",
+          on: "bottom",
+        },
+        id: "WorkShop",
+        buttons: [STEPS_BUTTONS.back, STEPS_BUTTONS.next, STEPS_BUTTONS.cancel],
+        classes: "custom-class-name-1 custom-class-name-2",
+        title: "refresh",
+        text: `refresh`,
+      },
+      {
+        attachTo: {
+          element: ".info",
+          on: "bottom",
+        },
+        id: "WorkShop",
+        buttons: [STEPS_BUTTONS.back, STEPS_BUTTONS.next, STEPS_BUTTONS.cancel],
+        classes: "custom-class-name-1 custom-class-name-2",
+        title: "info",
+        text: `info`,
+      },
+      {
+        attachTo: {
+          element: ".print",
+          on: "bottom",
+        },
+        id: "WorkShop",
+        buttons: [STEPS_BUTTONS.back, STEPS_BUTTONS.next, STEPS_BUTTONS.cancel],
+        classes: "custom-class-name-1 custom-class-name-2",
+        title: "print",
+        text: `print`,
+      },
+      {
+        attachTo: {
+          element: ".excel",
+          on: "bottom",
+        },
+        id: "WorkShop",
+        buttons: [STEPS_BUTTONS.back, STEPS_BUTTONS.next, STEPS_BUTTONS.cancel],
+        classes: "custom-class-name-1 custom-class-name-2",
+        title: "excel",
+        text: `excel`,
+      },
+      {
+        attachTo: {
+          element: ".check",
+          on: "bottom",
+        },
+        id: "WorkShop",
+        buttons: [STEPS_BUTTONS.back, STEPS_BUTTONS.next, STEPS_BUTTONS.cancel],
+        classes: "custom-class-name-1 custom-class-name-2",
+        title: "check",
+        text: `check`,
+      },
+      {
+        attachTo: {
+          element: ".trash",
+          on: "bottom",
+        },
+        id: "WorkShop",
+        buttons: [STEPS_BUTTONS.back, STEPS_BUTTONS.next, STEPS_BUTTONS.cancel],
+        classes: "custom-class-name-1 custom-class-name-2",
+        title: "trash",
+        text: `trash`,
+      },
+      {
+        attachTo: {
+          element: ".edit",
+          on: "bottom",
+        },
+        id: "WorkShop",
+        buttons: [STEPS_BUTTONS.back, STEPS_BUTTONS.next, STEPS_BUTTONS.cancel],
+        classes: "custom-class-name-1 custom-class-name-2",
+        title: "edit",
+        text: `edit`,
+      },
+      {
+        attachTo: {
+          element: ".plus",
+          on: "bottom",
+        },
+        id: "WorkShop",
+        buttons: [STEPS_BUTTONS.back, STEPS_BUTTONS.next, STEPS_BUTTONS.cancel],
+        classes: "custom-class-name-1 custom-class-name-2",
+        title: "plus",
+        text: `plus`,
+      },
+      {
+        attachTo: {
+          element: ".companyName",
+          on: "bottom",
+        },
+        id: "WorkShop",
+        buttons: [STEPS_BUTTONS.back, STEPS_BUTTONS.next, STEPS_BUTTONS.cancel],
+        classes: "custom-class-name-1 custom-class-name-2",
+        title: "companyName",
+        text: `companyName`,
+      },
+      {
+        attachTo: {
+          element: ".employerName",
+          on: "bottom",
+        },
+        id: "WorkShop",
+        buttons: [STEPS_BUTTONS.back, STEPS_BUTTONS.next, STEPS_BUTTONS.cancel],
+        classes: "custom-class-name-1 custom-class-name-2",
+        title: "employerName",
+        text: `employerName`,
+      },
+      {
+        attachTo: {
+          element: ".workShopName",
+          on: "bottom",
+        },
+        id: "WorkShop",
+        buttons: [STEPS_BUTTONS.back, STEPS_BUTTONS.next, STEPS_BUTTONS.cancel],
+        classes: "custom-class-name-1 custom-class-name-2",
+        title: "workShopName",
+        text: `workShopName`,
+      },
+      {
+        attachTo: {
+          element: ".isActiveString",
+          on: "bottom",
+        },
+        id: "WorkShop",
+        buttons: [STEPS_BUTTONS.back, STEPS_BUTTONS.next, STEPS_BUTTONS.cancel],
+        classes: "custom-class-name-1 custom-class-name-2",
+        title: "isActiveString",
+        text: `isActiveString`,
+      },
+      {
+        attachTo: {
+          element: ".isDefaultString",
+          on: "bottom",
+        },
+        id: "WorkShop",
+        buttons: [STEPS_BUTTONS.back, STEPS_BUTTONS.next, STEPS_BUTTONS.cancel],
+        classes: "custom-class-name-1 custom-class-name-2",
+        title: "isDefaultString",
+        text: `isDefaultString`,
+      },
+      {
+        attachTo: {
+          element: ".socialSecurityBranchName",
+          on: "bottom",
+        },
+        id: "WorkShop",
+        buttons: [STEPS_BUTTONS.back, STEPS_BUTTONS.next, STEPS_BUTTONS.cancel],
+        classes: "custom-class-name-1 custom-class-name-2",
+        title: "socialSecurityBranchName",
+        text: `socialSecurityBranchName`,
+      },
+      {
+        attachTo: {
+          element: ".workShopAddress",
+          on: "bottom",
+        },
+        id: "WorkShop",
+        buttons: [STEPS_BUTTONS.back, STEPS_BUTTONS.next, STEPS_BUTTONS.cancel],
+        classes: "custom-class-name-1 custom-class-name-2",
+        title: "workShopAddress",
+        text: `workShopAddress`,
+      },
+    ];
+    this._tourService.addSteps(steps);
+  }
 }

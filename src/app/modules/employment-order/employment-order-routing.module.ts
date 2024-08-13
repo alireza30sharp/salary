@@ -12,7 +12,7 @@ const routes: Routes = [
       { path: "", redirectTo: "list", pathMatch: "full" },
       {
         path: Paths.wageOrders.list().path,
-        component: _pages.EmploymentOrderListComponent,
+        component: _pages.EmploymentOrdersListComponent,
       },
       {
         path: Paths.wageOrders.add().path,

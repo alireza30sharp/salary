@@ -1,4 +1,4 @@
-<app-general-panel [title]="'حکم استخدامی '" [hideBackButton]="true">
+<app-general-panel [title]="'حکم استخدامی'" [hideBackButton]="true">
   <ng-template #header>
     <div class="align-content-center d-flex justify-content-between">
       <app-tools-bar
@@ -8,6 +8,7 @@
         (EditSelected)="newWorkShpps(true)"
         (EscapeSelected)="cancelClickHandler()"
         (RefrashSelected)="onRefrashSelected()"
+        (ToolsSelected)="onToolsSelected()"
         [disabled]="selectRow.length != 0 ? false : true"
         [isShowLoadingDelete]="isShowLoadingDelete"
         [isShowLoadingRefrash]="isShowLoadingRefrash"
@@ -16,9 +17,11 @@
   </ng-template>
 
   <ag-grid-data
+    [rowId]="'id'"
     [columnsDefault]="columnsDefault"
     [rowDataDefault]="rowDataDefault"
-    [defaultColDef]="defaultColDef"
     [pagination]="true"
+    (removeCellChange)="onDeleteItem($event)"
+    (selectedRowsChange)="onSelectedRowsChangeEvent($event)"
   ></ag-grid-data>
 </app-general-panel>

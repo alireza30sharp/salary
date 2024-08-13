@@ -1,0 +1,21 @@
+<ki-modal
+  [title]="isEditMode ? 'ویرایش حکم استخدامی' : 'ایجاد حکم استخدامی'"
+  [showCancelButton]="true"
+  (onCloseCallback)="cancelHandler()"
+  [showPrimaryButton]="true"
+  [primaryButtonFor]="submitButtonId"
+  [hideHeaderActions]="true"
+  [showPrimaryButtonLoading]="isLoadingForm || isLoading || isLoadingSaveChange"
+>
+  <app-skeleton-form-loading
+    *ngIf="isLoading; else content"
+  ></app-skeleton-form-loading>
+  <ng-template #content>
+    <app-employment-order-form
+      [submitButtonId]="submitButtonId"
+      [employmentOrdersModel]="initialData"
+      (submitCallback)="saveHandler($event)"
+    >
+    </app-employment-order-form>
+  </ng-template>
+</ki-modal>

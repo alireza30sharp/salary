@@ -11,37 +11,24 @@ export class DateUtilies {
     const month = date.month.toString().padStart(2, "0");
     const day = date.day.toString().padStart(2, "0");
 
-    return `${year}/${day}/${month}`;
+    return `${year}/${month}/${day}`;
   }
 
-  static convertDateToNgbDateStruct(date: string): NgbDateStruct {
-    if (date == null || date === "") return null;
+  static convertDateToNgbDateStruct(date: string): NgbDateStruct | null {
+    if (!date) return null;
 
-    let convertedDate: NgbDateStruct;
+    // Attempt to parse the date as Gregorian using multiple formats
+    const gregorianDate = moment(date, ["MM/DD/YYYY", "M/D/YYYY"], true);
+    if (gregorianDate.isValid()) {
+      // Convert to Jalali date
+      const jalaliDate = gregorianDate.locale("fa").format("jYYYY/jMM/jDD");
+      const [year, month, day] = jalaliDate.split("/").map(Number);
 
-    // Check if the date is in Jalali format
-    if (moment(date, "jYYYY/jMM/jDD", true).isValid()) {
-      const jalaliDate = moment.from(date, "fa", "jYYYY/jMM/jDD");
-      convertedDate = {
-        year: jalaliDate.jYear(),
-        month: jalaliDate.jMonth() + 1, // moment.js months are zero-indexed
-        day: jalaliDate.jDate(),
-      };
-    } else {
-      // Assume date is in Gregorian format
-      const gregorianDate = moment(date, "MM/DD/YYYY, h:mm:ss A");
-      const jalaliDate = gregorianDate
-        .locale("fa")
-        .format("jYYYY/jMM/jDD")
-        .split("/");
-      convertedDate = {
-        year: +jalaliDate[0],
-        month: +jalaliDate[1],
-        day: +jalaliDate[2],
-      };
+      return { year, month, day };
     }
 
-    return convertedDate;
+    // If parsing fails, return null
+    return null;
   }
 
   static convertToNgbDateStruct(

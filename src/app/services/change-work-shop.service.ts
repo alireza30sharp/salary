@@ -12,7 +12,6 @@ export class ChangeWorkShopsService {
   //-
   employeListSource$ = new ReplaySubject<Array<WorkShopsOptionsInterFace>>(1);
   employeListData$ = this.employeListSource$.asObservable();
-  //
   //-
   benefitDeductionsSource$ = new ReplaySubject<
     Array<WorkShopsOptionsInterFace>
@@ -23,6 +22,27 @@ export class ChangeWorkShopsService {
     Array<WorkShopsOptionsInterFace>
   >(1);
   WorkShopsOptionsData$ = this._WorkShopsOptionsSource$.asObservable();
+  //---
+  organizationUnitsListSource$ = new ReplaySubject<
+    Array<WorkShopsOptionsInterFace>
+  >(1);
+  organizationUnitsData$ = this.organizationUnitsListSource$.asObservable();
+  //-
+  organizationPostListSource$ = new ReplaySubject<
+    Array<WorkShopsOptionsInterFace>
+  >(1);
+  organizationPostData$ = this.organizationPostListSource$.asObservable();
+
+  //-
+  paymentLocationListSource$ = new ReplaySubject<
+    Array<WorkShopsOptionsInterFace>
+  >(1);
+  paymentLocationIdData$ = this.paymentLocationListSource$.asObservable();
+  //-
+  employmentTypeSource$ = new ReplaySubject<Array<WorkShopsOptionsInterFace>>(
+    1
+  );
+  employmentTypeData$ = this.employmentTypeSource$.asObservable();
   setWorkShopsOptions(list: Array<WorkShopsOptionsInterFace>) {
     this._WorkShopsOptionsSource$.next(list);
   }
@@ -31,6 +51,18 @@ export class ChangeWorkShopsService {
   }
   setBenefitDeductionsList(list: Array<WorkShopsOptionsInterFace>) {
     this.benefitDeductionsSource$.next(list);
+  }
+  setOrganizationUnits(list: Array<WorkShopsOptionsInterFace>) {
+    this.organizationUnitsListSource$.next(list);
+  }
+  setOrganizationPost(list: Array<WorkShopsOptionsInterFace>) {
+    this.organizationPostListSource$.next(list);
+  }
+  setPaymentLocationId(list: Array<WorkShopsOptionsInterFace>) {
+    this.paymentLocationListSource$.next(list);
+  }
+  setEmploymentTypeData(list: Array<WorkShopsOptionsInterFace>) {
+    this.employmentTypeSource$.next(list);
   }
   constructor() {}
 }

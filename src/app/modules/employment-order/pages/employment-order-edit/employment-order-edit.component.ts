@@ -30,11 +30,6 @@ import { SelectOptionInterface } from "../../../../shared/interfaces/select-opti
 import { DateUtilies } from "../../../../shared/utilities/Date";
 import { ToastService } from "../../../../shared/services";
 
-import {
-  actionTypeEnum,
-  wageOrderDetailDto,
-  wageOrdersDto,
-} from "../../models";
 import { maskPrefixTaxRate } from "../../../../base/models/rul";
 import { Location } from "@angular/common";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -42,6 +37,11 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { Paths } from "../../../../shared/utilities/paths";
 import { ConfirmInterFace } from "../../../../shared/ki-components/ki-confirmation/confirm.interface";
 import { EmploymentOrderService } from "../../services/employment-order.service";
+import {
+  actionTypeEnum,
+  wageOrderDetailDto,
+  wageOrdersDto,
+} from "../../../../modules/wage-orders/models";
 
 @Component({
   selector: "app-employment-order-edit",
@@ -246,7 +246,7 @@ export class EmploymentOrderEditComponent implements OnInit {
       this.wageOrdersModel.details.length > 0
     ) {
       this._wageOrdersService
-        .update(this.wageOrdersModel)
+        .update(null)
         .pipe(
           finalize(() => {
             this.showLoading = false;

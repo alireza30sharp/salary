@@ -63,6 +63,9 @@ export class ApiUrlService {
     Delete: BASE_URL + "BasicInformation/EmploymentTypes/Delete",
     Edit: BASE_URL + "BasicInformation/EmploymentTypes/Edit",
     getById: BASE_URL + "BasicInformation/EmploymentTypes/GetById",
+    GetEmploymentTypeClientPrerequisites:
+      BASE_URL +
+      "BasicInformation/EmploymentTypes/GetEmploymentTypeClientPrerequisites",
   };
   OrganizationPost = {
     GetAllOrganizationPosts:
@@ -71,6 +74,9 @@ export class ApiUrlService {
     Delete: BASE_URL + "BasicInformation/OrganizationPost/Delete",
     Edit: BASE_URL + "BasicInformation/OrganizationPost/Edit",
     getById: BASE_URL + "BasicInformation/OrganizationPost/GetById",
+    GetOrganizationPostClientPrerequisites:
+      BASE_URL +
+      "BasicInformation/OrganizationPost/GetOrganizationPostClientPrerequisites",
   };
   OrganizationUnits = {
     GetAllOrganizationUnits:
@@ -79,6 +85,9 @@ export class ApiUrlService {
     Delete: BASE_URL + "BasicInformation/OrganizationUnits/Delete",
     Edit: BASE_URL + "BasicInformation/OrganizationUnits/Edit",
     getById: BASE_URL + "BasicInformation/OrganizationUnits/GetById",
+    GetOrganizationUnitClientPrerequisites:
+      BASE_URL +
+      "BasicInformation/OrganizationUnits/GetOrganizationUnitClientPrerequisites",
   };
   PaymentLocation = {
     GetAllPaymentLocations:
@@ -87,6 +96,9 @@ export class ApiUrlService {
     Delete: BASE_URL + "BasicInformation/PaymentLocation/Delete",
     Edit: BASE_URL + "BasicInformation/PaymentLocation/Edit",
     getById: BASE_URL + "BasicInformation/PaymentLocation/GetById",
+    GetPaymentLocationClientPrerequisites:
+      BASE_URL +
+      "BasicInformation/PaymentLocation/GetPaymentLocationClientPrerequisites",
   };
   clientPrerequisits = {
     GetClientPrerequisits:
@@ -114,7 +126,7 @@ export class ApiUrlService {
     Add: BASE_URL + "EmploymentOrders/Add",
     Delete: BASE_URL + "EmploymentOrders/Delete",
     Edit: BASE_URL + "EmploymentOrders/Edit",
-    getById: BASE_URL + "EmploymentOrders/GetEmployeeInformation",
+    getById: BASE_URL + "EmploymentOrders/GetEmploymentOrderById",
   };
   WageOrders = {
     GetWageOrderListOfEmployee:

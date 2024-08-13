@@ -57,7 +57,7 @@ export class ClientPrerequisitsService {
         );
     }
   }
-
+  //--------------
   getBenefitDaductionClientPrerequisites(forceRefresh: boolean = false) {
     // در غیر این صورت، درخواست جدید را ارسال می‌کنیم
     return this.$http
@@ -89,6 +89,7 @@ export class ClientPrerequisitsService {
         )
       );
   }
+  //----------
   getEmployeeClientPrerequisites(forceRefresh: boolean = false) {
     return this.$http
       .get<any>(this.urlSvc.Employees.GetEmployeeClientPrerequisites, {
@@ -111,6 +112,106 @@ export class ClientPrerequisitsService {
         catchError(
           this.handleError<any>("cachedEmployeeClientPrerequisites", [])
         )
+      );
+  }
+  //--------------------GetOrganizationUnitClientPrerequisites
+  getOrganizationUnitClientPrerequisites(forceRefresh: boolean = false) {
+    return this.$http
+      .get<any>(
+        this.urlSvc.OrganizationUnits.GetOrganizationUnitClientPrerequisites,
+        {
+          params: {
+            WorkShopId: this.WorkShopsID,
+          },
+        }
+      )
+      .pipe(
+        tap((prerequisits) => {
+          if (prerequisits.isOk && prerequisits.data) {
+            let list = prerequisits.data.map((item) => ({
+              label: item.unitName,
+              value: item.id,
+            }));
+
+            this._changeWorkShopsService.setOrganizationUnits(list);
+          }
+        }),
+        catchError(this.handleError<any>("setOrganizationUnits", []))
+      );
+  }
+  //-----------GetOrganizationPostClientPrerequisites
+  GetOrganizationPostClientPrerequisites(forceRefresh: boolean = false) {
+    return this.$http
+      .get<any>(
+        this.urlSvc.OrganizationPost.GetOrganizationPostClientPrerequisites,
+        {
+          params: {
+            WorkShopId: this.WorkShopsID,
+          },
+        }
+      )
+      .pipe(
+        tap((prerequisits) => {
+          if (prerequisits.isOk && prerequisits.data) {
+            let list = prerequisits.data.map((item) => ({
+              label: item.organizationPost,
+              value: item.id,
+            }));
+
+            this._changeWorkShopsService.setOrganizationPost(list);
+          }
+        }),
+        catchError(this.handleError<any>("setOrganizationPost", []))
+      );
+  }
+  //GetPaymentLocationClientPrerequisites
+  GetPaymentLocationClientPrerequisites(forceRefresh: boolean = false) {
+    return this.$http
+      .get<any>(
+        this.urlSvc.PaymentLocation.GetPaymentLocationClientPrerequisites,
+        {
+          params: {
+            WorkShopId: this.WorkShopsID,
+          },
+        }
+      )
+      .pipe(
+        tap((prerequisits) => {
+          if (prerequisits.isOk && prerequisits.data) {
+            let list = prerequisits.data.map((item) => ({
+              label: item.paymentLocation,
+              value: item.id,
+            }));
+
+            this._changeWorkShopsService.setPaymentLocationId(list);
+          }
+        }),
+        catchError(this.handleError<any>("setPaymentLocationId", []))
+      );
+  }
+  //--
+  GetEmploymentTypeClientPrerequisites(forceRefresh: boolean = false) {
+    return this.$http
+      .get<any>(
+        this.urlSvc.EmploymentTypes.GetEmploymentTypeClientPrerequisites,
+        {
+          params: {
+            WorkShopId: this.WorkShopsID,
+          },
+        }
+      )
+      .pipe(
+        tap((prerequisits) => {
+          if (prerequisits.isOk && prerequisits.data) {
+            let list = prerequisits.data.map((item) => ({
+              label: item.typeText,
+              value: item.id,
+            }));
+
+            this._changeWorkShopsService.setEmploymentTypeData(list);
+          }
+        }),
+        catchError(this.handleError<any>("setEmploymentTypeData", []))
       );
   }
   private handleError<T>(operation = "operation", result?: T) {

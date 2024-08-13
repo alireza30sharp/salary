@@ -199,7 +199,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
     private readonly _location: Location
   ) {
     this.persianBirthDate = DateUtilies.convertDateToNgbDateStruct(
-      new Date().toLocaleString()
+      new Date().toLocaleDateString()
     );
   }
   ngOnInit(): void {

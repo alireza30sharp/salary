@@ -22,10 +22,13 @@ import { SelectOptionInterface } from "../../../../shared/interfaces/select-opti
 import { DateUtilies } from "../../../../shared/utilities/Date";
 import { ToastService } from "../../../../shared/services";
 
-import { wageOrderDetailDto, wageOrdersDto } from "../../models";
 import { maskPrefixTaxRate } from "../../../../base/models/rul";
 import { Location } from "@angular/common";
 import { EmploymentOrderService } from "../../services/employment-order.service";
+import {
+  wageOrderDetailDto,
+  wageOrdersDto,
+} from "../../../../modules/wage-orders/models";
 @Component({
   selector: "app-employment-order-add",
   templateUrl: "./employment-order-add.component.html",
@@ -115,7 +118,7 @@ export class EmploymentOrderAddComponent implements OnInit {
     private readonly _location: Location
   ) {
     this.persianBirthDate = DateUtilies.convertDateToNgbDateStruct(
-      new Date().toLocaleString()
+      new Date().toLocaleDateString()
     );
   }
   ngOnInit(): void {}
@@ -151,7 +154,7 @@ export class EmploymentOrderAddComponent implements OnInit {
       this.wageOrdersModel.details.length > 0
     ) {
       this._wageOrdersService
-        .create(this.wageOrdersModel)
+        .create(null)
         .pipe(
           finalize(() => {
             this.showLoading = false;
