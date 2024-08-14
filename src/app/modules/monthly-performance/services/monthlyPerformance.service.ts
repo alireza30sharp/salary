@@ -39,7 +39,7 @@ export class MonthlyPerformanceService {
       }
     );
   }
-  getById(id) {
+  GetMainWorkingTimesReport(id) {
     return this.$http.get<response<any>>(this.urlSvc.WageOrders.getById, {
       params: { workShopId: this.WorkShopsID, WageOrderId: id },
     });

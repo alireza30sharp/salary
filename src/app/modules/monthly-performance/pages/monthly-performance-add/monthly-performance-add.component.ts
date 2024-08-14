@@ -176,7 +176,6 @@ export class MonthlyPerformanceAddComponent implements OnInit {
     resizable: true,
   };
   editType: "fullRow";
-  isEditMode: boolean = true;
   rowDataDefault = new Array<addWorkingTimesDetailDto>();
   selectRow = new Array<addWorkingTimesDetailDto>();
   listResult = new Array<addWorkingTimesDetailDto>();
@@ -272,11 +271,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
         .subscribe({
           next: (res) => {
             if (res.isOk) {
-              this.isEditMode = false;
               this._toastService.success(res.data.message);
-              setTimeout(() => {
-                this.isEditMode = true;
-              }, 100);
             }
           },
           error: (err) => {

@@ -82,15 +82,39 @@
       ></ki-textarea>
     </ki-form-group>
   </div>
+  <div class="row mb-2">
+    <app-alert
+      class="w-100"
+      [type]="'information'"
+      [title]="'اطلاعات'"
+      [message]="
+        'لطفا برای کارمند انتخاب شده حداقل یک مزایا و یا یک کسورات وارد کنید'
+      "
+    ></app-alert>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <ag-grid-data
+        [isEditMode]="isEditMode"
+        [editType]="editType"
+        [columnsDefault]="columnsDefault"
+        [rowDataDefault]="rowDataDefault"
+        [defaultColDef]="defaultColDef"
+        (saveCellChange)="saveCellHandeler($event)"
+      ></ag-grid-data>
+    </div>
+    <div class="col-6">
+      <ag-grid-data
+        [isEditMode]="isEditMode"
+        [editType]="editType"
+        [columnsDefault]="columnsDefault"
+        [rowDataDefault]="rowDataDefault"
+        [defaultColDef]="defaultColDef"
+        (saveCellChange)="saveCellHandeler($event)"
+      ></ag-grid-data>
+    </div>
+  </div>
 
-  <ag-grid-data
-    [isEditMode]="isEditMode"
-    [editType]="editType"
-    [columnsDefault]="columnsDefault"
-    [rowDataDefault]="rowDataDefault"
-    [defaultColDef]="defaultColDef"
-    (saveCellChange)="saveCellHandeler($event)"
-  ></ag-grid-data>
   <ng-template #footer>
     <ki-button
       btnType="basic"

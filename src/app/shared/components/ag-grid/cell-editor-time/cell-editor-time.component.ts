@@ -13,12 +13,12 @@ import { ICellEditorAngularComp } from "ag-grid-angular";
   styleUrls: ["./cell-editor-time.component.css"],
 })
 export class CellEditorTimeComponent implements ICellEditorAngularComp {
-  params: string = "0";
+  params: string = "";
   setFocusItem: boolean;
   constructor() {}
 
   agInit(params: any): void {
-    this.params = params.value ? params.value : "0";
+    this.params = params.value ? params.value : "";
     setTimeout(() => {
       this.setFocusItem = true;
     }, 10);

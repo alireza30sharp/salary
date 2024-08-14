@@ -91,7 +91,7 @@ export class WageOrdersAddComponent implements OnInit {
   ];
   defaultColDef: AgGridInterFace = {
     flex: 1,
-
+    minWidth: 200,
     filter: true,
 
     resizable: true,
