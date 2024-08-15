@@ -94,19 +94,20 @@
   </div>
   <div class="row">
     <div class="col-6">
+      <h6 class="mb-2 px-2 text-warning">مزایا</h6>
       <ag-grid-data
         [isEditMode]="isEditModeBenefits"
-        [editType]="editTypeBenefits"
-        [columnsDefault]="BenefitscolumnsDefault"
-        [rowDataDefault]="rowDataDefault"
-        [defaultColDef]="defaultColDef"
-        (saveCellChange)="saveCellHandeler($event)"
+        [columnsDefault]="benefitsColumnsDefault"
+        [defaultColDef]="benefitsDefaultColDef"
+        [rowDataDefault]="benefitsRowDataDefault"
+        (saveCellChange)="benefitsSaveCellHandeler($event)"
       ></ag-grid-data>
     </div>
     <div class="col-6">
+      <h6 class="mb-2 px-2 text-warning">کسورات</h6>
+
       <ag-grid-data
         [isEditMode]="isEditMode"
-        [editType]="editType"
         [columnsDefault]="columnsDefault"
         [rowDataDefault]="rowDataDefault"
         [defaultColDef]="defaultColDef"

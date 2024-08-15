@@ -14,7 +14,7 @@ import { ICellEditorAngularComp } from "ag-grid-angular";
 })
 export class CellEditorNumberComponent implements ICellEditorAngularComp {
   params: number = 0;
-  setFocusItem: boolean;
+  setFocusItem: boolean = false;
   constructor() {}
 
   agInit(params: any): void {

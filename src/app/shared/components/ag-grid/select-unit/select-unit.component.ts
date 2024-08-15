@@ -19,7 +19,7 @@ export class SelectUnitComponent implements ICellEditorAngularComp {
   options = [];
   SelectedUnitType: string;
   errorInvalid: boolean = true;
-  setFocusItem: boolean;
+  setFocusItem: boolean = false;
   constructor() {}
 
   agInit(params: any): void {

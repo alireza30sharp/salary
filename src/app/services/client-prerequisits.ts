@@ -8,6 +8,7 @@ import { catchError, delay, tap } from "rxjs/operators";
 import { SessionNames } from "../shared/utilities/session-names";
 import { SessionStorage } from "ngx-webstorage";
 import { ChangeWorkShopsService } from "./change-work-shop.service";
+import { DeductionsEnum } from "../shared/models/deductions.enum";
 @Injectable({ providedIn: "root" })
 export class ClientPrerequisitsService {
   @SessionStorage(SessionNames.WorkShopsID)
@@ -74,14 +75,22 @@ export class ClientPrerequisitsService {
         tap((prerequisits) => {
           this.cachedBenefitDaductionPrerequisites = prerequisits; // ذخیره نتایج در کش
           if (prerequisits.isOk && prerequisits.data) {
-            let benefitDeductions = prerequisits.data.map((item) => ({
-              label: item.name,
-              value: item.id,
-            }));
-
+            let benefitDeductions = prerequisits.data
+              .filter((f) => f.type == DeductionsEnum.benefits)
+              .map((item) => ({
+                label: item.name,
+                value: item.id,
+              }));
+            let deductions = prerequisits.data
+              .filter((f) => f.type == DeductionsEnum.deductions)
+              .map((item) => ({
+                label: item.name,
+                value: item.id,
+              }));
             this._changeWorkShopsService.setBenefitDeductionsList(
               benefitDeductions
             );
+            this._changeWorkShopsService.setDeductions(deductions);
           }
         }),
         catchError(

@@ -35,7 +35,7 @@ import { Location } from "@angular/common";
 export class WageOrdersAddComponent implements OnInit {
   employeList?: SelectOptionInterface<any>[];
   benefitDeductions?: SelectOptionInterface<any>[];
-  columnsDefault: AgGridInterFace[] = [
+  benefitsColumnsDefault: AgGridInterFace[] = [
     {
       field: propertyOf<wageOrderDetailDto>("id"),
       hide: true,
@@ -46,7 +46,7 @@ export class WageOrdersAddComponent implements OnInit {
     },
     {
       field: propertyOf<wageOrderDetailDto>("benefitDeductionId"),
-      headerName: "مزایا و کسورات",
+      headerName: "مزایا",
       cellEditor: SelectUnitComponent,
       cellRenderer: SelectCellRendererParams,
       cellEditorParams: {
@@ -89,16 +89,80 @@ export class WageOrdersAddComponent implements OnInit {
       cellEditor: CellEditorCheckboxComponent, //"agCheckboxCellEditor",
     },
   ];
-  defaultColDef: AgGridInterFace = {
+  columnsDefault: AgGridInterFace[] = [
+    {
+      field: propertyOf<wageOrderDetailDto>("id"),
+      hide: true,
+    },
+    {
+      headerName: "ردیف",
+      valueGetter: "node.rowIndex + 1",
+    },
+    {
+      field: propertyOf<wageOrderDetailDto>("benefitDeductionId"),
+      headerName: "کسورات",
+      cellEditor: SelectUnitComponent,
+      cellRenderer: SelectCellRendererParams,
+      cellEditorParams: {
+        values: this._changeWorkShops.deductionsData$,
+        allowTyping: true,
+        filterList: true,
+        highlightMatch: true,
+        valueListMaxHeight: 220,
+      },
+      context: {
+        requerd: true,
+        startEditing: true,
+      },
+      editable: true,
+    },
+    {
+      field: propertyOf<wageOrderDetailDto>("price"),
+      headerName: "مبلغ",
+      editable: true,
+      cellClass: "text-center",
+      filter: "agNumberColumnFilter",
+      cellEditor: CellEditorNumberComponent,
+      valueFormatter: numberCellFormatter_valueFormatter,
+    },
+
+    {
+      field: propertyOf<wageOrderDetailDto>("calculateOnInsurance"),
+      headerName: "محاسبه روی بیمه",
+      editable: true,
+      cellClass: "text-center center-content",
+      cellRenderer: "agCheckboxCellRenderer",
+      cellEditor: CellEditorCheckboxComponent,
+    },
+    {
+      field: propertyOf<wageOrderDetailDto>("calculateOnTax"),
+      headerName: "محاسبه روی مالیات",
+      editable: true,
+      cellClass: "text-center center-content",
+      cellRenderer: "agCheckboxCellRenderer",
+      cellEditor: CellEditorCheckboxComponent, //"agCheckboxCellEditor",
+    },
+  ];
+  benefitsDefaultColDef: AgGridInterFace = {
     flex: 1,
-    minWidth: 200,
+    minWidth: 100,
     filter: true,
 
     resizable: true,
   };
-  editType: "fullRow";
+  defaultColDef: AgGridInterFace = {
+    flex: 1,
+    minWidth: 100,
+    filter: true,
+
+    resizable: true,
+  };
+  editType = "fullRow";
   isEditMode: boolean = true;
+  isEditModeBenefits: boolean = true;
+  editTypeBenefits = "fullRow";
   rowDataDefault = new Array<wageOrderDetailDto>();
+  benefitsRowDataDefault = new Array<wageOrderDetailDto>();
   selectRow = new Array<wageOrderDetailDto>();
   isShowLoadingDelete: boolean = false;
   showLoading: boolean = false;
@@ -108,6 +172,8 @@ export class WageOrdersAddComponent implements OnInit {
   maskPrefixTaxRate = maskPrefixTaxRate;
   listclientPrerequisits: clientPrerequisitsInterface[];
   cacheKeyType = cacheKeyEnum;
+  benefits = [];
+  deductions = [];
   constructor(
     private _changeWorkShops: ChangeWorkShopsService,
     private _toastService: ToastService,
@@ -142,6 +208,13 @@ export class WageOrdersAddComponent implements OnInit {
   }
   clickSearchHander() {
     this.showLoading = true;
+    this.wageOrdersModel.details = [];
+    this.wageOrdersModel.details = this.wageOrdersModel.details.concat(
+      this.benefits
+    );
+    this.wageOrdersModel.details = this.wageOrdersModel.details.concat(
+      this.deductions
+    );
 
     this.wageOrdersModel.persianStartDate = DateUtilies.convertDate(
       this.persianBirthDate
@@ -187,12 +260,28 @@ export class WageOrdersAddComponent implements OnInit {
   }
   onRefrashSelected() {}
   saveCellHandeler(details: wageOrderDetailDto[]) {
-    this.wageOrdersModel.details = [];
+    this.deductions = [];
     details = details.map((d) => {
       d.id = "0";
+      d.calculateOnInsurance = d.calculateOnInsurance
+        ? d.calculateOnInsurance
+        : false;
+      d.calculateOnTax = d.calculateOnTax ? d.calculateOnTax : false;
       return d;
     });
-    this.wageOrdersModel.details = [...details];
+    this.deductions = [...details];
+  }
+  benefitsSaveCellHandeler(details: wageOrderDetailDto[]) {
+    this.benefits = [];
+    details = details.map((d) => {
+      d.id = "0";
+      d.calculateOnInsurance = d.calculateOnInsurance
+        ? d.calculateOnInsurance
+        : false;
+      d.calculateOnTax = d.calculateOnTax ? d.calculateOnTax : false;
+      return d;
+    });
+    this.benefits = [...details];
   }
 
   cancelClickHandler() {

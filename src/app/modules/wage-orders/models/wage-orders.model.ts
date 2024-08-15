@@ -15,7 +15,6 @@ export class wageOrdersDto {
 export class wageOrderDetailDto {
   benefitDeductionId: number;
   price: number;
-  price1: number;
   calculateOnInsurance: boolean;
   calculateOnTax: boolean;
   id: string;

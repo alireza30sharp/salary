@@ -12,12 +12,15 @@ export class ChangeWorkShopsService {
   //-
   employeListSource$ = new ReplaySubject<Array<WorkShopsOptionsInterFace>>(1);
   employeListData$ = this.employeListSource$.asObservable();
-  //-
+  //-مزایا
   benefitDeductionsSource$ = new ReplaySubject<
     Array<WorkShopsOptionsInterFace>
   >(1);
   benefitDeductionsData$ = this.benefitDeductionsSource$.asObservable();
-  //-
+  //-کسورات
+  deductionsSource$ = new ReplaySubject<Array<WorkShopsOptionsInterFace>>(1);
+  deductionsData$ = this.deductionsSource$.asObservable();
+  //
   private _WorkShopsOptionsSource$ = new ReplaySubject<
     Array<WorkShopsOptionsInterFace>
   >(1);
@@ -63,6 +66,9 @@ export class ChangeWorkShopsService {
   }
   setEmploymentTypeData(list: Array<WorkShopsOptionsInterFace>) {
     this.employmentTypeSource$.next(list);
+  }
+  setDeductions(list: Array<WorkShopsOptionsInterFace>) {
+    this.deductionsSource$.next(list);
   }
   constructor() {}
 }

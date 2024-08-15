@@ -180,6 +180,19 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
       this.SaveSelected();
     }
   }
+  cellEditingStarted(event) {
+    const focusedCell = this.gridApi.getFocusedCell();
+    if (focusedCell) {
+      const column = focusedCell.column;
+      const colDef = column.getColDef();
+      if (colDef.editable) {
+        this.gridApi.startEditingCell({
+          rowIndex: focusedCell.rowIndex,
+          colKey: column.getColId(),
+        });
+      }
+    }
+  }
   tabToNextCell(params: any) {
     const lastColumnIndex = this.columnsTable.length - 1;
     const nextCell = params.nextCellPosition;
@@ -192,6 +205,7 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
     }
     return nextCell;
   }
+
   cellFocused(event: any) {
     const focusedCell = this.gridApi.getFocusedCell();
     if (focusedCell) {
@@ -310,8 +324,7 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
     }
   }
   SaveSelected() {
-    this.gridApi.stopEditing(true);
-    this.agGridUpdate();
+    //this.agGridUpdate();
     let filter = this.rowData.filter((data) => data.isEdited);
     this.saveCellChange.emit(filter);
   }
