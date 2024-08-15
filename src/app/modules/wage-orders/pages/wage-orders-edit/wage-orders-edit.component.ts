@@ -42,6 +42,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { Paths } from "../../../../shared/utilities/paths";
 import { ConfirmInterFace } from "../../../../shared/ki-components/ki-confirmation/confirm.interface";
+import { DeductionsEnum } from "../../../../shared/models/deductions.enum";
 
 @Component({
   selector: "app-wage-orders-edit",
@@ -52,6 +53,60 @@ import { ConfirmInterFace } from "../../../../shared/ki-components/ki-confirmati
 export class WageOrdersEditComponent implements OnInit {
   employeList?: SelectOptionInterface<any>[];
   benefitDeductions?: SelectOptionInterface<any>[];
+  benefitsColumnsDefault: AgGridInterFace[] = [
+    {
+      field: propertyOf<wageOrderDetailDto>("id"),
+      hide: true,
+    },
+    {
+      headerName: "ردیف",
+      valueGetter: "node.rowIndex + 1",
+    },
+    {
+      field: propertyOf<wageOrderDetailDto>("benefitDeductionId"),
+      headerName: "مزایا",
+      cellEditor: SelectUnitComponent,
+      cellRenderer: SelectCellRendererParams,
+      cellEditorParams: {
+        values: this._changeWorkShops.benefitDeductionsData$,
+        allowTyping: true,
+        filterList: true,
+        highlightMatch: true,
+        valueListMaxHeight: 220,
+      },
+      context: {
+        requerd: true,
+        startEditing: true,
+      },
+      editable: true,
+    },
+    {
+      field: propertyOf<wageOrderDetailDto>("price"),
+      headerName: "مبلغ",
+      editable: true,
+      cellClass: "text-center",
+      filter: "agNumberColumnFilter",
+      cellEditor: CellEditorNumberComponent,
+      valueFormatter: numberCellFormatter_valueFormatter,
+    },
+
+    {
+      field: propertyOf<wageOrderDetailDto>("calculateOnInsurance"),
+      headerName: "محاسبه روی بیمه",
+      editable: true,
+      cellClass: "text-center center-content",
+      cellRenderer: "agCheckboxCellRenderer",
+      cellEditor: CellEditorCheckboxComponent,
+    },
+    {
+      field: propertyOf<wageOrderDetailDto>("calculateOnTax"),
+      headerName: "محاسبه روی مالیات",
+      editable: true,
+      cellClass: "text-center center-content",
+      cellRenderer: "agCheckboxCellRenderer",
+      cellEditor: CellEditorCheckboxComponent, //"agCheckboxCellEditor",
+    },
+  ];
   columnsDefault: AgGridInterFace[] = [
     {
       field: propertyOf<wageOrderDetailDto>("id"),
@@ -96,11 +151,11 @@ export class WageOrdersEditComponent implements OnInit {
     },
     {
       field: propertyOf<wageOrderDetailDto>("benefitDeductionId"),
-      headerName: "مزایا و کسورات",
+      headerName: "کسورات",
       cellEditor: SelectUnitComponent,
       cellRenderer: SelectCellRendererParams,
       cellEditorParams: {
-        values: this._changeWorkShops.benefitDeductionsData$,
+        values: this._changeWorkShops.deductionsData$,
         allowTyping: true,
         filterList: true,
         highlightMatch: true,
@@ -138,14 +193,24 @@ export class WageOrdersEditComponent implements OnInit {
   ];
   defaultColDef: AgGridInterFace = {
     flex: 1,
+    minWidth: 100,
 
     filter: true,
 
     resizable: true,
   };
-  editType: "fullRow";
+  benefitsDefaultColDef: AgGridInterFace = {
+    flex: 1,
+    minWidth: 100,
+    filter: true,
+
+    resizable: true,
+  };
+  isEditModeBenefits: boolean = true;
   isEditMode: boolean = true;
   rowDataDefault = new Array<wageOrderDetailDto>();
+  benefitsRowDataDefault = new Array<wageOrderDetailDto>();
+
   selectRow = new Array<wageOrderDetailDto>();
   isShowLoadingDelete: boolean = false;
   showLoading: boolean = false;
@@ -158,6 +223,8 @@ export class WageOrdersEditComponent implements OnInit {
   cacheKeyType = cacheKeyEnum;
   actionTypeEnum = actionTypeEnum;
   isLoading: boolean = false;
+  benefits = [];
+  deductions = [];
   constructor(
     private _changeWorkShops: ChangeWorkShopsService,
     private _toastService: ToastService,
@@ -196,7 +263,7 @@ export class WageOrdersEditComponent implements OnInit {
 
   onRefrashSelected() {}
   saveCellHandeler(details: wageOrderDetailDto[]) {
-    this.wageOrdersModel.details = [];
+    this.deductions = [];
     details = details.map((f) => {
       if (f.id) {
         f.actionType = this.actionTypeEnum.edit;
@@ -205,7 +272,19 @@ export class WageOrdersEditComponent implements OnInit {
       }
       return f;
     });
-    this.wageOrdersModel.details = [...details];
+    this.deductions = [...details];
+  }
+  benefitsSaveCellHandeler(details: wageOrderDetailDto[]) {
+    this.benefits = [];
+    details = details.map((f) => {
+      if (f.id) {
+        f.actionType = this.actionTypeEnum.edit;
+      } else {
+        f.actionType = this.actionTypeEnum.add;
+      }
+      return f;
+    });
+    this.benefits = [...details];
   }
   cancelClickHandler() {
     this._location.back();
@@ -225,10 +304,16 @@ export class WageOrdersEditComponent implements OnInit {
         .subscribe((res) => {
           if (res.isOk) {
             this.wageOrdersModel = res.data;
-            this.persianBirthDate = DateUtilies.convertDateToNgbDateStruct(
-              res.data.persianStartDate
+            this.persianBirthDate =
+              DateUtilies.convertDatePersionToNgbDateStruct(
+                res.data.persianStartDate
+              );
+            this.rowDataDefault = this.wageOrdersModel.details.filter(
+              (f) => f.benefitDeductionType == DeductionsEnum.deductions
             );
-            this.rowDataDefault = this.wageOrdersModel.details;
+            this.benefitsRowDataDefault = this.wageOrdersModel.details.filter(
+              (f) => f.benefitDeductionType == DeductionsEnum.benefits
+            );
             this.wageOrdersModel.details = [];
             this.wageOrdersModel.deleteDetails = [];
           }
@@ -238,6 +323,14 @@ export class WageOrdersEditComponent implements OnInit {
   onSelectedRowsChangeEvent(event: Array<wageOrdersDto>) {}
   clickSearchHander() {
     this.showLoading = true;
+    this.wageOrdersModel.details = [];
+    this.wageOrdersModel.details = this.wageOrdersModel.details.concat(
+      this.benefits
+    );
+    this.wageOrdersModel.details = this.wageOrdersModel.details.concat(
+      this.deductions
+    );
+
     this.wageOrdersModel.persianStartDate = DateUtilies.convertDate(
       this.persianBirthDate
     );

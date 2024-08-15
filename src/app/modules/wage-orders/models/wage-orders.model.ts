@@ -1,3 +1,5 @@
+import { DeductionsEnum } from "../../../shared/models/deductions.enum";
+
 export class wageOrdersDto {
   workShopId: number;
   employeeId: number;
@@ -19,6 +21,7 @@ export class wageOrderDetailDto {
   calculateOnTax: boolean;
   id: string;
   actionType: actionTypeEnum;
+  benefitDeductionType: DeductionsEnum;
 }
 export class wageOrderListDto {
   row_NO: number;

@@ -45,6 +45,7 @@ export class kiSelectComponent implements ControlValueAccessor {
   @Input() disabled: boolean;
   @Input() allowClear: boolean = false;
   @Input() multiple: boolean = false;
+  @Input() hideSelected: boolean = true;
   @Input() dropDownPosition: "bottom" | "top" | "auto" = "auto";
   @Input() size?: SizeType;
   @Input() state?: "error" | "success";

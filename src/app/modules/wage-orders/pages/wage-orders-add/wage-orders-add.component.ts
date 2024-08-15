@@ -193,13 +193,6 @@ export class WageOrdersAddComponent implements OnInit {
           this.employeList = employeList;
         }
       });
-    this._changeWorkShops.benefitDeductionsData$
-      .pipe(delay(100))
-      .subscribe((benefitDeductionsData) => {
-        if (benefitDeductionsData) {
-          this.benefitDeductions = benefitDeductionsData;
-        }
-      });
     this._changeWorkShops.activeWorkShopsSource$
       .pipe(delay(100))
       .subscribe((workShopId) => {

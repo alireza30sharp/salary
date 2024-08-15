@@ -30,6 +30,15 @@ export class DateUtilies {
     // If parsing fails, return null
     return null;
   }
+  static convertDatePersionToNgbDateStruct(date: string): NgbDateStruct | null {
+    if (!date) return null;
+    const [year, month, day] = date.split("/").map(Number);
+
+    return { year, month, day };
+
+    // If parsing fails, return null
+    return null;
+  }
 
   static convertToNgbDateStruct(
     year: number,
