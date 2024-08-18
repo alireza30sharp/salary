@@ -3,37 +3,41 @@
   [hideBackButton]="false"
   (backCallback)="cancelClickHandler()"
 >
-  <div class="row">
-    <ki-form-group [label]="'انتخاب ماه'" class="col-3">
-      <ki-select
-        [placeholder]="'انتخاب ماه'"
-        [options]="monthlyList"
-        [(ngModel)]="addDraftDto.monthNum"
-      >
-      </ki-select>
-    </ki-form-group>
-    <ki-form-group [label]="'انتخاب سال'" class="col-3">
-      <ki-select
-        [placeholder]="'انتخاب سال'"
-        [options]="yearlyList"
-        [(ngModel)]="addDraftDto.yearNum"
-      >
-      </ki-select>
-    </ki-form-group>
+  <ng-template #header>
+    <div class="d-flex justify-content-start w-100">
+      <ki-form-group [label]="'انتخاب ماه'" class="ml-2 w-15">
+        <ki-select
+          [placeholder]="'انتخاب ماه'"
+          [options]="monthlyList"
+          [(ngModel)]="addDraftDto.monthNum"
+          [hideSelected]="false"
+        >
+        </ki-select>
+      </ki-form-group>
+      <ki-form-group [label]="'انتخاب سال'" class="ml-2 w-15">
+        <ki-select
+          [placeholder]="'انتخاب سال'"
+          [options]="yearlyList"
+          [(ngModel)]="addDraftDto.yearNum"
+        >
+        </ki-select>
+      </ki-form-group>
 
-    <ki-form-group class="col-3">
-      <ki-button
-        btnType="basic"
-        [iconClassName]="'fa-solid fa-magnifying-glass'"
-        [showLoading]="showLoading"
-        [title]="'نمایش'"
-        (clickCallback)="clickSearchHander()"
-      >
-      </ki-button>
-    </ki-form-group>
-  </div>
+      <ki-form-group class="ml-2 w-15">
+        <ki-button
+          btnType="basic"
+          [iconClassName]="'fa-solid fa-magnifying-glass'"
+          [showLoading]="showLoading"
+          [title]="'نمایش'"
+          (clickCallback)="clickSearchHander()"
+        >
+        </ki-button>
+      </ki-form-group>
+    </div>
+  </ng-template>
 
   <ag-grid-data
+    [rowId]="'code'"
     [editType]="editType"
     [columnsDefault]="columnsDefault"
     [rowDataDefault]="rowDataDefault"

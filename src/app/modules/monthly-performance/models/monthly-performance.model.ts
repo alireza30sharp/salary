@@ -25,6 +25,24 @@ export class addWorkingTimesDetailDto {
   vacationHours: number;
   vacationMinutes: number;
   code: number;
+  absenceDays: number;
+  absanceHours: number;
+  absanceHoursMinutes: number;
+  missionDays: number;
+  missionHours: number;
+  missionMinutes: number;
+  earnedLeaveDays: number;
+  earnedLeaveHours: number;
+  earnedLeaveMinutes: number;
+  sickLeaveDays: number;
+  sickLeaveHours: number;
+  sickLeaveMinutes: number;
+  withOutPayLeaveDays: number;
+  withOutPayLeaveHours: number;
+  withOutPayLeaveMinutes: number;
+  workDeficitDays: number;
+  workDeficitHours: number;
+  workDeficitMinutes: number;
   id?: number;
 }
 export class addDraftDto {

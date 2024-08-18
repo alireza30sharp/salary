@@ -67,7 +67,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
       cellEditor: SelectUnitComponent,
       cellRenderer: SelectCellRendererParams,
       cellEditorParams: {
-        values: this._changeWorkShops.benefitDeductionsData$,
+        values: this._changeWorkShops.employeListData$,
         allowTyping: true,
         filterList: true,
         highlightMatch: true,
@@ -93,6 +93,121 @@ export class MonthlyPerformanceAddComponent implements OnInit {
         },
         {
           field: propertyOf<addWorkingTimesDetailDto>("dayWorkShiftHours"),
+          headerName: "ساعت",
+          editable: true,
+          valueFormatter: timeCellFormatter,
+          cellEditor: CellEditorTimeComponent,
+        },
+      ],
+    },
+    {
+      headerName: "مرخصی",
+      cellClass: "text-center",
+      children: [
+        {
+          headerName: "روز",
+          editable: true,
+          cellEditor: "agNumberCellEditor",
+          cellEditorParams: {
+            min: 0,
+            max: 31,
+          },
+          field: propertyOf<addWorkingTimesDetailDto>("sickLeaveDays"),
+        },
+        {
+          field: propertyOf<addWorkingTimesDetailDto>("sickLeaveHours"),
+          headerName: "ساعت",
+          editable: true,
+          valueFormatter: timeCellFormatter,
+          cellEditor: CellEditorTimeComponent,
+        },
+      ],
+    },
+    {
+      headerName: "مرخصی بدون حقوق",
+      cellClass: "text-center",
+      children: [
+        {
+          headerName: "روز",
+          editable: true,
+          cellEditor: "agNumberCellEditor",
+          cellEditorParams: {
+            min: 0,
+            max: 31,
+          },
+          field: propertyOf<addWorkingTimesDetailDto>("withOutPayLeaveDays"),
+        },
+        {
+          field: propertyOf<addWorkingTimesDetailDto>("withOutPayLeaveHours"),
+          headerName: "ساعت",
+          editable: true,
+          valueFormatter: timeCellFormatter,
+          cellEditor: CellEditorTimeComponent,
+        },
+      ],
+    },
+    {
+      headerName: "کسری کار",
+      cellClass: "text-center",
+      children: [
+        {
+          headerName: "روز",
+          editable: true,
+          cellEditor: "agNumberCellEditor",
+          cellEditorParams: {
+            min: 0,
+            max: 31,
+          },
+          field: propertyOf<addWorkingTimesDetailDto>("workDeficitDays"),
+        },
+        {
+          field: propertyOf<addWorkingTimesDetailDto>("workDeficitHours"),
+          headerName: "ساعت",
+          editable: true,
+          valueFormatter: timeCellFormatter,
+          cellEditor: CellEditorTimeComponent,
+        },
+      ],
+    },
+    {
+      headerName: "روز غیبت",
+      cellClass: "text-center",
+      children: [
+        {
+          headerName: "روز",
+          editable: true,
+          cellEditor: "agNumberCellEditor",
+          cellEditorParams: {
+            min: 0,
+            max: 31,
+          },
+          field: propertyOf<addWorkingTimesDetailDto>("absenceDays"),
+        },
+        {
+          field: propertyOf<addWorkingTimesDetailDto>("absanceHours"),
+          headerName: "ساعت",
+          editable: true,
+          valueFormatter: timeCellFormatter,
+          cellEditor: CellEditorTimeComponent,
+        },
+      ],
+    },
+    {
+      headerName: "ماموریت",
+      cellClass: "text-center",
+      children: [
+        {
+          headerName: "روز",
+          editable: true,
+          cellEditor: "agNumberCellEditor",
+          cellEditorParams: {
+            min: 0,
+            max: 31,
+          },
+          field: propertyOf<addWorkingTimesDetailDto>("missionDays"),
+        },
+        {
+          field: propertyOf<addWorkingTimesDetailDto>("missionHours"),
           headerName: "ساعت",
           editable: true,
           valueFormatter: timeCellFormatter,
@@ -174,9 +289,10 @@ export class MonthlyPerformanceAddComponent implements OnInit {
     flex: 1,
     filter: false,
     resizable: true,
+    minWidth: 100,
   };
   editType: "fullRow";
-  rowDataDefault = new Array<addWorkingTimesDetailDto>();
+  rowDataDefault = new Array<any>();
   selectRow = new Array<addWorkingTimesDetailDto>();
   listResult = new Array<addWorkingTimesDetailDto>();
   isShowLoadingDelete: boolean = false;
@@ -214,18 +330,6 @@ export class MonthlyPerformanceAddComponent implements OnInit {
           this.employeList = employeList;
         }
       });
-    this._changeWorkShops.benefitDeductionsData$
-      .pipe(delay(100))
-      .subscribe((benefitDeductionsData) => {
-        if (benefitDeductionsData) {
-          this.benefitDeductions = benefitDeductionsData;
-        }
-      });
-    this._changeWorkShops.activeWorkShopsSource$
-      .pipe(delay(100))
-      .subscribe((workShopId) => {
-        //   this.wageOrdersModel.workShopId = +workShopId;
-      });
   }
   handleMonthSelect(event: { month: number; year: number }) {
     console.log("Selected month:", event.month, "Selected year:", event.year);
@@ -241,8 +345,12 @@ export class MonthlyPerformanceAddComponent implements OnInit {
       )
       .subscribe({
         next: (res) => {
+          debugger;
           if (res.isOk) {
             this._toastService.success(res.data.message);
+            this.rowDataDefault = this.processWorkingTimes(
+              res.data.workingTimes
+            );
           }
         },
         error: (err) => {
@@ -293,7 +401,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
   }
   onRefrashSelected() {}
 
-  saveCellHandeler(details: any[]) {
+  saveCellHandeler(details: addWorkingTimesDetailDto[]) {
     this.listResult = details.map((detail) => {
       const dayWorkShiftHours = detail.dayWorkShiftHours
         ? Math.floor(Number(detail.dayWorkShiftHours) / 100)
@@ -315,7 +423,56 @@ export class MonthlyPerformanceAddComponent implements OnInit {
       const overTimeWorkShiftMinutes = detail.overTimeWorkShiftHours
         ? Number(detail.overTimeWorkShiftHours) % 100
         : 0;
-      console.table(this.listResult);
+
+      // فیلدهای جدید
+      const absenceDays = detail.absenceDays ?? 0;
+      const absanceHours = detail.absanceHours
+        ? Math.floor(Number(detail.absanceHours) / 100)
+        : 0;
+      const absanceHoursMinutes = detail.absanceHours
+        ? Number(detail.absanceHours) % 100
+        : 0;
+
+      const missionDays = detail.missionDays ?? 0;
+      const missionHours = detail.missionHours
+        ? Math.floor(Number(detail.missionHours) / 100)
+        : 0;
+      const missionMinutes = detail.missionHours
+        ? Number(detail.missionHours) % 100
+        : 0;
+
+      const earnedLeaveDays = detail.earnedLeaveDays ?? 0;
+      const earnedLeaveHours = detail.earnedLeaveHours
+        ? Math.floor(Number(detail.earnedLeaveHours) / 100)
+        : 0;
+      const earnedLeaveMinutes = detail.earnedLeaveHours
+        ? Number(detail.earnedLeaveHours) % 100
+        : 0;
+
+      const sickLeaveDays = detail.sickLeaveDays ?? 0;
+      const sickLeaveHours = detail.sickLeaveHours
+        ? Math.floor(Number(detail.sickLeaveHours) / 100)
+        : 0;
+      const sickLeaveMinutes = detail.sickLeaveHours
+        ? Number(detail.sickLeaveHours) % 100
+        : 0;
+
+      const withOutPayLeaveDays = detail.withOutPayLeaveDays ?? 0;
+      const withOutPayLeaveHours = detail.withOutPayLeaveHours
+        ? Math.floor(Number(detail.withOutPayLeaveHours) / 100)
+        : 0;
+      const withOutPayLeaveMinutes = detail.withOutPayLeaveHours
+        ? Number(detail.withOutPayLeaveHours) % 100
+        : 0;
+
+      const workDeficitDays = detail.workDeficitDays ?? 0;
+      const workDeficitHours = detail.workDeficitHours
+        ? Math.floor(Number(detail.workDeficitHours) / 100)
+        : 0;
+      const workDeficitMinutes = detail.workDeficitHours
+        ? Number(detail.workDeficitHours) % 100
+        : 0;
+
       return {
         employeeId: detail.employeeId,
         personalCode: detail.personalCode,
@@ -337,11 +494,105 @@ export class MonthlyPerformanceAddComponent implements OnInit {
         vacationHours: detail.vacationHours,
         vacationMinutes: detail.vacationMinutes,
         code: detail.code,
+        absenceDays: absenceDays,
+        absanceHours: absanceHours,
+        absanceHoursMinutes: absanceHoursMinutes,
+        missionDays: missionDays,
+        missionHours: missionHours,
+        missionMinutes: missionMinutes,
+        earnedLeaveDays: earnedLeaveDays,
+        earnedLeaveHours: earnedLeaveHours,
+        earnedLeaveMinutes: earnedLeaveMinutes,
+        sickLeaveDays: sickLeaveDays,
+        sickLeaveHours: sickLeaveHours,
+        sickLeaveMinutes: sickLeaveMinutes,
+        withOutPayLeaveDays: withOutPayLeaveDays,
+        withOutPayLeaveHours: withOutPayLeaveHours,
+        withOutPayLeaveMinutes: withOutPayLeaveMinutes,
+        workDeficitDays: workDeficitDays,
+        workDeficitHours: workDeficitHours,
+        workDeficitMinutes: workDeficitMinutes,
         id: detail.id,
       } as addWorkingTimesDetailDto;
     });
   }
+  formatToHHMM(hours: number, minutes: number): string | null {
+    if (hours === 0 && minutes === 0) {
+      return null;
+    }
 
+    const formattedHours = hours.toString().padStart(2, "0");
+    const formattedMinutes = minutes.toString().padStart(2, "0");
+
+    return `${formattedHours}${formattedMinutes}`;
+  }
+  processWorkingTimes(response: any[]) {
+    return response.map((detail) => {
+      return {
+        employeeId: detail.employeeId,
+        personalCode: detail.personnelCode,
+        yearNum: detail.yearNum,
+        monthNum: detail.monthNum,
+        dayWorkShiftDays: detail.dayWorkShiftDays,
+        dayWorkShiftHours: this.formatToHHMM(
+          detail.dayWorkShiftHours,
+          detail.dayWorkShiftMinutes
+        ),
+        nightWorkShiftDays: detail.nightWorkShiftDays,
+        nightWorkShiftHours: this.formatToHHMM(
+          detail.nightWorkShiftHours,
+          detail.nightWorkShiftMinutes
+        ),
+        overTimeWorkShiftDays: detail.overTimeWorkShiftDays,
+        overTimeWorkShiftHours: this.formatToHHMM(
+          detail.overTimeWorkShiftHours,
+          detail.overTimeWorkShiftMinutes
+        ),
+        vacationWorkShiftDays: detail.vacationWorkShiftDays,
+        vacationWorkShiftHours: this.formatToHHMM(
+          detail.vacationWorkShiftHours,
+          detail.vacationWorkShiftMinutes
+        ),
+        vacationDays: detail.vacationDays,
+        vacationHours: this.formatToHHMM(
+          detail.vacationHours,
+          detail.vacationMinutes
+        ),
+        code: detail.code,
+        absenceDays: detail.absenceDays,
+        absanceHours: this.formatToHHMM(
+          detail.absanceHours,
+          detail.absanceHoursMinutes
+        ),
+        missionDays: detail.missionDays,
+        missionHours: this.formatToHHMM(
+          detail.missionHours,
+          detail.missionMinutes
+        ),
+        earnedLeaveDays: detail.earnedLeaveDays,
+        earnedLeaveHours: this.formatToHHMM(
+          detail.earnedLeaveHours,
+          detail.earnedLeaveMinutes
+        ),
+        sickLeaveDays: detail.sickLeaveDays,
+        sickLeaveHours: this.formatToHHMM(
+          detail.sickLeaveHours,
+          detail.sickLeaveMinutes
+        ),
+        withOutPayLeaveDays: detail.withOutPayLeaveDays,
+        withOutPayLeaveHours: this.formatToHHMM(
+          detail.withOutPayLeaveHours,
+          detail.withOutPayLeaveMinutes
+        ),
+        workDeficitDays: detail.workDeficitDays,
+        workDeficitHours: this.formatToHHMM(
+          detail.workDeficitHours,
+          detail.workDeficitMinutes
+        ),
+        id: detail.id,
+      };
+    });
+  }
   cancelClickHandler() {
     this._location.back();
   }
