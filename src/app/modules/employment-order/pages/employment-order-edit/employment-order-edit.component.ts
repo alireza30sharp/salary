@@ -106,9 +106,11 @@ export class EmploymentOrderEditComponent implements OnInit {
         highlightMatch: true,
         valueListMaxHeight: 220,
       },
-      startEditing: true,
+      context: {
+        requerd: true,
+        startEditing: true,
+      },
       editable: true,
-      requerd: true,
     },
     {
       field: propertyOf<wageOrderDetailDto>("price"),

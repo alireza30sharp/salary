@@ -8,6 +8,7 @@ import { NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
 
 import {
   numberCellFormatter_valueFormatter,
+  numberValueParser,
   timeCellFormatter,
 } from "../../../../shared/interfaces/aggrid-master";
 import {
@@ -55,11 +56,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
     {
       field: propertyOf<addWorkingTimesDetailDto>("code"),
       headerName: "کد",
-      editable: true,
       cellClass: "text-center",
-      filter: "agNumberColumnFilter",
-      cellEditor: CellEditorNumberComponent,
-      valueFormatter: numberCellFormatter_valueFormatter,
     },
     {
       field: propertyOf<addWorkingTimesDetailDto>("employeeId"),
@@ -73,9 +70,11 @@ export class MonthlyPerformanceAddComponent implements OnInit {
         highlightMatch: true,
         valueListMaxHeight: 220,
       },
-      startEditing: true,
+      context: {
+        startEditing: true,
+        requerd: false,
+      },
       editable: true,
-      requerd: false,
     },
     {
       headerName: "کارکرد روزانه",
@@ -90,6 +89,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
             max: 31,
           },
           field: propertyOf<addWorkingTimesDetailDto>("dayWorkShiftDays"),
+          cellRenderer: "agAnimateShowChangeCellRenderer",
         },
         {
           field: propertyOf<addWorkingTimesDetailDto>("dayWorkShiftHours"),
@@ -290,6 +290,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
     filter: false,
     resizable: true,
     minWidth: 100,
+    enableCellChangeFlash: true,
   };
   editType: "fullRow";
   rowDataDefault = new Array<any>();
@@ -364,13 +365,14 @@ export class MonthlyPerformanceAddComponent implements OnInit {
         },
       });
   }
-  save() {
-    if (
-      this.addWorkingTimesDto?.addWorkingTimes &&
-      this.addWorkingTimesDto.addWorkingTimes.length > 0
-    ) {
+  saveHander() {
+    if (this.listResult.length > 0) {
+      let model: addWorkingTimesDto = {
+        addWorkingTimes: this.listResult,
+        workShopId: null,
+      };
       this._monthlyPerformanceService
-        .Add(this.addWorkingTimesDto)
+        .Add(model)
         .pipe(
           finalize(() => {
             this.showLoading = false;

@@ -178,8 +178,56 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
     if (!isValid) {
       event.data.isEdited = true;
       this.SaveSelected();
+      const newValue = event.newValue;
+
+      this.onFlashOneCell(newValue);
     }
   }
+  onFlashOneCell(newValue: any) {
+    if (this.gridApi && this.lastFocusedColumn) {
+      // دریافت سلول متمرکز فعلی
+      const focusedCell = this.gridApi.getFocusedCell();
+      if (focusedCell) {
+        // دریافت rowNode از gridApi با استفاده از rowIndex
+        const rowNode = this.gridApi.getDisplayedRowAtIndex(
+          focusedCell.rowIndex
+        );
+
+        if (rowNode) {
+          rowNode.setDataValue(this.lastFocusedColumn, newValue);
+          // فلش کردن سلول‌ها با استفاده از rowNode و ستون متمرکز
+          this.gridApi.flashCells({
+            rowNodes: [rowNode],
+            columns: [this.lastFocusedColumn],
+          });
+          // this.gridApi.refreshCells({
+          //   rowNodes: [rowNode],
+          //   force: true,
+          // });
+        }
+      }
+    }
+  }
+
+  // onFlashOneCell() {
+  //   if (this.gridApi && this.lastFocusedColumn) {
+  //     // دریافت سلول متمرکز فعلی
+  //     const focusedCell = this.gridApi.getFocusedCell();
+  //     if (focusedCell) {
+  //       // دریافت rowNode از gridApi با استفاده از rowIndex
+  //       const rowNode = this.gridApi.getRowNode(
+  //         focusedCell.rowIndex.toString()
+  //       );
+
+  //       // فلش کردن سلول‌ها با استفاده از rowNode و ستون متمرکز
+  //       this.gridApi.flashCells({
+  //         rowNodes: [rowNode],
+  //         columns: [this.lastFocusedColumn],
+  //       });
+  //     }
+  //   }
+  // }
+
   cellEditingStarted(event) {
     const focusedCell = this.gridApi.getFocusedCell();
     if (focusedCell) {
@@ -210,6 +258,8 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
     const focusedCell = this.gridApi.getFocusedCell();
     if (focusedCell) {
       const column = focusedCell.column;
+      this.lastFocusedColumn = column.getColId(); // به روز رسانی ستون متمرکز
+
       const colDef = column.getColDef();
       if (colDef.editable) {
         this.gridApi.startEditingCell({

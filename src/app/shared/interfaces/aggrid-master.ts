@@ -103,7 +103,17 @@ export class AgGridMaster {
   onGridReady(params) {
     this.gridApi = params.api;
     params.api.sizeColumnsToFit();
-
+    // const updateValues = () => {
+    //   var rowCount = params.api!.getDisplayedRowCount();
+    //   // pick 2 cells at random to update
+    //   for (var i = 0; i < 2; i++) {
+    //     var row = Math.floor(Math.random() * rowCount);
+    //     var rowNode = params.api!.getDisplayedRowAtIndex(row)!;
+    //     var col = ["dayWorkShiftDays"][Math.floor(Math.random() * 6)];
+    //     rowNode.setDataValue(col, Math.floor(Math.random() * 10000));
+    //   }
+    // };
+    // setInterval(updateValues, 250);
     // var columnDefs = this.gridApi.getColumnDefs();
 
     // this.gridApi.updateGridOptions(columnDefs as any);
@@ -803,6 +813,12 @@ export function formatDate(date: Date | number) {
     month: "short",
     year: undefined,
   }).format(new Date(date));
+}
+export function numberValueParser(params: ValueParserParams) {
+  return Number(params.newValue);
+}
+export function formatNumber(number: number) {
+  return Math.floor(number).toLocaleString();
 }
 export function numberCellFormatter_valueFormatter(
   params: ValueFormatterParams
