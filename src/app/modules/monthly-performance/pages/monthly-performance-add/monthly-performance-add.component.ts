@@ -288,6 +288,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
   defaultColDef: AgGridInterFace = {
     flex: 1,
     filter: false,
+    suppressHeaderMenuButton: true,
     resizable: true,
     minWidth: 100,
     enableCellChangeFlash: true,

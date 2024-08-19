@@ -67,7 +67,6 @@ export class WageOrdersAddComponent implements OnInit {
       headerName: "مبلغ",
       editable: true,
       cellClass: "text-center",
-      filter: "agNumberColumnFilter",
       cellEditor: CellEditorNumberComponent,
       valueFormatter: numberCellFormatter_valueFormatter,
     },
@@ -121,7 +120,6 @@ export class WageOrdersAddComponent implements OnInit {
       headerName: "مبلغ",
       editable: true,
       cellClass: "text-center",
-      filter: "agNumberColumnFilter",
       cellEditor: CellEditorNumberComponent,
       valueFormatter: numberCellFormatter_valueFormatter,
     },
@@ -146,15 +144,15 @@ export class WageOrdersAddComponent implements OnInit {
   benefitsDefaultColDef: AgGridInterFace = {
     flex: 1,
     minWidth: 100,
-    filter: true,
-
+    filter: false,
+    suppressHeaderMenuButton: true,
     resizable: true,
   };
   defaultColDef: AgGridInterFace = {
     flex: 1,
     minWidth: 100,
-    filter: true,
-
+    filter: false,
+    suppressHeaderMenuButton: true,
     resizable: true,
   };
   editType = "fullRow";

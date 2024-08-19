@@ -35,9 +35,6 @@ export class AgGridMaster {
     '<span class="ag-overlay-loading-center">رکوردی یافت نشد</span>';
 
   gridOptions: GridOptions = {
-    // allow every column to be aggregated
-    // allow every column to be grouped
-    // allow every column to be pivoted
     enableRangeSelection: false,
     rowSelection: "multiple",
     suppressDragLeaveHidesColumns: false,
