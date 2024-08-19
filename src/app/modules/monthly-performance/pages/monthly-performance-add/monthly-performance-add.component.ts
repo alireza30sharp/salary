@@ -366,6 +366,8 @@ export class MonthlyPerformanceAddComponent implements OnInit {
         },
       });
   }
+
+  onRefrashSelected() {}
   saveHander() {
     if (this.listResult.length > 0) {
       let model: addWorkingTimesDto = {
@@ -402,7 +404,6 @@ export class MonthlyPerformanceAddComponent implements OnInit {
       this.showLoading = false;
     }
   }
-  onRefrashSelected() {}
 
   saveCellHandeler(details: addWorkingTimesDetailDto[]) {
     this.listResult = details.map((detail) => {
@@ -425,6 +426,20 @@ export class MonthlyPerformanceAddComponent implements OnInit {
         : 0;
       const overTimeWorkShiftMinutes = detail.overTimeWorkShiftHours
         ? Number(detail.overTimeWorkShiftHours) % 100
+        : 0;
+
+      const vacationWorkShiftHours = detail.vacationWorkShiftHours
+        ? Math.floor(Number(detail.vacationWorkShiftHours) / 100)
+        : 0;
+      const vacationWorkShiftMinutes = detail.vacationWorkShiftHours
+        ? Number(detail.vacationWorkShiftHours) % 100
+        : 0;
+
+      const vacationHours = detail.vacationHours
+        ? Math.floor(Number(detail.vacationHours) / 100)
+        : 0;
+      const vacationMinutes = detail.vacationHours
+        ? Number(detail.vacationHours) % 100
         : 0;
 
       // فیلدهای جدید
@@ -491,11 +506,11 @@ export class MonthlyPerformanceAddComponent implements OnInit {
         overTimeWorkShiftHours: overTimeWorkShiftHours,
         overTimeWorkShiftMinutes: overTimeWorkShiftMinutes,
         vacationWorkShiftDays: detail.vacationWorkShiftDays,
-        vacationWorkShiftHours: detail.vacationWorkShiftHours,
-        vacationWorkShiftMinutes: detail.vacationWorkShiftMinutes,
+        vacationWorkShiftHours: vacationWorkShiftHours,
+        vacationWorkShiftMinutes: vacationWorkShiftMinutes,
         vacationDays: detail.vacationDays,
-        vacationHours: detail.vacationHours,
-        vacationMinutes: detail.vacationMinutes,
+        vacationHours: vacationHours,
+        vacationMinutes: vacationMinutes,
         code: detail.code,
         absenceDays: absenceDays,
         absanceHours: absanceHours,
@@ -519,6 +534,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
       } as addWorkingTimesDetailDto;
     });
   }
+
   formatToHHMM(hours: number, minutes: number): string | null {
     if (hours === 0 && minutes === 0) {
       return null;
@@ -529,6 +545,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
 
     return `${formattedHours}${formattedMinutes}`;
   }
+
   processWorkingTimes(response: any[]) {
     return response.map((detail) => {
       return {
@@ -596,6 +613,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
       };
     });
   }
+
   cancelClickHandler() {
     this._location.back();
   }

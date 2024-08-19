@@ -83,6 +83,15 @@ export class AgGridMaster {
         { statusPanel: "agAggregationComponent" },
       ],
     },
+    suppressAdvancedFilterEval: true,
+    suppressAggFilteredOnly: true,
+    suppressAutoSize: true,
+    suppressBrowserResizeObserver: true,
+    suppressCellFocus: true,
+    suppressExcelExport: true,
+    suppressExpandablePivotGroups: true,
+    suppressRowDrag: true,
+    suppressClearOnFillReduction: true,
   };
 
   ckeditorConfig = {
