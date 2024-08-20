@@ -45,6 +45,7 @@
     [defaultColDef]="defaultColDef"
     [rowSelection]="'multiple'"
     (saveCellChange)="saveCellHandeler($event)"
+    (selectedRowsChange)="selectedRowsChange($event)"
   ></ag-grid-data>
   <ng-template #footer>
     <ki-button
@@ -53,6 +54,14 @@
       [showLoading]="showLoading"
       [title]="'ذخیره اطلاعات'"
       (clickCallback)="saveHander()"
+    >
+    </ki-button>
+    <ki-button
+      btnType="danger"
+      [iconClassName]="'fa-solid fa-floppy-disk'"
+      [showLoading]="showLoading"
+      [title]="'حذف'"
+      (clickCallback)="removeCell()"
     >
     </ki-button>
   </ng-template>

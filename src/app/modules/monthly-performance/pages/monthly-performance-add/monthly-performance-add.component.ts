@@ -30,11 +30,13 @@ import { ToastService } from "../../../../shared/services";
 import { MonthlyPerformanceService } from "../../services/monthlyPerformance.service";
 import {
   addDraftDto,
+  addWorkingTimesDeleteDto,
   addWorkingTimesDetailDto,
   addWorkingTimesDto,
 } from "../../models";
 import { maskPrefixTaxRate, monthlyList } from "../../../../base/models/rul";
 import { Location } from "@angular/common";
+import { ConfirmInterFace } from "../../../../shared/ki-components/ki-confirmation/confirm.interface";
 @Component({
   selector: "app-monthly-performance-add",
   templateUrl: "./monthly-performance-add.component.html",
@@ -65,8 +67,16 @@ export class MonthlyPerformanceAddComponent implements OnInit {
     },
     {
       field: propertyOf<addWorkingTimesDetailDto>("employeeId"),
-      headerName: "نام و نام خانوادگی",
-
+      headerName: "نام و نام   خانوادگی",
+      cellEditor: SelectUnitComponent,
+      cellRenderer: SelectCellRendererParams,
+      cellEditorParams: {
+        values: this._changeWorkShops.employeListData$,
+        allowTyping: true,
+        filterList: true,
+        highlightMatch: true,
+        valueListMaxHeight: 220,
+      },
       width: 150,
     },
     {
@@ -324,7 +334,8 @@ export class MonthlyPerformanceAddComponent implements OnInit {
     private _changeWorkShops: ChangeWorkShopsService,
     private _toastService: ToastService,
     private _monthlyPerformanceService: MonthlyPerformanceService,
-    private readonly _location: Location
+    private readonly _location: Location,
+    private _modalService: ModalService
   ) {
     this.persianBirthDate = DateUtilies.convertDateToNgbDateStruct(
       new Date().toLocaleDateString()
@@ -358,7 +369,6 @@ export class MonthlyPerformanceAddComponent implements OnInit {
       )
       .subscribe({
         next: (res) => {
-          debugger;
           if (res.isOk) {
             this._toastService.success(res.data.message);
             this.rowDataDefault = this.processWorkingTimes(
@@ -415,7 +425,9 @@ export class MonthlyPerformanceAddComponent implements OnInit {
       this.showLoading = false;
     }
   }
-
+  selectedRowsChange(details: addWorkingTimesDetailDto[]) {
+    this.selectRow = details;
+  }
   saveCellHandeler(details: addWorkingTimesDetailDto[]) {
     this.listResult = details.map((detail) => {
       const dayWorkShiftHours = detail.dayWorkShiftHours
@@ -628,7 +640,46 @@ export class MonthlyPerformanceAddComponent implements OnInit {
   cancelClickHandler() {
     this._location.back();
   }
+  removeCell() {
+    const params: ConfirmInterFace = {
+      acceptText: "بله",
+      declineText: "خیر",
+      description: "آیا از عملیات مورد نظر اطمینان دارید؟",
+      title: "حذف" + " " + `"${this.selectRow.map((f) => f.code).toString()}"`,
+      type: "Confirm",
+    };
+    this._modalService.showConfirm(params, false).then((res) => {
+      if (res) {
+        if (this.selectRow.length) {
+          let model: addWorkingTimesDeleteDto = {
+            deleteWorkingTimesId: this.selectRow.map((f) => f.id),
+            workShopId: null,
+          };
+          this.onDeleteItem(model);
+        }
+      }
+    });
+  }
 
+  onDeleteItem(item: addWorkingTimesDeleteDto) {
+    this._monthlyPerformanceService.delete(item).subscribe({
+      next: (res) => {
+        if (res.isOk) {
+          this.clickSearchHander();
+        }
+      },
+      error: (err) => {
+        let msg = "";
+        if (err.error.messages) {
+          this._toastService.error(err.error.messages);
+          msg = err.error.messages.join(" ");
+        } else if (err.error.message) {
+          this._toastService.error(err.error.message);
+          msg = err.error.message.join(" ");
+        }
+      },
+    });
+  }
   onSelectedRowsChangeEvent(event: Array<any>) {}
   private generateYearlyList() {
     for (let year = 1360; year <= 1500; year++) {
