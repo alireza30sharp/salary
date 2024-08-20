@@ -23,6 +23,8 @@ import {
   GridReadyEvent,
   GridSizeChangedEvent,
   PaginationNumberFormatterParams,
+  SizeColumnsToContentStrategy,
+  SizeColumnsToFitGridStrategy,
   SuppressKeyboardEventParams,
   ValueParserParams,
 } from "ag-grid-community";
@@ -120,6 +122,10 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
   @Output() editCellChange = new EventEmitter<any>();
   @Output() saveCellChange = new EventEmitter<any>();
   @Output() DesignerclickEvent = new EventEmitter<any>();
+
+  autoSizeStrategy: SizeColumnsToContentStrategy = {
+    type: "fitCellContents",
+  };
   public getRowId: GetRowIdFunc = (params: GetRowIdParams) => {
     if (this.rowId) {
       return params.data[this.rowId].toString();

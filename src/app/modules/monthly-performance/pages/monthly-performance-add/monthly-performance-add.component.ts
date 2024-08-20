@@ -52,11 +52,13 @@ export class MonthlyPerformanceAddComponent implements OnInit {
     {
       headerName: "ردیف",
       valueGetter: "node.rowIndex + 1",
+      width: 80,
     },
     {
       field: propertyOf<addWorkingTimesDetailDto>("code"),
       headerName: "کد",
       cellClass: "text-center",
+      width: 80,
     },
     {
       field: propertyOf<addWorkingTimesDetailDto>("employeeId"),
@@ -75,6 +77,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
         requerd: false,
       },
       editable: true,
+      width: 150,
     },
     {
       headerName: "کارکرد روزانه",
@@ -90,6 +93,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
           },
           field: propertyOf<addWorkingTimesDetailDto>("dayWorkShiftDays"),
           cellRenderer: "agAnimateShowChangeCellRenderer",
+          width: 80,
         },
         {
           field: propertyOf<addWorkingTimesDetailDto>("dayWorkShiftHours"),
@@ -97,6 +101,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
           editable: true,
           valueFormatter: timeCellFormatter,
           cellEditor: CellEditorTimeComponent,
+          width: 80,
         },
       ],
     },
@@ -113,6 +118,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
             max: 31,
           },
           field: propertyOf<addWorkingTimesDetailDto>("sickLeaveDays"),
+          width: 80,
         },
         {
           field: propertyOf<addWorkingTimesDetailDto>("sickLeaveHours"),
@@ -120,6 +126,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
           editable: true,
           valueFormatter: timeCellFormatter,
           cellEditor: CellEditorTimeComponent,
+          width: 80,
         },
       ],
     },
@@ -136,6 +143,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
             max: 31,
           },
           field: propertyOf<addWorkingTimesDetailDto>("withOutPayLeaveDays"),
+          width: 80,
         },
         {
           field: propertyOf<addWorkingTimesDetailDto>("withOutPayLeaveHours"),
@@ -143,6 +151,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
           editable: true,
           valueFormatter: timeCellFormatter,
           cellEditor: CellEditorTimeComponent,
+          width: 80,
         },
       ],
     },
@@ -159,6 +168,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
             max: 31,
           },
           field: propertyOf<addWorkingTimesDetailDto>("workDeficitDays"),
+          width: 80,
         },
         {
           field: propertyOf<addWorkingTimesDetailDto>("workDeficitHours"),
@@ -166,6 +176,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
           editable: true,
           valueFormatter: timeCellFormatter,
           cellEditor: CellEditorTimeComponent,
+          width: 80,
         },
       ],
     },
@@ -182,6 +193,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
             max: 31,
           },
           field: propertyOf<addWorkingTimesDetailDto>("absenceDays"),
+          width: 80,
         },
         {
           field: propertyOf<addWorkingTimesDetailDto>("absanceHours"),
@@ -189,6 +201,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
           editable: true,
           valueFormatter: timeCellFormatter,
           cellEditor: CellEditorTimeComponent,
+          width: 80,
         },
       ],
     },
@@ -205,6 +218,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
             max: 31,
           },
           field: propertyOf<addWorkingTimesDetailDto>("missionDays"),
+          width: 80,
         },
         {
           field: propertyOf<addWorkingTimesDetailDto>("missionHours"),
@@ -212,6 +226,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
           editable: true,
           valueFormatter: timeCellFormatter,
           cellEditor: CellEditorTimeComponent,
+          width: 80,
         },
       ],
     },
@@ -228,6 +243,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
             max: 31,
           },
           field: propertyOf<addWorkingTimesDetailDto>("nightWorkShiftDays"),
+          width: 80,
         },
         {
           field: propertyOf<addWorkingTimesDetailDto>("nightWorkShiftHours"),
@@ -235,6 +251,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
           editable: true,
           valueFormatter: timeCellFormatter,
           cellEditor: CellEditorTimeComponent,
+          width: 80,
         },
       ],
     },
@@ -251,6 +268,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
             max: 31,
           },
           field: propertyOf<addWorkingTimesDetailDto>("overTimeWorkShiftDays"),
+          width: 80,
         },
         {
           field: propertyOf<addWorkingTimesDetailDto>("overTimeWorkShiftHours"),
@@ -258,6 +276,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
           editable: true,
           valueFormatter: timeCellFormatter,
           cellEditor: CellEditorTimeComponent,
+          width: 80,
         },
       ],
     },
@@ -274,6 +293,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
             max: 31,
           },
           field: propertyOf<addWorkingTimesDetailDto>("vacationDays"),
+          width: 80,
         },
         {
           field: propertyOf<addWorkingTimesDetailDto>("vacationHours"),
@@ -281,17 +301,18 @@ export class MonthlyPerformanceAddComponent implements OnInit {
           editable: true,
           valueFormatter: timeCellFormatter,
           cellEditor: CellEditorTimeComponent,
+          width: 80,
         },
       ],
     },
   ];
   defaultColDef: AgGridInterFace = {
-    flex: 1,
     filter: false,
     suppressHeaderMenuButton: true,
     resizable: true,
-    minWidth: 100,
+    suppressSizeToFit: true,
     enableCellChangeFlash: true,
+    width: 100,
   };
   editType: "fullRow";
   rowDataDefault = new Array<any>();
