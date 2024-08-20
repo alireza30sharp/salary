@@ -123,8 +123,8 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
   @Output() saveCellChange = new EventEmitter<any>();
   @Output() DesignerclickEvent = new EventEmitter<any>();
 
-  autoSizeStrategy: SizeColumnsToContentStrategy = {
-    type: "fitCellContents",
+  autoSizeStrategy: SizeColumnsToFitGridStrategy = {
+    type: "fitGridWidth",
   };
   public getRowId: GetRowIdFunc = (params: GetRowIdParams) => {
     if (this.rowId) {

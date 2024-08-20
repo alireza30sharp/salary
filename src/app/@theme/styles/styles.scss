@@ -77,6 +77,13 @@ ag-grid-angular {
   display: block;
   flex: 1;
 }
+
+.ag-header-cell-label{
+  justify-content: center !important;
+}
+.ag-header-group-cell {
+  justify-content: center !important;
+}
 .ag-column-drop,
 .ag-header-row-column-group,
 .ag-header-row-column {

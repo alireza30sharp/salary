@@ -63,20 +63,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
     {
       field: propertyOf<addWorkingTimesDetailDto>("employeeId"),
       headerName: "نام و نام خانوادگی",
-      cellEditor: SelectUnitComponent,
-      cellRenderer: SelectCellRendererParams,
-      cellEditorParams: {
-        values: this._changeWorkShops.employeListData$,
-        allowTyping: true,
-        filterList: true,
-        highlightMatch: true,
-        valueListMaxHeight: 220,
-      },
-      context: {
-        startEditing: true,
-        requerd: false,
-      },
-      editable: true,
+
       width: 150,
     },
     {
