@@ -53,6 +53,9 @@ export class MonthlyPerformanceAddComponent implements OnInit {
       headerName: "ردیف",
       valueGetter: "node.rowIndex + 1",
       width: 80,
+      headerCheckboxSelection: true,
+      checkboxSelection: true,
+      showDisabledCheckboxes: true,
     },
     {
       field: propertyOf<addWorkingTimesDetailDto>("code"),
