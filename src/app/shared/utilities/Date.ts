@@ -79,4 +79,11 @@ export class DateUtilies {
     const now = moment();
     return now.jYear();
   }
+  static generateYearlyList(): Array<any> {
+    let yearlyList = [];
+    for (let year = 1360; year <= 1500; year++) {
+      yearlyList.push({ label: year.toString(), value: year });
+    }
+    return yearlyList;
+  }
 }

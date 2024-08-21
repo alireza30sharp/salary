@@ -3,8 +3,10 @@ import { Form } from "@angular/forms";
 import { BenefitDeductionEmployeesDto } from "../../../models/benefit-deduction-employees.model";
 import { NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
 import { SelectOptionInterface } from "../../../../shared/interfaces/select-option.interface";
-import { genderList } from "../../../models/rul";
+import { genderList, monthlyList } from "../../../models/rul";
 import { DateUtilies } from "../../../../shared/utilities/Date";
+import { ChangeWorkShopsService } from "../../../../services/change-work-shop.service";
+import { delay } from "rxjs";
 
 @Component({
   selector: "app-benefit-deduction-employees-form",
@@ -13,29 +15,51 @@ import { DateUtilies } from "../../../../shared/utilities/Date";
 })
 export class BenefitDeductionEmployeesFormComponent implements OnInit {
   @Input() submitButtonId?: string = "submit-button-employes-benefit";
-  @Input() model: BenefitDeductionEmployeesDto = new BenefitDeductionEmployeesDto();
+  @Input() model: BenefitDeductionEmployeesDto =
+    new BenefitDeductionEmployeesDto();
   @Output() submitCallback = new EventEmitter<BenefitDeductionEmployeesDto>();
   persianBirthDate: NgbDateStruct;
-  genderOptions: SelectOptionInterface<number>[] = [];
-
+  benefitDeductions?: SelectOptionInterface<any>[];
+  employeList?: SelectOptionInterface<any>[];
+  yearlyList = [];
+  monthlyList = monthlyList;
   lockupsIsLoading: boolean = false;
   setFocusItem: boolean = false;
-  constructor() {}
+  constructor(private _changeWorkShops: ChangeWorkShopsService) {
+    this._changeWorkShops.benefitAndDeductionsSource$
+      .pipe(delay(100))
+      .subscribe((benefitDeductionsData) => {
+        if (benefitDeductionsData) {
+          this.benefitDeductions = benefitDeductionsData;
+        }
+      });
+    this._changeWorkShops.employeListData$
+      .pipe(delay(100))
+      .subscribe((employeList) => {
+        if (employeList) {
+          this.employeList = employeList;
+        }
+      });
+  }
   ngOnInit(): void {
-    this.genderOptions = genderList.map((item) => ({
-      label: item.label,
-      value: item.value,
-    }));
     if (this.model.dateAction) {
       this.persianBirthDate = DateUtilies.convertDateToNgbDateStruct(
         this.model.dateAction
       );
     }
+    this.persianBirthDate = DateUtilies.convertDateToNgbDateStruct(
+      new Date().toLocaleDateString()
+    );
+    this.yearlyList = DateUtilies.generateYearlyList();
+    this.model.month = this.model.month
+      ? this.model.month
+      : DateUtilies.getCurrentMonth().value;
+    this.model.year = this.model.year
+      ? this.model.year
+      : DateUtilies.getCurrentYear();
   }
   submitHandler(companyForm: any) {
-    this.model.dateAction = DateUtilies.convertDate(
-      this.persianBirthDate
-    );
+    this.model.dateAction = DateUtilies.convertDate(this.persianBirthDate);
     this.submitCallback.emit(this.model);
     this.setFocusItem = Object.assign({}, true);
     this.model = new BenefitDeductionEmployeesDto();

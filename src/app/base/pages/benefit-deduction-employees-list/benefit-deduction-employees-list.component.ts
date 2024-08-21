@@ -12,6 +12,7 @@ import { ConfirmInterFace } from "../../../shared/ki-components/ki-confirmation/
 import { BenefitDeductionEmployeesService } from "../../services/benefit-deduction-employees.service";
 import { BenefitDeductionEmployeesDto } from "../../models/benefit-deduction-employees.model";
 import { Location } from "@angular/common";
+import { ClientPrerequisitsService } from "../../../services/client-prerequisits";
 
 @Component({
   selector: "app-benefit-deduction-employees-list",
@@ -55,9 +56,15 @@ export class BenefitDeductionEmployeesListComponent implements OnInit {
     private _tourService: TourService,
     private _router: Router,
     private _toastService: ToastService,
+    private clientPrerequis: ClientPrerequisitsService,
 
     private readonly _location: Location
-  ) {}
+  ) {
+    clientPrerequis.getEmployeeClientPrerequisites(true).subscribe((res) => {});
+    clientPrerequis
+      .getBenefitDaductionClientPrerequisites(true)
+      .subscribe((res) => {});
+  }
   ngOnInit(): void {
     this.getList();
   }

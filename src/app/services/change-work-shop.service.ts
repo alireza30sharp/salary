@@ -21,6 +21,12 @@ export class ChangeWorkShopsService {
   deductionsSource$ = new ReplaySubject<Array<WorkShopsOptionsInterFace>>(1);
   deductionsData$ = this.deductionsSource$.asObservable();
   //
+  //-مزایا , کسورات
+  benefitAndDeductionsSource$ = new ReplaySubject<
+    Array<WorkShopsOptionsInterFace>
+  >(1);
+  benefitAndDeductionsData$ = this.benefitAndDeductionsSource$.asObservable();
+  //
   private _WorkShopsOptionsSource$ = new ReplaySubject<
     Array<WorkShopsOptionsInterFace>
   >(1);
@@ -69,6 +75,10 @@ export class ChangeWorkShopsService {
   }
   setDeductions(list: Array<WorkShopsOptionsInterFace>) {
     this.deductionsSource$.next(list);
+  }
+
+  setbenefitAndDeductions(list: Array<WorkShopsOptionsInterFace>) {
+    this.benefitAndDeductionsSource$.next(list);
   }
   constructor() {}
 }

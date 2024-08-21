@@ -87,10 +87,15 @@ export class ClientPrerequisitsService {
                 label: item.name,
                 value: item.id,
               }));
+            let all = prerequisits.data.map((item) => ({
+              label: item.name,
+              value: item.id,
+            }));
             this._changeWorkShopsService.setBenefitDeductionsList(
               benefitDeductions
             );
             this._changeWorkShopsService.setDeductions(deductions);
+            this._changeWorkShopsService.setbenefitAndDeductions(all);
           }
         }),
         catchError(

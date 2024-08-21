@@ -7,51 +7,7 @@
     >
       <div class="row">
         <ki-form-group
-          class="col-6"
-          [label]="'سال '"
-          [showRequireSign]="true"
-          [errorMessage]="firstName.errors?.required ? 'فیلد اجباری' : ''"
-          [hideError]="
-            !(
-              (firstName.touched || companyForm.submitted) &&
-              firstName.errors?.required
-            )
-          "
-        >
-          <ki-input
-            name="firstName"
-            [setFocusItem]="setFocusItem"
-            [fullWidth]="true"
-            [(ngModel)]="model.year"
-            #firstName="ngModel"
-            required
-          ></ki-input>
-        </ki-form-group>
-        <ki-form-group
-          class="col-6"
-          [label]="'ماه'"
-          [showRequireSign]="true"
-          [errorMessage]="lastName.errors?.required ? 'فیلد اجباری' : ''"
-          [hideError]="
-            !(
-              (lastName.touched || companyForm.submitted) &&
-              lastName.errors?.required
-            )
-          "
-        >
-          <ki-input
-            name="lastName"
-            [fullWidth]="true"
-            [(ngModel)]="model.month"
-            #lastName="ngModel"
-            required
-          ></ki-input>
-        </ki-form-group>
-      </div>
-
-      <div class="row">
-        <ki-form-group
-          [label]="'تاریخ عملیات'"
+          [label]="'تاریخ'"
           [showRequireSign]="true"
           class="col-6"
           [errorMessage]="
@@ -68,48 +24,138 @@
             required
           ></ki-date-picker>
         </ki-form-group>
-          <ki-form-group class="col-6" [label]="' مزایا کسورات'">
-            <ki-select
-              #genderID="ngModel"
-              name="gender"
-              [placeholder]="'جنسیت'"
-              [options]="genderOptions"
-              [allowClear]="true"
-              [(ngModel)]="model.benefitDeductionId"
-            >
-            </ki-select>
-          </ki-form-group>
-      </div>
-      <div class="row">
-        <ki-form-group class="col-6" [label]="'نام کارمند'">
+        <ki-form-group
+          class="col-6"
+          [label]="'نام کارمند'"
+          [errorMessage]="employeeId.errors?.required ? 'فیلد اجباری' : ''"
+          [hideError]="
+            !(
+              (employeeId.touched || companyForm.submitted) &&
+              employeeId.errors?.required
+            )
+          "
+          [showRequireSign]="true"
+        >
           <ki-select
-            #genderID="ngModel"
-            name="gender"
-            [placeholder]="'جنسیت'"
-            [options]="genderOptions"
+            #employeeId="ngModel"
+            name="employeeId"
+            [placeholder]="'کارمند'"
+            [options]="employeList"
+            [allowClear]="true"
+            [(ngModel)]="model.employeeId"
+            required=""
+          >
+          </ki-select>
+        </ki-form-group>
+      </div>
+
+      <div class="row">
+        <ki-form-group
+          class="col-6"
+          [errorMessage]="
+            benefitDeductionId.errors?.required ? 'فیلد اجباری' : ''
+          "
+          [hideError]="
+            !(
+              (benefitDeductionId.touched || companyForm.submitted) &&
+              benefitDeductionId.errors?.required
+            )
+          "
+          [showRequireSign]="true"
+          [label]="'مزایا کسورات'"
+        >
+          <ki-select
+            #benefitDeductionId="ngModel"
+            name="benefitDeductionId"
+            [placeholder]="'مزایا کسورات'"
+            [options]="benefitDeductions"
             [allowClear]="true"
             [(ngModel)]="model.benefitDeductionId"
+            required
           >
           </ki-select>
         </ki-form-group>
         <ki-form-group
           class="col-6"
-          [label]="'توضیحات'"
+          [label]="'مبلغ'"
           [showRequireSign]="true"
-          [errorMessage]="comment.errors?.required ? 'فیلد اجباری' : ''"
+          [errorMessage]="
+            toMoney.errors?.isCurrency
+              ? 'مبلغ وارد شده کمتر از مبلغ است'
+              : 'فیلد اجباری'
+          "
           [hideError]="
             !(
-              (comment.touched || companyForm.submitted) &&
-              comment.errors?.required
+              ((toMoney.touched || companyForm.submitted) &&
+                toMoney.errors?.required) ||
+              toMoney.errors?.isCurrency
             )
           "
         >
+          <ki-input
+            name="toMoney"
+            [fullWidth]="true"
+            class="ltr"
+            [onlyNumber]="true"
+            [(ngModel)]="model.price"
+            #toMoney="ngModel"
+            [type]="'currency'"
+            [maskType]="'separator'"
+            required
+          ></ki-input>
+        </ki-form-group>
+      </div>
+      <div class="row">
+        <ki-form-group
+          [label]="'انتخاب ماه'"
+          class="col-6"
+          [errorMessage]="month.errors?.required ? 'فیلد اجباری' : ''"
+          [hideError]="
+            !(
+              (month.touched || companyForm.submitted) &&
+              month.errors?.required
+            )
+          "
+          [showRequireSign]="true"
+        >
+          <ki-select
+            [placeholder]="'انتخاب ماه'"
+            #month="ngModel"
+            name="month"
+            [options]="monthlyList"
+            [(ngModel)]="model.month"
+            [hideSelected]="false"
+            required
+          >
+          </ki-select>
+        </ki-form-group>
+        <ki-form-group
+          [label]="'انتخاب سال'"
+          class="col-6"
+          [errorMessage]="year.errors?.required ? 'فیلد اجباری' : ''"
+          [hideError]="
+            !((year.touched || companyForm.submitted) && year.errors?.required)
+          "
+          [showRequireSign]="true"
+        >
+          <ki-select
+            [placeholder]="'انتخاب سال'"
+            [options]="yearlyList"
+            [(ngModel)]="model.year"
+            #year="ngModel"
+            name="year"
+            required
+          >
+          </ki-select>
+        </ki-form-group>
+      </div>
+      <div class="row">
+        <ki-form-group class="col-12" [label]="'توضیحات'">
           <ki-textarea
             name="comment"
             [fullWidth]="true"
             [(ngModel)]="model.comment"
             #comment="ngModel"
-            required
           ></ki-textarea>
         </ki-form-group>
       </div>

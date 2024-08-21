@@ -325,9 +325,10 @@ export class MonthlyPerformanceAddComponent implements OnInit {
   persianBirthDate: NgbDateStruct;
   maskPrefixTaxRate = maskPrefixTaxRate;
   yearlyList = [];
+  monthlyList = monthlyList;
+
   listclientPrerequisits: clientPrerequisitsInterface[];
   cacheKeyType = cacheKeyEnum;
-  monthlyList = monthlyList;
   model: NgbDateStruct;
   addDraftDto = new addDraftDto();
   addWorkingTimesDto = new addWorkingTimesDto();
@@ -343,7 +344,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
     );
   }
   ngOnInit(): void {
-    this.generateYearlyList();
+    this.yearlyList = DateUtilies.generateYearlyList();
     this.addDraftDto.monthNum = DateUtilies.getCurrentMonth().value;
     this.addDraftDto.yearNum = DateUtilies.getCurrentYear();
   }
@@ -692,9 +693,4 @@ export class MonthlyPerformanceAddComponent implements OnInit {
       });
   }
   onSelectedRowsChangeEvent(event: Array<any>) {}
-  private generateYearlyList() {
-    for (let year = 1360; year <= 1500; year++) {
-      this.yearlyList.push({ label: year.toString(), value: year });
-    }
-  }
 }
