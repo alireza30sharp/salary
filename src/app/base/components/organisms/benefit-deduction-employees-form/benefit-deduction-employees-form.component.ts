@@ -21,8 +21,6 @@ export class BenefitDeductionEmployeesFormComponent implements OnInit {
   persianBirthDate: NgbDateStruct;
   benefitDeductions?: SelectOptionInterface<any>[];
   employeList?: SelectOptionInterface<any>[];
-  yearlyList = [];
-  monthlyList = monthlyList;
   lockupsIsLoading: boolean = false;
   setFocusItem: boolean = false;
   constructor(private _changeWorkShops: ChangeWorkShopsService) {
@@ -50,13 +48,6 @@ export class BenefitDeductionEmployeesFormComponent implements OnInit {
     this.persianBirthDate = DateUtilies.convertDateToNgbDateStruct(
       new Date().toLocaleDateString()
     );
-    this.yearlyList = DateUtilies.generateYearlyList();
-    this.model.month = this.model.month
-      ? this.model.month
-      : DateUtilies.getCurrentMonth().value;
-    this.model.year = this.model.year
-      ? this.model.year
-      : DateUtilies.getCurrentYear();
   }
   submitHandler(companyForm: any) {
     this.model.dateAction = DateUtilies.convertDate(this.persianBirthDate);

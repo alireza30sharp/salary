@@ -102,7 +102,7 @@ const component = [
     AngularSplitModule,
     ThemeModule.forRoot(),
     ToastrModule.forRoot({
-      timeOut: 1000,
+      timeOut: 5000,
       positionClass: "toast-bottom-right",
       preventDuplicates: true,
     }),

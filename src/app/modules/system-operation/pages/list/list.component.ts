@@ -9,11 +9,7 @@ import { ListViewFilterInterFace } from "../../../../shared/interfaces/list-view
   styleUrls: ["./list.component.scss"],
 })
 export class ListComponent implements OnInit {
-  configViewFilter: ListViewFilterInterFace = {
-    showAutoComplate: true,
-    showDatePicker: true,
-    showText: true,
-  };
+  configViewFilter: ListViewFilterInterFace = {};
   constructor(private _router: Router) {}
   ngOnInit(): void {}
 

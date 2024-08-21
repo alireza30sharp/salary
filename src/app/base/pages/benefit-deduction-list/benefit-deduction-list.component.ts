@@ -11,6 +11,8 @@ import { finalize } from "rxjs";
 import { ChangeWorkShopsService } from "../../../services/change-work-shop.service";
 import { ConfirmInterFace } from "../../../shared/ki-components/ki-confirmation/confirm.interface";
 import { Location } from "@angular/common";
+import { ListViewFilterInterFace } from "../../../shared/interfaces/list-view-filter-config.interface";
+import { ClientPrerequisitsService } from "../../../services/client-prerequisits";
 
 @Component({
   selector: "app-benefit-deduction-list",
@@ -66,18 +68,36 @@ export class BenefitDeductionListComponent implements OnInit {
   selectRow = new Array<BenefitDeductionDto>();
   isShowLoadingDelete: boolean = false;
   isShowLoadingRefrash: boolean = false;
+  configViewFilter: ListViewFilterInterFace = {
+    showFromDate: true,
+    showToDate: true,
+    showEmployeeId: true,
+    showBenefitDeduction: true,
+    showFromAmount: true,
+    showToAmount: true,
+    showComment: true,
+  };
   constructor(
     private _benefitDeductionService: BenefitDeductionService,
     private _modalService: ModalService,
     private _changeWorkShops: ChangeWorkShopsService,
     private readonly _location: Location,
-    private _toastService: ToastService
-  ) {}
+    private _toastService: ToastService,
+    private clientPrerequis: ClientPrerequisitsService
+  ) {
+    clientPrerequis.getEmployeeClientPrerequisites(true).subscribe((res) => {});
+    clientPrerequis
+      .getBenefitDaductionClientPrerequisites(true)
+      .subscribe((res) => {});
+  }
   ngOnInit(): void {
     this.getGetBenefitsDeductionsList();
     this._changeWorkShops.activeWorkShopsSource$.subscribe((workShopId) => {
       this.getGetBenefitsDeductionsList();
     });
+  }
+  onSearchHandelar(event) {
+    console.table(event);
   }
   cancelClickHandler() {
     this._location.back();

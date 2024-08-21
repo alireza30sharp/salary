@@ -1,7 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { NgbCalendar, NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
 import { DateUtilies } from "../../utilities/Date";
-import { ListViewFilterInterFace } from "../../interfaces/list-view-filter-config.interface";
+import {
+  ListViewFilterDataInterFace,
+  ListViewFilterInterFace,
+} from "../../interfaces/list-view-filter-config.interface";
+import { SelectOptionInterface } from "../../interfaces/select-option.interface";
+import { ChangeWorkShopsService } from "../../../services/change-work-shop.service";
+import { delay } from "rxjs";
 
 @Component({
   selector: "list-view-filter",
@@ -10,21 +16,52 @@ import { ListViewFilterInterFace } from "../../interfaces/list-view-filter-confi
 })
 export class ListViewFilterComponent {
   @Input() configViewFilter: ListViewFilterInterFace = {
-    showAutoComplate: false,
-    showDatePicker: false,
-    showText: false,
+    showFromAmount: false,
+    showToAmount: false,
+    showBenefitDeduction: false,
+    showEmployeeId: false,
+    showFromDate: false,
+    showToDate: false,
+    showComment: false,
   };
-
-  @Output() onAddNewClickCallback: EventEmitter<null> = new EventEmitter();
+  @Input() model: ListViewFilterDataInterFace = {
+    benefitDeduction: null,
+    comment: null,
+    employeeId: null,
+    fromAmount: null,
+    fromDate: null,
+    toAmount: null,
+    toDate: null,
+  };
   @Output() onSearchCallback = new EventEmitter<any>();
-
+  fromMoney: number = 0;
   currentDate: NgbDateStruct;
   showInactive: boolean;
-  constructor() {}
+  employeList?: SelectOptionInterface<any>[];
+  benefitDeductions?: SelectOptionInterface<any>[];
 
+  constructor(private _changeWorkShops: ChangeWorkShopsService) {}
+  ngAfterViewInit(): void {
+    this._changeWorkShops.employeListData$
+      .pipe(delay(100))
+      .subscribe((employeList) => {
+        if (employeList) {
+          this.employeList = employeList;
+        }
+      });
+    this._changeWorkShops.benefitAndDeductionsSource$
+      .pipe(delay(100))
+      .subscribe((benefitDeductionsData) => {
+        if (benefitDeductionsData) {
+          this.benefitDeductions = benefitDeductionsData;
+        }
+      });
+  }
   onSyncAllCLicked() {}
-
-  onAddNewClicked() {
-    this.onAddNewClickCallback.emit();
+  onEnter(e) {
+    this.fromMoney = +this.model.fromAmount;
+  }
+  clickSearchHander() {
+    this.onSearchCallback.emit(this.model);
   }
 }

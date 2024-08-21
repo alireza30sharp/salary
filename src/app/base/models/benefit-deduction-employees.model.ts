@@ -3,10 +3,8 @@ export class BenefitDeductionEmployeesDto {
   row_NO?: number;
   id?: number;
   benefitDeductionId: number;
-  employeeId:number; 
-  year:number;
-  month: number;
-  comment:string;
-  price:number;
-  dateAction: string
+  employeeId: number;
+  comment: string;
+  price: number;
+  dateAction: string;
 }

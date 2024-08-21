@@ -170,7 +170,10 @@ export class KiInputComponent implements ControlValueAccessor, OnChanges {
         }
         break;
       case "currency":
-        if (this.fromMoney?.model && +this._value < +this.fromMoney.model) {
+        let from = this.fromMoney?.model
+          ? this.fromMoney?.model
+          : this.fromMoney;
+        if (from && +this._value < +from) {
           return { isCurrency: true };
         }
         break;

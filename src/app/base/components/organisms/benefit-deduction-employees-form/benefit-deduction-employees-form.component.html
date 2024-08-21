@@ -105,50 +105,7 @@
           ></ki-input>
         </ki-form-group>
       </div>
-      <div class="row">
-        <ki-form-group
-          [label]="'انتخاب ماه'"
-          class="col-6"
-          [errorMessage]="month.errors?.required ? 'فیلد اجباری' : ''"
-          [hideError]="
-            !(
-              (month.touched || companyForm.submitted) &&
-              month.errors?.required
-            )
-          "
-          [showRequireSign]="true"
-        >
-          <ki-select
-            [placeholder]="'انتخاب ماه'"
-            #month="ngModel"
-            name="month"
-            [options]="monthlyList"
-            [(ngModel)]="model.month"
-            [hideSelected]="false"
-            required
-          >
-          </ki-select>
-        </ki-form-group>
-        <ki-form-group
-          [label]="'انتخاب سال'"
-          class="col-6"
-          [errorMessage]="year.errors?.required ? 'فیلد اجباری' : ''"
-          [hideError]="
-            !((year.touched || companyForm.submitted) && year.errors?.required)
-          "
-          [showRequireSign]="true"
-        >
-          <ki-select
-            [placeholder]="'انتخاب سال'"
-            [options]="yearlyList"
-            [(ngModel)]="model.year"
-            #year="ngModel"
-            name="year"
-            required
-          >
-          </ki-select>
-        </ki-form-group>
-      </div>
+
       <div class="row">
         <ki-form-group class="col-12" [label]="'توضیحات'">
           <ki-textarea

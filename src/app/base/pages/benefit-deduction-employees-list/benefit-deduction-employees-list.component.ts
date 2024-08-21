@@ -13,6 +13,7 @@ import { BenefitDeductionEmployeesService } from "../../services/benefit-deducti
 import { BenefitDeductionEmployeesDto } from "../../models/benefit-deduction-employees.model";
 import { Location } from "@angular/common";
 import { ClientPrerequisitsService } from "../../../services/client-prerequisits";
+import { ListViewFilterInterFace } from "../../../shared/interfaces/list-view-filter-config.interface";
 
 @Component({
   selector: "app-benefit-deduction-employees-list",
@@ -31,14 +32,6 @@ export class BenefitDeductionEmployeesListComponent implements OnInit {
       field: propertyOf<BenefitDeductionEmployeesDto>("workShopId"),
       hide: true,
     },
-
-    {
-      field: propertyOf<BenefitDeductionEmployeesDto>("month"),
-      headerName: "نام و نام خانوادگی",
-      filter: "agTextColumnFilter",
-      headerClass: "displayName",
-    },
-
     {
       field: propertyOf<BenefitDeductionEmployeesDto>("price"),
       headerName: "کد ملی",
@@ -50,6 +43,7 @@ export class BenefitDeductionEmployeesListComponent implements OnInit {
   selectRow = new Array<BenefitDeductionEmployeesDto>();
   isShowLoadingDelete: boolean = false;
   isShowLoadingRefrash: boolean = false;
+
   constructor(
     private _benefitDeductionEmployeesService: BenefitDeductionEmployeesService,
     private _modalService: ModalService,
