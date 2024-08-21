@@ -48,21 +48,24 @@
     (selectedRowsChange)="selectedRowsChange($event)"
   ></ag-grid-data>
   <ng-template #footer>
-    <ki-button
-      btnType="basic"
-      [iconClassName]="'fa-solid fa-floppy-disk'"
-      [showLoading]="showLoading"
-      [title]="'ذخیره اطلاعات'"
-      (clickCallback)="saveHander()"
-    >
-    </ki-button>
-    <ki-button
-      btnType="danger"
-      [iconClassName]="'fa-solid fa-floppy-disk'"
-      [showLoading]="showLoading"
-      [title]="'حذف'"
-      (clickCallback)="removeCell()"
-    >
-    </ki-button>
+    <div class="d-flex justify-content justify-content-between w-100">
+      <ki-button
+        btnType="danger"
+        [iconClassName]="'fa-solid fa-trash'"
+        [showLoading]="showLoadingDelete"
+        [disabled]="selectRow.length == 0"
+        [title]="'حذف'"
+        (clickCallback)="removeCell()"
+      >
+      </ki-button>
+      <ki-button
+        btnType="basic"
+        [iconClassName]="'fa-solid fa-floppy-disk'"
+        [showLoading]="showLoading"
+        [title]="'ذخیره اطلاعات'"
+        (clickCallback)="saveHander()"
+      >
+      </ki-button>
+    </div>
   </ng-template>
 </app-general-panel>

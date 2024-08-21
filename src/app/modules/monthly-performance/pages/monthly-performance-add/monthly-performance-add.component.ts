@@ -321,6 +321,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
   isShowLoadingDelete: boolean = false;
   showLoading: boolean = false;
   isShowLoadingRefrash: boolean = false;
+  showLoadingDelete: boolean = false;
   persianBirthDate: NgbDateStruct;
   maskPrefixTaxRate = maskPrefixTaxRate;
   yearlyList = [];
@@ -652,7 +653,9 @@ export class MonthlyPerformanceAddComponent implements OnInit {
       if (res) {
         if (this.selectRow.length) {
           let model: addWorkingTimesDeleteDto = {
-            deleteWorkingTimesId: this.selectRow.map((f) => f.id),
+            deleteWorkingTimesId: this.selectRow.map((f) => {
+              return { id: f.id };
+            }),
             workShopId: null,
           };
           this.onDeleteItem(model);
@@ -662,23 +665,31 @@ export class MonthlyPerformanceAddComponent implements OnInit {
   }
 
   onDeleteItem(item: addWorkingTimesDeleteDto) {
-    this._monthlyPerformanceService.delete(item).subscribe({
-      next: (res) => {
-        if (res.isOk) {
-          this.clickSearchHander();
-        }
-      },
-      error: (err) => {
-        let msg = "";
-        if (err.error.messages) {
-          this._toastService.error(err.error.messages);
-          msg = err.error.messages.join(" ");
-        } else if (err.error.message) {
-          this._toastService.error(err.error.message);
-          msg = err.error.message.join(" ");
-        }
-      },
-    });
+    this.showLoadingDelete = true;
+    this._monthlyPerformanceService
+      .delete(item)
+      .pipe(
+        finalize(() => {
+          this.showLoadingDelete = false;
+        })
+      )
+      .subscribe({
+        next: (res) => {
+          if (res.isOk) {
+            this.clickSearchHander();
+          }
+        },
+        error: (err) => {
+          let msg = "";
+          if (err.error.messages) {
+            this._toastService.error(err.error.messages);
+            msg = err.error.messages.join(" ");
+          } else if (err.error.message) {
+            this._toastService.error(err.error.message);
+            msg = err.error.message.join(" ");
+          }
+        },
+      });
   }
   onSelectedRowsChangeEvent(event: Array<any>) {}
   private generateYearlyList() {
