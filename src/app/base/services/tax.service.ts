@@ -15,6 +15,23 @@ export class TaxService {
     private readonly $http: HttpClient,
     private readonly urlSvc: ApiUrlService
   ) {}
+  test() {
+    let params: any = {};
+    let someConditionForDateFrom = null;
+    let someConditionForDateTo = "asda";
+    // اگر مقدار پارامتر null نیست، آن را به شیء params اضافه کنید.
+    if (someConditionForDateFrom !== null) {
+      params.DateFrom = someConditionForDateFrom;
+    }
+
+    if (someConditionForDateTo !== null) {
+      params.DateTo = someConditionForDateTo;
+    }
+
+    return this.$http.get<any>("https://localhost:7125/WeatherForecast", {
+      params: params,
+    });
+  }
 
   getTaxList(params?: WorkShopsFilter) {
     let PageNumber: number = 1;

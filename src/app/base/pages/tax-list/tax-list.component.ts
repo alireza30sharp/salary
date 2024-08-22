@@ -25,6 +25,7 @@ export class TaxListComponent implements OnInit {
       field: propertyOf<TaxDto>("row_No"),
       headerName: "row_NO",
       hide: true,
+      rowGroup: true,
     },
     {
       field: propertyOf<TaxDto>("workShopId"),
@@ -44,13 +45,15 @@ export class TaxListComponent implements OnInit {
     },
     {
       field: propertyOf<TaxDto>("fromMoneyStr"),
-      filter: "agTextColumnFilter",
       headerName: "از مبلغ",
+      aggFunc: "sum",
+      cellRenderer: "agAnimateShowChangeCellRenderer",
     },
     {
       field: propertyOf<TaxDto>("toMoneyStr"),
       headerName: "تا مبلغ",
-      filter: "agTextColumnFilter",
+      aggFunc: "sum",
+      cellRenderer: "agAnimateShowChangeCellRenderer",
     },
 
     {
@@ -63,6 +66,14 @@ export class TaxListComponent implements OnInit {
   selectRow = new Array<BenefitDeductionDto>();
   isShowLoadingDelete: boolean = false;
   isShowLoadingRefrash: boolean = false;
+  pinnedBottomRowData: [
+    {
+      fromMoneyStr: "BOTTOM (athlete)";
+      toMoneyStr: "BOTTOM (country)";
+    }
+  ];
+  grandTotalRow: "top" | "bottom" = "bottom";
+
   constructor(
     private _taxService: TaxService,
     private _modalService: ModalService,
@@ -75,6 +86,9 @@ export class TaxListComponent implements OnInit {
     this._changeWorkShops.activeWorkShopsSource$.subscribe((workShopId) => {
       this.getTaxList();
     });
+  }
+  test() {
+    this._taxService.test().subscribe((res) => {});
   }
   onRefrashSelected() {
     this.getTaxList();
