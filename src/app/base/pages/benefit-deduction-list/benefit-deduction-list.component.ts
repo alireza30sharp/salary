@@ -68,15 +68,7 @@ export class BenefitDeductionListComponent implements OnInit {
   selectRow = new Array<BenefitDeductionDto>();
   isShowLoadingDelete: boolean = false;
   isShowLoadingRefrash: boolean = false;
-  configViewFilter: ListViewFilterInterFace = {
-    showFromDate: true,
-    showToDate: true,
-    showEmployeeId: true,
-    showBenefitDeduction: true,
-    showFromAmount: true,
-    showToAmount: true,
-    showComment: true,
-  };
+
   constructor(
     private _benefitDeductionService: BenefitDeductionService,
     private _modalService: ModalService,
@@ -96,9 +88,7 @@ export class BenefitDeductionListComponent implements OnInit {
       this.getGetBenefitsDeductionsList();
     });
   }
-  onSearchHandelar(event) {
-    console.table(event);
-  }
+
   cancelClickHandler() {
     this._location.back();
   }

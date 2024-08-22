@@ -15,3 +15,4 @@ export { CellOperationsClickEvent } from "./cell-operations-click-event/cell-ope
 export { SelectCellRendererParams } from "./select-cell-render/select-cell-render";
 export { CellEditorCheckboxComponent } from "./cell-editor-checkbox/cell-editor-checkbox.component";
 export { CellEditorTimeComponent } from "./cell-editor-time/cell-editor-time.component";
+export { SumRenderer } from "./sum-renderer/sum-renderer";

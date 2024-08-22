@@ -16,6 +16,7 @@ import {
   CellEditorNumberComponent,
   CellEditorTimeComponent,
   SelectUnitComponent,
+  SumRenderer,
 } from "../../../../shared/components/ag-grid";
 import { SelectCellRendererParams } from "../../../../shared/components/ag-grid/select-cell-render/select-cell-render";
 import { ClientPrerequisitsService } from "../../../../services/client-prerequisits";
@@ -94,6 +95,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
           field: propertyOf<addWorkingTimesDetailDto>("dayWorkShiftDays"),
           cellRenderer: "agAnimateShowChangeCellRenderer",
           width: 80,
+          aggFunc: "sum",
         },
         {
           field: propertyOf<addWorkingTimesDetailDto>("dayWorkShiftHours"),
@@ -314,6 +316,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
     enableCellChangeFlash: true,
     width: 100,
   };
+
   editType: "fullRow";
   rowDataDefault = new Array<any>();
   selectRow = new Array<addWorkingTimesDetailDto>();

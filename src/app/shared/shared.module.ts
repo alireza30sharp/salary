@@ -70,6 +70,7 @@ const component = [
   grid.CellOperationsClickEvent,
   grid.CellEditorTimeComponent,
   grid.CellEditorCheckboxComponent,
+  grid.SumRenderer,
   kiComponent.KiButtonComponent,
   kiComponent.KiCheckboxComponent,
   kiComponent.KiConfirmationComponent,

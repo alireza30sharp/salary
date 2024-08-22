@@ -14,12 +14,7 @@
       ></app-tools-bar>
     </div>
   </ng-template>
-  <div class="w-100">
-    <list-view-filter
-      [configViewFilter]="configViewFilter"
-      (onSearchCallback)="onSearchHandelar($event)"
-    ></list-view-filter>
-  </div>
+
   <ag-grid-data
     [rowId]="'id'"
     [columnsDefault]="columnsDefault"

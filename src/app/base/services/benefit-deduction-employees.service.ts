@@ -22,12 +22,9 @@ export class BenefitDeductionEmployeesService {
       this.urlSvc.BenefitDeductionEmployees.GetBenefitDeductionEmployeesList,
       {
         params: {
-          YearFrom: null,
           DateFrom: null,
           DateTo: null,
-          YearTo: null,
-          MonthFrom: null,
-          MonthTo: null,
+          EmployeeId: null,
           WorkShopId: this.WorkShopsID,
           PageNumber: PageNumber,
           PageSize: PageSize,

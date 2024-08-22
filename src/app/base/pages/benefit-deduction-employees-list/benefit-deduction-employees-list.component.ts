@@ -14,6 +14,7 @@ import { BenefitDeductionEmployeesDto } from "../../models/benefit-deduction-emp
 import { Location } from "@angular/common";
 import { ClientPrerequisitsService } from "../../../services/client-prerequisits";
 import { ListViewFilterInterFace } from "../../../shared/interfaces/list-view-filter-config.interface";
+import { SumRenderer } from "../../../shared/components/ag-grid";
 
 @Component({
   selector: "app-benefit-deduction-employees-list",
@@ -33,17 +34,39 @@ export class BenefitDeductionEmployeesListComponent implements OnInit {
       hide: true,
     },
     {
-      field: propertyOf<BenefitDeductionEmployeesDto>("price"),
-      headerName: "کد ملی",
+      field: propertyOf<BenefitDeductionEmployeesDto>("employeeId"),
+      headerName: "تاریخ",
       filter: "agTextColumnFilter",
-      headerClass: "nationalCode",
+    },
+    {
+      field: propertyOf<BenefitDeductionEmployeesDto>("benefitDeductionId"),
+      headerName: "کد ملی",
+
+      filter: "agTextColumnFilter",
+    },
+    {
+      field: propertyOf<BenefitDeductionEmployeesDto>("price"),
+      headerName: "قیمت",
+      filter: "agTextColumnFilter",
+      aggFunc: "sum",
     },
   ];
   rowDataDefault = new Array<BenefitDeductionEmployeesDto>();
+
   selectRow = new Array<BenefitDeductionEmployeesDto>();
   isShowLoadingDelete: boolean = false;
   isShowLoadingRefrash: boolean = false;
+  public grandTotalRow: "top" | "bottom" = "bottom";
 
+  configViewFilter: ListViewFilterInterFace = {
+    showFromDate: true,
+    showToDate: true,
+    showEmployeeId: true,
+    showBenefitDeduction: true,
+    showFromAmount: true,
+    showToAmount: true,
+    showComment: true,
+  };
   constructor(
     private _benefitDeductionEmployeesService: BenefitDeductionEmployeesService,
     private _modalService: ModalService,
@@ -76,6 +99,9 @@ export class BenefitDeductionEmployeesListComponent implements OnInit {
       },
       error: (err) => {},
     });
+  }
+  onSearchHandelar(event) {
+    console.table(event);
   }
   cancelClickHandler() {
     this._location.back();
