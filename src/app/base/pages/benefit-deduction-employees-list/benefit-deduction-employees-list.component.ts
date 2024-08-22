@@ -56,7 +56,7 @@ export class BenefitDeductionEmployeesListComponent implements OnInit {
   selectRow = new Array<BenefitDeductionEmployeesDto>();
   isShowLoadingDelete: boolean = false;
   isShowLoadingRefrash: boolean = false;
-  public grandTotalRow: "top" | "bottom" = "bottom";
+  grandTotalRow: "top" | "bottom" = "bottom";
 
   configViewFilter: ListViewFilterInterFace = {
     showFromDate: true,

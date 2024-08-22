@@ -86,14 +86,13 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
     }
   }
   @Input() activeToolBar: boolean = false;
-  @Input() autoGroupColumnDef: AgGridInterFace;
   @Input() popupParent: any;
   @Input() defaultColDef: AgGridInterFace = {
     rowGroup: false,
   };
   @Input() suppressRowClickSelection: boolean = false;
   @Input() rowSelection: "single" | "multiple" = "single";
-  @Input() grandTotalRow: "top" | "bottom" = "bottom";
+  @Input() grandTotalRow: "top" | "bottom" | null = null;
   @Input() suppressAggFuncInHeader: boolean = false;
   @Input() editType;
   @Input() set rowDataDefault(list: any[]) {
@@ -123,7 +122,10 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
   @Output() editCellChange = new EventEmitter<any>();
   @Output() saveCellChange = new EventEmitter<any>();
   @Output() DesignerclickEvent = new EventEmitter<any>();
-
+  autoGroupColumnDef: AgGridInterFace = {
+    minWidth: 300,
+  };
+  groupDefaultExpanded = -1;
   autoSizeStrategy: SizeColumnsToFitGridStrategy = {
     type: "fitGridWidth",
   };
