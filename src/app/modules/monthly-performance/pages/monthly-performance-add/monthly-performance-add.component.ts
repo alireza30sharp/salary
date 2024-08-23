@@ -85,7 +85,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
       cellClass: "text-center",
       children: [
         {
-          headerName: "روز",
+          headerName: "روز avg",
           editable: true,
           cellEditor: "agNumberCellEditor",
           cellEditorParams: {
@@ -95,7 +95,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
           field: propertyOf<addWorkingTimesDetailDto>("dayWorkShiftDays"),
           cellRenderer: "agAnimateShowChangeCellRenderer",
           width: 80,
-          aggFunc: "sum",
+          aggFunc: "avg",
         },
         {
           field: propertyOf<addWorkingTimesDetailDto>("dayWorkShiftHours"),
