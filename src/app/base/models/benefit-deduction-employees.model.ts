@@ -7,4 +7,7 @@ export class BenefitDeductionEmployeesDto {
   comment: string;
   price: number;
   dateAction: string;
+  benefitDeductionName :string;
+  personnelCode : string;
+  lastName:string;
 }

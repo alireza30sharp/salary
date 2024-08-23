@@ -15,6 +15,7 @@ import { Location } from "@angular/common";
 import { ClientPrerequisitsService } from "../../../services/client-prerequisits";
 import { ListViewFilterInterFace } from "../../../shared/interfaces/list-view-filter-config.interface";
 import { SumRenderer } from "../../../shared/components/ag-grid";
+import { numberCellFormatter_valueFormatter } from "../../../shared/interfaces/aggrid-master";
 
 @Component({
   selector: "app-benefit-deduction-employees-list",
@@ -34,22 +35,41 @@ export class BenefitDeductionEmployeesListComponent implements OnInit {
       hide: true,
     },
     {
-      field: propertyOf<BenefitDeductionEmployeesDto>("employeeId"),
+      headerName: "ردیف",
+      valueGetter: "node.rowIndex + 1",
+    },
+    
+    {
+      field: propertyOf<BenefitDeductionEmployeesDto>("benefitDeductionName"),
+      headerName: "نوع",
+      filter: "agTextColumnFilter",
+    },
+
+    {
+      field: propertyOf<BenefitDeductionEmployeesDto>("dateAction"),
       headerName: "تاریخ",
       filter: "agTextColumnFilter",
     },
     {
-      field: propertyOf<BenefitDeductionEmployeesDto>("benefitDeductionId"),
-      headerName: "کد ملی",
-
+      field: propertyOf<BenefitDeductionEmployeesDto>("personnelCode"),
+      headerName: "کد پرسنلی",
       filter: "agTextColumnFilter",
     },
     {
+      field: propertyOf<BenefitDeductionEmployeesDto>("lastName"),
+      headerName: "نام کارمند",
+      filter: "agTextColumnFilter",
+    },
+
+    {
       field: propertyOf<BenefitDeductionEmployeesDto>("price"),
-      headerName: "قیمت",
+      headerName: "مبلغ",
       filter: "agTextColumnFilter",
       aggFunc: "sum",
+      //cellEditor: CellEditorNumberComponent,
+      valueFormatter: numberCellFormatter_valueFormatter,
     },
+    
   ];
   rowDataDefault = new Array<BenefitDeductionEmployeesDto>();
 
@@ -87,6 +107,7 @@ export class BenefitDeductionEmployeesListComponent implements OnInit {
   }
   getList() {
     let model = new WorkShopsFilter();
+    //let modelFilterBenefit = 
     this.isShowLoadingRefrash = true;
     this._benefitDeductionEmployeesService.getAll(model).subscribe({
       next: (res) => {

@@ -18,13 +18,14 @@ export class BenefitDeductionEmployeesService {
   getAll(params?: WorkShopsFilter) {
     let PageNumber: number = 0;
     let PageSize: number = 20;
+    debugger;
     return this.$http.get<response<Data<any[]>>>(
       this.urlSvc.BenefitDeductionEmployees.GetBenefitDeductionEmployeesList,
       {
-        params: {
+        params: {/*
           DateFrom: null,
           DateTo: null,
-          EmployeeId: null,
+          EmployeeId: null,*/
           WorkShopId: this.WorkShopsID,
           PageNumber: PageNumber,
           PageSize: PageSize,
