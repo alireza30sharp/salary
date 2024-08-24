@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { ApiUrlService } from "../../api-url.service";
 import { WorkShopsFilter } from "../models";
 import { Data, response } from "../../shared/models";
@@ -15,36 +15,48 @@ export class TaxService {
     private readonly $http: HttpClient,
     private readonly urlSvc: ApiUrlService
   ) {}
-  test() {
-    let params: any = {};
-    let someConditionForDateFrom = null;
-    let someConditionForDateTo = "asda";
-    // اگر مقدار پارامتر null نیست، آن را به شیء params اضافه کنید.
-    if (someConditionForDateFrom !== null) {
-      params.DateFrom = someConditionForDateFrom;
+
+  getTaxList(filterParams?: WorkShopsFilter) {
+    const defaultPageNumber = 1;
+    const defaultPageSize = 20;
+    // ساختن HttpParams
+    let params = new HttpParams();
+
+    // افزودن پارامترها به HttpParams بر اساس مقادیر موجود
+    if (
+      filterParams?.PageNumber !== undefined &&
+      filterParams.PageNumber !== null
+    ) {
+      params = params.set("PageNumber", filterParams.PageNumber.toString());
+    } else {
+      params = params.set("PageNumber", defaultPageNumber.toString());
     }
 
-    if (someConditionForDateTo !== null) {
-      params.DateTo = someConditionForDateTo;
+    if (
+      filterParams?.PageSize !== undefined &&
+      filterParams.PageSize !== null
+    ) {
+      params = params.set("PageSize", filterParams.PageSize.toString());
+    } else {
+      params = params.set("PageSize", defaultPageSize.toString());
     }
 
-    return this.$http.get<any>("https://localhost:7125/WeatherForecast", {
-      params: params,
-    });
-  }
+    if (filterParams?.WorkShopName) {
+      params = params.set("WorkShopName", filterParams.WorkShopName);
+    }
 
-  getTaxList(params?: WorkShopsFilter) {
-    let PageNumber: number = 1;
-    let PageSize: number = 20;
+    if (filterParams?.WorkShopCode) {
+      params = params.set("WorkShopCode", filterParams.WorkShopCode);
+    }
+
+    // در صورت وجود WorkShopsID، آن را نیز به پارامترها اضافه کنید
+    if (this.WorkShopsID) {
+      params = params.set("WorkShopId", this.WorkShopsID.toString());
+    }
+
     return this.$http.get<response<Data<TaxDto[]>>>(
       this.urlSvc.Tax.GetAllTaxData,
-      {
-        params: {
-          PageNumber: PageNumber,
-          PageSize: PageSize,
-          WorkShopId: this.WorkShopsID,
-        },
-      }
+      { params: params }
     );
   }
   createTax(model: TaxDto) {
