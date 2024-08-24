@@ -36,7 +36,7 @@ export class TaxService {
   getTaxList(params?: WorkShopsFilter) {
     let PageNumber: number = 1;
     let PageSize: number = 20;
-    return this.$http.get<response<Data<BenefitDeductionDto[]>>>(
+    return this.$http.get<response<Data<TaxDto[]>>>(
       this.urlSvc.Tax.GetAllTaxData,
       {
         params: {

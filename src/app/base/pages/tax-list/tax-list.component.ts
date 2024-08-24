@@ -25,7 +25,6 @@ export class TaxListComponent implements OnInit {
       field: propertyOf<TaxDto>("row_No"),
       headerName: "row_NO",
       hide: true,
-      rowGroup: true,
     },
     {
       field: propertyOf<TaxDto>("workShopId"),
@@ -62,18 +61,10 @@ export class TaxListComponent implements OnInit {
       filter: "agTextColumnFilter",
     },
   ];
-  rowDataDefault = new Array<BenefitDeductionDto>();
-  selectRow = new Array<BenefitDeductionDto>();
+  rowDataDefault = new Array<TaxDto>();
+  selectRow = new Array<TaxDto>();
   isShowLoadingDelete: boolean = false;
   isShowLoadingRefrash: boolean = false;
-  pinnedBottomRowData: [
-    {
-      fromMoneyStr: "BOTTOM (athlete)";
-      toMoneyStr: "BOTTOM (country)";
-    }
-  ];
-  grandTotalRow: "top" | "bottom" = "bottom";
-
   constructor(
     private _taxService: TaxService,
     private _modalService: ModalService,
@@ -87,9 +78,7 @@ export class TaxListComponent implements OnInit {
       this.getTaxList();
     });
   }
-  test() {
-    this._taxService.test().subscribe((res) => {});
-  }
+
   onRefrashSelected() {
     this.getTaxList();
   }
@@ -129,7 +118,7 @@ export class TaxListComponent implements OnInit {
       acceptText: "بله",
       declineText: "خیر",
       description: "آیا از عملیات مورد نظر اطمینان دارید؟",
-      title: "حذف" + " " + `"${this.selectRow[0].name.toUpperCase()}"`,
+      title: "حذف" + " " + `"${this.selectRow[0].taxTypeName.toUpperCase()}"`,
       type: "Confirm",
     };
     this._modalService.showConfirm(params, false).then((res) => {
@@ -142,7 +131,7 @@ export class TaxListComponent implements OnInit {
       }
     });
   }
-  onDeleteItem(item: BenefitDeductionDto) {
+  onDeleteItem(item: TaxDto) {
     this.isShowLoadingDelete = true;
     this._taxService
       .delete(item.workShopId, item.id)
@@ -169,8 +158,8 @@ export class TaxListComponent implements OnInit {
         },
       });
   }
-  onSelectedRowsChangeEvent(event: Array<BenefitDeductionDto>) {
-    this.selectRow = new Array<BenefitDeductionDto>();
+  onSelectedRowsChangeEvent(event: Array<TaxDto>) {
+    this.selectRow = new Array<TaxDto>();
     this.selectRow = event;
   }
 }

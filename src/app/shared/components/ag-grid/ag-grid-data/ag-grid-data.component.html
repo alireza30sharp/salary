@@ -6,18 +6,7 @@
     #file
     (change)="onFileChange($event)"
   />
-  <!-- <app-tools-bar
-    *ngIf="activeToolBar"
-    (NewSelected)="onNewSelected()"
-    [countItemEdited]="countItemEdited"
-    (ImportExcelSelected)="file.click()"
-    (CancelSelected)="onCancel()"
-    (SaveSelected)="SaveSelected()"
-    (DesignerclickEvent)="designerclickEvent($event)"
-    [isShowToolbar]="_isEditMode"
-  ></app-tools-bar> -->
-  <!-- [rowClassRules]="rowClassRules" -->
-  <!-------    (gridSizeChanged)="onGridSizeChanged($event)"-->
+
   <ag-grid-angular
     id="myGrid"
     [id]="idGrid"
@@ -31,9 +20,7 @@
     [rowData]="rowData"
     [rowSelection]="rowSelection"
     [gridOptions]="gridOptions"
-    [grandTotalRow]="grandTotalRow"
     [pinnedBottomRowData]="pinnedBottomRowData"
-    [groupDefaultExpanded]="groupDefaultExpanded"
     (selectionChanged)="onSelectionChanged()"
     (gridReady)="onGridReady($event)"
     (firstDataRendered)="onFirstDataRendered($event)"
@@ -53,6 +40,4 @@
     [paginationPageSize]="paginationPageSize"
     [paginationPageSizeSelector]="paginationPageSizeSelector"
   ></ag-grid-angular>
-
-  <!-- <div id="myChart" class="ag-theme-quartz my-chart"></div> -->
 </div>

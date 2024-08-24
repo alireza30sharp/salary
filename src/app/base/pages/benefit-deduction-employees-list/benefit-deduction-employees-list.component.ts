@@ -38,7 +38,7 @@ export class BenefitDeductionEmployeesListComponent implements OnInit {
       headerName: "ردیف",
       valueGetter: "node.rowIndex + 1",
     },
-    
+
     {
       field: propertyOf<BenefitDeductionEmployeesDto>("benefitDeductionName"),
       headerName: "نوع",
@@ -69,14 +69,12 @@ export class BenefitDeductionEmployeesListComponent implements OnInit {
       //cellEditor: CellEditorNumberComponent,
       valueFormatter: numberCellFormatter_valueFormatter,
     },
-    
   ];
   rowDataDefault = new Array<BenefitDeductionEmployeesDto>();
 
   selectRow = new Array<BenefitDeductionEmployeesDto>();
   isShowLoadingDelete: boolean = false;
   isShowLoadingRefrash: boolean = false;
-  grandTotalRow: "top" | "bottom" = "bottom";
 
   configViewFilter: ListViewFilterInterFace = {
     showFromDate: true,
@@ -107,7 +105,7 @@ export class BenefitDeductionEmployeesListComponent implements OnInit {
   }
   getList() {
     let model = new WorkShopsFilter();
-    //let modelFilterBenefit = 
+    //let modelFilterBenefit =
     this.isShowLoadingRefrash = true;
     this._benefitDeductionEmployeesService.getAll(model).subscribe({
       next: (res) => {

@@ -1,5 +1,4 @@
 <app-general-panel [title]="'مالیات'" [hideBackButton]="true">
-  <button (click)="test()">clic</button>
   <ng-template #header>
     <div class="align-content-center d-flex justify-content-between">
       <app-tools-bar
@@ -18,7 +17,7 @@
 
   <ag-grid-data
     [rowId]="'id'"
-    [pinnedBottomRowData]="pinnedBottomRowData"
+    [showTotal]="true"
     [columnsDefault]="columnsDefault"
     [rowDataDefault]="rowDataDefault"
     [pagination]="true"

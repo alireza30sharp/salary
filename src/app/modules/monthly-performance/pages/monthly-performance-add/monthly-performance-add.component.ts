@@ -369,7 +369,6 @@ export class MonthlyPerformanceAddComponent implements OnInit {
   model: NgbDateStruct;
   addDraftDto = new addDraftDto();
   addWorkingTimesDto = new addWorkingTimesDto();
-  grandTotalRow: "top" | "bottom" = "bottom";
   constructor(
     private _changeWorkShops: ChangeWorkShopsService,
     private _toastService: ToastService,

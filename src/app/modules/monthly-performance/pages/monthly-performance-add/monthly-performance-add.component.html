@@ -37,6 +37,7 @@
   </ng-template>
 
   <ag-grid-data
+    [showTotal]="true"
     [rowId]="'code'"
     [editType]="editType"
     [columnsDefault]="columnsDefault"
@@ -44,7 +45,6 @@
     [showSideBar]="false"
     [defaultColDef]="defaultColDef"
     [rowSelection]="'multiple'"
-    [grandTotalRow]="grandTotalRow"
     (saveCellChange)="saveCellHandeler($event)"
     (selectedRowsChange)="selectedRowsChange($event)"
   ></ag-grid-data>

@@ -92,12 +92,14 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
   };
   @Input() suppressRowClickSelection: boolean = false;
   @Input() rowSelection: "single" | "multiple" = "single";
-  @Input() grandTotalRow: "top" | "bottom" | null = null;
-  @Input() pinnedBottomRowData: any[];
   @Input() suppressAggFuncInHeader: boolean = false;
+  @Input() showTotal: boolean = false;
   @Input() editType;
   @Input() set rowDataDefault(list: any[]) {
     this.rowData = list;
+    if (this.showTotal) {
+      this.calculateTotal();
+    }
   }
   @Input() set showSideBar(option: boolean) {
     this.gridOptions.sideBar = option;
@@ -126,13 +128,15 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
   autoGroupColumnDef: AgGridInterFace = {
     minWidth: 300,
   };
-  groupDefaultExpanded = -1;
   autoSizeStrategy: SizeColumnsToFitGridStrategy = {
     type: "fitGridWidth",
   };
+
   public getRowId: GetRowIdFunc = (params: GetRowIdParams) => {
     if (this.rowId) {
-      return params.data[this.rowId].toString();
+      return params.data[this.rowId]
+        ? params.data[this.rowId]?.toString()
+        : uuid.v4();
     } else {
       return params.data.uniqueId;
     }
@@ -182,6 +186,64 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
     this.selectedRows = this.gridApi.getSelectedRows();
     this.selectedRowsChange.emit(this.selectedRows);
   }
+  calculateTotal() {
+    // شناسایی ستون‌های با فیلد جمع کل
+    const columnsWithSum = this.columnsTable.flatMap((column) =>
+      column.children
+        ? column.children.filter((child) => child.aggFunc === "sum")
+        : column.aggFunc === "sum"
+        ? [column]
+        : []
+    );
+
+    // ایجاد یک شیء برای ذخیره مقادیر جمع کل
+    const totals: any = { totalLabel: "جمع کل:" };
+
+    // محاسبه جمع کل برای هر ستون
+    columnsWithSum.forEach((column) => {
+      totals[column.field] = this.rowData.reduce(
+        (sum, row) => sum + parseFloat(row[column.field] || "0"),
+        0
+      );
+    });
+    this.columnsTable.unshift({
+      field: "totalLabel",
+      headerName: "",
+      valueGetter: (params) => params.data.totalLabel,
+      cellStyle: { fontWeight: "bold" },
+      cellRenderer: "agAnimateShowChangeCellRenderer",
+    });
+    this.pinnedBottomRowData = [totals];
+  }
+
+  // calculateTotal() {
+  //   // شناسایی ستون‌های با فیلد جمع کل
+  //   const columnsWithSum = this.columnsTable.filter(
+  //     (column) => column.aggFunc === "sum"
+  //   );
+
+  //   // ایجاد یک شیء برای ذخیره مقادیر جمع کل
+  //   const totals: any = { totalLabel: "جمع کل:" };
+
+  //   // محاسبه جمع کل برای هر ستون
+  //   columnsWithSum.forEach((column) => {
+  //     totals[column.field] = this.rowData.reduce(
+  //       (sum, row) => sum + parseFloat(row[column.field] || "0"),
+  //       0
+  //     );
+  //   });
+
+  //   // اضافه کردن جمع کل‌ها به داده‌های ردیف پایین
+  //   this.pinnedBottomRowData = [totals];
+  //   this.columnsTable.unshift({
+  //     field: "totalLabel",
+  //     headerName: "",
+  //     valueGetter: (params) => params.data.totalLabel,
+  //     cellStyle: { fontWeight: "bold" },
+  //     cellRenderer: "agAnimateShowChangeCellRenderer",
+  //   });
+  // }
+  pinnedBottomRowData: any[];
   cellEditingStopped(event: CellEditingStoppedEvent) {
     // Check if all required fields are filled
     const isValid = this.validateRequiredFields(event.data, this.columnsTable);

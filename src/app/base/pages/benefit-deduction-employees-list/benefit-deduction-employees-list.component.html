@@ -23,10 +23,10 @@
   </div>
   <ag-grid-data
     [rowId]="'id'"
+    [showTotal]="true"
     [columnsDefault]="columnsDefault"
     [rowDataDefault]="rowDataDefault"
     [pagination]="true"
-    [grandTotalRow]="grandTotalRow"
     (removeCellChange)="onDeleteItem($event)"
     (selectedRowsChange)="onSelectedRowsChangeEvent($event)"
   ></ag-grid-data>
