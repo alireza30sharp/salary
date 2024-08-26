@@ -12,7 +12,15 @@ export class SelectCellRendererParams implements ICellRendererAngularComp {
   params: any;
   messageErrorRequerd: string = "";
   errorInvalid: boolean = true;
+  rowPinned: boolean = false;
   agInit(params: ICellRendererParams): void {
+    // اگر ردیف پین شده باشد (مثل ردیف جمع کل)، از اجرای رندر جلوگیری کنید
+    if (params.node.rowPinned) {
+      this.rowPinned = true;
+      return;
+    }
+
+    // ادامه‌ی منطق رندر معمولی برای ردیف‌های دیگر
     if (params.value) {
       this.errorInvalid = false;
       params.colDef.cellEditorParams.values.subscribe((f) => {

@@ -12,6 +12,7 @@ import { finalize } from "rxjs";
 import { TaxDto } from "../../models/tax.model";
 import { ConfirmInterFace } from "../../../shared/ki-components/ki-confirmation/confirm.interface";
 import { Location } from "@angular/common";
+import { numberCellFormatter_valueFormatter } from "../../../shared/interfaces/aggrid-master";
 
 @Component({
   selector: "app-tax-list",
@@ -25,6 +26,15 @@ export class TaxListComponent implements OnInit {
       field: propertyOf<TaxDto>("row_No"),
       headerName: "row_NO",
       hide: true,
+    },
+    {
+      headerName: "ردیف",
+      cellRenderer: (params) => {
+        if (params.node.rowPinned) {
+          return "جمع کل:";
+        }
+        return params.node.rowIndex + 1;
+      },
     },
     {
       field: propertyOf<TaxDto>("workShopId"),
@@ -47,11 +57,13 @@ export class TaxListComponent implements OnInit {
       headerName: "از مبلغ",
       aggFunc: "sum",
       cellRenderer: "agAnimateShowChangeCellRenderer",
+      valueFormatter: numberCellFormatter_valueFormatter,
     },
     {
       field: propertyOf<TaxDto>("toMoneyStr"),
       headerName: "تا مبلغ",
       aggFunc: "sum",
+      valueFormatter: numberCellFormatter_valueFormatter,
       cellRenderer: "agAnimateShowChangeCellRenderer",
     },
 

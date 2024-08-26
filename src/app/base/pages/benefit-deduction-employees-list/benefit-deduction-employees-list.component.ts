@@ -36,7 +36,12 @@ export class BenefitDeductionEmployeesListComponent implements OnInit {
     },
     {
       headerName: "ردیف",
-      valueGetter: "node.rowIndex + 1",
+      cellRenderer: (params) => {
+        if (params.node.rowPinned) {
+          return "جمع کل:";
+        }
+        return params.node.rowIndex + 1;
+      },
     },
 
     {
@@ -66,6 +71,7 @@ export class BenefitDeductionEmployeesListComponent implements OnInit {
       headerName: "مبلغ",
       filter: "agTextColumnFilter",
       aggFunc: "sum",
+
       //cellEditor: CellEditorNumberComponent,
       valueFormatter: numberCellFormatter_valueFormatter,
     },

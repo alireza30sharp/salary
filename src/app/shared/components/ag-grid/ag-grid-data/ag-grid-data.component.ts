@@ -206,13 +206,7 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
         0
       );
     });
-    this.columnsTable.unshift({
-      field: "totalLabel",
-      headerName: "",
-      valueGetter: (params) => params.data.totalLabel,
-      cellStyle: { fontWeight: "bold" },
-      cellRenderer: "agAnimateShowChangeCellRenderer",
-    });
+
     this.pinnedBottomRowData = [totals];
   }
 
@@ -246,6 +240,9 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
   pinnedBottomRowData: any[];
   cellEditingStopped(event: CellEditingStoppedEvent) {
     // Check if all required fields are filled
+    if (this.showTotal) {
+      this.calculateTotal();
+    }
     const isValid = this.validateRequiredFields(event.data, this.columnsTable);
     if (!isValid) {
       event.data.isEdited = true;

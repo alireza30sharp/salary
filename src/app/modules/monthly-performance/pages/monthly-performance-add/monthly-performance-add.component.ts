@@ -54,12 +54,18 @@ export class MonthlyPerformanceAddComponent implements OnInit {
     },
     {
       headerName: "ردیف",
-      valueGetter: "node.rowIndex + 1",
-      width: 80,
+      width: 100,
       headerCheckboxSelection: true,
       checkboxSelection: true,
       showDisabledCheckboxes: true,
+      cellRenderer: (params) => {
+        if (params.node.rowPinned) {
+          return "جمع کل:";
+        }
+        return params.node.rowIndex + 1;
+      },
     },
+
     {
       field: propertyOf<addWorkingTimesDetailDto>("code"),
       headerName: "کد",
@@ -85,7 +91,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
       cellClass: "text-center",
       children: [
         {
-          headerName: "روز avg",
+          headerName: "روز",
           editable: true,
           cellEditor: "agNumberCellEditor",
           cellEditorParams: {
@@ -95,7 +101,7 @@ export class MonthlyPerformanceAddComponent implements OnInit {
           field: propertyOf<addWorkingTimesDetailDto>("dayWorkShiftDays"),
           cellRenderer: "agAnimateShowChangeCellRenderer",
           width: 80,
-          aggFunc: "avg",
+          aggFunc: "sum",
         },
         {
           field: propertyOf<addWorkingTimesDetailDto>("dayWorkShiftHours"),

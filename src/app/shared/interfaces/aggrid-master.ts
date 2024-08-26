@@ -37,6 +37,7 @@ export class AgGridMaster {
   gridOptions: GridOptions = {
     enableRangeSelection: false,
     rowSelection: "multiple",
+    pinnedTopRowData: [],
     suppressDragLeaveHidesColumns: false,
     suppressMakeColumnVisibleAfterUnGroup: false,
     rowGroupPanelShow: "onlyWhenGrouping",

@@ -1,8 +1,10 @@
-<div [style.overflow]="'hidden'" [style.textOverflow]="'ellipsis'">
-  {{name }}
-</div>
-<div class="w-100 h-100" *ngIf="errorInvalid">
-  <span
-    class="ki-tab__button-error fa-solid fa-circle-xmark start-content"
-  ></span>
-</div>
+<ng-container *ngIf="!rowPinned">
+  <div [style.overflow]="'hidden'" [style.textOverflow]="'ellipsis'">
+    {{name }}
+  </div>
+  <div class="w-100 h-100" *ngIf="errorInvalid">
+    <span
+      class="ki-tab__button-error fa-solid fa-circle-xmark start-content"
+    ></span>
+  </div>
+</ng-container>
