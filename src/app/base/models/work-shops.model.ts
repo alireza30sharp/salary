@@ -14,8 +14,13 @@ export class WorkShopsDto {
 }
 
 export class WorkShopsFilter {
-  WorkShopName: string;
-  WorkShopCode: string;
+  WorkShopName?: string;
+  WorkShopCode?: string;
+  DateFrom?: string;
+  DateTo?: string;
+  EmployeeId?: number;
+  PriceTo?: number;
+  PriceFrom?: number;
   PageNumber: number = 0;
   PageSize: number = 20;
 }

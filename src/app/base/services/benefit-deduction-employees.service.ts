@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { ApiUrlService } from "../../api-url.service";
 import { WorkShopsFilter } from "../models";
 import { Data, response } from "../../shared/models";
@@ -15,22 +15,55 @@ export class BenefitDeductionEmployeesService {
     private readonly urlSvc: ApiUrlService
   ) {}
 
-  getAll(params?: WorkShopsFilter) {
-    let PageNumber: number = 0;
-    let PageSize: number = 20;
-    debugger;
+  getAll(filterParams?: WorkShopsFilter) {
+    let params = new HttpParams();
+    // افزودن پارامترها به HttpParams بر اساس مقادیر موجود
+    if (
+      filterParams?.PageNumber !== undefined &&
+      filterParams.PageNumber !== null
+    ) {
+      params = params.set("PageNumber", filterParams.PageNumber.toString());
+    }
+    if (
+      filterParams?.PageSize !== undefined &&
+      filterParams.PageSize !== null
+    ) {
+      params = params.set("PageSize", filterParams.PageSize);
+    }
+    if (
+      filterParams?.DateFrom !== undefined &&
+      filterParams.DateFrom !== null
+    ) {
+      params = params.set("DateFrom", filterParams.DateFrom.toString());
+    }
+    if (filterParams?.DateTo !== undefined && filterParams.DateTo !== null) {
+      params = params.set("DateTo", filterParams.DateTo.toString());
+    }
+    if (filterParams?.DateTo !== undefined && filterParams.DateTo !== null) {
+      params = params.set("DateTo", filterParams.DateTo.toString());
+    }
+    if (
+      filterParams?.EmployeeId !== undefined &&
+      filterParams.EmployeeId !== null
+    ) {
+      params = params.set("EmployeeId", filterParams.EmployeeId);
+    }
+    if (filterParams?.PriceTo !== undefined && filterParams.PriceTo !== null) {
+      params = params.set("PriceTo", filterParams.PriceTo);
+    }
+    if (
+      filterParams?.PriceFrom !== undefined &&
+      filterParams.PriceFrom !== null
+    ) {
+      params = params.set("PriceFrom", filterParams.PriceFrom);
+    }
+    if (this.WorkShopsID !== undefined && this.WorkShopsID !== null) {
+      params = params.set("WorkShopId", this.WorkShopsID);
+    }
+
     return this.$http.get<response<Data<any[]>>>(
       this.urlSvc.BenefitDeductionEmployees.GetBenefitDeductionEmployeesList,
-      {
-        params: {/*
-          DateFrom: null,
-          DateTo: null,
-          EmployeeId: null,*/
-          WorkShopId: this.WorkShopsID,
-          PageNumber: PageNumber,
-          PageSize: PageSize,
-        },
-      }
+      { params: params }
     );
   }
   create(model: BenefitDeductionEmployeesDto) {

@@ -13,9 +13,13 @@ import { BenefitDeductionEmployeesService } from "../../services/benefit-deducti
 import { BenefitDeductionEmployeesDto } from "../../models/benefit-deduction-employees.model";
 import { Location } from "@angular/common";
 import { ClientPrerequisitsService } from "../../../services/client-prerequisits";
-import { ListViewFilterInterFace } from "../../../shared/interfaces/list-view-filter-config.interface";
+import {
+  ListViewFilterDataInterFace,
+  ListViewFilterInterFace,
+} from "../../../shared/interfaces/list-view-filter-config.interface";
 import { SumRenderer } from "../../../shared/components/ag-grid";
 import { numberCellFormatter_valueFormatter } from "../../../shared/interfaces/aggrid-master";
+import { DateUtilies } from "../../../shared/utilities/Date";
 
 @Component({
   selector: "app-benefit-deduction-employees-list",
@@ -81,7 +85,7 @@ export class BenefitDeductionEmployeesListComponent implements OnInit {
   selectRow = new Array<BenefitDeductionEmployeesDto>();
   isShowLoadingDelete: boolean = false;
   isShowLoadingRefrash: boolean = false;
-
+  filterWorkShops = new WorkShopsFilter();
   configViewFilter: ListViewFilterInterFace = {
     showFromDate: true,
     showToDate: true,
@@ -107,10 +111,9 @@ export class BenefitDeductionEmployeesListComponent implements OnInit {
       .subscribe((res) => {});
   }
   ngOnInit(): void {
-    this.getList();
+    this.getList(this.filterWorkShops);
   }
-  getList() {
-    let model = new WorkShopsFilter();
+  getList(model: WorkShopsFilter) {
     //let modelFilterBenefit =
     this.isShowLoadingRefrash = true;
     this._benefitDeductionEmployeesService.getAll(model).subscribe({
@@ -125,8 +128,15 @@ export class BenefitDeductionEmployeesListComponent implements OnInit {
       error: (err) => {},
     });
   }
-  onSearchHandelar(event) {
-    console.table(event);
+  onSearchHandelar(event: ListViewFilterDataInterFace) {
+    let model = new WorkShopsFilter();
+    model.PriceFrom = event.fromAmount;
+    model.PriceTo = event.toAmount;
+    model.EmployeeId = event.employeeId;
+    model.DateFrom = DateUtilies.convertDate(event.fromDate);
+    model.DateTo = DateUtilies.convertDate(event.toDate);
+    this.getList(model);
+    this.filterWorkShops = Object.assign({}, model);
   }
   cancelClickHandler() {
     this._location.back();
@@ -147,7 +157,7 @@ export class BenefitDeductionEmployeesListComponent implements OnInit {
         true
       )
       .then((value) => {
-        this.getList();
+        this.getList(this.filterWorkShops);
       })
       .catch((err) => {});
   }
@@ -182,7 +192,7 @@ export class BenefitDeductionEmployeesListComponent implements OnInit {
       .subscribe({
         next: (res) => {
           if (res.isOk) {
-            this.getList();
+            this.getList(this.filterWorkShops);
           }
         },
         error: (err) => {
@@ -202,7 +212,7 @@ export class BenefitDeductionEmployeesListComponent implements OnInit {
     this.selectRow = event;
   }
   onRefrashSelected() {
-    this.getList();
+    this.getList(this.filterWorkShops);
   }
   startTour() {
     const steps = [
