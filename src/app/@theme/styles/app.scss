@@ -246,6 +246,29 @@ a {
   transition: transform 0.3s ease-out;
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #961b1e;
+  border-radius: 3px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+
 /* Calendar one week Start */
 ngb-modal-window {
   .dp-calendar-week {
