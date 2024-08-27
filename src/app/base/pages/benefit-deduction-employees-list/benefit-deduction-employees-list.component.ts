@@ -73,7 +73,7 @@ export class BenefitDeductionEmployeesListComponent implements OnInit {
     {
       field: propertyOf<BenefitDeductionEmployeesDto>("price"),
       headerName: "مبلغ",
-      filter: "agTextColumnFilter",
+      filter: "agNumberColumnFilter",
       aggFunc: "sum",
 
       //cellEditor: CellEditorNumberComponent,
