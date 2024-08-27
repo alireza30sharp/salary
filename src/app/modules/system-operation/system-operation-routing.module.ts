@@ -20,6 +20,13 @@ const routes: Routes = [
             (m) => m.MonthlyPerformanceModule
           ),
       },
+      {
+        path: "salary-calculation",
+        loadChildren: () =>
+          import("../salary-calculation/salary-calculation.module").then(
+            (m) => m.SalaryCalculationModule
+          ),
+      },
     ],
   },
 ];

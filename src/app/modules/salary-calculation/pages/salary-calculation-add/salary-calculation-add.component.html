@@ -1,0 +1,77 @@
+<app-general-panel
+  [title]="
+    '
+محاسبه حقوق'
+  "
+  [hideBackButton]="false"
+  (backCallback)="cancelClickHandler()"
+>
+  <ki-tab-group
+    #tabGroup
+    [height]="'100%'"
+    [overflow]="'auto'"
+    [isSticky]="true"
+    [noLayout]="true"
+    [bordered]="true"
+  >
+    <ki-tab [text]="'لیست حقوق'">
+      <ng-template #header>
+        <div class="d-flex justify-content-start w-100">
+          <ki-form-group [label]="'انتخاب ماه'" class="ml-2 w-15">
+            <ki-select
+              [placeholder]="'انتخاب ماه'"
+              [options]="monthlyList"
+              [(ngModel)]="addDraftDto.monthNum"
+              [hideSelected]="false"
+            >
+            </ki-select>
+          </ki-form-group>
+          <ki-form-group [label]="'انتخاب سال'" class="ml-2 w-15">
+            <ki-select
+              [placeholder]="'انتخاب سال'"
+              [options]="yearlyList"
+              [(ngModel)]="addDraftDto.yearNum"
+            >
+            </ki-select>
+          </ki-form-group>
+
+          <ki-form-group class="ml-2 w-15">
+            <ki-button
+              btnType="basic"
+              [iconClassName]="'fa-solid fa-magnifying-glass'"
+              [showLoading]="showLoading"
+              [title]="'نمایش'"
+              (clickCallback)="clickSearchHander()"
+            >
+            </ki-button>
+          </ki-form-group>
+        </div>
+      </ng-template>
+
+      <ag-grid-data [showTotal]="true" [rowId]="'code'"></ag-grid-data>
+      <ng-template #footer>
+        <div class="d-flex justify-content justify-content-between w-100">
+          <ki-button
+            btnType="danger"
+            [iconClassName]="'fa-solid fa-trash'"
+            [showLoading]="showLoadingDelete"
+            [disabled]="selectRow.length == 0"
+            [title]="'حذف'"
+            (clickCallback)="removeCell()"
+          >
+          </ki-button>
+          <ki-button
+            btnType="basic"
+            [iconClassName]="'fa-solid fa-floppy-disk'"
+            [showLoading]="showLoading"
+            [title]="'ذخیره اطلاعات'"
+            (clickCallback)="saveHander()"
+          >
+          </ki-button>
+        </div>
+      </ng-template>
+    </ki-tab>
+    <ki-tab [text]="'دیسکت بیمه'"> بزودی... </ki-tab>
+    <ki-tab [text]="'دیسکت مالیات'"> بزودی... </ki-tab>
+  </ki-tab-group>
+</app-general-panel>

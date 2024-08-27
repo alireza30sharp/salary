@@ -79,10 +79,13 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: "لیست",
         link: "/salary/system-operation/list",
       },
-
       {
         title: "کارکرد ماهانه ",
         link: "/salary/system-operation/monthly-performance",
+      },
+      {
+        title: "محاسبه حقوق",
+        link: "/salary/system-operation/salary-calculation",
       },
       {
         title: "مزایا و کسورات کارمندان",

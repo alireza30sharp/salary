@@ -142,4 +142,9 @@ export class ApiUrlService {
     Edit: BASE_URL + "WorkingTimes/Edit",
     Delete: BASE_URL + "WorkingTimes/Delete",
   };
+  SalaryList = {
+    GetSalaryListOfEmployee: BASE_URL + "SalaryList/GetSalaryListOfEmployee",
+    Add: BASE_URL + "SalaryList/Add",
+    Delete: BASE_URL + "SalaryList/Delete",
+  };
 }
