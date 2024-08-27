@@ -20,39 +20,56 @@ export class BenefitDeductionEmployeesService {
     // افزودن پارامترها به HttpParams بر اساس مقادیر موجود
     if (
       filterParams?.PageNumber !== undefined &&
+      filterParams?.PageNumber !== "" &&
       filterParams.PageNumber !== null
     ) {
       params = params.set("PageNumber", filterParams.PageNumber.toString());
     }
     if (
       filterParams?.PageSize !== undefined &&
+      filterParams?.PageSize !== "" &&
       filterParams.PageSize !== null
     ) {
       params = params.set("PageSize", filterParams.PageSize);
     }
     if (
       filterParams?.DateFrom !== undefined &&
+      filterParams?.DateFrom !== "" &&
       filterParams.DateFrom !== null
     ) {
       params = params.set("DateFrom", filterParams.DateFrom.toString());
     }
-    if (filterParams?.DateTo !== undefined && filterParams.DateTo !== null) {
+    if (
+      filterParams?.DateTo !== undefined &&
+      filterParams?.DateTo !== "" &&
+      filterParams.DateTo !== null
+    ) {
       params = params.set("DateTo", filterParams.DateTo.toString());
     }
-    if (filterParams?.DateTo !== undefined && filterParams.DateTo !== null) {
+    if (
+      filterParams?.DateTo !== undefined &&
+      filterParams?.DateTo !== "" &&
+      filterParams.DateTo !== null
+    ) {
       params = params.set("DateTo", filterParams.DateTo.toString());
     }
     if (
       filterParams?.EmployeeId !== undefined &&
+      filterParams?.EmployeeId !== "" &&
       filterParams.EmployeeId !== null
     ) {
       params = params.set("EmployeeId", filterParams.EmployeeId);
     }
-    if (filterParams?.PriceTo !== undefined && filterParams.PriceTo !== null) {
+    if (
+      filterParams?.PriceTo !== undefined &&
+      filterParams?.PriceTo !== "" &&
+      filterParams.PriceTo !== null
+    ) {
       params = params.set("PriceTo", filterParams.PriceTo);
     }
     if (
       filterParams?.PriceFrom !== undefined &&
+      filterParams?.PriceFrom !== "" &&
       filterParams.PriceFrom !== null
     ) {
       params = params.set("PriceFrom", filterParams.PriceFrom);
