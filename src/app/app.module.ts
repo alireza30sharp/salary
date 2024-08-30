@@ -16,13 +16,7 @@ import {
   NbWindowModule,
 } from "@nebular/theme";
 import { SharedModule } from "./shared/shared.module";
-import {
-  NbAuthJWTInterceptor,
-  NbAuthModule,
-  NbPasswordAuthStrategy,
-  defaultAuthOptions,
-  passwordStrategyOptions,
-} from "./auth";
+import { NbAuthJWTInterceptor, NbAuthModule, defaultAuthOptions } from "./auth";
 import { AuthGuard } from "./shared/guard/auth-guard.service";
 import { AuthLoginGuard } from "./shared/guard/auth-guard-login.service";
 import { LicenseManager } from "ag-grid-enterprise";

@@ -10,7 +10,6 @@ const routes: Routes = [
     component: SalaryCalculationComponent,
     children: [
       { path: "", redirectTo: "add", pathMatch: "full" },
-
       {
         path: Paths.SalaryCalculation.add().path,
         component: _pages.SalaryCalculationAddComponent,
