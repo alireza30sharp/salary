@@ -16,7 +16,6 @@ export class DynamicTabService {
       this.tabs = new Array<TabModel>();
     }
   }
-  getTabs() {}
 
   addTab(
     title: string,
