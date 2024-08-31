@@ -1,0 +1,17 @@
+<!-- dynamic-tabs.component.html -->
+<div class="tabs-container">
+  <ul class="tabs-nav">
+    <li
+      *ngFor="let tab of tabs; let i = index"
+      class="tab-item"
+      [class.active]="tab.active"
+      (click)="selectTab(tab)"
+    >
+      <span class="tab-title">{{ tab.title }}</span>
+      <button *ngIf="tab.closable" class="close-btn" (click)="closeTab(tab, i)">
+        ×
+      </button>
+      <!-- Previews container -->
+    </li>
+  </ul>
+</div>

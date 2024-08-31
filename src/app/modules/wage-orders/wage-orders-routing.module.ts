@@ -9,7 +9,6 @@ const routes: Routes = [
     path: "",
     component: WageOrdersComponent,
     children: [
-      { path: "", redirectTo: "list", pathMatch: "full" },
       {
         path: Paths.wageOrders.list().path,
         component: _pages.WageOrdersListComponent,

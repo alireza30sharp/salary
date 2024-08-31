@@ -49,6 +49,15 @@ import { kiSelectHeaderComponent } from "./components/ki-select-header/ki-select
 import { NgSelectModule } from "@ng-select/ng-select";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NbEvaIconsModule } from "@nebular/eva-icons";
+import { DynamicTabsComponent } from "./components/dynamic-tabs/dynamic-tabs.component";
+import { NgbTooltipModule } from "@ng-bootstrap/ng-bootstrap";
+import {
+  CdkDrag,
+  CdkDragPlaceholder,
+  CdkDropList,
+} from "@angular/cdk/drag-drop";
+import { DragDropModule } from "@angular/cdk/drag-drop";
+import { SafeUrlPipe } from "./pipes/safeUrl";
 
 const NB_MODULES = [
   NbLayoutModule,
@@ -83,6 +92,7 @@ const COMPONENTS = [
   OneColumnLayoutComponent,
   ThreeColumnsLayoutComponent,
   TwoColumnsLayoutComponent,
+  DynamicTabsComponent,
 ];
 const PIPES = [
   CapitalizePipe,
@@ -90,11 +100,15 @@ const PIPES = [
   RoundPipe,
   TimingPipe,
   NumberWithCommasPipe,
+  SafeUrlPipe,
 ];
 
 @NgModule({
   imports: [
+    DragDropModule,
+
     FormsModule,
+    NgbTooltipModule,
     ReactiveFormsModule,
     NgSelectModule,
     CommonModule,

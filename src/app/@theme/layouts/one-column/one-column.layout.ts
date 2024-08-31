@@ -15,6 +15,7 @@ import { NbLayoutDirection, NbLayoutDirectionService } from "@nebular/theme";
       </nb-sidebar>
 
       <nb-layout-column>
+        <app-dynamic-tabs></app-dynamic-tabs>
         <ng-content select="router-outlet"></ng-content>
       </nb-layout-column>
 
