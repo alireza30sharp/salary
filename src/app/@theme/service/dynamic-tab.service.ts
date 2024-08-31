@@ -1,10 +1,9 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import { Router } from "@angular/router";
-import { TabModel } from "../models/tab.model";
-import { SessionStorage } from "ngx-webstorage";
+import { LocalStorageService, SessionStorage } from "ngx-webstorage";
 import { SessionNames } from "../../shared/utilities/session-names";
-
+import { TabModel } from "../models/tab.model";
 @Injectable({
   providedIn: "root",
 })
@@ -57,11 +56,10 @@ export class DynamicTabService {
     this.changeToNotActive();
     this.tabs.find((rec) => rec.route == tab.route).active = true;
   }
-
   deleteTab(index: number) {
     this.tabs.splice(index, 1);
+    this.tabs = Object.assign([], this.tabs);
   }
-
   changeTabTitle(tabId: string, newTitle: string) {
     let tab = this.tabs.find((rec) => rec.tabId == tabId);
     tab.title = newTitle;

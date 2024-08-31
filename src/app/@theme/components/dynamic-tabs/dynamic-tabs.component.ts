@@ -1,30 +1,34 @@
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
-import { TabModel } from "../../models/tab.model";
-import { SessionStorage } from "ngx-webstorage";
+import { AfterViewInit, Component, OnInit } from "@angular/core";
+import { Router, ActivatedRoute } from "@angular/router";
+import { SessionStorage, SessionStorageService } from "ngx-webstorage";
 import { SessionNames } from "../../../shared/utilities/session-names";
-import { Router } from "@angular/router";
 import { DynamicTabService } from "../../service/dynamic-tab.service";
+import { TabModel } from "../../models/tab.model";
 @Component({
   selector: "app-dynamic-tabs",
   templateUrl: "./dynamic-tabs.component.html",
-  styleUrls: ["./dynamic-tabs.component.scss"],
+  styleUrls: ["./dynamic-tabs.component.css"],
 })
-export class DynamicTabsComponent {
+export class DynamicTabsComponent implements AfterViewInit {
   @SessionStorage(SessionNames.TABS)
   tabs: TabModel[];
+
   constructor(
+    private dynamicTabService: DynamicTabService,
     private router: Router,
-    private dynamicTabService: DynamicTabService
+    private activatedRoute: ActivatedRoute,
+    private localSt: SessionStorageService
   ) {
     if (!this.tabs) {
       this.tabs = new Array<TabModel>();
-    } else {
-      this.selectedTab = this.tabs[0];
-      this.changeTabToLatestOpened();
     }
+    this.localSt.observe(SessionNames.TABS).subscribe((value) => {
+      this.changeTabToLatestOpened();
+    });
   }
-
-  selectedTab: TabModel;
+  ngAfterViewInit(): void {
+    this.changeTabToLatestOpened();
+  }
 
   changeTabToLatestOpened() {
     if (this.tabs.length == 0) {
