@@ -7,7 +7,7 @@ import { TabModel } from "../../models/tab.model";
 @Component({
   selector: "app-dynamic-tabs",
   templateUrl: "./dynamic-tabs.component.html",
-  styleUrls: ["./dynamic-tabs.component.css"],
+  styleUrls: ["./dynamic-tabs.component.scss"],
 })
 export class DynamicTabsComponent implements AfterViewInit {
   @SessionStorage(SessionNames.TABS)
