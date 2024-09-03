@@ -15,32 +15,13 @@ export class DynamicTabService {
       this.tabs = new Array<TabModel>();
     }
   }
-
-  addTab(
-    title: string,
-    closable: boolean = true,
-    route: string,
-    imgSrc: string,
-    supTag: string,
-    isNew: boolean = false
-  ) {
-    let openedTab = this.tabs.find((rec) => rec.route == route);
+  addTab(tab: TabModel) {
     this.changeToNotActive();
-
+    let openedTab = this.tabs.find((rec) => rec.route == tab.route);
     if (openedTab == null || openedTab == undefined) {
       let tabId = Math.random().toString(36).substring(2, 7);
-
-      const newTab: TabModel = {
-        title,
-        closable,
-        route,
-        imgSrc,
-        supTag,
-        active: true,
-        isNew: isNew,
-        tabId: tabId,
-      };
-      this.tabs = this.tabs.concat(newTab);
+      tab.tabId = tabId;
+      this.tabs = this.tabs.concat(tab);
     } else {
       openedTab.active = true;
     }

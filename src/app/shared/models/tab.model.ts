@@ -1,4 +1,4 @@
-export interface TabModel {
+export class TabModelDto {
   active?: boolean;
   title: string;
   closable?: boolean;

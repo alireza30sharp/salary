@@ -4,6 +4,7 @@ import { MENU_ITEMS } from "./base-menu";
 import { NbMenuService } from "@nebular/theme";
 import { Subject, takeUntil } from "rxjs";
 import { DynamicTabService } from "../@theme/service/dynamic-tab.service";
+import { TabModelDto } from "../shared/models/tab.model";
 
 @Component({
   selector: "ngx-base",
@@ -23,13 +24,17 @@ export class BaseComponent {
     private dynamicTabService: DynamicTabService
   ) {
     menuService.onItemSelect().subscribe((res) => {
-      dynamicTabService.addTab(
-        res.item.title,
-        true,
-        res.item.link,
-        res.item.icon ? res.item.icon.toString() : "",
-        ""
-      );
+      let tab: TabModelDto = {
+        title: res.item.title,
+        active: true,
+        closable: true,
+        route: res.item.link,
+      };
+      if (!res.item.link) {
+        tab.closable = false;
+      }
+
+      dynamicTabService.addTab(tab);
     });
   }
   menu = MENU_ITEMS;

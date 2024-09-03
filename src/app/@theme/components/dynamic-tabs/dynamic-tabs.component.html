@@ -7,6 +7,7 @@
       [class.active]="tab.active"
       (click)="selectTab(tab)"
     >
+      <nb-icon icon="options-outline"></nb-icon>
       <span class="tab-title">{{ tab.title }}</span>
       <button *ngIf="tab.closable" class="close-btn" (click)="closeTab(tab, i)">
         ×

@@ -41,14 +41,24 @@ export class DynamicTabsComponent implements AfterViewInit {
     } else {
       latestTab = this.tabs[0];
     }
-    this.router.navigate([latestTab.route], {
-      queryParams: { tabId: latestTab.tabId },
-    });
+    if (latestTab.queryParams) {
+      this.router.navigate([latestTab.route], {
+        queryParams: latestTab.queryParams,
+      });
+    } else {
+      if (latestTab.route) {
+        this.router.navigate([latestTab.route]);
+      }
+    }
   }
 
   selectTab(tab: TabModel) {
     this.setActiveTab(tab);
-    this.router.navigate([tab.route], { queryParams: { tabId: tab.tabId } });
+    if (tab.queryParams) {
+      this.router.navigate([tab.route], { queryParams: tab.queryParams });
+    } else {
+      this.router.navigate([tab.route]);
+    }
   }
 
   closeTab(tab: TabModel, indexTab: number) {
