@@ -58,6 +58,7 @@ export class BenefitDeductionEmployeesListComponent implements OnInit {
       field: propertyOf<BenefitDeductionEmployeesDto>("dateAction"),
       headerName: "تاریخ",
       filter: "agTextColumnFilter",
+    cellClass:"text-center"
     },
     {
       field: propertyOf<BenefitDeductionEmployeesDto>("personnelCode"),
