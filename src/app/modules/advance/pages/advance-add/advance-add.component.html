@@ -1,0 +1,18 @@
+<app-general-panel
+  [title]="'مساعده'"
+  [hideBackButton]="false"
+  (backCallback)="cancelClickHandler()"
+>
+
+
+  <ng-template #footer>
+    <ki-button
+      btnType="basic"
+      [iconClassName]="'fa-solid fa-floppy-disk'"
+      [showLoading]="showLoading"
+      [title]="'ذخیره اطلاعات'"
+      (clickCallback)="clickSearchHander()"
+    >
+    </ki-button>
+  </ng-template>
+</app-general-panel>

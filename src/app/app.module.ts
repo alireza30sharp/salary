@@ -67,12 +67,12 @@ export function GetClientPrerequisits(
     AuthLoginGuard,
     { provide: HTTP_INTERCEPTORS, useClass: NbAuthJWTInterceptor, multi: true },
 
-    // {
-    //   provide: APP_INITIALIZER,
-    //   useFactory: GetClientPrerequisits,
-    //   deps: [ClientPrerequisitsService],
-    //   multi: true,
-    // },
+     {
+       provide: APP_INITIALIZER,
+       useFactory: GetClientPrerequisits,
+       deps: [ClientPrerequisitsService],
+       multi: true,
+     },
   ],
 })
 export class AppModule {

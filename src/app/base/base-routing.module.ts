@@ -95,6 +95,16 @@ const routes: Routes = [
         redirectTo: "system-operation/list",
         pathMatch: "full",
       },
+
+      {
+        path: "advance",
+        loadChildren: () =>
+          import("../modules/advance/advance.module").then(
+            (m) => m.AdvanceModule
+          ),
+      },
+
+
     ],
   },
 ];
