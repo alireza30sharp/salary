@@ -21,11 +21,13 @@ export class ToolsBarComponent implements OnInit {
   @Output() RefrashSelected: EventEmitter<void> = new EventEmitter();
   @Output() ToolsSelected: EventEmitter<void> = new EventEmitter();
   @Output() EscapeSelected: EventEmitter<void> = new EventEmitter();
-
+  @Output() SearchSelected: EventEmitter<void> = new EventEmitter();
   @Input() disabled: boolean = false;
   @Input() sizeBtn?: NbComponentSize = "medium";
   @Input() isShowLoadingDelete?: boolean = false;
   @Input() isShowLoadingRefrash?: boolean = false;
+  @Input() isShowSearchBtn?: boolean = false;
+
   constructor() {}
 
   addEvent() {
@@ -56,6 +58,9 @@ export class ToolsBarComponent implements OnInit {
   }
   perintEvent() {
     this.PerintSelected.emit();
+  }
+  searchEvent() {
+    this.SearchSelected.emit();
   }
   ngOnInit(): void {}
 

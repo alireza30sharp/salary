@@ -1,99 +1,103 @@
-<div class="row">
-  <ng-container *ngIf="configViewFilter.showFromDate">
-    <ki-form-group [label]="'از تاریخ'" class="col">
-      <ki-date-picker [(ngModel)]="model.fromDate"></ki-date-picker>
-    </ki-form-group>
-  </ng-container>
-  <ng-container *ngIf="configViewFilter.showToDate">
-    <ki-form-group [label]="'تا تاریخ'" class="col">
-      <ki-date-picker [(ngModel)]="model.toDate"></ki-date-picker>
-    </ki-form-group>
-  </ng-container>
-  <ng-container *ngIf="configViewFilter.showFromAmount">
-    <ki-form-group class="col" [label]="'از مبلغ'">
-      <ki-input
-        name="fromMoney"
-        [fullWidth]="true"
-        class="ltr"
-        [setFocusItem]="setFocusItem"
-        [onlyNumber]="true"
-        [(ngModel)]="model.fromAmount"
-        #fromMoney="ngModel"
-        [type]="'currency'"
-        [maskType]="'separator'"
-      ></ki-input>
-    </ki-form-group>
-  </ng-container>
-  <ng-container *ngIf="configViewFilter.showToAmount">
-    <ki-form-group
-      class="col"
-      [errorMessage]="
-        toMoney.errors?.isCurrency
-          ? 'مبلغ وارد شده کمتر از مبلغ است'
-          : 'فیلد اجباری'
-      "
-      [hideError]="!toMoney.errors?.isCurrency"
-      [label]="'تا مبلغ'"
-    >
-      <ki-input
-        name="toMoney"
-        [fullWidth]="true"
-        class="ltr"
-        [onlyNumber]="true"
-        [(ngModel)]="model.toAmount"
-        #toMoney="ngModel"
-        (focusCallback)="onEnter($event)"
-        [type]="'currency'"
-        [fromMoney]="fromMoney"
-        [maskType]="'separator'"
-      ></ki-input>
-    </ki-form-group>
-  </ng-container>
-  <ng-container *ngIf="configViewFilter.showEmployeeId">
-    <ki-form-group class="col" [label]="'نام کارمند'">
-      <ki-select
-        [placeholder]="'نام کارمند'"
-        [allowClear]="true"
-        [allowHighlight]="true"
-        [options]="employeList"
-        [allowClear]="true"
-        [(ngModel)]="model.employeeId"
+<div *ngIf="visibleFilter" @fadeInOut>
+  <div class="row">
+    <ng-container *ngIf="configViewFilter.showFromDate">
+      <ki-form-group [label]="'از تاریخ'" class="col">
+        <ki-date-picker [(ngModel)]="model.fromDate"></ki-date-picker>
+      </ki-form-group>
+    </ng-container>
+    <ng-container *ngIf="configViewFilter.showToDate">
+      <ki-form-group [label]="'تا تاریخ'" class="col">
+        <ki-date-picker [(ngModel)]="model.toDate"></ki-date-picker>
+      </ki-form-group>
+    </ng-container>
+    <ng-container *ngIf="configViewFilter.showFromAmount">
+      <ki-form-group class="col" [label]="'از مبلغ'">
+        <ki-input
+          name="fromMoney"
+          [fullWidth]="true"
+          class="ltr"
+          [setFocusItem]="setFocusItem"
+          [onlyNumber]="true"
+          [(ngModel)]="model.fromAmount"
+          #fromMoney="ngModel"
+          [type]="'currency'"
+          [maskType]="'separator'"
+        ></ki-input>
+      </ki-form-group>
+    </ng-container>
+    <ng-container *ngIf="configViewFilter.showToAmount">
+      <ki-form-group
+        class="col"
+        [errorMessage]="
+          toMoney.errors?.isCurrency
+            ? 'مبلغ وارد شده کمتر از مبلغ است'
+            : 'فیلد اجباری'
+        "
+        [hideError]="!toMoney.errors?.isCurrency"
+        [label]="'تا مبلغ'"
       >
-      </ki-select>
-    </ki-form-group>
-  </ng-container>
-  <ng-container *ngIf="configViewFilter.showBenefitDeduction">
-    <ki-form-group class="col" [label]="'مزایا کسورات'">
-      <ki-select
-        #benefitDeductionId="ngModel"
-        name="benefitDeductionId"
-        [placeholder]="'مزایا کسورات'"
-        [options]="benefitDeductions"
-        [allowClear]="true"
-        [(ngModel)]="model.benefitDeduction"
+        <ki-input
+          name="toMoney"
+          [fullWidth]="true"
+          class="ltr"
+          [onlyNumber]="true"
+          [(ngModel)]="model.toAmount"
+          #toMoney="ngModel"
+          (focusCallback)="onEnter($event)"
+          [type]="'currency'"
+          [fromMoney]="fromMoney"
+          [maskType]="'separator'"
+        ></ki-input>
+      </ki-form-group>
+    </ng-container>
+    <ng-container *ngIf="configViewFilter.showEmployeeId">
+      <ki-form-group class="col" [label]="'نام کارمند'">
+        <ki-select
+          [placeholder]="'نام کارمند'"
+          [allowClear]="true"
+          [allowHighlight]="true"
+          [options]="employeList"
+          [allowClear]="true"
+          [(ngModel)]="model.employeeId"
+        >
+        </ki-select>
+      </ki-form-group>
+    </ng-container>
+    <ng-container *ngIf="configViewFilter.showBenefitDeduction">
+      <ki-form-group class="col" [label]="'مزایا کسورات'">
+        <ki-select
+          #benefitDeductionId="ngModel"
+          name="benefitDeductionId"
+          [placeholder]="'مزایا کسورات'"
+          [options]="benefitDeductions"
+          [allowClear]="true"
+          [(ngModel)]="model.benefitDeduction"
+        >
+        </ki-select>
+      </ki-form-group>
+    </ng-container>
+  </div>
+  <div class="row">
+    <ng-container *ngIf="configViewFilter.showComment">
+      <ki-form-group class="col-4" [label]="'توضیحات'">
+        <ki-textarea
+          name="comment"
+          [fullWidth]="true"
+          [(ngModel)]="model.comment"
+          #comment="ngModel"
+        ></ki-textarea>
+      </ki-form-group>
+    </ng-container>
+    <ng-container [ngTemplateOutlet]="filter"></ng-container>
+
+    <ki-form-group class="ml-2 w-15 col-2">
+      <ki-button
+        btnType="basic"
+        [iconClassName]="'fa-solid fa-magnifying-glass'"
+        [title]="'نمایش'"
+        (clickCallback)="clickSearchHander()"
       >
-      </ki-select>
+      </ki-button>
     </ki-form-group>
-  </ng-container>
-</div>
-<div class="row">
-  <ng-container *ngIf="configViewFilter.showComment">
-    <ki-form-group class="col-4" [label]="'توضیحات'">
-      <ki-textarea
-        name="comment"
-        [fullWidth]="true"
-        [(ngModel)]="model.comment"
-        #comment="ngModel"
-      ></ki-textarea>
-    </ki-form-group>
-  </ng-container>
-  <ki-form-group class="ml-2 w-15 col-2">
-    <ki-button
-      btnType="basic"
-      [iconClassName]="'fa-solid fa-magnifying-glass'"
-      [title]="'نمایش'"
-      (clickCallback)="clickSearchHander()"
-    >
-    </ki-button>
-  </ki-form-group>
+  </div>
 </div>

@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import {
+  Component,
+  ContentChild,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  TemplateRef,
+} from "@angular/core";
 import { NgbCalendar, NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
 import { DateUtilies } from "../../utilities/Date";
 import {
@@ -8,11 +16,35 @@ import {
 import { SelectOptionInterface } from "../../interfaces/select-option.interface";
 import { ChangeWorkShopsService } from "../../../services/change-work-shop.service";
 import { delay } from "rxjs";
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+} from "@angular/animations";
 
 @Component({
   selector: "list-view-filter",
   templateUrl: "./list-view-filter.component.html",
   styleUrls: ["./list-view-filter.component.scss"],
+  animations: [
+    trigger("fadeInOut", [
+      state("void", style({ opacity: 0, transform: "translateY(-20px)" })),
+      transition(":enter", [
+        animate(
+          "300ms ease-in",
+          style({ opacity: 1, transform: "translateY(0)" })
+        ),
+      ]),
+      transition(":leave", [
+        animate(
+          "300ms ease-out",
+          style({ opacity: 0, transform: "translateY(-20px)" })
+        ),
+      ]),
+    ]),
+  ],
 })
 export class ListViewFilterComponent {
   @Input() configViewFilter: ListViewFilterInterFace = {
@@ -33,14 +65,25 @@ export class ListViewFilterComponent {
     toAmount: null,
     toDate: null,
   };
+
+  @Input() set isVisible(visible) {
+    this.toggleVisibility();
+  }
+
   @Output() onSearchCallback = new EventEmitter<any>();
+
+  @ContentChild("filter", { static: false })
+  filter?: TemplateRef<any>;
+
   fromMoney: number = 0;
   currentDate: NgbDateStruct;
   showInactive: boolean;
   employeList?: SelectOptionInterface<any>[];
   benefitDeductions?: SelectOptionInterface<any>[];
-
-  constructor(private _changeWorkShops: ChangeWorkShopsService) {}
+  visibleFilter: boolean = false;
+  constructor(private _changeWorkShops: ChangeWorkShopsService) {
+    this.toggleVisibility();
+  }
   ngAfterViewInit(): void {
     this._changeWorkShops.employeListData$
       .pipe(delay(100))
@@ -63,5 +106,8 @@ export class ListViewFilterComponent {
   }
   clickSearchHander() {
     this.onSearchCallback.emit(this.model);
+  }
+  toggleVisibility() {
+    this.visibleFilter = !this.visibleFilter;
   }
 }
