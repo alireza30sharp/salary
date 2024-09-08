@@ -91,4 +91,15 @@
     [size]="sizeBtn"
     class="mx-2 f-15 plus"
   ></ki-button>
+
+  <ki-button
+    *ngIf="isShowSearchBtn"
+    [appTooltip]="'جستجو'"
+    [appTooltipPosition]="'top'"
+    btnType="basic"
+    [iconClassName]="'fa-brands fa-searchengin'"
+    (click)="searchEvent()"
+    [size]="sizeBtn"
+    class="mx-2 f-15 plus"
+  ></ki-button>
 </div>

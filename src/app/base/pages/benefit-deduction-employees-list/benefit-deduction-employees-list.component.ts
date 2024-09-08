@@ -81,7 +81,7 @@ export class BenefitDeductionEmployeesListComponent implements OnInit {
     },
   ];
   rowDataDefault = new Array<BenefitDeductionEmployeesDto>();
-
+  amount: any;
   selectRow = new Array<BenefitDeductionEmployeesDto>();
   isShowLoadingDelete: boolean = false;
   isShowLoadingRefrash: boolean = false;
@@ -95,6 +95,13 @@ export class BenefitDeductionEmployeesListComponent implements OnInit {
     showToAmount: true,
     showComment: true,
   };
+  modelfilter: ListViewFilterDataInterFace = {
+    toDate: null,
+    fromDate: null,
+    fromAmount: 121,
+    toAmount: 8000,
+  };
+  isVisible: boolean = false;
   constructor(
     private _benefitDeductionEmployeesService: BenefitDeductionEmployeesService,
     private _modalService: ModalService,
@@ -109,6 +116,9 @@ export class BenefitDeductionEmployeesListComponent implements OnInit {
     clientPrerequis
       .getBenefitDaductionClientPrerequisites(true)
       .subscribe((res) => {});
+    let date = DateUtilies.getTodayDateRange();
+    this.modelfilter.toDate = date.toDate;
+    this.modelfilter.fromDate = date.fromDate;
   }
   ngOnInit(): void {
     this.getList(this.filterWorkShops);
