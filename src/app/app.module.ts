@@ -22,20 +22,7 @@ import { AuthLoginGuard } from "./shared/guard/auth-guard-login.service";
 import { LicenseManager } from "ag-grid-enterprise";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { ShepherdService } from "angular-shepherd";
-import { ClientPrerequisitsService } from "./services/client-prerequisits";
 import { NgxWebstorageModule } from "ngx-webstorage";
-
-export function GetClientPrerequisits(
-  clientPrerequis: ClientPrerequisitsService
-) {
-  const fn = () =>
-    new Promise<void>((resolve, rej) => {
-      clientPrerequis.getClientPrerequisits(true).subscribe((res) => {
-        resolve();
-      });
-    });
-  return fn;
-}
 
 @NgModule({
   declarations: [AppComponent],
@@ -66,13 +53,6 @@ export function GetClientPrerequisits(
     AuthGuard,
     AuthLoginGuard,
     { provide: HTTP_INTERCEPTORS, useClass: NbAuthJWTInterceptor, multi: true },
-
-    // {
-    //   provide: APP_INITIALIZER,
-    //   useFactory: GetClientPrerequisits,
-    //   deps: [ClientPrerequisitsService],
-    //   multi: true,
-    // },
   ],
 })
 export class AppModule {

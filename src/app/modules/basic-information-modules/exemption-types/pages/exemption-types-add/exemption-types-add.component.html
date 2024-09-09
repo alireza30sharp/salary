@@ -1,0 +1,130 @@
+<app-general-panel
+  [title]="'اضافه کردن حکم حقوقی'"
+  [hideBackButton]="false"
+  (backCallback)="cancelClickHandler()"
+>
+  <div class="row">
+    <ki-form-group class="col-3" [label]="'کد کارگاه '">
+      <ki-input
+        [fullWidth]="true"
+        [(ngModel)]="wageOrdersModel.workShopId"
+        [readonly]="true"
+      ></ki-input>
+    </ki-form-group>
+
+    <ki-form-group class="col-3" [label]="'نام کارمند'">
+      <ki-select
+        [placeholder]="'نام کارمند'"
+        [allowClear]="true"
+        [allowHighlight]="true"
+        [options]="employeList"
+        [allowClear]="true"
+        [(ngModel)]="wageOrdersModel.employeeId"
+      >
+      </ki-select>
+    </ki-form-group>
+    <ki-form-group [label]="'تاریخ'" class="col-3">
+      <ki-date-picker [(ngModel)]="persianBirthDate"></ki-date-picker>
+    </ki-form-group>
+    <ki-form-group class="col-3" [label]="'سهم بیمه کارمند'">
+      <ki-input
+        [fullWidth]="true"
+        [(ngModel)]="wageOrdersModel.employerInsurance"
+        [maskType]="'percent'"
+        [maskPrefix]="maskPrefixTaxRate"
+        class="ltr"
+        [onlyNumber]="true"
+        [type]="'rate'"
+      ></ki-input>
+    </ki-form-group>
+  </div>
+  <div class="row">
+    <ki-form-group class="col-3" [label]="'سهم بیمه کارفرما'">
+      <ki-input
+        [fullWidth]="true"
+        [(ngModel)]="wageOrdersModel.workerInsurance"
+        [maskType]="'percent'"
+        [maskPrefix]="maskPrefixTaxRate"
+        class="ltr"
+        [onlyNumber]="true"
+        [type]="'rate'"
+      ></ki-input>
+    </ki-form-group>
+    <ki-form-group class="col-3" [label]="'سهم بیمه بیکاری'">
+      <ki-input
+        [fullWidth]="true"
+        [(ngModel)]="wageOrdersModel.unEmploymentInsurance"
+        [maskType]="'percent'"
+        [maskPrefix]="maskPrefixTaxRate"
+        class="ltr"
+        [onlyNumber]="true"
+        [type]="'rate'"
+      ></ki-input>
+    </ki-form-group>
+    <div class="col-3 align-content-center">
+      <ki-checkbox
+        [text]="'بیمه پذیر'"
+        [(ngModel)]="wageOrdersModel.hasInsurance"
+      />
+    </div>
+    <div class="col-3 align-content-center">
+      <ki-checkbox
+        [text]="'مالیات پذیر'"
+        [(ngModel)]="wageOrdersModel.isTaxable"
+      />
+    </div>
+  </div>
+  <div class="row">
+    <ki-form-group class="col-8" [label]="'توضیحات'">
+      <ki-textarea
+        [fullWidth]="true"
+        [(ngModel)]="wageOrdersModel.comment"
+      ></ki-textarea>
+    </ki-form-group>
+  </div>
+  <div class="row mb-2">
+    <app-alert
+      class="w-100"
+      [type]="'information'"
+      [title]="'اطلاعات'"
+      [message]="
+        'لطفا برای کارمند انتخاب شده حداقل یک مزایا و یا یک کسورات وارد کنید'
+      "
+    ></app-alert>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h6 class="mb-2 px-2 text-warning">مزایا</h6>
+      <ag-grid-data
+        [isEditMode]="isEditModeBenefits"
+        [columnsDefault]="benefitsColumnsDefault"
+        [defaultColDef]="benefitsDefaultColDef"
+        [rowDataDefault]="benefitsRowDataDefault"
+        [showSideBar]="false"
+        (saveCellChange)="benefitsSaveCellHandeler($event)"
+      ></ag-grid-data>
+    </div>
+    <div class="col-6">
+      <h6 class="mb-2 px-2 text-warning">کسورات</h6>
+      <ag-grid-data
+        [isEditMode]="isEditMode"
+        [showSideBar]="false"
+        [columnsDefault]="columnsDefault"
+        [rowDataDefault]="rowDataDefault"
+        [defaultColDef]="defaultColDef"
+        (saveCellChange)="saveCellHandeler($event)"
+      ></ag-grid-data>
+    </div>
+  </div>
+
+  <ng-template #footer>
+    <ki-button
+      btnType="basic"
+      [iconClassName]="'fa-solid fa-floppy-disk'"
+      [showLoading]="showLoading"
+      [title]="'ذخیره اطلاعات'"
+      (clickCallback)="clickSearchHander()"
+    >
+    </ki-button>
+  </ng-template>
+</app-general-panel>
