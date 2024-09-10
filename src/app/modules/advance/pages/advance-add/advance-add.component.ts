@@ -27,6 +27,7 @@ import { Location } from "@angular/common";
 import { AdvanceService } from "../../services/advance.service";
 
 import { AdvanceDto } from "../../models";
+import { wageOrdersDto } from "../../../wage-orders/models";
 @Component({
   selector: "app-advance-add",
   templateUrl: "./advance-add.component.html",
@@ -35,7 +36,8 @@ import { AdvanceDto } from "../../models";
 })
 export class advanceAddComponent implements OnInit {
   employeList?: SelectOptionInterface<any>[];
- 
+  setFocusItem: boolean = false;
+  requestedAmount:number=0;
   isEditMode: boolean = true;
  
  
@@ -45,6 +47,11 @@ export class advanceAddComponent implements OnInit {
   advanceModel = new AdvanceDto ();
   persianBirthDate: NgbDateStruct;
   cacheKeyType = cacheKeyEnum;
+
+  @Input() model: AdvanceDto = new AdvanceDto();
+  @Output() submitCallback = new EventEmitter<AdvanceDto>();
+
+
   constructor(
     private _changeWorkShops: ChangeWorkShopsService,
     private _toastService: ToastService,
@@ -78,5 +85,14 @@ export class advanceAddComponent implements OnInit {
     this._location.back();
   }
  
+  submitHandler(companyForm: any) {
+    this.submitCallback.emit(this.advanceModel);
+    this.advanceModel = new this.advanceModel();
+    this.setFocusItem = Object.assign({}, true);
+  }
+  onEnter(e) {
+    this.requestedAmount = +this.advanceModel.requestedAmount;
+  }
+
 
 }
