@@ -37,20 +37,18 @@ import { wageOrdersDto } from "../../../wage-orders/models";
 export class advanceAddComponent implements OnInit {
   employeList?: SelectOptionInterface<any>[];
   setFocusItem: boolean = false;
-  requestedAmount:number=0;
+  requestedAmount: number = 0;
   isEditMode: boolean = true;
- 
- 
+
   isShowLoadingDelete: boolean = false;
   showLoading: boolean = false;
   isShowLoadingRefrash: boolean = false;
-  advanceModel = new AdvanceDto ();
+  advanceModel = new AdvanceDto();
   persianBirthDate: NgbDateStruct;
   cacheKeyType = cacheKeyEnum;
 
   @Input() model: AdvanceDto = new AdvanceDto();
   @Output() submitCallback = new EventEmitter<AdvanceDto>();
-
 
   constructor(
     private _changeWorkShops: ChangeWorkShopsService,
@@ -71,28 +69,21 @@ export class advanceAddComponent implements OnInit {
           this.employeList = employeList;
         }
       });
-   
-
   }
-
 
   onRefrashSelected() {}
-  saveCellHandeler(formData: AdvanceDto) {
-   
-  }
+  saveCellHandeler(formData: AdvanceDto) {}
 
   cancelClickHandler() {
     this._location.back();
   }
- 
+
   submitHandler(companyForm: any) {
     this.submitCallback.emit(this.advanceModel);
-    this.advanceModel = new this.advanceModel();
+    // this.advanceModel = new this.advanceModel();
     this.setFocusItem = Object.assign({}, true);
   }
   onEnter(e) {
     this.requestedAmount = +this.advanceModel.requestedAmount;
   }
-
-
 }

@@ -1,0 +1,42 @@
+@import 'variable';
+$name: 'general-form';
+.#{$name} {
+  display: flex;
+  flex-direction: column;
+
+  &--show-padding {
+    .#{$name} {
+      &__content,
+      &__footer {
+        padding: $side-distance;
+      }
+    }
+  }
+
+  &__content {
+    flex: 1;
+    min-width: 0;
+    overflow: auto;
+    padding-bottom: $side-distance;
+    &:last-child {
+      padding-bottom: 0;
+    }
+  }
+
+  &__inner {
+    overflow: hidden;
+    .row {
+      margin-bottom: -$spacing-x4;
+    }
+  }
+
+  &__footer {
+    padding-top: $side-distance;
+    position: sticky;
+    bottom: 0;
+    border-top: 1px solid $border;
+    display: flex;
+    gap: $spacing-x2;
+    justify-content: flex-end;
+  }
+}

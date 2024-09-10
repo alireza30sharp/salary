@@ -21,9 +21,11 @@ export class WorkShopsFilter {
   EmployeeId?: any;
   PriceTo?: any;
   PriceFrom?: any;
-  Statues?:any;
-  RequestDateFrom?:any;
-  RequestDateTo?:any;
+  Statues?: any;
+  RequestDateFrom?: any;
+  RequestDateTo?: any;
   PageNumber: any = 0;
   PageSize: any = 20;
+  InsuranceType?: any;
+  Id?: any;
 }

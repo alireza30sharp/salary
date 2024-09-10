@@ -1,3 +1,5 @@
+import { FormControl } from "@angular/forms";
+
 // RequireAtLeastOne
 export type RequireAtLeastOne<T, Keys extends keyof T = keyof T> = Pick<
   T,
@@ -20,4 +22,13 @@ export type RequireOnlyOne<T, Keys extends keyof T = keyof T> = Pick<
 // PartialRecord
 export type PartialRecord<K extends keyof any, T> = {
   [C in K]?: T;
+};
+
+// ArrayElement
+export type ArrayElement<ArrayType extends readonly unknown[]> =
+  ArrayType extends readonly (infer ElementType)[] ? ElementType : never;
+
+// FormGroup
+export type FormGroupType<T> = {
+  [field in keyof T]: FormControl<T[field] | null>;
 };

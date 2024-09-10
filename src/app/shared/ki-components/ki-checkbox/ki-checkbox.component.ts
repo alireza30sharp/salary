@@ -10,7 +10,12 @@ import {
 } from "@angular/core";
 import { NG_VALUE_ACCESSOR } from "@angular/forms";
 import { SizeType } from "../../types/size.type";
-
+export interface UiCheckboxComponentInterface {
+  type?: "radio" | "checkbox";
+  value?: string;
+  name?: string;
+  checked?: boolean;
+}
 @Component({
   selector: "ki-checkbox",
   templateUrl: "./ki-checkbox.component.html",
@@ -23,7 +28,9 @@ import { SizeType } from "../../types/size.type";
     },
   ],
 })
-export class KiCheckboxComponent implements OnInit {
+export class KiCheckboxComponent
+  implements OnInit, UiCheckboxComponentInterface
+{
   @ViewChild("chk") inputRef: ElementRef<HTMLInputElement>;
   @Input() value: string;
   @Input() type: "radio" | "checkbox" = "checkbox";

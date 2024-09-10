@@ -25,7 +25,29 @@ import {
   NbComponentStatus,
 } from "@nebular/theme";
 import { TaxRate } from "../../../base/models/rul";
+type InputType =
+  | "password"
+  | "number"
+  | "text"
+  | "email"
+  | "phone"
+  | "tel"
+  | "rate"
+  | "currency"
+  | "fax";
 
+export interface UiInputComponentInterface {
+  type?: InputType;
+  min?: number;
+  max?: number;
+  step?: string;
+  onlyNumber?: boolean;
+  maskType?: "separator" | "percent" | (string & {});
+  maskDecimalDigit?: number;
+  maskThousandSeparator?: string;
+  maskPrefix?: string;
+  maskAllowNegativeNumbers?: boolean;
+}
 @Component({
   selector: "ki-input",
   templateUrl: "./ki-input.component.html",
@@ -43,20 +65,13 @@ import { TaxRate } from "../../../base/models/rul";
     },
   ],
 })
-export class KiInputComponent implements ControlValueAccessor, OnChanges {
+export class KiInputComponent
+  implements ControlValueAccessor, OnChanges, UiInputComponentInterface
+{
   @Input() _value = "";
   @Input() id?: string;
   @Input() placeholder: string;
-  @Input() type:
-    | "password"
-    | "number"
-    | "text"
-    | "email"
-    | "phone"
-    | "tel"
-    | "rate"
-    | "currency"
-    | "fax" = "text";
+  @Input() type: InputType = "text";
   @Input() min?: number;
   @Input() fullWidth: boolean = false;
   @Input() max?: number;

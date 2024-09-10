@@ -6,6 +6,7 @@ import {
   NbComponentSize,
   NbComponentStatus,
 } from "@nebular/theme";
+export interface UiTextareaComponentInterface {}
 
 @Component({
   selector: "ki-textarea",
@@ -19,7 +20,9 @@ import {
     },
   ],
 })
-export class KiTextareaComponent implements OnInit {
+export class KiTextareaComponent
+  implements OnInit, UiTextareaComponentInterface
+{
   @Input("value") _value = "";
 
   @Input() id?: string;

@@ -1,12 +1,13 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { ApiUrlService } from "../../../api-url.service";
-import { Data, response } from "../../../shared/models";
-import { wageOrderListDto, wageOrdersDto } from "../models/wage-orders.model";
-import { SessionNames } from "../../../shared/utilities/session-names";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { SessionStorage } from "ngx-webstorage";
+import { ApiUrlService } from "../../../../api-url.service";
+import { SessionNames } from "../../../../shared/utilities/session-names";
+import { WorkShopsFilter } from "../../../../base/models";
+import { Data, response } from "../../../../shared/models";
+import { InsuranceTypDto } from "../models/Insurance-type.model";
 @Injectable()
-export class WageOrdersService {
+export class InsuranceTypeService {
   @SessionStorage(SessionNames.WorkShopsID)
   WorkShopsID: any;
   constructor(
@@ -14,42 +15,74 @@ export class WageOrdersService {
     private readonly urlSvc: ApiUrlService
   ) {}
 
-  get(params?: any) {
-    let PageNumber: number = 1;
-    let PageSize: number = 20;
-    return this.$http.get<response<Data<wageOrderListDto[]>>>(
-      this.urlSvc.WageOrders.GetWageOrderListOfEmployee,
+  GetAll(filterParams?: WorkShopsFilter) {
+    const defaultPageNumber = 1;
+    const defaultPageSize = 20;
+    // ساختن HttpParams
+    let params = new HttpParams();
+    // افزودن پارامترها به HttpParams بر اساس مقادیر موجود
+    if (
+      filterParams?.PageNumber !== undefined &&
+      filterParams.PageNumber !== null
+    ) {
+      params = params.set("PageNumber", filterParams.PageNumber.toString());
+    } else {
+      params = params.set("PageNumber", defaultPageNumber.toString());
+    }
+
+    if (
+      filterParams?.PageSize !== undefined &&
+      filterParams.PageSize !== null
+    ) {
+      params = params.set("PageSize", filterParams.PageSize.toString());
+    } else {
+      params = params.set("PageSize", defaultPageSize.toString());
+    }
+    if (filterParams?.Id !== undefined && filterParams.Id !== null) {
+      params = params.set("Id", filterParams.Id.toString());
+    }
+    if (
+      filterParams?.InsuranceType !== undefined &&
+      filterParams.InsuranceType !== null
+    ) {
+      params = params.set(
+        "InsuranceType",
+        filterParams.InsuranceType.toString()
+      );
+    }
+
+    // در صورت وجود WorkShopsID، آن را نیز به پارامترها اضافه کنید
+    if (this.WorkShopsID) {
+      params = params.set("WorkShopId", this.WorkShopsID.toString());
+    }
+    return this.$http.get<response<Data<any[]>>>(
+      this.urlSvc.InsuranceType.GetAll,
+      { params: params }
+    );
+  }
+  create(model: InsuranceTypDto) {
+    model.workShopId = this.WorkShopsID;
+    return this.$http.post<response<any>>(this.urlSvc.InsuranceType.Add, model);
+  }
+
+  delete(id?: any) {
+    return this.$http.delete<response<string>>(
+      this.urlSvc.InsuranceType.Delete,
       {
-        params: {
-          EmployeeId: 0,
-          PageNumber: PageNumber,
-          PageSize: PageSize,
-          WorkShopId: this.WorkShopsID,
+        body: {
+          workShopId: this.WorkShopsID,
+          id: id,
         },
       }
     );
   }
-  create(model: wageOrdersDto) {
-    model.workShopId = this.WorkShopsID;
-    return this.$http.post<response<any>>(this.urlSvc.WageOrders.Add, model);
-  }
-
-  delete(employeeId?: any, wageOrderId?: any) {
-    return this.$http.delete<response<string>>(this.urlSvc.WageOrders.Delete, {
-      body: {
-        workShopId: this.WorkShopsID,
-        employeeId: employeeId,
-        wageOrderId: wageOrderId,
-      },
-    });
-  }
   getById(id) {
-    return this.$http.get<response<any>>(this.urlSvc.WageOrders.getById, {
-      params: { workShopId: this.WorkShopsID, WageOrderId: id },
+    return this.$http.get<response<any>>(this.urlSvc.InsuranceType.getById, {
+      params: { workShopId: this.WorkShopsID, Id: id },
     });
   }
-  update(model: wageOrdersDto) {
+  update(model: InsuranceTypDto) {
     model.workShopId = this.WorkShopsID;
-    return this.$http.put<response<any>>(this.urlSvc.WageOrders.Edit, model);
+    return this.$http.put<response<any>>(this.urlSvc.InsuranceType.Edit, model);
   }
 }

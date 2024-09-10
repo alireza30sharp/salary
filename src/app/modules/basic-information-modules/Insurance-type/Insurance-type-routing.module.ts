@@ -1,25 +1,25 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import * as _pages from "./pages";
-import { Paths } from "../../shared/utilities/paths";
-import { WageOrdersComponent } from "./wage-orders.component";
+import { InsuranceTypeComponent } from "./Insurance-type.component";
+import { Paths } from "../../../shared/utilities/paths";
 
 const routes: Routes = [
   {
     path: "",
-    component: WageOrdersComponent,
+    component: InsuranceTypeComponent,
     children: [
       {
-        path: Paths.wageOrders.list().path,
-        component: _pages.WageOrdersListComponent,
+        path: Paths.InsuranceType.list().path,
+        component: _pages.InsuranceTypeListComponent,
       },
       {
-        path: Paths.wageOrders.add().path,
-        component: _pages.WageOrdersAddComponent,
+        path: Paths.InsuranceType.add().path,
+        component: _pages.InsuranceTypeAddComponent,
       },
       {
-        path: Paths.wageOrders.edit().path,
-        component: _pages.WageOrdersEditComponent,
+        path: Paths.InsuranceType.edit().path,
+        component: _pages.InsuranceTypeEditComponent,
       },
     ],
   },
@@ -29,4 +29,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class WageOrdersRoutingModule {}
+export class InsuranceTypeRoutingModule {}

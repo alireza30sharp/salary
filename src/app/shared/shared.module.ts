@@ -36,8 +36,13 @@ import { TooltipComponent } from "./components/tooltip/tooltip.component";
 import { TooltipDirective } from "./components/tooltip/tooltip.directive";
 import { PrimengModule } from "./primeng.module";
 import { LoadingComponent } from "./components/loading/loading.component";
+import { GeneralFormComponent } from "./components/general-form/general-form.component";
+import { GetElementIdPipe } from "./components/general-form/general-form-get-element-id.pipe";
+import { GetValidatorMessagePipe } from "./components/general-form/general-form-get-validator-message.pipe";
+import { HasReuqiredValidatorPipe } from "./components/general-form/general-form-has-required-validator.pipe";
 
 const component = [
+  GeneralFormComponent,
   LoadingComponent,
   MonthPickerComponent,
   ContextMenuComponent,
@@ -90,6 +95,9 @@ const component = [
   kiComponent.KiValidationComponent,
   kiComponent.KiTextareaComponent,
   HighLightPipe,
+  GetElementIdPipe,
+  GetValidatorMessagePipe,
+  HasReuqiredValidatorPipe,
 ];
 @NgModule({
   declarations: [component],

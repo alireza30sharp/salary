@@ -12,6 +12,14 @@ import { propertyOf } from "../../utilities/property-of";
 import { SelectOptionInterface } from "../../interfaces/select-option.interface";
 import { SizeType } from "../../types/size.type";
 import { NgSelectComponent } from "@ng-select/ng-select";
+export interface UiSelectComponentInterface {
+  options: SelectOptionInterface[] | (any[] & {});
+  bindLabel?: string;
+  bindValue?: string;
+  allowClear?: boolean;
+  multiple?: boolean;
+  showLoading?: boolean;
+}
 
 @Component({
   selector: "ki-select",
@@ -26,7 +34,9 @@ import { NgSelectComponent } from "@ng-select/ng-select";
     },
   ],
 })
-export class kiSelectComponent implements ControlValueAccessor {
+export class kiSelectComponent
+  implements ControlValueAccessor, UiSelectComponentInterface
+{
   @ViewChild("select") set select(elm: NgSelectComponent) {
     if (elm) {
       this._select = elm;

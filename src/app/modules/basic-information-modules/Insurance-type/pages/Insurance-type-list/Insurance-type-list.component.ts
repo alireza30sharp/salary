@@ -1,103 +1,99 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { ModalService } from "../../../../shared/services";
-import { AgGridInterFace } from "../../../../shared/interfaces/ag-grid.interface";
-import { propertyOf } from "../../../../shared/utilities/property-of";
 import { finalize } from "rxjs";
-import { ConfirmInterFace } from "../../../../shared/ki-components/ki-confirmation/confirm.interface";
-import { WageOrdersService } from "../../services/wage-orders.service";
-import { ChangeWorkShopsService } from "../../../../services/change-work-shop.service";
 import { Router } from "@angular/router";
-import { wageOrderListDto } from "../../models/wage-orders.model";
-import { CellOperationsClickEvent } from "../../../../shared/components/ag-grid";
-import { Paths } from "../../../../shared/utilities/paths";
-import { ClientPrerequisitsService } from "../../../../services/client-prerequisits";
 import { Location } from "@angular/common";
+import { InsuranceTypeService } from "../../services/Insurance-type.service";
+import { AgGridInterFace } from "../../../../../shared/interfaces/ag-grid.interface";
+import { ChangeWorkShopsService } from "../../../../../services/change-work-shop.service";
+import { ConfirmInterFace } from "../../../../../shared/ki-components/ki-confirmation/confirm.interface";
+import { ModalService } from "../../../../../shared/services";
+import { Paths } from "../../../../../shared/utilities/paths";
 
 @Component({
-  selector: "app-wage-orders-list",
-  templateUrl: "./wage-orders-list.component.html",
-  styleUrls: ["./wage-orders-list.component.scss"],
-  providers: [WageOrdersService],
+  selector: "app-insurance-type-list",
+  templateUrl: "./insurance-type-list.component.html",
+  styleUrls: ["./insurance-type-list.component.scss"],
+  providers: [InsuranceTypeService],
 })
-export class WageOrdersListComponent implements OnInit {
-  columnsDefault: AgGridInterFace[] = [
-    {
-      field: propertyOf<wageOrderListDto>("row_NO"),
-      headerName: "row_NO",
-      hide: true,
-    },
-    {
-      field: propertyOf<wageOrderListDto>("id"),
-      hide: true,
-    },
+export class InsuranceTypeListComponent implements OnInit {
+  // columnsDefault: AgGridInterFace[] = [
+  //   {
+  //     field: propertyOf<wageOrderListDto>("row_NO"),
+  //     headerName: "row_NO",
+  //     hide: true,
+  //   },
+  //   {
+  //     field: propertyOf<wageOrderListDto>("id"),
+  //     hide: true,
+  //   },
 
-    {
-      field: propertyOf<wageOrderListDto>("code"),
-      hide: true,
-    },
-    {
-      field: propertyOf<wageOrderListDto>("employeeId"),
-      hide: true,
-    },
-    {
-      field: "عملیات",
-      cellClass: "d-flex justify-content-center align-items-center",
-      editable: false,
-      width: 15,
-      cellRenderer: CellOperationsClickEvent,
-      cellRendererParams: {
-        onClickRemove: (params) => {
-          const param: ConfirmInterFace = {
-            acceptText: "بله",
-            declineText: "خیر",
-            description: "آیا از عملیات مورد نظر اطمینان دارید؟",
-            title: "حذف" + " " + `"${params.node?.employeeName.toUpperCase()}"`,
-            type: "Confirm",
-          };
-          this._modalService.showConfirm(param, false).then((res) => {
-            if (res) {
-              this.onDeleteItem(params.node);
-            }
-          });
-        },
-        onClickEdit: (params) => {
-          this._router.navigateByUrl(Paths.wageOrders.edit(params.node.id).url);
-        },
-      },
-    },
-    {
-      field: propertyOf<wageOrderListDto>("employeeName"),
-      filter: "agTextColumnFilter",
-      headerName: "نام کارمند",
-    },
-    {
-      field: propertyOf<wageOrderListDto>("employerInsurance"),
-      headerName: "سهم بیمه کارمند",
-      filter: "agNumberColumnFilter",
-    },
+  //   {
+  //     field: propertyOf<wageOrderListDto>("code"),
+  //     hide: true,
+  //   },
+  //   {
+  //     field: propertyOf<wageOrderListDto>("employeeId"),
+  //     hide: true,
+  //   },
+  //   {
+  //     field: "عملیات",
+  //     cellClass: "d-flex justify-content-center align-items-center",
+  //     editable: false,
+  //     width: 15,
+  //     cellRenderer: CellOperationsClickEvent,
+  //     cellRendererParams: {
+  //       onClickRemove: (params) => {
+  //         const param: ConfirmInterFace = {
+  //           acceptText: "بله",
+  //           declineText: "خیر",
+  //           description: "آیا از عملیات مورد نظر اطمینان دارید؟",
+  //           title: "حذف" + " " + `"${params.node?.employeeName.toUpperCase()}"`,
+  //           type: "Confirm",
+  //         };
+  //         this._modalService.showConfirm(param, false).then((res) => {
+  //           if (res) {
+  //             this.onDeleteItem(params.node);
+  //           }
+  //         });
+  //       },
+  //       onClickEdit: (params) => {
+  //         this._router.navigateByUrl(Paths.wageOrders.edit(params.node.id).url);
+  //       },
+  //     },
+  //   },
+  //   {
+  //     field: propertyOf<wageOrderListDto>("employeeName"),
+  //     filter: "agTextColumnFilter",
+  //     headerName: "نام کارمند",
+  //   },
+  //   {
+  //     field: propertyOf<wageOrderListDto>("employerInsurance"),
+  //     headerName: "سهم بیمه کارمند",
+  //     filter: "agNumberColumnFilter",
+  //   },
 
-    {
-      field: propertyOf<wageOrderListDto>("unEmploymentInsurance"),
-      headerName: "سهم بیمه بیکاری",
-      filter: "agNumberColumnFilter",
-    },
-    {
-      field: propertyOf<wageOrderListDto>("persianStartDate"),
-      headerName: "تاریخ",
-      filter: "agTextColumnFilter",
-    },
-    {
-      field: propertyOf<wageOrderListDto>("personnelCode"),
-      headerName: "کد",
-      filter: "agTextColumnFilter",
-    },
-    {
-      field: propertyOf<wageOrderListDto>("comment"),
-      headerName: "توضیحات",
-      filter: "agTextColumnFilter",
-    },
-  ];
-  rowDataDefault = new Array<wageOrderListDto>();
+  //   {
+  //     field: propertyOf<wageOrderListDto>("unEmploymentInsurance"),
+  //     headerName: "سهم بیمه بیکاری",
+  //     filter: "agNumberColumnFilter",
+  //   },
+  //   {
+  //     field: propertyOf<wageOrderListDto>("persianStartDate"),
+  //     headerName: "تاریخ",
+  //     filter: "agTextColumnFilter",
+  //   },
+  //   {
+  //     field: propertyOf<wageOrderListDto>("personnelCode"),
+  //     headerName: "کد",
+  //     filter: "agTextColumnFilter",
+  //   },
+  //   {
+  //     field: propertyOf<wageOrderListDto>("comment"),
+  //     headerName: "توضیحات",
+  //     filter: "agTextColumnFilter",
+  //   },
+  // ];
+  rowDataDefault = new Array<any>();
   defaultColDef: AgGridInterFace = {
     flex: 1,
 
@@ -105,34 +101,34 @@ export class WageOrdersListComponent implements OnInit {
 
     resizable: true,
   };
-  selectRow = new Array<wageOrderListDto>();
+  selectRow = new Array<any>();
   isShowLoadingDelete: boolean = false;
   isShowLoadingRefrash: boolean = false;
   constructor(
-    private _wageOrdersService: WageOrdersService,
-    private _modalService: ModalService,
+    private _insuranceTypeService: InsuranceTypeService,
     private _changeWorkShops: ChangeWorkShopsService,
     private _router: Router,
-    private _clientPrerequisitsService: ClientPrerequisitsService,
+    private _modalService: ModalService,
+
     private readonly _location: Location
   ) {}
   ngOnInit(): void {
     this._changeWorkShops.activeWorkShopsSource$.subscribe((workShopId) => {
-      this.getWageOrders();
+      this.getAll();
     });
   }
   onRefrashSelected() {
-    this.getWageOrders();
+    this.getAll();
   }
   cancelClickHandler() {
     this._location.back();
   }
   newWorkShpps() {
-    this._router.navigateByUrl(Paths.wageOrders.add().url);
+    this._router.navigateByUrl(Paths.InsuranceType.add().url);
   }
-  getWageOrders() {
+  getAll() {
     this.isShowLoadingRefrash = true;
-    this._wageOrdersService.get().subscribe({
+    this._insuranceTypeService.GetAll().subscribe({
       next: (res) => {
         if (res.isOk) {
           this.rowDataDefault = res.data.data;
@@ -163,10 +159,10 @@ export class WageOrdersListComponent implements OnInit {
       }
     });
   }
-  onDeleteItem(item: wageOrderListDto) {
+  onDeleteItem(item: any) {
     this.isShowLoadingDelete = true;
-    this._wageOrdersService
-      .delete(item.employeeId, item.id)
+    this._insuranceTypeService
+      .delete(item.id)
       .pipe(
         finalize(() => {
           this.isShowLoadingDelete = false;
@@ -174,12 +170,8 @@ export class WageOrdersListComponent implements OnInit {
       )
       .subscribe((res) => {
         if (res.isOk) {
-          this.getWageOrders();
+          this.getAll();
         }
       });
   }
-  // onSelectedRowsChangeEvent(event: Array<BenefitDeductionDto>) {
-  //   this.selectRow = new Array<BenefitDeductionDto>();
-  //   this.selectRow = event;
-  // }
 }

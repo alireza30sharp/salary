@@ -136,6 +136,7 @@ export class ApiUrlService {
     Edit: BASE_URL + "WageOrders/Edit",
     getById: BASE_URL + "WageOrders/GetWageOrderInformationById",
   };
+
   WorkingTimes = {
     AddDraft: BASE_URL + "WorkingTimes/AddDraft",
     Add: BASE_URL + "WorkingTimes/Add",
@@ -155,5 +156,11 @@ export class ApiUrlService {
     Edit: BASE_URL + "Advance/Update",
     getById: BASE_URL + "Advance/GetAdvanceById",
   };
-
+  InsuranceType = {
+    GetAll: BASE_URL + "BasicInformation/InsuranceType/GetAllCategories",
+    Add: BASE_URL + "BasicInformation/InsuranceType/Add",
+    Delete: BASE_URL + "BasicInformation/InsuranceType/Delete",
+    Edit: BASE_URL + "BasicInformation/InsuranceType/Update",
+    getById: BASE_URL + "BasicInformation/InsuranceType/GetById",
+  };
 }

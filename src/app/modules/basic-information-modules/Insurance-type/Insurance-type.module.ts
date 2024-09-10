@@ -1,16 +1,16 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import * as _pages from "./pages";
-import { SharedModule } from "../../shared/shared.module";
-import { WageOrdersComponent } from "./wage-orders.component";
-import { WageOrdersRoutingModule } from "./wage-orders-routing.module";
+import { SharedModule } from "../../../shared/shared.module";
+import { InsuranceTypeComponent } from "./Insurance-type.component";
+import { InsuranceTypeRoutingModule } from "./Insurance-type-routing.module";
 @NgModule({
   declarations: [
-    WageOrdersComponent,
-    _pages.WageOrdersEditComponent,
-    _pages.WageOrdersAddComponent,
-    _pages.WageOrdersListComponent,
+    InsuranceTypeComponent,
+    _pages.InsuranceTypeEditComponent,
+    _pages.InsuranceTypeAddComponent,
+    _pages.InsuranceTypeListComponent,
   ],
-  imports: [CommonModule, WageOrdersRoutingModule, SharedModule],
+  imports: [CommonModule, InsuranceTypeRoutingModule, SharedModule],
 })
-export class WageOrdersModule {}
+export class InsuranceTypeModule {}

@@ -1,0 +1,177 @@
+<ng-container *ngIf="!form; else partialTemplate">
+  <form
+    *ngIf="formGroup"
+    #formRef="ngForm"
+    class="general-form"
+    [class.general-form--show-padding]="showPadding"
+    [style.height]="cssHeight"
+    [style.min-height]="cssMinHeight"
+    [style.overflow]="cssOverflow"
+    [attr.id]="idAttr"
+    [formGroup]="formGroup"
+    (submit)="submitHandler($event)"
+  >
+    <section class="general-form__content">
+      <div class="general-form__inner">
+        <div class="row">
+          <ng-container
+            [ngTemplateOutlet]="fieldsTemplate"
+            [ngTemplateOutletContext]="{
+              fields: fields,
+              formGroup: formGroup,
+              form: formRef
+            }"
+          ></ng-container>
+        </div>
+      </div>
+      <ng-container [ngTemplateOutlet]="content"></ng-container>
+    </section>
+    <footer
+      *ngIf="!hideFooter"
+      class="general-form__footer"
+      [class.general-data-entry__footer--show]="!disabled"
+      [class.general-data-entry__footer--no-gutter]="noGutter"
+      [hidden]="disabled"
+    >
+      <ki-button
+        btnType="basic"
+        [variant]="'fill'"
+        (clickCallback)="cancelHandler()"
+      >
+        انصراف
+      </ki-button>
+      <ki-button
+        [variant]="'fill'"
+        btnType="basic"
+        [iconClassName]="'fa-solid fa-floppy-disk'"
+        >ذخیره</ki-button
+      >
+    </footer>
+  </form>
+</ng-container>
+<ng-template #partialTemplate>
+  <section
+    class="general-form"
+    [class.general-form--show-padding]="showPadding"
+    [style.height]="cssHeight"
+    [style.min-height]="cssMinHeight"
+    [style.overflow]="cssOverflow"
+    [attr.id]="idAttr"
+  >
+    <section class="general-form__content">
+      <div class="general-form__inner">
+        <div class="row">
+          <ng-container
+            [ngTemplateOutlet]="fieldsTemplate"
+            [ngTemplateOutletContext]="{
+              fields: fields,
+              formGroup: formGroup,
+              form: form
+            }"
+          ></ng-container>
+          <ng-container [ngTemplateOutlet]="content"></ng-container>
+        </div>
+      </div>
+    </section>
+  </section>
+</ng-template>
+
+<ng-template #content>
+  <ng-content></ng-content>
+</ng-template>
+
+<ng-template
+  #fieldsTemplate
+  let-fields="fields"
+  let-formGroup="formGroup"
+  let-form="form"
+>
+  <ng-container *ngFor="let field of fields" [formGroup]="formGroup">
+    <ki-form-group
+      class="col-{{
+        field.columnWidthNumber
+          ? field.columnWidthNumber
+          : 12 / columnCount || 6
+      }}"
+      [label]="field.type !== 'checkbox' ? field.title : null"
+      [hidden]="field.hidden"
+      [removeLabel]="field.hideLabel"
+      [for]="field | getElementId : formUniqueKey"
+      [showRequireSign]="field.validators | hasReuqiredValidation"
+      [errorMessage]="
+        (form?.submitted ||
+          formGroup.controls[field.binding]?.touched ||
+          formGroup.controls[field.binding]?.dirty) &&
+        formGroup.controls[field.binding]?.invalid
+          ? (field
+            | getValidatorMessage : formGroup.controls[field.binding].errors)
+          : null
+      "
+      [invisible]="field.invisible"
+    >
+      <ng-container [ngSwitch]="field.type">
+        <ng-container *ngSwitchCase="'textbox'">
+          <ki-input
+            [id]="field | getElementId : formUniqueKey"
+            [formGroup]="formGroup"
+            [formControlName]="field.binding"
+            [readonly]="field.readonly"
+            [type]="field.config?.type"
+            [min]="field.config?.min"
+            [max]="field.config?.max"
+            [step]="field.config?.step"
+            [maxLength]="field.config?.maxLength"
+            [onlyNumber]="field.config?.onlyNumber"
+            [maskType]="field.config?.maskType"
+            [maskDecimalDigit]="field.config?.maskDecimalDigit"
+            [maskThousandSeparator]="field.config?.maskThousandSeparator"
+            [maskPrefix]="field.config?.maskPrefix"
+            [maskAllowNegativeNumbers]="field.config?.maskAllowNegativeNumbers"
+            (onChangeCallback)="textboxChangeHandler($event, field)"
+          ></ki-input>
+        </ng-container>
+        <ng-container *ngSwitchCase="'textarea'">
+          <ki-textarea
+            [id]="field | getElementId : formUniqueKey"
+            [formGroup]="formGroup"
+            [formControlName]="field.binding"
+          ></ki-textarea>
+        </ng-container>
+        <ng-container *ngSwitchCase="'select'">
+          <ki-select
+            [id]="field | getElementId : formUniqueKey"
+            [formGroup]="formGroup"
+            [formControlName]="field.binding"
+            [readonly]="field.readonly"
+            [options]="field.config.options"
+            [bindValue]="field.config.bindValue"
+            [bindLabel]="field.config.bindLabel"
+            [allowClear]="field.config.allowClear"
+            [multiple]="field.config.multiple"
+            [isloading]="field.config.showLoading"
+            (changeEvent)="selectChangeHandler($event, field)"
+          ></ki-select>
+        </ng-container>
+        <ng-container *ngSwitchCase="'date-picker'">
+          <ki-date-picker
+            [id]="field | getElementId : formUniqueKey"
+            [formGroup]="formGroup"
+            [formControlName]="field.binding"
+            (onDateSelectCallback)="datePickerChangeHandler($event, field)"
+          ></ki-date-picker>
+        </ng-container>
+        <ng-container *ngSwitchCase="'checkbox'">
+          <ki-checkbox
+            [type]="field.config?.type ? field.config?.type : 'checkbox'"
+            [name]="field.config?.name"
+            [formGroup]="formGroup"
+            [formControlName]="field.binding"
+            [checked]="field.config?.checked"
+            (change)="checkboxChangeHandler($event, field)"
+            [text]="field.title"
+          ></ki-checkbox>
+        </ng-container>
+      </ng-container>
+    </ki-form-group>
+  </ng-container>
+</ng-template>

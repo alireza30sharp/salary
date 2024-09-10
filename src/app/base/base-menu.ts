@@ -65,6 +65,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: "حکم استخدامی",
         link: "/salary/employment-order/list",
       },
+      {
+        title: "نوع بیمه",
+        link: "/salary/insurance-type/list",
+      },
       // {
       //   title: "حکم استخدامی",
       //   link: "/salary/employment-orders-list",
@@ -92,11 +96,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: "/salary/benefit-deduction-employees-list",
       },
 
-      {//همونی که داخل path هست
+      {
+        //همونی که داخل path هست
         title: "مساعده",
         link: "/salary/advance",
       },
-
     ],
   },
   // {

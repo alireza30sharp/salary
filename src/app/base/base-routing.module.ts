@@ -91,6 +91,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: "insurance-type",
+        loadChildren: () =>
+          import(
+            "../modules/basic-information-modules/Insurance-type/Insurance-type.module"
+          ).then((m) => m.InsuranceTypeModule),
+      },
+      {
         path: "",
         redirectTo: "system-operation/list",
         pathMatch: "full",
@@ -103,8 +110,6 @@ const routes: Routes = [
             (m) => m.AdvanceModule
           ),
       },
-
-
     ],
   },
 ];
