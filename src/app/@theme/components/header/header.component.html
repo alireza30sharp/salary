@@ -15,6 +15,7 @@
     >
   </nb-select>
   <ki-select-header
+    [isloading]="WorkShopsOptions.length == 0"
     [options]="WorkShopsOptions"
     [allowClear]="true"
     [(ngModel)]="WorkShopsID"

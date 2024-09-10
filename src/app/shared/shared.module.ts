@@ -35,8 +35,10 @@ import { ToastrModule } from "ngx-toastr";
 import { TooltipComponent } from "./components/tooltip/tooltip.component";
 import { TooltipDirective } from "./components/tooltip/tooltip.directive";
 import { PrimengModule } from "./primeng.module";
+import { LoadingComponent } from "./components/loading/loading.component";
 
 const component = [
+  LoadingComponent,
   MonthPickerComponent,
   ContextMenuComponent,
   TreeComponent,

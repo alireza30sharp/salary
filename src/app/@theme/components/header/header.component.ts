@@ -134,6 +134,9 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
           this.WorkShopsID = +find.value;
         }
       }
+      if (this.WorkShopsOptions.length > 0 && res == null) {
+        this.router.navigate(["auth/logout"]);
+      }
     });
   }
 
