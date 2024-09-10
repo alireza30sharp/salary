@@ -147,4 +147,13 @@ export class ApiUrlService {
     Add: BASE_URL + "SalaryList/Add",
     Delete: BASE_URL + "SalaryList/Delete",
   };
+
+  Advance = {
+    GetAll: BASE_URL + "Advance/GetAdvanceList",
+    Add: BASE_URL + "Advance/Add",
+    Delete: BASE_URL + "Advance/DeleteAdvance",
+    Edit: BASE_URL + "Advance/Update",
+    getById: BASE_URL + "Advance/GetAdvanceById",
+  };
+
 }

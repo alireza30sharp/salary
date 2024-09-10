@@ -73,4 +73,18 @@ export class Paths {
       return new Uri(this.domain, `/${this.base}/add`, "add");
     }
   };
+  static advance = class {
+    static base: string = "salary/advance";//آدرسی که روی کروم میفته
+    static domain: string = "http://localhost:4200";
+    static list(): Uri {
+      return new Uri(this.domain, `/${this.base}/list`, "list");
+    }
+    static edit(id?: number): Uri {
+      return new Uri(this.domain, `/${this.base}/edit/${id ?? ""}`, "edit/:id");
+    }
+    static add(): Uri {
+      return new Uri(this.domain, `/${this.base}/add`, "add");
+    }
+  };
+
 }

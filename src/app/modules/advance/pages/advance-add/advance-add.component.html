@@ -1,0 +1,98 @@
+<app-general-panel
+  [title]="'مساعده'"
+  [hideBackButton]="false"
+  (backCallback)="cancelClickHandler()"
+>
+
+
+<div class="row">
+
+  <ki-form-group
+  [label]="'تاریخ'"
+  [showRequireSign]="true"
+  class="col-2"
+  [errorMessage]="
+    adjDate.errors?.invalidDate ? 'تاریخ نا معتبر' : 'فیلد اجباری'
+  "
+  [hideError]="
+    !(adjDate.errors?.required || adjDate.errors?.invalidDate)
+  "
+>
+  <ki-date-picker
+    [(ngModel)]="persianBirthDate"
+    name="adjDate"
+    #adjDate="ngModel"
+    required
+  ></ki-date-picker>
+</ki-form-group>
+
+<ki-form-group class="col-2"   [label]="'نام کارمند'">
+<ki-select
+[placeholder]="'نام کارمند'"
+[allowClear]="true"
+[allowHighlight]="true"
+[options]="employeList"
+[allowClear]="true"
+[(ngModel)]="advanceModel.employeeId"
+>
+</ki-select>
+
+</ki-form-group>
+
+<ki-form-group
+class="col-4"
+[label]="' مبلغ'"
+[showRequireSign]="true"
+[errorMessage]="
+  toMoney.errors?.isCurrency
+    ? 'مبلغ وارد شده کمتر از مبلغ است'
+    : 'فیلد اجباری'
+"
+[hideError]="
+  !(
+    ((toMoney.touched || companyForm.submitted) &&
+      toMoney.errors?.required) ||
+    toMoney.errors?.isCurrency
+  )
+"
+>
+<ki-input
+  name="toMoney"
+  [fullWidth]="true"
+  class="ltr"
+  [onlyNumber]="true"
+  [(ngModel)]="advanceModel.requestedAmount"
+  #toMoney="ngModel"
+  (focusCallback)="onEnter($event)"
+  [type]="'currency'"
+  [fromMoney]="fromMoney"
+  [maskType]="'separator'"
+  required
+></ki-input>
+</ki-form-group>
+
+
+<!--
+  <ki-form-group class="col-4" [label]="'شرح'">
+    <ki-input
+      name="comment"
+      [(ngModel)]="model.comment"
+      #comment="ngModel"
+    ></ki-input>
+  </ki-form-group>
+-->
+
+</div>
+
+
+  <ng-template #footer>
+    <ki-button
+      btnType="basic"
+      [iconClassName]="'fa-solid fa-floppy-disk'"
+      [showLoading]="showLoading"
+      [title]="'ذخیره اطلاعات'"
+      (clickCallback)="clickSearchHander()"
+    >
+    </ki-button>
+  </ng-template>
+</app-general-panel>

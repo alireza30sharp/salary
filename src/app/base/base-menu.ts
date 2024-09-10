@@ -91,6 +91,12 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: "مزایا و کسورات کارمندان",
         link: "/salary/benefit-deduction-employees-list",
       },
+
+      {//همونی که داخل path هست
+        title: "مساعده",
+        link: "/salary/advance",
+      },
+
     ],
   },
   // {
