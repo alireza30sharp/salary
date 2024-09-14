@@ -36,7 +36,7 @@ type InputType =
   | "currency"
   | "fax";
 
-export interface UiInputComponentInterface {
+export interface KiInputComponentInterface {
   type?: InputType;
   min?: number;
   max?: number;
@@ -66,7 +66,7 @@ export interface UiInputComponentInterface {
   ],
 })
 export class KiInputComponent
-  implements ControlValueAccessor, OnChanges, UiInputComponentInterface
+  implements ControlValueAccessor, OnChanges, KiInputComponentInterface
 {
   @Input() _value = "";
   @Input() id?: string;

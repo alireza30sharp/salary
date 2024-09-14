@@ -4,7 +4,7 @@ import { SessionStorage } from "ngx-webstorage";
 import { ApiUrlService } from "../../../../api-url.service";
 import { SessionNames } from "../../../../shared/utilities/session-names";
 import { WorkShopsFilter } from "../../../../base/models";
-import { Data, response } from "../../../../shared/models";
+import { Data, MessageSave, response } from "../../../../shared/models";
 import { InsuranceTypDto } from "../models/Insurance-type.model";
 @Injectable()
 export class InsuranceTypeService {
@@ -60,9 +60,12 @@ export class InsuranceTypeService {
       { params: params }
     );
   }
-  create(model: InsuranceTypDto) {
+  create(model: Partial<InsuranceTypDto>) {
     model.workShopId = this.WorkShopsID;
-    return this.$http.post<response<any>>(this.urlSvc.InsuranceType.Add, model);
+    return this.$http.post<response<MessageSave>>(
+      this.urlSvc.InsuranceType.Add,
+      model
+    );
   }
 
   delete(id?: any) {

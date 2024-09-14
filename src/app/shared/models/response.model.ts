@@ -10,3 +10,7 @@ export interface Data<T> {
   currentPage: number;
   pageSize: number;
 }
+
+export class MessageSave {
+  message: string;
+}

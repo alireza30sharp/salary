@@ -4,14 +4,14 @@ import { FormFieldConfigValidatorType } from "./form-field-config-validator.type
 import { FieldConfigType } from "./field-config.type";
 import {
   UiCheckboxComponentInterface,
-  UiInputComponentInterface,
+  KiInputComponentInterface,
   UiSelectComponentInterface,
   UiTextareaComponentInterface,
 } from "../ki-components";
 
 export type TextboxFormFieldConfigType = {
   type: "textbox";
-  config?: UiInputComponentInterface;
+  config?: KiInputComponentInterface;
 };
 
 export type TextareaFormFieldConfigType = {

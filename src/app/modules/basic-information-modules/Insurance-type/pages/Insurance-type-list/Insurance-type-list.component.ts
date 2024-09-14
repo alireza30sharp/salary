@@ -8,6 +8,12 @@ import { ChangeWorkShopsService } from "../../../../../services/change-work-shop
 import { ConfirmInterFace } from "../../../../../shared/ki-components/ki-confirmation/confirm.interface";
 import { ModalService } from "../../../../../shared/services";
 import { Paths } from "../../../../../shared/utilities/paths";
+import { propertyOf } from "../../../../../shared/utilities/property-of";
+import { InsuranceTypDto } from "../../models/Insurance-type.model";
+import {
+  CellOperationsClickEvent,
+  FlagStateCellRenderer,
+} from "../../../../../shared/components/ag-grid";
 
 @Component({
   selector: "app-insurance-type-list",
@@ -16,84 +22,72 @@ import { Paths } from "../../../../../shared/utilities/paths";
   providers: [InsuranceTypeService],
 })
 export class InsuranceTypeListComponent implements OnInit {
-  // columnsDefault: AgGridInterFace[] = [
-  //   {
-  //     field: propertyOf<wageOrderListDto>("row_NO"),
-  //     headerName: "row_NO",
-  //     hide: true,
-  //   },
-  //   {
-  //     field: propertyOf<wageOrderListDto>("id"),
-  //     hide: true,
-  //   },
+  columnsDefault: AgGridInterFace[] = [
+    {
+      field: propertyOf<InsuranceTypDto>("row_NO"),
+      headerName: "row_NO",
+      hide: true,
+    },
+    {
+      field: propertyOf<InsuranceTypDto>("id"),
+      hide: true,
+    },
+    {
+      field: "عملیات",
+      cellClass: "d-flex justify-content-center align-items-center",
+      editable: false,
+      width: 90,
+      cellRenderer: CellOperationsClickEvent,
+      cellRendererParams: {
+        onClickRemove: (params) => {
+          const param: ConfirmInterFace = {
+            acceptText: "بله",
+            declineText: "خیر",
+            description: "آیا از عملیات مورد نظر اطمینان دارید؟",
+            title:
+              "حذف" + " " + `"${params.node?.insuranceType.toUpperCase()}"`,
+            type: "Confirm",
+          };
+          this._modalService.showConfirm(param, false).then((res) => {
+            if (res) {
+              this.onDeleteItem(params.node);
+            }
+          });
+        },
+        onClickEdit: (params) => {
+          this._router.navigateByUrl(
+            Paths.InsuranceType.edit(params.node.id).url
+          );
+        },
+      },
+    },
+    {
+      field: propertyOf<InsuranceTypDto>("code"),
+      width: 100,
 
-  //   {
-  //     field: propertyOf<wageOrderListDto>("code"),
-  //     hide: true,
-  //   },
-  //   {
-  //     field: propertyOf<wageOrderListDto>("employeeId"),
-  //     hide: true,
-  //   },
-  //   {
-  //     field: "عملیات",
-  //     cellClass: "d-flex justify-content-center align-items-center",
-  //     editable: false,
-  //     width: 15,
-  //     cellRenderer: CellOperationsClickEvent,
-  //     cellRendererParams: {
-  //       onClickRemove: (params) => {
-  //         const param: ConfirmInterFace = {
-  //           acceptText: "بله",
-  //           declineText: "خیر",
-  //           description: "آیا از عملیات مورد نظر اطمینان دارید؟",
-  //           title: "حذف" + " " + `"${params.node?.employeeName.toUpperCase()}"`,
-  //           type: "Confirm",
-  //         };
-  //         this._modalService.showConfirm(param, false).then((res) => {
-  //           if (res) {
-  //             this.onDeleteItem(params.node);
-  //           }
-  //         });
-  //       },
-  //       onClickEdit: (params) => {
-  //         this._router.navigateByUrl(Paths.wageOrders.edit(params.node.id).url);
-  //       },
-  //     },
-  //   },
-  //   {
-  //     field: propertyOf<wageOrderListDto>("employeeName"),
-  //     filter: "agTextColumnFilter",
-  //     headerName: "نام کارمند",
-  //   },
-  //   {
-  //     field: propertyOf<wageOrderListDto>("employerInsurance"),
-  //     headerName: "سهم بیمه کارمند",
-  //     filter: "agNumberColumnFilter",
-  //   },
-
-  //   {
-  //     field: propertyOf<wageOrderListDto>("unEmploymentInsurance"),
-  //     headerName: "سهم بیمه بیکاری",
-  //     filter: "agNumberColumnFilter",
-  //   },
-  //   {
-  //     field: propertyOf<wageOrderListDto>("persianStartDate"),
-  //     headerName: "تاریخ",
-  //     filter: "agTextColumnFilter",
-  //   },
-  //   {
-  //     field: propertyOf<wageOrderListDto>("personnelCode"),
-  //     headerName: "کد",
-  //     filter: "agTextColumnFilter",
-  //   },
-  //   {
-  //     field: propertyOf<wageOrderListDto>("comment"),
-  //     headerName: "توضیحات",
-  //     filter: "agTextColumnFilter",
-  //   },
-  // ];
-  rowDataDefault = new Array<any>();
+      headerName: "کد",
+      filter: "agTextColumnFilter",
+    },
+    {
+      field: propertyOf<InsuranceTypDto>("insuranceType"),
+      headerName: "نوع بیمه ",
+      width: 150,
+      filter: "agTextColumnFilter",
+    },
+    {
+      field: propertyOf<InsuranceTypDto>("orderIndex"),
+      headerName: "ترتیب",
+      filter: "agNumberColumnFilter",
+      width: 90,
+    },
+    {
+      field: propertyOf<InsuranceTypDto>("isDefault"),
+      headerName: "پیش فرض",
+      cellRenderer: FlagStateCellRenderer,
+      width: 100,
+    },
+  ];
+  rowDataDefault = new Array<InsuranceTypDto>();
   defaultColDef: AgGridInterFace = {
     flex: 1,
 
@@ -101,7 +95,7 @@ export class InsuranceTypeListComponent implements OnInit {
 
     resizable: true,
   };
-  selectRow = new Array<any>();
+  selectRow = new Array<InsuranceTypDto>();
   isShowLoadingDelete: boolean = false;
   isShowLoadingRefrash: boolean = false;
   constructor(
@@ -128,25 +122,33 @@ export class InsuranceTypeListComponent implements OnInit {
   }
   getAll() {
     this.isShowLoadingRefrash = true;
-    this._insuranceTypeService.GetAll().subscribe({
-      next: (res) => {
-        if (res.isOk) {
-          this.rowDataDefault = res.data.data;
-        }
-      },
-      complete: () => {
-        this.isShowLoadingRefrash = false;
-      },
-      error: (err) => {},
-    });
-  }
+    this._insuranceTypeService
+      .GetAll()
+      .pipe(
+        finalize(() => {
+          this.isShowLoadingRefrash = false;
+        })
+      )
+      .subscribe({
+        next: (res) => {
+          if (res.isOk) {
+            this.rowDataDefault = res.data.data;
+          }
+        },
 
+        error: (err) => {},
+      });
+  }
+  onSelectedRowsChangeEvent(event: Array<InsuranceTypDto>) {
+    this.selectRow = new Array<InsuranceTypDto>();
+    this.selectRow = event;
+  }
   removeCell() {
     const params: ConfirmInterFace = {
       acceptText: "بله",
       declineText: "خیر",
       description: "آیا از عملیات مورد نظر اطمینان دارید؟",
-      title: "حذف" + " " + `"${this.selectRow[0].employeeName.toUpperCase()}"`,
+      title: "حذف" + " " + `"${this.selectRow[0].insuranceType.toUpperCase()}"`,
       type: "Confirm",
     };
     this._modalService.showConfirm(params, false).then((res) => {

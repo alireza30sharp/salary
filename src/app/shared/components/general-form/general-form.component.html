@@ -11,7 +11,12 @@
     [formGroup]="formGroup"
     (submit)="submitHandler($event)"
   >
-    <section class="general-form__content">
+    <section class="general-form__content position-relative">
+      <ki-spinner
+        [color]="'info'"
+        [matchParent]="true"
+        *ngIf="showLoadingSave"
+      ></ki-spinner>
       <div class="general-form__inner">
         <div class="row">
           <ng-container

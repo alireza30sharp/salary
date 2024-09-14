@@ -4,4 +4,6 @@ export class InsuranceTypDto {
   orderIndex: number;
   isDefault: boolean;
   id?: any;
+  code?: any;
+  row_NO?: any;
 }

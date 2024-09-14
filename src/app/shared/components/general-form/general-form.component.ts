@@ -39,7 +39,7 @@ export class GeneralFormComponent implements OnChanges {
   @Input() columnCount?: number = 2;
   @Input() hideFooter?: boolean;
   @Input() showPadding?: boolean;
-
+  @Input() showLoadingSave?: boolean = false;
   @Output() submitEvent = new EventEmitter<FormGroup>();
   @Output() saveEvent = new EventEmitter<FormGroup>();
   @Output() changeEvent = new EventEmitter<any>();

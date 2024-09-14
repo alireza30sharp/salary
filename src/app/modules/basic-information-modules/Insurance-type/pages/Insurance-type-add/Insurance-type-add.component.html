@@ -4,13 +4,11 @@
   (backCallback)="cancelClickHandler()"
 >
   <app-general-form
-    #generalForm
     [formGroup]="formGroup"
     [form]="form"
     [fields]="feilds"
-    [cssHeight]="'100%'"
-    (submitEvent)="submitHandler($event)"
-    (saveEvent)="saveHandler($event)"
+    [hideFooter]="true"
+    [showLoadingSave]="showLoading"
   ></app-general-form>
 
   <ng-template #footer>
@@ -18,8 +16,9 @@
       btnType="basic"
       [iconClassName]="'fa-solid fa-floppy-disk'"
       [showLoading]="showLoading"
+      [disabled]="formGroup.invalid"
       [title]="'ذخیره اطلاعات'"
-      (clickCallback)="clickSearchHander()"
+      (clickCallback)="saveHandler()"
     >
     </ki-button>
   </ng-template>

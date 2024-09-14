@@ -8,12 +8,13 @@
   ></app-skeleton-form-loading>
   <ng-template #formTemplate>
     <app-general-form
-      #generalForm
+      [formGroup]="formGroup"
+      [form]="form"
       [model]="model"
       [fields]="feilds"
       [cssHeight]="'100%'"
-      (submitEvent)="submitHandler($event)"
-      (saveEvent)="saveHandler($event)"
+      [hideFooter]="true"
+      [showLoadingSave]="showLoading"
     ></app-general-form>
   </ng-template>
   <ng-template #footer>
@@ -22,7 +23,8 @@
       [iconClassName]="'fa-solid fa-floppy-disk'"
       [showLoading]="showLoading"
       [title]="'ویرایش اطلاعات'"
-      (clickCallback)="clickSearchHander()"
+      [disabled]="formGroup.invalid"
+      (clickCallback)="saveHandler()"
     >
     </ki-button>
   </ng-template>

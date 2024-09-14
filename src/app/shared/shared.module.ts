@@ -103,6 +103,7 @@ const component = [
   declarations: [component],
   imports: [
     FormsModule,
+    CommonModule,
     ReactiveFormsModule,
     RouterModule,
     NgSelectModule,

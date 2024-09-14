@@ -15,11 +15,12 @@
     </div>
   </ng-template>
 
-  <!-- <ag-grid-data
+  <ag-grid-data
     [rowId]="'id'"
     [columnsDefault]="columnsDefault"
     [rowDataDefault]="rowDataDefault"
     [defaultColDef]="defaultColDef"
     [pagination]="true"
-  ></ag-grid-data> -->
+    (selectedRowsChange)="onSelectedRowsChangeEvent($event)"
+  ></ag-grid-data>
 </app-general-panel>

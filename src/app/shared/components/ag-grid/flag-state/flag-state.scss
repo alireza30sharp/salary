@@ -1,0 +1,36 @@
+.flag-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .state-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px; // اندازه‌گیری padding برای حالت دکمه
+    border-radius: 6px; // گوشه‌های نرم (مستطیلی)
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .active {
+    background-color: #e0f7e9; // سبز ملایم
+    color: #28a745; // سبز برای آیکون
+  }
+
+  .inactive {
+    background-color: #fbe5e5; // قرمز ملایم
+    color: #dc3545; // قرمز برای آیکون
+  }
+
+  .state-btn:hover {
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); // سایه بزرگتر هنگام هاور
+  }
+
+  i {
+    font-size: 1rem; // کوچک‌تر کردن آیکون
+  }
+}

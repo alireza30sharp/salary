@@ -13,9 +13,12 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { InsuranceTypeService } from "../../services/Insurance-type.service";
 import { FormFieldConfigType } from "../../../../../shared/types/form-field-config.type";
 import { InsuranceTypDto } from "../../models/Insurance-type.model";
-import { FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, NgForm, Validators } from "@angular/forms";
 import { GeneralFormComponent } from "../../../../../shared/components/general-form/general-form.component";
 import { propertyOf } from "../../../../../shared/utilities/property-of";
+import { FormGroupType } from "../../../../../shared/utilities/utility-types";
+import { ActivatedRoute } from "@angular/router";
+import { ToastService } from "../../../../../shared/services";
 
 @Component({
   selector: "app-insurance-type-edit",
@@ -24,41 +27,67 @@ import { propertyOf } from "../../../../../shared/utilities/property-of";
   providers: [InsuranceTypeService],
 })
 export class InsuranceTypeEditComponent implements OnInit {
-  @ViewChild("generalForm", { static: false })
-  generalForm: GeneralFormComponent;
+  formGroup!: FormGroup<FormGroupType<Partial<InsuranceTypDto>>>;
+  form: NgForm;
 
   feilds: FormFieldConfigType[] = [];
   model: Partial<InsuranceTypDto>;
-
+  insuranceTypeId: number;
   isLoading: boolean;
+  showLoading: boolean;
   constructor(
     private _insuranceTypeService: InsuranceTypeService,
-    private readonly _destroyRef: DestroyRef
-  ) {}
+    private readonly _destroyRef: DestroyRef,
+    private readonly _activatedRoute: ActivatedRoute,
+    private readonly _formBuilder: FormBuilder,
+    private _toastService: ToastService,
+    private readonly _location: Location
+  ) {
+    this.formGroup = this._formBuilder.group({});
+  }
   ngOnInit(): void {
     this._initForm();
-
-    // this.wageOrderId = this._activatedRoute.snapshot.params["id"];
+    this.insuranceTypeId = this._activatedRoute.snapshot.params["id"];
     this._getData();
   }
 
-  onRefrashSelected() {}
-
-  submitHandler(event: FormGroup) {
-    console.log(event);
-  }
-  saveHandler(data: InsuranceTypDto) {
-    console.log(data);
+  saveHandler() {
+    this.showLoading = true;
+    this._insuranceTypeService
+      .create(this.formGroup.value)
+      .pipe(
+        finalize(() => {
+          this.showLoading = false;
+        })
+      )
+      .subscribe({
+        next: (res) => {
+          this._toastService.success(res.data.message);
+          this.formGroup.reset();
+          this.formGroup.markAsUntouched();
+          this._location.back();
+        },
+        error: (err) => {
+          let msg = "";
+          if (err.error.messages) {
+            this._toastService.error(err.error.messages);
+            msg = err.error.messages.join(" ");
+          } else if (err.error.message) {
+            this._toastService.error(err.error.message);
+            msg = err.error.message.join(" ");
+          }
+        },
+      });
   }
   cancelClickHandler() {
-    // this._location.back();
+    this._location.back();
   }
 
   private _getData() {
     this.isLoading = true;
     setTimeout(() => {
       this._insuranceTypeService
-        .getById(12)
+        .getById(this.insuranceTypeId)
         .pipe(
           takeUntilDestroyed(this._destroyRef),
           finalize(() => {
@@ -67,6 +96,7 @@ export class InsuranceTypeEditComponent implements OnInit {
         )
         .subscribe((res) => {
           if (res.isOk) {
+            this.model = res.data;
           }
         });
     }, 3000);

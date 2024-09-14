@@ -1,1 +1,6 @@
-{{ flag }}
+<div class="flag-state" [ngClass]="flagState">
+  <button class="state-btn" [ngClass]="flagState">
+    <i *ngIf="flagState === 'active'" class="fa fa-check"></i>
+    <i *ngIf="flagState === 'inactive'" class="fa fa-times"></i>
+  </button>
+</div>
