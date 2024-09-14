@@ -10,33 +10,32 @@ import {
 import { delay, finalize } from "rxjs";
 import { Location } from "@angular/common";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
-import { InsuranceTypeService } from "../../services/Insurance-type.service";
 import { FormFieldConfigType } from "../../../../../shared/types/form-field-config.type";
-import { InsuranceTypDto } from "../../models/Insurance-type.model";
 import { FormBuilder, FormGroup, NgForm, Validators } from "@angular/forms";
 import { GeneralFormComponent } from "../../../../../shared/components/general-form/general-form.component";
 import { propertyOf } from "../../../../../shared/utilities/property-of";
 import { FormGroupType } from "../../../../../shared/utilities/utility-types";
 import { ActivatedRoute } from "@angular/router";
 import { ToastService } from "../../../../../shared/services";
+import { ExemptionTypesService } from "../../services/exemption-types.service";
+import { ExemptionTypesDto } from "../../models";
 
 @Component({
-  selector: "app-insurance-type-edit",
-  templateUrl: "./insurance-type-edit.component.html",
-  styleUrls: ["./insurance-type-edit.component.scss"],
-  providers: [InsuranceTypeService],
+  selector: "app-exemption-types-edit",
+  templateUrl: "./exemption-types-edit.component.html",
+  styleUrls: ["./exemption-types-edit.component.scss"],
+  providers: [ExemptionTypesService],
 })
-export class InsuranceTypeEditComponent implements OnInit {
-  formGroup!: FormGroup<FormGroupType<Partial<InsuranceTypDto>>>;
+export class ExemptionTypesEditComponent implements OnInit {
+  formGroup!: FormGroup<FormGroupType<Partial<ExemptionTypesDto>>>;
   form: NgForm;
-
   feilds: FormFieldConfigType[] = [];
-  model: Partial<InsuranceTypDto>;
-  insuranceTypeId: number;
+  model: Partial<ExemptionTypesDto>;
+  id: number;
   isLoading: boolean;
   showLoading: boolean;
   constructor(
-    private _insuranceTypeService: InsuranceTypeService,
+    private _ExemptionTypesService: ExemptionTypesService,
     private readonly _destroyRef: DestroyRef,
     private readonly _activatedRoute: ActivatedRoute,
     private readonly _formBuilder: FormBuilder,
@@ -47,14 +46,15 @@ export class InsuranceTypeEditComponent implements OnInit {
   }
   ngOnInit(): void {
     this._initForm();
-    this.insuranceTypeId = this._activatedRoute.snapshot.params["id"];
+    this.id = this._activatedRoute.snapshot.params["id"];
+
     this._getData();
   }
 
   saveHandler() {
     this.showLoading = true;
-    this.formGroup.value.id = this.insuranceTypeId;
-    this._insuranceTypeService
+    this.formGroup.value.id = this.id;
+    this._ExemptionTypesService
       .update(this.formGroup.value)
       .pipe(
         finalize(() => {
@@ -87,8 +87,8 @@ export class InsuranceTypeEditComponent implements OnInit {
   private _getData() {
     this.isLoading = true;
     setTimeout(() => {
-      this._insuranceTypeService
-        .getById(this.insuranceTypeId)
+      this._ExemptionTypesService
+        .getById(this.id)
         .pipe(
           takeUntilDestroyed(this._destroyRef),
           finalize(() => {
@@ -108,9 +108,9 @@ export class InsuranceTypeEditComponent implements OnInit {
       {
         idAttr: "txtFistName",
         type: "textbox",
-        title: "نوع بیمه ",
+        title: "نوع معافیت ",
         columnWidthNumber: 3,
-        binding: propertyOf<InsuranceTypDto>("insuranceType"),
+        binding: propertyOf<ExemptionTypesDto>("exemptionType"),
         validators: [
           {
             type: Validators.required,
@@ -120,7 +120,7 @@ export class InsuranceTypeEditComponent implements OnInit {
       {
         type: "textbox",
         title: "ترتیب",
-        binding: propertyOf<InsuranceTypDto>("orderIndex"),
+        binding: propertyOf<ExemptionTypesDto>("orderIndex"),
         columnWidthNumber: 3,
         validators: [
           {
@@ -136,7 +136,7 @@ export class InsuranceTypeEditComponent implements OnInit {
       {
         type: "checkbox",
         title: "پیش فرض",
-        binding: propertyOf<InsuranceTypDto>("isDefault"),
+        binding: propertyOf<ExemptionTypesDto>("isDefault"),
         columnWidthNumber: 3,
       },
     ];

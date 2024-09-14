@@ -69,6 +69,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: "نوع بیمه",
         link: "/salary/insurance-type/list",
       },
+      {
+        title: "نوع معافیت",
+        link: "/salary/exemption-types/list",
+      },
       // {
       //   title: "حکم استخدامی",
       //   link: "/salary/employment-orders-list",

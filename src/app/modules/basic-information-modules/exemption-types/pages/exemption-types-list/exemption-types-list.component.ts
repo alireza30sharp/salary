@@ -2,34 +2,34 @@ import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { finalize } from "rxjs";
 import { Router } from "@angular/router";
 import { Location } from "@angular/common";
-import { InsuranceTypeService } from "../../services/Insurance-type.service";
 import { AgGridInterFace } from "../../../../../shared/interfaces/ag-grid.interface";
 import { ChangeWorkShopsService } from "../../../../../services/change-work-shop.service";
 import { ConfirmInterFace } from "../../../../../shared/ki-components/ki-confirmation/confirm.interface";
 import { ModalService } from "../../../../../shared/services";
 import { Paths } from "../../../../../shared/utilities/paths";
 import { propertyOf } from "../../../../../shared/utilities/property-of";
-import { InsuranceTypDto } from "../../models/Insurance-type.model";
 import {
   CellOperationsClickEvent,
   FlagStateCellRenderer,
 } from "../../../../../shared/components/ag-grid";
+import { ExemptionTypesService } from "../../services/exemption-types.service";
+import { ExemptionTypesDto } from "../../models";
 
 @Component({
-  selector: "app-insurance-type-list",
-  templateUrl: "./insurance-type-list.component.html",
-  styleUrls: ["./insurance-type-list.component.scss"],
-  providers: [InsuranceTypeService],
+  selector: "app-exemption-types-list",
+  templateUrl: "./exemption-types-list.component.html",
+  styleUrls: ["./exemption-types-list.component.scss"],
+  providers: [ExemptionTypesService],
 })
-export class InsuranceTypeListComponent implements OnInit {
+export class ExemptionTypesListComponent implements OnInit {
   columnsDefault: AgGridInterFace[] = [
     {
-      field: propertyOf<InsuranceTypDto>("row_NO"),
+      field: propertyOf<ExemptionTypesDto>("row_NO"),
       headerName: "row_NO",
       hide: true,
     },
     {
-      field: propertyOf<InsuranceTypDto>("id"),
+      field: propertyOf<ExemptionTypesDto>("id"),
       hide: true,
     },
     {
@@ -45,7 +45,7 @@ export class InsuranceTypeListComponent implements OnInit {
             declineText: "خیر",
             description: "آیا از عملیات مورد نظر اطمینان دارید؟",
             title:
-              "حذف" + " " + `"${params.node?.insuranceType.toUpperCase()}"`,
+              "حذف" + " " + `"${params.node?.exemptionType.toUpperCase()}"`,
             type: "Confirm",
           };
           this._modalService.showConfirm(param, false).then((res) => {
@@ -56,48 +56,48 @@ export class InsuranceTypeListComponent implements OnInit {
         },
         onClickEdit: (params) => {
           this._router.navigateByUrl(
-            Paths.InsuranceType.edit(params.node.id).url
+            Paths.ExemptionTypes.edit(params.node.id).url
           );
         },
       },
     },
     {
-      field: propertyOf<InsuranceTypDto>("code"),
+      field: propertyOf<ExemptionTypesDto>("code"),
       headerName: "کد",
       filter: "agTextColumnFilter",
       minWidth: 150,
     },
     {
-      field: propertyOf<InsuranceTypDto>("insuranceType"),
-      headerName: "نوع بیمه ",
+      field: propertyOf<ExemptionTypesDto>("exemptionType"),
+      headerName: "نوع معافیت ",
       filter: "agTextColumnFilter",
       minWidth: 150,
     },
     {
-      field: propertyOf<InsuranceTypDto>("orderIndex"),
+      field: propertyOf<ExemptionTypesDto>("orderIndex"),
       headerName: "ترتیب",
       filter: "agNumberColumnFilter",
       minWidth: 150,
     },
     {
-      field: propertyOf<InsuranceTypDto>("isDefault"),
+      field: propertyOf<ExemptionTypesDto>("isDefault"),
       headerName: "پیش فرض",
       cellRenderer: FlagStateCellRenderer,
       minWidth: 150,
     },
   ];
-  rowDataDefault = new Array<InsuranceTypDto>();
+  rowDataDefault = new Array<ExemptionTypesDto>();
   defaultColDef: AgGridInterFace = {
     flex: 1,
     width: 150,
     filter: true,
     resizable: true,
   };
-  selectRow = new Array<InsuranceTypDto>();
+  selectRow = new Array<ExemptionTypesDto>();
   isShowLoadingDelete: boolean = false;
   isShowLoadingRefrash: boolean = false;
   constructor(
-    private _insuranceTypeService: InsuranceTypeService,
+    private _ExemptionTypesService: ExemptionTypesService,
     private _changeWorkShops: ChangeWorkShopsService,
     private _router: Router,
     private _modalService: ModalService,
@@ -116,11 +116,11 @@ export class InsuranceTypeListComponent implements OnInit {
     this._location.back();
   }
   newWorkShpps() {
-    this._router.navigateByUrl(Paths.InsuranceType.add().url);
+    this._router.navigateByUrl(Paths.ExemptionTypes.add().url);
   }
   getAll() {
     this.isShowLoadingRefrash = true;
-    this._insuranceTypeService
+    this._ExemptionTypesService
       .GetAll()
       .pipe(
         finalize(() => {
@@ -137,8 +137,8 @@ export class InsuranceTypeListComponent implements OnInit {
         error: (err) => {},
       });
   }
-  onSelectedRowsChangeEvent(event: Array<InsuranceTypDto>) {
-    this.selectRow = new Array<InsuranceTypDto>();
+  onSelectedRowsChangeEvent(event: Array<ExemptionTypesDto>) {
+    this.selectRow = new Array<ExemptionTypesDto>();
     this.selectRow = event;
   }
   removeCell() {
@@ -146,7 +146,7 @@ export class InsuranceTypeListComponent implements OnInit {
       acceptText: "بله",
       declineText: "خیر",
       description: "آیا از عملیات مورد نظر اطمینان دارید؟",
-      title: "حذف" + " " + `"${this.selectRow[0].insuranceType.toUpperCase()}"`,
+      title: "حذف" + " " + `"${this.selectRow[0].exemptionType.toUpperCase()}"`,
       type: "Confirm",
     };
     this._modalService.showConfirm(params, false).then((res) => {
@@ -161,7 +161,7 @@ export class InsuranceTypeListComponent implements OnInit {
   }
   onDeleteItem(item: any) {
     this.isShowLoadingDelete = true;
-    this._insuranceTypeService
+    this._ExemptionTypesService
       .delete(item.id)
       .pipe(
         finalize(() => {

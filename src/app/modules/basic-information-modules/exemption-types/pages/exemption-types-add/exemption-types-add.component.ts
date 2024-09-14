@@ -1,6 +1,5 @@
 import {
   Component,
-  DestroyRef,
   EventEmitter,
   Input,
   OnInit,
@@ -8,54 +7,50 @@ import {
   ViewChild,
 } from "@angular/core";
 import { delay, finalize } from "rxjs";
+
 import { Location } from "@angular/common";
-import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
-import { InsuranceTypeService } from "../../services/Insurance-type.service";
-import { FormFieldConfigType } from "../../../../../shared/types/form-field-config.type";
-import { InsuranceTypDto } from "../../models/Insurance-type.model";
-import { FormBuilder, FormGroup, NgForm, Validators } from "@angular/forms";
+import { ToastService } from "../../../../../shared/services";
 import { GeneralFormComponent } from "../../../../../shared/components/general-form/general-form.component";
+import { FormFieldConfigType } from "../../../../../shared/types/form-field-config.type";
+import { FormBuilder, FormGroup, NgForm, Validators } from "@angular/forms";
 import { propertyOf } from "../../../../../shared/utilities/property-of";
 import { FormGroupType } from "../../../../../shared/utilities/utility-types";
-import { ActivatedRoute } from "@angular/router";
-import { ToastService } from "../../../../../shared/services";
+import { ExemptionTypesService } from "../../services/exemption-types.service";
+import { ExemptionTypesDto } from "../../models";
 
 @Component({
-  selector: "app-insurance-type-edit",
-  templateUrl: "./insurance-type-edit.component.html",
-  styleUrls: ["./insurance-type-edit.component.scss"],
-  providers: [InsuranceTypeService],
+  selector: "app-exemption-types-add",
+  templateUrl: "./exemption-types-add.component.html",
+  styleUrls: ["exemption-types-add.component.scss"],
+  providers: [ExemptionTypesService],
 })
-export class InsuranceTypeEditComponent implements OnInit {
-  formGroup!: FormGroup<FormGroupType<Partial<InsuranceTypDto>>>;
+export class ExemptionTypesAddComponent implements OnInit {
+  formGroup!: FormGroup<FormGroupType<Partial<ExemptionTypesDto>>>;
   form: NgForm;
-
   feilds: FormFieldConfigType[] = [];
-  model: Partial<InsuranceTypDto>;
-  insuranceTypeId: number;
-  isLoading: boolean;
+  model: Partial<ExemptionTypesDto>;
+
   showLoading: boolean;
   constructor(
-    private _insuranceTypeService: InsuranceTypeService,
-    private readonly _destroyRef: DestroyRef,
-    private readonly _activatedRoute: ActivatedRoute,
+    private _ExemptionTypesService: ExemptionTypesService,
+    private readonly _location: Location,
     private readonly _formBuilder: FormBuilder,
-    private _toastService: ToastService,
-    private readonly _location: Location
+    private _toastService: ToastService
   ) {
     this.formGroup = this._formBuilder.group({});
+    // this.formGroup.valueChanges.subscribe((values) => {
+    //   this._formChangeHandler(values);
+    // });
   }
   ngOnInit(): void {
     this._initForm();
-    this.insuranceTypeId = this._activatedRoute.snapshot.params["id"];
-    this._getData();
   }
+  ngAfterViewInit(): void {}
 
   saveHandler() {
     this.showLoading = true;
-    this.formGroup.value.id = this.insuranceTypeId;
-    this._insuranceTypeService
-      .update(this.formGroup.value)
+    this._ExemptionTypesService
+      .create(this.formGroup.value)
       .pipe(
         finalize(() => {
           this.showLoading = false;
@@ -66,7 +61,6 @@ export class InsuranceTypeEditComponent implements OnInit {
           this._toastService.success(res.data.message);
           this.formGroup.reset();
           this.formGroup.markAsUntouched();
-          this._location.back();
         },
         error: (err) => {
           let msg = "";
@@ -84,33 +78,14 @@ export class InsuranceTypeEditComponent implements OnInit {
     this._location.back();
   }
 
-  private _getData() {
-    this.isLoading = true;
-    setTimeout(() => {
-      this._insuranceTypeService
-        .getById(this.insuranceTypeId)
-        .pipe(
-          takeUntilDestroyed(this._destroyRef),
-          finalize(() => {
-            this.isLoading = false;
-          })
-        )
-        .subscribe((res) => {
-          if (res.isOk) {
-            this.model = res.data;
-          }
-        });
-    }, 3000);
-  }
-
   private _initForm() {
     this.feilds = [
       {
         idAttr: "txtFistName",
         type: "textbox",
-        title: "نوع بیمه ",
+        title: "نوع معافیت",
         columnWidthNumber: 3,
-        binding: propertyOf<InsuranceTypDto>("insuranceType"),
+        binding: propertyOf<ExemptionTypesDto>("exemptionType"),
         validators: [
           {
             type: Validators.required,
@@ -120,7 +95,7 @@ export class InsuranceTypeEditComponent implements OnInit {
       {
         type: "textbox",
         title: "ترتیب",
-        binding: propertyOf<InsuranceTypDto>("orderIndex"),
+        binding: propertyOf<ExemptionTypesDto>("orderIndex"),
         columnWidthNumber: 3,
         validators: [
           {
@@ -136,9 +111,15 @@ export class InsuranceTypeEditComponent implements OnInit {
       {
         type: "checkbox",
         title: "پیش فرض",
-        binding: propertyOf<InsuranceTypDto>("isDefault"),
+        binding: propertyOf<ExemptionTypesDto>("isDefault"),
         columnWidthNumber: 3,
       },
     ];
+  }
+  private _formChangeHandler(values: Partial<ExemptionTypesDto>) {
+    setTimeout(() => {
+      let valid = this.formGroup.invalid;
+      console.table(valid);
+    }, 0);
   }
 }

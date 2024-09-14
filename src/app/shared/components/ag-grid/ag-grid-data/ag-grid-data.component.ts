@@ -130,6 +130,7 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
   };
   autoSizeStrategy: SizeColumnsToFitGridStrategy = {
     type: "fitGridWidth",
+    defaultMinWidth: 100,
   };
 
   public getRowId: GetRowIdFunc = (params: GetRowIdParams) => {

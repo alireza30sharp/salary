@@ -27,5 +27,6 @@ export class WorkShopsFilter {
   PageNumber: any = 0;
   PageSize: any = 20;
   InsuranceType?: any;
+  ExemptionType?: any;
   Id?: any;
 }

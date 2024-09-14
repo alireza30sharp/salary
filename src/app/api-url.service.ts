@@ -163,4 +163,11 @@ export class ApiUrlService {
     Edit: BASE_URL + "BasicInformation/InsuranceType/Update",
     getById: BASE_URL + "BasicInformation/InsuranceType/GetById",
   };
+  ExemptionTypes = {
+    GetAll: BASE_URL + "BasicInformation/ExemptionTypes/GetAllCategories",
+    Add: BASE_URL + "BasicInformation/ExemptionTypes/Add",
+    Delete: BASE_URL + "BasicInformation/ExemptionTypes/Delete",
+    Edit: BASE_URL + "BasicInformation/ExemptionTypes/Edit",
+    getById: BASE_URL + "BasicInformation/ExemptionTypes/GetById",
+  };
 }

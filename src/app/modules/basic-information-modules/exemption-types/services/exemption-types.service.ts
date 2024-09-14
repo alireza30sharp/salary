@@ -5,9 +5,9 @@ import { ApiUrlService } from "../../../../api-url.service";
 import { SessionNames } from "../../../../shared/utilities/session-names";
 import { WorkShopsFilter } from "../../../../base/models";
 import { Data, MessageSave, response } from "../../../../shared/models";
-import { InsuranceTypDto } from "../models/Insurance-type.model";
+import { ExemptionTypesDto } from "../models";
 @Injectable()
-export class InsuranceTypeService {
+export class ExemptionTypesService {
   @SessionStorage(SessionNames.WorkShopsID)
   WorkShopsID: any;
   constructor(
@@ -42,12 +42,12 @@ export class InsuranceTypeService {
       params = params.set("Id", filterParams.Id.toString());
     }
     if (
-      filterParams?.InsuranceType !== undefined &&
-      filterParams.InsuranceType !== null
+      filterParams?.ExemptionType !== undefined &&
+      filterParams.ExemptionType !== null
     ) {
       params = params.set(
-        "InsuranceType",
-        filterParams.InsuranceType.toString()
+        "ExemptionType",
+        filterParams.ExemptionType.toString()
       );
     }
 
@@ -56,21 +56,21 @@ export class InsuranceTypeService {
       params = params.set("WorkShopId", this.WorkShopsID.toString());
     }
     return this.$http.get<response<Data<any[]>>>(
-      this.urlSvc.InsuranceType.GetAll,
+      this.urlSvc.ExemptionTypes.GetAll,
       { params: params }
     );
   }
-  create(model: Partial<InsuranceTypDto>) {
+  create(model: Partial<ExemptionTypesDto>) {
     model.workShopId = this.WorkShopsID;
     return this.$http.post<response<MessageSave>>(
-      this.urlSvc.InsuranceType.Add,
+      this.urlSvc.ExemptionTypes.Add,
       model
     );
   }
 
   delete(id?: any) {
     return this.$http.delete<response<string>>(
-      this.urlSvc.InsuranceType.Delete,
+      this.urlSvc.ExemptionTypes.Delete,
       {
         body: {
           workShopId: this.WorkShopsID,
@@ -80,12 +80,15 @@ export class InsuranceTypeService {
     );
   }
   getById(id) {
-    return this.$http.get<response<any>>(this.urlSvc.InsuranceType.getById, {
+    return this.$http.get<response<any>>(this.urlSvc.ExemptionTypes.getById, {
       params: { workShopId: this.WorkShopsID, Id: id },
     });
   }
-  update(model: Partial<InsuranceTypDto>) {
+  update(model: Partial<ExemptionTypesDto>) {
     model.workShopId = this.WorkShopsID;
-    return this.$http.put<response<any>>(this.urlSvc.InsuranceType.Edit, model);
+    return this.$http.put<response<any>>(
+      this.urlSvc.ExemptionTypes.Edit,
+      model
+    );
   }
 }

@@ -98,6 +98,13 @@ const routes: Routes = [
           ).then((m) => m.InsuranceTypeModule),
       },
       {
+        path: "exemption-types",
+        loadChildren: () =>
+          import(
+            "../modules/basic-information-modules/exemption-types/exemption-types.module"
+          ).then((m) => m.ExemptionTypesModule),
+      },
+      {
         path: "",
         redirectTo: "system-operation/list",
         pathMatch: "full",
