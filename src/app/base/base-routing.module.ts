@@ -46,7 +46,10 @@ const routes: Routes = [
       },
       {
         path: "employment-types",
-        component: _pages.EmploymentTypesListComponent,
+        loadChildren: () =>
+          import(
+            "../modules/basic-information-modules/employment-types/employment-types.module"
+          ).then((m) => m.EmploymentTypesModule),
       },
       {
         path: "organization-post",

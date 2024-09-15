@@ -35,7 +35,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
 
       {
         title: "نوع استخدامی",
-        link: "/salary/employment-types",
+        link: "/salary/employment-types/list",
       },
       {
         title: "پست سازمانی",
