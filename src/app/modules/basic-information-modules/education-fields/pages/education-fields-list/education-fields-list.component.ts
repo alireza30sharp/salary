@@ -11,26 +11,26 @@ import {
   CellOperationsClickEvent,
   FlagStateCellRenderer,
 } from "../../../../../shared/components/ag-grid";
-import { EducationEvidencesService } from "../../services/education-evidences.service";
-import { EducationEvidencesDto } from "../../models";
 import { ChangeWorkShopsService } from "../../../../../services/change-work-shop.service";
 import { WorkShopsFilter } from "../../../work-shops/models";
+import { EducationFieldsService } from "../../services/education-fields.service";
+import { EducationFieldsDto } from "../../models";
 
 @Component({
-  selector: "app-educatio-evidences-list",
-  templateUrl: "./educatio-evidences-list.component.html",
-  styleUrls: ["./educatio-evidences-list.component.scss"],
-  providers: [EducationEvidencesService],
+  selector: "app-education-fields-list",
+  templateUrl: "./education-fields-list.component.html",
+  styleUrls: ["./education-fields-list.component.scss"],
+  providers: [EducationFieldsService],
 })
-export class EducationEvidencesListComponent implements OnInit {
+export class EducationFieldsListComponent implements OnInit {
   columnsDefault: AgGridInterFace[] = [
     {
-      field: propertyOf<EducationEvidencesDto>("id"),
+      field: propertyOf<EducationFieldsDto>("id"),
       headerName: "row_NO",
       hide: true,
     },
     {
-      field: propertyOf<EducationEvidencesDto>("workShopId"),
+      field: propertyOf<EducationFieldsDto>("workShopId"),
       hide: true,
     },
     {
@@ -45,7 +45,7 @@ export class EducationEvidencesListComponent implements OnInit {
             acceptText: "بله",
             declineText: "خیر",
             description: "آیا از عملیات مورد نظر اطمینان دارید؟",
-            title: "حذف" + " " + `"${params.node?.evidence.toUpperCase()}"`,
+            title: "حذف" + " " + `"${params.node?.field.toUpperCase()}"`,
             type: "Confirm",
           };
           this._modalService.showConfirm(param, false).then((res) => {
@@ -56,39 +56,39 @@ export class EducationEvidencesListComponent implements OnInit {
         },
         onClickEdit: (params) => {
           this._router.navigateByUrl(
-            Paths.EducationEvidences.edit(params.node.id).url
+            Paths.EducationFields.edit(params.node.id).url
           );
         },
       },
     },
     {
-      field: propertyOf<EducationEvidencesDto>("evidence"),
-      headerName: "مدرک",
+      field: propertyOf<EducationFieldsDto>("field"),
+      headerName: "رشته تحصیلی",
       filter: "agTextColumnFilter",
     },
     {
-      field: propertyOf<EducationEvidencesDto>("orderIndex"),
+      field: propertyOf<EducationFieldsDto>("orderIndex"),
       headerName: "ترتیب",
       filter: "agTextColumnFilter",
     },
     {
-      field: propertyOf<EducationEvidencesDto>("isDefault"),
+      field: propertyOf<EducationFieldsDto>("isDefault"),
       headerName: "پیش فرض",
       cellRenderer: FlagStateCellRenderer,
     },
   ];
-  rowDataDefault = new Array<EducationEvidencesDto>();
+  rowDataDefault = new Array<EducationFieldsDto>();
   defaultColDef: AgGridInterFace = {
     flex: 1,
     width: 150,
     filter: true,
     resizable: true,
   };
-  selectRow = new Array<EducationEvidencesDto>();
+  selectRow = new Array<EducationFieldsDto>();
   isShowLoadingDelete: boolean = false;
   isShowLoadingRefrash: boolean = false;
   constructor(
-    private _educationEvidencesService: EducationEvidencesService,
+    private _EducationFieldsService: EducationFieldsService,
     private _modalService: ModalService,
     private _changeWorkShops: ChangeWorkShopsService,
     private _toastService: ToastService,
@@ -107,12 +107,12 @@ export class EducationEvidencesListComponent implements OnInit {
     this._location.back();
   }
   newWorkShpps() {
-    this._router.navigateByUrl(Paths.EducationEvidences.add().url);
+    this._router.navigateByUrl(Paths.EducationFields.add().url);
   }
   getAll() {
     let model = new WorkShopsFilter();
     this.isShowLoadingRefrash = true;
-    this._educationEvidencesService
+    this._EducationFieldsService
       .GetAll(model)
       .pipe(
         finalize(() => {
@@ -125,8 +125,8 @@ export class EducationEvidencesListComponent implements OnInit {
         }
       });
   }
-  onSelectedRowsChangeEvent(event: Array<EducationEvidencesDto>) {
-    this.selectRow = new Array<EducationEvidencesDto>();
+  onSelectedRowsChangeEvent(event: Array<EducationFieldsDto>) {
+    this.selectRow = new Array<EducationFieldsDto>();
     this.selectRow = event;
   }
   removeCell() {
@@ -134,7 +134,7 @@ export class EducationEvidencesListComponent implements OnInit {
       acceptText: "بله",
       declineText: "خیر",
       description: "آیا از عملیات مورد نظر اطمینان دارید؟",
-      title: "حذف" + " " + `"${this.selectRow[0].evidence.toUpperCase()}"`,
+      title: "حذف" + " " + `"${this.selectRow[0].field.toUpperCase()}"`,
       type: "Confirm",
     };
     this._modalService.showConfirm(params, false).then((res) => {
@@ -147,8 +147,8 @@ export class EducationEvidencesListComponent implements OnInit {
       }
     });
   }
-  onDeleteItem(item: EducationEvidencesDto) {
-    this._educationEvidencesService.delete(item.id).subscribe({
+  onDeleteItem(item: EducationFieldsDto) {
+    this._EducationFieldsService.delete(item.id).subscribe({
       next: (res) => {
         if (res.isOk) {
           this.getAll();

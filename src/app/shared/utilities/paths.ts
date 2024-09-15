@@ -138,4 +138,17 @@ export class Paths {
       return new Uri(this.domain, `/${this.base}/add`, "add");
     }
   };
+  static EducationFields = class {
+    static base: string = "salary/education-fields";
+    static domain: string = "http://localhost:4200";
+    static list(): Uri {
+      return new Uri(this.domain, `/${this.base}/list`, "list");
+    }
+    static edit(id?: number): Uri {
+      return new Uri(this.domain, `/${this.base}/edit/${id ?? ""}`, "edit/:id");
+    }
+    static add(): Uri {
+      return new Uri(this.domain, `/${this.base}/add`, "add");
+    }
+  };
 }

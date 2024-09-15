@@ -26,7 +26,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
       {
         title: "رشته تحصیلی",
-        link: "/salary/fields",
+        link: "/salary/education-fields/list",
       },
       {
         title: "واحد سازمانی",

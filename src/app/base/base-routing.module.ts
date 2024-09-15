@@ -38,8 +38,11 @@ const routes: Routes = [
           ).then((m) => m.EducationEvidencesModule),
       },
       {
-        path: "fields",
-        component: _pages.EducationFieldsListComponent,
+        path: "education-fields",
+        loadChildren: () =>
+          import(
+            "../modules/basic-information-modules/education-fields/education-fields.module"
+          ).then((m) => m.EducationFieldsModule),
       },
       {
         path: "employment-types",
