@@ -16,7 +16,10 @@ const routes: Routes = [
       },
       {
         path: "work-shops",
-        component: _pages.WorkShopsListComponent,
+        loadChildren: () =>
+          import(
+            "../modules/basic-information-modules/work-shops/work-shops.module"
+          ).then((m) => m.WorkShopsModule),
       },
       {
         path: "benefit-deduction",

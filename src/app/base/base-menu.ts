@@ -18,7 +18,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     children: [
       {
         title: "گارگاه",
-        link: "/salary/work-shops",
+        link: "/salary/work-shops/list",
       },
       {
         title: "مدارک تحصیلی",
