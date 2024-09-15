@@ -86,9 +86,12 @@ export class advanceAddComponent implements OnInit {
   }
  
   submitHandler(companyForm: any) {
+    /*
     this.submitCallback.emit(this.advanceModel);
     this.advanceModel = new this.advanceModel();
     this.setFocusItem = Object.assign({}, true);
+
+    */
   }
   onEnter(e) {
     this.requestedAmount = +this.advanceModel.requestedAmount;

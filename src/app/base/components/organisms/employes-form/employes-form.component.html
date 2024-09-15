@@ -225,7 +225,7 @@
               ></ki-input>
             </ki-form-group>
             <ki-form-group
-              class="col-3"
+              class="col-4"
               [label]="'ایمیل'"
               [errorMessage]="
                 email.errors?.isInvalid ? 'فرمت اشتباه' : 'فیلد اجباری'
@@ -267,6 +267,58 @@
             </ki-form-group>
           </div>
         </ki-tab>
+
+
+
+
+
+
+        <ki-tab [text]="'اطلاعات تکمیلی'">
+          <div class="row">
+            <ki-form-group class="col-4" [label]="'کد پستی'">
+              <ki-input
+                name="postalCode"
+                [fullWidth]="true"
+                [(ngModel)]="model.postalCode"
+                #birthPlace="ngModel"
+              ></ki-input>
+            </ki-form-group>
+            <ki-form-group class="col-4" [label]="'کشور محل اقامت'">
+              <ki-input
+                name="countryOfResidence"
+                [fullWidth]="true"
+                [(ngModel)]="model.countryOfResidence"
+                #issuedPlace="ngModel"
+              ></ki-input>
+            </ki-form-group>
+            <ki-form-group class="col-4" [label]="'شناسه شهروندی'">
+              <ki-input
+                name="countryOfCitizenshipId"
+                [fullWidth]="true"
+                [(ngModel)]="model.countryOfCitizenshipId"
+                #birthCertificateCode="ngModel"
+              ></ki-input>
+            </ki-form-group>
+          </div>
+          <div class="row">
+            <ki-form-group class="col-4" [label]="'نوع بیمه '">
+              <ki-input
+                name="insuranceName"
+                [fullWidth]="true"
+                [(ngModel)]="model.insuranceName"
+                #birthCertificateSerial="ngModel"
+              ></ki-input>
+            </ki-form-group>
+          
+            
+          
+          </div>
+         
+
+
+        </ki-tab>
+
+
         <!--------------->
       </ki-tab-group>
       <input type="submit" [hidden]="true" [attr.id]="submitButtonId" />

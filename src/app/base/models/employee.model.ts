@@ -22,4 +22,8 @@ export class EmployeDto {
   address: string;
   isActive:boolean=true;
   comment: string;
+  postalCode: string="";
+  countryOfCitizenshipId?:number=0;
+  countryOfResidence?:number=0;
+  insuranceName?:string="";
 }

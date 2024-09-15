@@ -6,7 +6,7 @@
 
 
 <div class="row">
-
+<!--
   <ki-form-group
   [label]="'تاریخ'"
   [showRequireSign]="true"
@@ -25,7 +25,7 @@
     required
   ></ki-date-picker>
 </ki-form-group>
-
+-->
 <ki-form-group class="col-2"   [label]="'نام کارمند'">
 <ki-select
 [placeholder]="'نام کارمند'"
@@ -39,48 +39,38 @@
 
 </ki-form-group>
 
-<ki-form-group
-class="col-4"
-[label]="' مبلغ'"
-[showRequireSign]="true"
-[errorMessage]="
-  toMoney.errors?.isCurrency
-    ? 'مبلغ وارد شده کمتر از مبلغ است'
-    : 'فیلد اجباری'
-"
-[hideError]="
-  !(
-    ((toMoney.touched || companyForm.submitted) &&
-      toMoney.errors?.required) ||
-    toMoney.errors?.isCurrency
-  )
-"
->
+
+
+<ki-form-group class="col-2" [label]="'مبلغ'">
+
 <ki-input
-  name="toMoney"
-  [fullWidth]="true"
-  class="ltr"
-  [onlyNumber]="true"
-  [(ngModel)]="advanceModel.requestedAmount"
-  #toMoney="ngModel"
-  (focusCallback)="onEnter($event)"
-  [type]="'currency'"
-  [fromMoney]="fromMoney"
-  [maskType]="'separator'"
-  required
+name="fromMoney"
+[fullWidth]="true"
+class="ltr"
+[setFocusItem]="setFocusItem"
+[onlyNumber]="true"
+
+
+[type]="'currency'"
+[maskType]="'separator'"
+required
 ></ki-input>
+
 </ki-form-group>
 
+</div>
 
-<!--
-  <ki-form-group class="col-4" [label]="'شرح'">
+
+
+<div class="row">
+  <ki-form-group class="col-12" [label]="'شرح'">
     <ki-input
       name="comment"
       [(ngModel)]="model.comment"
       #comment="ngModel"
     ></ki-input>
   </ki-form-group>
--->
+
 
 </div>
 

@@ -37,6 +37,7 @@ export class EmployesService {
   }
   create(model: EmployeDto) {
     model.workShopId = this.WorkShopsID;
+    debugger;
     return this.$http.post<response<any>>(this.urlSvc.Employees.Add, model);
   }
   delete(id) {
