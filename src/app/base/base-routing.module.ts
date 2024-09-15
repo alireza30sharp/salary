@@ -31,8 +31,11 @@ const routes: Routes = [
       },
 
       {
-        path: "education",
-        component: _pages.EducationEvidencesListComponent,
+        path: "education-evidences",
+        loadChildren: () =>
+          import(
+            "../modules/basic-information-modules/educatio-evidences/educatio-evidences.module"
+          ).then((m) => m.EducationEvidencesModule),
       },
       {
         path: "fields",

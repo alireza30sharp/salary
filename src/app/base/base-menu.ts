@@ -22,7 +22,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
       {
         title: "مدارک تحصیلی",
-        link: "/salary/education",
+        link: "/salary/education-evidences/list",
       },
       {
         title: "رشته تحصیلی",
