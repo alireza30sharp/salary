@@ -23,7 +23,10 @@ const routes: Routes = [
       },
       {
         path: "benefit-deduction",
-        component: _pages.BenefitDeductionListComponent,
+        loadChildren: () =>
+          import(
+            "../modules/basic-information-modules/benefit-deduction/benefit-deduction.module"
+          ).then((m) => m.BenefitDeductionModule),
       },
       {
         path: "tax",

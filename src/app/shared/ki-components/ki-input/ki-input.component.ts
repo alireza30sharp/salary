@@ -47,6 +47,7 @@ export interface KiInputComponentInterface {
   maskThousandSeparator?: string;
   maskPrefix?: string;
   maskAllowNegativeNumbers?: boolean;
+  readonly?: boolean;
 }
 @Component({
   selector: "ki-input",
@@ -80,7 +81,7 @@ export class KiInputComponent
   @Input() shape: NbComponentShape = "semi-round";
   @Input() onlyNumber: boolean = false;
   @Input() disable: boolean = false;
-  @Input() readonly: string;
+  @Input() readonly: boolean;
   @Input() accept: string;
   @Input() fromMoney: NgModel;
   @Input() set setFocusItem(item: boolean) {

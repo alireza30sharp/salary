@@ -47,7 +47,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
       {
         title: "مزایا و کسورات",
-        link: "/salary/benefit-deduction",
+        link: "/salary/benefit-deduction/list",
       },
       {
         title: "جدول مالیاتی",
