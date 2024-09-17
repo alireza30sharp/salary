@@ -53,7 +53,10 @@ const routes: Routes = [
       },
       {
         path: "organization-post",
-        component: _pages.OrganizationPostListComponent,
+        loadChildren: () =>
+          import(
+            "../modules/basic-information-modules/organization-post/organization-post.module"
+          ).then((m) => m.OrganizationPostModule),
       },
       {
         path: "employes-list",

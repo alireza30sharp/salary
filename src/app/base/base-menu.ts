@@ -39,7 +39,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
       {
         title: "پست سازمانی",
-        link: "/salary/organization-post",
+        link: "/salary/organization-post/list",
       },
       {
         title: "محل های پرداخت",
