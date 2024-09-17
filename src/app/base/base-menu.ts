@@ -43,7 +43,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
       {
         title: "محل های پرداخت",
-        link: "/salary/payment-location",
+        link: "/salary/payment-location/list",
       },
       {
         title: "مزایا و کسورات",

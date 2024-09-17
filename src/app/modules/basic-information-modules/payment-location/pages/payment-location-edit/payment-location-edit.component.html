@@ -1,0 +1,31 @@
+<app-general-panel
+  [title]="'ویرایش محل پرداخت'"
+  [hideBackButton]="false"
+  (backCallback)="cancelClickHandler()"
+>
+  <app-skeleton-form-loading
+    *ngIf="isLoading; else formTemplate"
+  ></app-skeleton-form-loading>
+  <ng-template #formTemplate>
+    <app-general-form
+      [formGroup]="formGroup"
+      [form]="form"
+      [model]="model"
+      [fields]="feilds"
+      [cssHeight]="'100%'"
+      [hideFooter]="true"
+      [showLoadingSave]="showLoading"
+    ></app-general-form>
+  </ng-template>
+  <ng-template #footer>
+    <ki-button
+      btnType="basic"
+      [iconClassName]="'fa-solid fa-floppy-disk'"
+      [showLoading]="showLoading"
+      [title]="'ویرایش اطلاعات'"
+      [disabled]="formGroup.invalid"
+      (clickCallback)="saveHandler()"
+    >
+    </ki-button>
+  </ng-template>
+</app-general-panel>

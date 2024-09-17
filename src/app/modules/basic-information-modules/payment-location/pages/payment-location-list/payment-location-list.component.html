@@ -1,0 +1,26 @@
+<app-general-panel [title]="'لیست محل پرداخت'" [hideBackButton]="true">
+  <ng-template #header>
+    <div class="align-content-center d-flex justify-content-between">
+      <app-tools-bar
+        (NewSelected)="newWorkShpps()"
+        (RefrashSelected)="onRefrashSelected()"
+        (DeleteSelected)="removeCell()"
+        (EditSelected)="newWorkShpps(true)"
+        (EscapeSelected)="cancelClickHandler()"
+        (RefrashSelected)="onRefrashSelected()"
+        [disabled]="selectRow.length != 0 ? false : true"
+        [isShowLoadingDelete]="isShowLoadingDelete"
+        [isShowLoadingRefrash]="isShowLoadingRefrash"
+      ></app-tools-bar>
+    </div>
+  </ng-template>
+
+  <ag-grid-data
+    [rowId]="'id'"
+    [columnsDefault]="columnsDefault"
+    [rowDataDefault]="rowDataDefault"
+    [defaultColDef]="defaultColDef"
+    [pagination]="true"
+    (selectedRowsChange)="onSelectedRowsChangeEvent($event)"
+  ></ag-grid-data>
+</app-general-panel>

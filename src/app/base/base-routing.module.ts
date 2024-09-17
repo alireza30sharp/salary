@@ -69,7 +69,10 @@ const routes: Routes = [
 
       {
         path: "payment-location",
-        component: _pages.PaymentLocationListComponent,
+        loadChildren: () =>
+          import(
+            "../modules/basic-information-modules/payment-location/payment-location.module"
+          ).then((m) => m.PaymentLocationModule),
       },
 
       {

@@ -12,24 +12,24 @@ import {
   CellOperationsClickEvent,
   FlagStateCellRenderer,
 } from "../../../../../shared/components/ag-grid";
-import { OrganizationPostService } from "../../services/organization-post.service";
-import { OrganizationPostDto } from "../../models";
+import { PaymentLocationService } from "../../services/payment-location.service";
+import { PaymentLocationDto } from "../../models";
 
 @Component({
-  selector: "app-organization-post-list",
-  templateUrl: "./organization-post-list.component.html",
-  styleUrls: ["./organization-post-list.component.scss"],
-  providers: [OrganizationPostService],
+  selector: "app-payment-location-list",
+  templateUrl: "./payment-location-list.component.html",
+  styleUrls: ["./payment-location-list.component.scss"],
+  providers: [PaymentLocationService],
 })
-export class OrganizationPostListComponent implements OnInit {
+export class PaymentLocationListComponent implements OnInit {
   columnsDefault: AgGridInterFace[] = [
     {
-      field: propertyOf<OrganizationPostDto>("row_NO"),
+      field: propertyOf<PaymentLocationDto>("row_NO"),
       headerName: "row_NO",
       hide: true,
     },
     {
-      field: propertyOf<OrganizationPostDto>("id"),
+      field: propertyOf<PaymentLocationDto>("id"),
       hide: true,
     },
     {
@@ -44,7 +44,7 @@ export class OrganizationPostListComponent implements OnInit {
             acceptText: "بله",
             declineText: "خیر",
             description: "آیا از عملیات مورد نظر اطمینان دارید؟",
-            title: "حذف" + " " + `"${params.node?.post.toUpperCase()}"`,
+            title: "حذف" + " " + `"${params.node?.location.toUpperCase()}"`,
             type: "Confirm",
           };
           this._modalService.showConfirm(param, false).then((res) => {
@@ -55,43 +55,43 @@ export class OrganizationPostListComponent implements OnInit {
         },
         onClickEdit: (params) => {
           this._router.navigateByUrl(
-            Paths.OrganizationPost.edit(params.node.id).url
+            Paths.PaymentLocation.edit(params.node.id).url
           );
         },
       },
     },
 
     {
-      field: propertyOf<OrganizationPostDto>("post"),
+      field: propertyOf<PaymentLocationDto>("location"),
       headerName: "پست سازمانی",
       filter: "agTextColumnFilter",
       minWidth: 150,
     },
     {
-      field: propertyOf<OrganizationPostDto>("orderIndex"),
+      field: propertyOf<PaymentLocationDto>("orderIndex"),
       headerName: "ترتیب",
       filter: "agNumberColumnFilter",
       minWidth: 150,
     },
     {
-      field: propertyOf<OrganizationPostDto>("isDefault"),
+      field: propertyOf<PaymentLocationDto>("isDefault"),
       headerName: "پیش فرض",
       cellRenderer: FlagStateCellRenderer,
       minWidth: 150,
     },
   ];
-  rowDataDefault = new Array<OrganizationPostDto>();
+  rowDataDefault = new Array<PaymentLocationDto>();
   defaultColDef: AgGridInterFace = {
     flex: 1,
     width: 150,
     filter: true,
     resizable: true,
   };
-  selectRow = new Array<OrganizationPostDto>();
+  selectRow = new Array<PaymentLocationDto>();
   isShowLoadingDelete: boolean = false;
   isShowLoadingRefrash: boolean = false;
   constructor(
-    private _OrganizationPostService: OrganizationPostService,
+    private _PaymentLocationService: PaymentLocationService,
     private _changeWorkShops: ChangeWorkShopsService,
     private _router: Router,
     private _modalService: ModalService,
@@ -110,11 +110,11 @@ export class OrganizationPostListComponent implements OnInit {
     this._location.back();
   }
   newWorkShpps() {
-    this._router.navigateByUrl(Paths.OrganizationPost.add().url);
+    this._router.navigateByUrl(Paths.PaymentLocation.add().url);
   }
   getAll() {
     this.isShowLoadingRefrash = true;
-    this._OrganizationPostService
+    this._PaymentLocationService
       .GetAll()
       .pipe(
         finalize(() => {
@@ -131,8 +131,8 @@ export class OrganizationPostListComponent implements OnInit {
         error: (err) => {},
       });
   }
-  onSelectedRowsChangeEvent(event: Array<OrganizationPostDto>) {
-    this.selectRow = new Array<OrganizationPostDto>();
+  onSelectedRowsChangeEvent(event: Array<PaymentLocationDto>) {
+    this.selectRow = new Array<PaymentLocationDto>();
     this.selectRow = event;
   }
   removeCell() {
@@ -140,7 +140,7 @@ export class OrganizationPostListComponent implements OnInit {
       acceptText: "بله",
       declineText: "خیر",
       description: "آیا از عملیات مورد نظر اطمینان دارید؟",
-      title: "حذف" + " " + `"${this.selectRow[0].post.toUpperCase()}"`,
+      title: "حذف" + " " + `"${this.selectRow[0].location.toUpperCase()}"`,
       type: "Confirm",
     };
     this._modalService.showConfirm(params, false).then((res) => {
@@ -155,7 +155,7 @@ export class OrganizationPostListComponent implements OnInit {
   }
   onDeleteItem(item: any) {
     this.isShowLoadingDelete = true;
-    this._OrganizationPostService
+    this._PaymentLocationService
       .delete(item.id)
       .pipe(
         finalize(() => {
