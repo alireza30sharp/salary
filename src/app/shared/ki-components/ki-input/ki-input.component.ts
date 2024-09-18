@@ -34,7 +34,8 @@ type InputType =
   | "tel"
   | "rate"
   | "currency"
-  | "fax";
+  | "fax"
+  | "file";
 
 export interface KiInputComponentInterface {
   type?: InputType;

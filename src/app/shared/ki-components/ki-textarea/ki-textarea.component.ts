@@ -32,9 +32,10 @@ export class KiTextareaComponent
   @Input() fieldSize: NbComponentSize = "medium";
   @Input() shape: NbComponentShape = "semi-round";
   @Input() fullWidth: boolean = false;
-  @Input() status?: NbComponentStatus = "basic";
+  @Input() state?: "error" | "success";
   @Input() rows?: number;
   @Input() height?: string;
+  @Input() size: SizeType;
 
   constructor() {}
 

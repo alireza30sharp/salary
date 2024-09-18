@@ -1,0 +1,276 @@
+<app-general-panel
+  [title]="'ویرایش کارمند'"
+  [hideBackButton]="false"
+  (backCallback)="cancelClickHandler()"
+>
+  <app-skeleton-form-loading
+    *ngIf="isLoading; else formTemplate"
+  ></app-skeleton-form-loading>
+  <ng-template #formTemplate>
+    <form #companyForm="ngForm" (ngSubmit)="submitHandler(companyForm)">
+      <ki-tab-group
+        #tabGroup
+        [height]="'100%'"
+        [overflow]="'auto'"
+        [isSticky]="true"
+        [noLayout]="true"
+        [bordered]="true"
+      >
+        <ki-tab [text]="'اطلاعات پرسنلی'">
+          <div class="row">
+            <ki-form-group
+              class="col-6"
+              [label]="'کد پرسنلی'"
+              [showRequireSign]="true"
+              [errorMessage]="
+                personnelCode.errors?.required ? 'فیلد اجباری' : ''
+              "
+              [hideError]="
+                !(
+                  (personnelCode.touched || companyForm.submitted) &&
+                  personnelCode.errors?.required
+                )
+              "
+            >
+              <ki-input
+                name="personnelCode"
+                [fullWidth]="true"
+                [(ngModel)]="model.personnelCode"
+                #personnelCode="ngModel"
+                [onlyNumber]="true"
+                required
+              ></ki-input>
+            </ki-form-group>
+
+            <ki-form-group
+              class="col-6"
+              [label]="'وضعیت'"
+              [showRequireSign]="false"
+            >
+              <ki-checkbox
+                name="isActive"
+                [checked]="true"
+                [(ngModel)]="model.isActive"
+              ></ki-checkbox>
+            </ki-form-group>
+          </div>
+          <div class="row">
+            <ki-form-group
+              class="col-4"
+              [label]="'نام '"
+              [showRequireSign]="true"
+              [errorMessage]="firstName.errors?.required ? 'فیلد اجباری' : ''"
+              [hideError]="
+                !(
+                  (firstName.touched || companyForm.submitted) &&
+                  firstName.errors?.required
+                )
+              "
+            >
+              <ki-input
+                name="firstName"
+                [setFocusItem]="setFocusItem"
+                [fullWidth]="true"
+                [(ngModel)]="model.firstName"
+                #firstName="ngModel"
+                required
+              ></ki-input>
+            </ki-form-group>
+            <ki-form-group
+              class="col-4"
+              [label]="'نام خانوادگی'"
+              [showRequireSign]="true"
+              [errorMessage]="lastName.errors?.required ? 'فیلد اجباری' : ''"
+              [hideError]="
+                !(
+                  (lastName.touched || companyForm.submitted) &&
+                  lastName.errors?.required
+                )
+              "
+            >
+              <ki-input
+                name="lastName"
+                [fullWidth]="true"
+                [(ngModel)]="model.lastName"
+                #lastName="ngModel"
+                required
+              ></ki-input>
+            </ki-form-group>
+            <ki-form-group class="col-4" [label]="'جسنیت'">
+              <ki-select
+                #genderID="ngModel"
+                name="gender"
+                [placeholder]="'جنسیت'"
+                [options]="genderOptions"
+                [allowClear]="true"
+                [(ngModel)]="model.gender"
+              >
+              </ki-select>
+            </ki-form-group>
+          </div>
+          <div class="row">
+            <ki-form-group class="col-4" [label]="'کد ملی'">
+              <ki-input
+                name="nationalCode"
+                [fullWidth]="true"
+                [onlyNumber]="true"
+                [maxlength]="10"
+                [(ngModel)]="model.nationalCode"
+                #nationalCode="ngModel"
+              ></ki-input>
+            </ki-form-group>
+            <ki-form-group
+              [label]="'تاریخ تولد'"
+              class="col-4"
+              [errorMessage]="
+                adjDate.errors?.invalidDate ? 'تاریخ نا معتبر' : 'فیلد اجباری'
+              "
+              [hideError]="
+                !(adjDate.errors?.required || adjDate.errors?.invalidDate)
+              "
+            >
+              <ki-date-picker
+                [(ngModel)]="persianBirthDate"
+                name="adjDate"
+                #adjDate="ngModel"
+              ></ki-date-picker>
+            </ki-form-group>
+            <ki-form-group class="col-4" [label]="'شماره بیمه'">
+              <ki-input
+                name="insuranceNumber"
+                [fullWidth]="true"
+                [(ngModel)]="model.insuranceNumber"
+                #insuranceNumber="ngModel"
+              ></ki-input>
+            </ki-form-group>
+          </div>
+          <div class="row">
+            <ki-form-group class="col-4" [label]="'تلفن ثابت'">
+              <ki-input
+                name="telephone"
+                [(ngModel)]="model.telephone"
+                #telephone="ngModel"
+              ></ki-input>
+            </ki-form-group>
+            <ki-form-group class="col-4" [label]="'موبایل'">
+              <ki-input
+                name="firstMobile"
+                [(ngModel)]="model.firstMobile"
+                #firstMobile="ngModel"
+              ></ki-input>
+            </ki-form-group>
+            <ki-form-group class="col-4" [label]="'2 موبایل'">
+              <ki-input
+                name="secondMobile"
+                [(ngModel)]="model.secondMobile"
+                #secondMobile="ngModel"
+              ></ki-input>
+            </ki-form-group>
+          </div>
+        </ki-tab>
+
+        <ki-tab [text]="'اطلاعات کارمند'">
+          <div class="row">
+            <ki-form-group class="col-4" [label]="'محل تولد'">
+              <ki-input
+                name="birthPlace"
+                [fullWidth]="true"
+                [(ngModel)]="model.birthPlace"
+                #birthPlace="ngModel"
+              ></ki-input>
+            </ki-form-group>
+            <ki-form-group class="col-4" [label]="'محل صدور'">
+              <ki-input
+                name="issuedPlace"
+                [fullWidth]="true"
+                [(ngModel)]="model.issuedPlace"
+                #issuedPlace="ngModel"
+              ></ki-input>
+            </ki-form-group>
+            <ki-form-group class="col-4" [label]="'شماره شناسنامه'">
+              <ki-input
+                name="birthCertificateCode"
+                [fullWidth]="true"
+                [(ngModel)]="model.birthCertificateCode"
+                #birthCertificateCode="ngModel"
+              ></ki-input>
+            </ki-form-group>
+          </div>
+          <div class="row">
+            <ki-form-group class="col-4" [label]="'سریال شناسنامه'">
+              <ki-input
+                name="birthCertificateSerial"
+                [fullWidth]="true"
+                [(ngModel)]="model.birthCertificateSerial"
+                #birthCertificateSerial="ngModel"
+              ></ki-input>
+            </ki-form-group>
+            <ki-form-group class="col-4" [label]="'نام پدر'">
+              <ki-input
+                name="fatherName"
+                [fullWidth]="true"
+                [(ngModel)]="model.fatherName"
+                #fatherName="ngModel"
+              ></ki-input>
+            </ki-form-group>
+            <ki-form-group
+              class="col-3"
+              [label]="'ایمیل'"
+              [errorMessage]="
+                email.errors?.isInvalid ? 'فرمت اشتباه' : 'فیلد اجباری'
+              "
+              [hideError]="
+                !(
+                  ((email.touched || companyForm.submitted) &&
+                    email.errors?.required) ||
+                  email.errors?.isInvalid
+                )
+              "
+            >
+              <ki-input
+                name="email"
+                [type]="'emial'"
+                [(ngModel)]="model.email"
+                #email="ngModel"
+              ></ki-input>
+            </ki-form-group>
+          </div>
+          <div class="row">
+            <ki-form-group class="col-12" [label]="'آدرس'">
+              <ki-textarea
+                name="address"
+                [fullWidth]="true"
+                [(ngModel)]="model.address"
+                #address="ngModel"
+              ></ki-textarea>
+            </ki-form-group>
+          </div>
+          <div class="row">
+            <ki-form-group class="col-12" [label]="'توضیحات'">
+              <ki-textarea
+                name="comment"
+                [fullWidth]="true"
+                [(ngModel)]="model.comment"
+                #comment="ngModel"
+              ></ki-textarea>
+            </ki-form-group>
+          </div>
+        </ki-tab>
+        <!--------------->
+      </ki-tab-group>
+      <input type="submit" [hidden]="true" [attr.id]="submitButtonId" />
+    </form>
+  </ng-template>
+  <ng-template #footer>
+    <ki-button
+      btnType="basic"
+      [iconClassName]="'fa-solid fa-floppy-disk'"
+      [showLoading]="showLoading"
+      [disabled]="_companyForm?.invalid"
+      [type]="'submit'"
+      [for]="submitButtonId"
+      [title]="'ذخیره اطلاعات'"
+    >
+    </ki-button>
+  </ng-template>
+</app-general-panel>

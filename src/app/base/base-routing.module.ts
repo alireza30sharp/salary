@@ -30,7 +30,10 @@ const routes: Routes = [
       },
       {
         path: "tax",
-        component: _pages.TaxListComponent,
+        loadChildren: () =>
+          import("../modules/basic-information-modules/tax/tax.module").then(
+            (m) => m.TaxModule
+          ),
       },
 
       {
@@ -62,8 +65,11 @@ const routes: Routes = [
           ).then((m) => m.OrganizationPostModule),
       },
       {
-        path: "employes-list",
-        component: _pages.EmployesListComponent,
+        path: "employes",
+        loadChildren: () =>
+          import(
+            "../modules/basic-information-modules/employes/employes.module"
+          ).then((m) => m.EmployesModule),
       },
       {
         path: "benefit-deduction-employees-list",

@@ -1,11 +1,10 @@
 <span class="textarea">
   <textarea
     class="textarea__element"
-    nbInput
-    [fullWidth]="fullWidth"
-    [fieldSize]="fieldSize"
-    [shape]="shape"
-    [status]="status"
+    [class.textarea__element--large]="size === 'lg'"
+    [class.textarea__element--small]="size === 'sm'"
+    [class.textarea__element--error]="state === 'error'"
+    [class.textarea__element--success]="state === 'success'"
     [style.height]="height"
     [attr.placeholder]="placeholder ?? ''"
     [attr.id]="id"

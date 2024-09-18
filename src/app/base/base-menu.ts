@@ -51,11 +51,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
       {
         title: "جدول مالیاتی",
-        link: "/salary/tax",
+        link: "/salary/tax/list",
       },
       {
         title: "کارمندان",
-        link: "/salary/employes-list",
+        link: "/salary/employes/list",
       },
       {
         title: "حکم حقوقی",
@@ -97,7 +97,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
       {
         title: "مزایا و کسورات کارمندان",
-        link: "/salary/benefit-deduction-employees-list",
+        link: "/salary/system-operation/benefit-deduction-employees/list",
       },
 
       {

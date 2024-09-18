@@ -1,0 +1,52 @@
+<app-general-panel [title]="'مزایا و کسورات کارمندان'" [hideBackButton]="true">
+  <ng-template #header>
+    <div class="w-100">
+      <list-view-filter
+        [configViewFilter]="configViewFilter"
+        (onSearchCallback)="onSearchHandelar($event)"
+        [model]="modelfilter"
+        [isVisible]="isVisible"
+      >
+        <ng-template #filter>
+          <ki-form-group class="col-2" [label]="'فیلتر اضافه شده'">
+            <ki-input
+              name="test"
+              [fullWidth]="true"
+              class="ltr"
+              [setFocusItem]="setFocusItem"
+              [onlyNumber]="true"
+              [(ngModel)]="amount"
+              #test="ngModel"
+              [type]="'currency'"
+              [maskType]="'separator'"
+            ></ki-input>
+          </ki-form-group>
+        </ng-template>
+      </list-view-filter>
+    </div>
+  </ng-template>
+  <div class="align-content-center d-flex justify-content-between mb-3">
+    <app-tools-bar
+      (NewSelected)="newWorkShpps()"
+      (RefrashSelected)="onRefrashSelected()"
+      (DeleteSelected)="removeCell()"
+      (EditSelected)="newWorkShpps()"
+      (EscapeSelected)="cancelClickHandler()"
+      (RefrashSelected)="onRefrashSelected()"
+      (SearchSelected)="isVisible = !isVisible"
+      [disabled]="selectRow.length != 0 ? false : true"
+      [isShowLoadingDelete]="isShowLoadingDelete"
+      [isShowLoadingRefrash]="isShowLoadingRefrash"
+      [isShowSearchBtn]="true"
+    ></app-tools-bar>
+  </div>
+  <ag-grid-data
+    [rowId]="'id'"
+    [showTotal]="true"
+    [columnsDefault]="columnsDefault"
+    [rowDataDefault]="rowDataDefault"
+    [pagination]="true"
+    (removeCellChange)="onDeleteItem($event)"
+    (selectedRowsChange)="onSelectedRowsChangeEvent($event)"
+  ></ag-grid-data>
+</app-general-panel>

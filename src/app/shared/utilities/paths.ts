@@ -203,4 +203,44 @@ export class Paths {
       return new Uri(this.domain, `/${this.base}/add`, "add");
     }
   };
+  static Tax = class {
+    static base: string = "salary/tax";
+    static domain: string = "http://localhost:4200";
+    static list(): Uri {
+      return new Uri(this.domain, `/${this.base}/list`, "list");
+    }
+    static edit(id?: number): Uri {
+      return new Uri(this.domain, `/${this.base}/edit/${id ?? ""}`, "edit/:id");
+    }
+    static add(): Uri {
+      return new Uri(this.domain, `/${this.base}/add`, "add");
+    }
+  };
+
+  static Employes = class {
+    static base: string = "salary/employes";
+    static domain: string = "http://localhost:4200";
+    static list(): Uri {
+      return new Uri(this.domain, `/${this.base}/list`, "list");
+    }
+    static edit(id?: number): Uri {
+      return new Uri(this.domain, `/${this.base}/edit/${id ?? ""}`, "edit/:id");
+    }
+    static add(): Uri {
+      return new Uri(this.domain, `/${this.base}/add`, "add");
+    }
+  };
+  static BenefitDeductionEmployees = class {
+    static base: string = "salary/system-operation/benefit-deduction-employees";
+    static domain: string = "http://localhost:4200";
+    static list(): Uri {
+      return new Uri(this.domain, `/${this.base}/list`, "list");
+    }
+    static edit(id?: number): Uri {
+      return new Uri(this.domain, `/${this.base}/edit/${id ?? ""}`, "edit/:id");
+    }
+    static add(): Uri {
+      return new Uri(this.domain, `/${this.base}/add`, "add");
+    }
+  };
 }

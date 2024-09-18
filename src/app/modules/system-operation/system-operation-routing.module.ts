@@ -21,6 +21,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: "benefit-deduction-employees",
+        loadChildren: () =>
+          import(
+            "../benefit-deduction-employees/benefit-deduction-employees.module"
+          ).then((m) => m.BenefitDeductionEmployeesModule),
+      },
+      {
         path: "salary-calculation",
         loadChildren: () =>
           import("../salary-calculation/salary-calculation.module").then(
