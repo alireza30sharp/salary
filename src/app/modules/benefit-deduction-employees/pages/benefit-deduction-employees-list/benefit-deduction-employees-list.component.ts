@@ -11,7 +11,7 @@ import { ConfirmInterFace } from "../../../../shared/ki-components/ki-confirmati
 import { Paths } from "../../../../shared/utilities/paths";
 import { ModalService, ToastService } from "../../../../shared/services";
 import { ChangeWorkShopsService } from "../../../../services/change-work-shop.service";
-import { WorkShopsFilter } from "../../../../base/models";
+import { WorkShopsFilter } from "../../../../salary/models";
 import {
   ListViewFilterDataInterFace,
   ListViewFilterInterFace,

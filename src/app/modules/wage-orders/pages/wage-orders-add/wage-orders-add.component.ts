@@ -24,7 +24,7 @@ import { ToastService } from "../../../../shared/services";
 
 import { WageOrdersService } from "../../services/wage-orders.service";
 import { wageOrderDetailDto, wageOrdersDto } from "../../models";
-import { maskPrefixTaxRate } from "../../../../base/models/rul";
+import { maskPrefixTaxRate } from "../../../../salary/models/rul";
 import { Location } from "@angular/common";
 @Component({
   selector: "app-wage-orders-add",

@@ -30,7 +30,7 @@ import { SelectOptionInterface } from "../../../../shared/interfaces/select-opti
 import { DateUtilies } from "../../../../shared/utilities/Date";
 import { ToastService } from "../../../../shared/services";
 
-import { maskPrefixTaxRate } from "../../../../base/models/rul";
+import { maskPrefixTaxRate } from "../../../../salary/models/rul";
 import { Location } from "@angular/common";
 import { ActivatedRoute, Router } from "@angular/router";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";

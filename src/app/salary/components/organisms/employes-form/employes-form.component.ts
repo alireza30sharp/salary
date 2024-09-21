@@ -12,7 +12,7 @@ import { Form, NgForm } from "@angular/forms";
 import { EmployeDto } from "../../../models/employee.model";
 import { NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
 import { SelectOptionInterface } from "../../../../shared/interfaces/select-option.interface";
-import { genderList } from "../../../../../app/base/models/rul";
+import { genderList } from "../../../../../app/salary/models/rul";
 import { DateUtilies } from "../../../../shared/utilities/Date";
 import { KiTabGroupComponent } from "../../../../shared/ki-components";
 

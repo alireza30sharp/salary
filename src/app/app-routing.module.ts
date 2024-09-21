@@ -22,7 +22,8 @@ export const routes: Routes = [
   {
     canActivate: [AuthGuard],
     path: "salary",
-    loadChildren: () => import("./base/base.module").then((m) => m.BaseModule),
+    loadChildren: () =>
+      import("./salary/salary.module").then((m) => m.SalaryModule),
   },
   // {
   //   path: "organization-units",

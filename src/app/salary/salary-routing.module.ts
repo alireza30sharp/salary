@@ -1,6 +1,6 @@
 import { RouterModule, Routes } from "@angular/router";
 import { NgModule } from "@angular/core";
-import { BaseComponent } from "./base.component";
+import { SalaryComponent } from "./salary.component";
 import * as _pages from "./pages";
 import { RecordsOfChangesListComponent } from "./components/templates/records-of-changes-list/app-records-of-changes-list.component";
 import { Paths } from "../shared/utilities/paths";
@@ -8,7 +8,7 @@ import { Paths } from "../shared/utilities/paths";
 const routes: Routes = [
   {
     path: "",
-    component: BaseComponent,
+    component: SalaryComponent,
     children: [
       {
         path: "change-page/:type",
@@ -152,4 +152,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class BaseRoutingModule {}
+export class SalaryRoutingModule {}

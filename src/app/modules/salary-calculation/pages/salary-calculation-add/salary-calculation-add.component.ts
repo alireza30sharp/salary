@@ -34,7 +34,7 @@ import {
   addWorkingTimesDetailDto,
   addWorkingTimesDto,
 } from "../../models";
-import { maskPrefixTaxRate, monthlyList } from "../../../../base/models/rul";
+import { maskPrefixTaxRate, monthlyList } from "../../../../salary/models/rul";
 import { Location } from "@angular/common";
 import { ConfirmInterFace } from "../../../../shared/ki-components/ki-confirmation/confirm.interface";
 @Component({

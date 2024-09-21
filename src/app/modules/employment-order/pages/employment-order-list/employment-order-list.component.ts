@@ -9,7 +9,7 @@ import { CellOperationsClickEvent } from "../../../../shared/components/ag-grid"
 import { Location } from "@angular/common";
 import { STEPS_BUTTONS } from "../../../../shared/models/shepherd-config";
 import { EmploymentOrdersListDto } from "../../models";
-import { WorkShopsFilter } from "../../../../base/models";
+import { WorkShopsFilter } from "../../../../salary/models";
 import { TourService } from "../../../../shared/services/tour.service";
 import { EmploymentOrderService } from "../../services/employment-order.service";
 import { EmploymentOrderFormModalComponent } from "../../components/templates";

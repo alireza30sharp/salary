@@ -1,16 +1,16 @@
 import { NgModule } from "@angular/core";
 import { NbMenuModule } from "@nebular/theme";
-import { BaseComponent } from "./base.component";
-import { BaseRoutingModule } from "./base-routing.module";
 import * as _organisms from "./components/organisms";
 import * as _template from "./components/templates";
 import * as _pages from "./pages";
 import { SharedModule } from "../shared/shared.module";
 import { RecordsOfChangesListComponent } from "./components/templates/records-of-changes-list/app-records-of-changes-list.component";
+import { SalaryRoutingModule } from "./salary-routing.module";
+import { SalaryComponent } from "./salary.component";
 @NgModule({
-  imports: [BaseRoutingModule, NbMenuModule, SharedModule],
+  imports: [SalaryRoutingModule, NbMenuModule, SharedModule],
   declarations: [
-    BaseComponent,
+    SalaryComponent,
     _organisms.WorkShopsFormComponent,
     _organisms.BenefitDeductionFormComponent,
     _organisms.TaxFormComponent,
@@ -44,4 +44,4 @@ import { RecordsOfChangesListComponent } from "./components/templates/records-of
     RecordsOfChangesListComponent,
   ],
 })
-export class BaseModule {}
+export class SalaryModule {}

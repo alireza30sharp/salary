@@ -17,7 +17,7 @@ import { propertyOf } from "../../../../../shared/utilities/property-of";
 import { FormGroupType } from "../../../../../shared/utilities/utility-types";
 import { ActivatedRoute } from "@angular/router";
 import { ToastService } from "../../../../../shared/services";
-import { TypeOptions } from "../../../../../base/models/rul";
+import { TypeOptions } from "../../../../../salary/models/rul";
 import { ListItem } from "../../../../../shared/interfaces/list-item.interface";
 import { EmployesService } from "../../services/employes.service";
 import { EmployeDto } from "../../models";

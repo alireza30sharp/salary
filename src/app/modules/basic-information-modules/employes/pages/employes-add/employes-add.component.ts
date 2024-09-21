@@ -16,7 +16,7 @@ import { FormBuilder, FormGroup, NgForm, Validators } from "@angular/forms";
 import { propertyOf } from "../../../../../shared/utilities/property-of";
 import { FormGroupType } from "../../../../../shared/utilities/utility-types";
 import { EmployeDto } from "../../models";
-import { genderList, TypeOptions } from "../../../../../base/models/rul";
+import { genderList, TypeOptions } from "../../../../../salary/models/rul";
 import { ListItem } from "../../../../../shared/interfaces/list-item.interface";
 import { KiTabGroupComponent } from "../../../../../shared/ki-components";
 import { NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";

@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { SessionStorage } from "ngx-webstorage";
 import { ApiUrlService } from "../../../../api-url.service";
 import { SessionNames } from "../../../../shared/utilities/session-names";
-import { WorkShopsFilter } from "../../../../base/models";
+import { WorkShopsFilter } from "../../../../salary/models";
 import { Data, MessageSave, response } from "../../../../shared/models";
 import { ExemptionTypesDto } from "../models";
 @Injectable()

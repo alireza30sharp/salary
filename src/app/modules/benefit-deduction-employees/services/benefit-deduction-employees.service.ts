@@ -4,7 +4,7 @@ import { BenefitDeductionEmployeesDto } from "../models/benefit-deduction-employ
 import { SessionStorage } from "ngx-webstorage";
 import { SessionNames } from "../../../shared/utilities/session-names";
 import { ApiUrlService } from "../../../api-url.service";
-import { WorkShopsFilter } from "../../../base/models";
+import { WorkShopsFilter } from "../../../salary/models";
 import { Data, response } from "../../../shared/models";
 @Injectable()
 export class BenefitDeductionEmployeesService {

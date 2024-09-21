@@ -9,22 +9,24 @@ import { CellOperationsClickEvent } from "../../../../shared/components/ag-grid"
 import { Location } from "@angular/common";
 import { STEPS_BUTTONS } from "../../../../shared/models/shepherd-config";
 import { AdvanceFilter, AdvanceListDto } from "../../models";
-import { WorkShopsFilter } from "../../../../base/models";
+import { WorkShopsFilter } from "../../../../salary/models";
 import { TourService } from "../../../../shared/services/tour.service";
 import { AdvanceService } from "../../services/advance.service";
 
 import { Paths } from "../../../../shared/utilities/paths";
-import { ListViewFilterDataInterFace, ListViewFilterInterFace } from "../../../../shared/interfaces/list-view-filter-config.interface";
+import {
+  ListViewFilterDataInterFace,
+  ListViewFilterInterFace,
+} from "../../../../shared/interfaces/list-view-filter-config.interface";
 import { DateUtilies } from "../../../../shared/utilities/Date";
 
 @Component({
   selector: "app-advance-order-list",
   templateUrl: "./advance-list.component.html",
   styleUrls: ["./advance-list.component.scss"],
-  providers: [AdvanceService],//inject 
+  providers: [AdvanceService], //inject
 })
 export class AdvanceListComponent implements OnInit {
-
   columnsDefault: AgGridInterFace[] = [
     {
       field: propertyOf<AdvanceListDto>("row_NO"),
@@ -43,7 +45,7 @@ export class AdvanceListComponent implements OnInit {
       field: propertyOf<AdvanceListDto>("id"),
       hide: true,
     },
-      
+
     {
       field: propertyOf<AdvanceListDto>("requestDate"),
       headerName: "تاریخ",
@@ -65,11 +67,10 @@ export class AdvanceListComponent implements OnInit {
       field: propertyOf<AdvanceListDto>("confirmedAmount"),
       headerName: "مبلغ",
     },
-   
   ];
- 
+
   rowDataDefault = new Array<AdvanceListDto>(); //لیست از ریسپانس
-  selectRow = new Array<AdvanceListDto>();//رکورد انتخاب شده
+  selectRow = new Array<AdvanceListDto>(); //رکورد انتخاب شده
   isShowLoadingDelete: boolean = false;
   isShowLoadingRefrash: boolean = false;
   filterWorkShops = new WorkShopsFilter();
@@ -96,55 +97,52 @@ export class AdvanceListComponent implements OnInit {
     showFromAmount: true,
     showToAmount: true,
     //showComment: true,
-  
   };
 
-  
   getList() {
     let model = new WorkShopsFilter();
     let advanceFilter = new AdvanceFilter();
-    advanceFilter.confirmedAmount = 0; 
-    model.DateFrom= '1403/01/01';
-    model.DateTo = '1405/01/01';
+    advanceFilter.confirmedAmount = 0;
+    model.DateFrom = "1403/01/01";
+    model.DateTo = "1405/01/01";
 
-
-    model.Statues=0;
+    model.Statues = 0;
     this.isShowLoadingRefrash = true;
 
     debugger;
-    this._advanceService.getAll(model,advanceFilter).subscribe({
-      next: (res) => {//وقتی ریسپانس میاد
+    this._advanceService.getAll(model, advanceFilter).subscribe({
+      next: (res) => {
+        //وقتی ریسپانس میاد
         if (res.isOk) {
           this.rowDataDefault = res.data.data;
         }
       },
-      complete: () => {//در هر صورت انجام میشه چه با خطا چه بدون خطا مثل finally
+      complete: () => {
+        //در هر صورت انجام میشه چه با خطا چه بدون خطا مثل finally
         this.isShowLoadingRefrash = false;
       },
-      error: (err) => {},//خطا خورده
+      error: (err) => {}, //خطا خورده
     });
   }
 
   onToolsSelected() {
     this._router.navigateByUrl("salary/change-page/pageName");
   }
-  cancelClickHandler() {//برگشت به صفحه قبل
+  cancelClickHandler() {
+    //برگشت به صفحه قبل
     this._location.back();
   }
 
-  
   newWorkShpps() {
     this._router.navigateByUrl(Paths.advance.add().url);
   }
 
-  
   removeCell() {
     const params: ConfirmInterFace = {
       acceptText: "بله",
       declineText: "خیر",
       description: "آیا از عملیات مورد نظر اطمینان دارید؟",
-      title:
-        "حذف" + " " + `"${this.selectRow[0].id}"`,
+      title: "حذف" + " " + `"${this.selectRow[0].id}"`,
       type: "Confirm",
     };
     this._modalService.showConfirm(params, false).then((res) => {
@@ -163,7 +161,8 @@ export class AdvanceListComponent implements OnInit {
     this._advanceService
       .delete(item.id)
       .pipe(
-        finalize(() => {//مثل کامپلیت
+        finalize(() => {
+          //مثل کامپلیت
           this.isShowLoadingDelete = false;
         })
       )
@@ -186,13 +185,6 @@ export class AdvanceListComponent implements OnInit {
       });
   }
 
-
-
-
-
-  
-
-
   onSearchHandelar(event: ListViewFilterDataInterFace) {
     let model = new WorkShopsFilter();
     model.PriceFrom = event.fromAmount;
@@ -204,8 +196,6 @@ export class AdvanceListComponent implements OnInit {
     this.filterWorkShops = Object.assign({}, model);
   }
 
-  
-
   onSelectedRowsChangeEvent(event: Array<AdvanceListDto>) {
     this.selectRow = new Array<AdvanceListDto>();
     this.selectRow = event;
@@ -213,7 +203,8 @@ export class AdvanceListComponent implements OnInit {
   onRefrashSelected() {
     this.getList();
   }
-  startTour() {//آموزش
+  startTour() {
+    //آموزش
     const steps = [
       {
         attachTo: {

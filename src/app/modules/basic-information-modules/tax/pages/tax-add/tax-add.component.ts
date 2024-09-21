@@ -15,7 +15,7 @@ import { FormFieldConfigType } from "../../../../../shared/types/form-field-conf
 import { FormBuilder, FormGroup, NgForm, Validators } from "@angular/forms";
 import { propertyOf } from "../../../../../shared/utilities/property-of";
 import { FormGroupType } from "../../../../../shared/utilities/utility-types";
-import { TaxType, TypeOptions } from "../../../../../base/models/rul";
+import { TaxType, TypeOptions } from "../../../../../salary/models/rul";
 import { ListItem } from "../../../../../shared/interfaces/list-item.interface";
 import { TaxService } from "../../services/tax.service";
 import { TaxDto } from "../../models";

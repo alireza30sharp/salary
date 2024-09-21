@@ -1,6 +1,6 @@
 import { AfterViewInit, Component } from "@angular/core";
 
-import { MENU_ITEMS } from "./base-menu";
+import { MENU_ITEMS } from "./salary-menu";
 import { NbMenuService } from "@nebular/theme";
 import { finalize, Subject, takeUntil } from "rxjs";
 import { DynamicTabService } from "../@theme/service/dynamic-tab.service";
@@ -8,8 +8,8 @@ import { TabModelDto } from "../shared/models/tab.model";
 import { ClientPrerequisitsService } from "../services/client-prerequisits";
 
 @Component({
-  selector: "ngx-base",
-  styleUrls: ["base.component.scss"],
+  selector: "ngx-salary",
+  styleUrls: ["salary.component.scss"],
   template: `
     <ki-spinner [color]="'dark'" [matchParent]="true" *ngIf="loading">
     </ki-spinner>
@@ -19,7 +19,7 @@ import { ClientPrerequisitsService } from "../services/client-prerequisits";
     </ngx-one-column-layout>
   `,
 })
-export class BaseComponent implements AfterViewInit {
+export class SalaryComponent implements AfterViewInit {
   private destroy$ = new Subject<void>();
 
   constructor(

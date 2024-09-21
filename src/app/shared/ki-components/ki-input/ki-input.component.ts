@@ -24,7 +24,7 @@ import {
   NbComponentSize,
   NbComponentStatus,
 } from "@nebular/theme";
-import { TaxRate } from "../../../base/models/rul";
+import { TaxRate } from "../../../salary/models/rul";
 type InputType =
   | "password"
   | "number"

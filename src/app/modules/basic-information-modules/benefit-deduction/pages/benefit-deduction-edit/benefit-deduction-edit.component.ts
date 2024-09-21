@@ -19,7 +19,7 @@ import { ActivatedRoute } from "@angular/router";
 import { ToastService } from "../../../../../shared/services";
 import { BenefitDeductionService } from "../../services/benefit-deduction.service";
 import { BenefitDeductionDto } from "../../models";
-import { TypeOptions } from "../../../../../base/models/rul";
+import { TypeOptions } from "../../../../../salary/models/rul";
 import { ListItem } from "../../../../../shared/interfaces/list-item.interface";
 
 @Component({

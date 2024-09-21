@@ -4,7 +4,7 @@ import { ApiUrlService } from "../../../api-url.service";
 import { Data, response } from "../../../shared/models";
 import { SessionNames } from "../../../shared/utilities/session-names";
 import { SessionStorage } from "ngx-webstorage";
-import { WorkShopsFilter } from "../../../base/models";
+import { WorkShopsFilter } from "../../../salary/models";
 import { EmploymentOrdersDto } from "../models";
 @Injectable()
 export class EmploymentOrderService {

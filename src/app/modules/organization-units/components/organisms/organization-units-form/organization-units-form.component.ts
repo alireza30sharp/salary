@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { OrganizationUnitsDto } from "../../../../../../app/base/models/organization-units.model";
+import { OrganizationUnitsDto } from "../../../../../../app/salary/models/organization-units.model";
 
 @Component({
   selector: "app-organization-units-form",

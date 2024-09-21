@@ -36,7 +36,7 @@ import {
   wageOrderDetailDto,
   wageOrdersDto,
 } from "../../models";
-import { maskPrefixTaxRate } from "../../../../base/models/rul";
+import { maskPrefixTaxRate } from "../../../../salary/models/rul";
 import { Location } from "@angular/common";
 import { ActivatedRoute, Router } from "@angular/router";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";

@@ -6,11 +6,11 @@ import { finalize } from "rxjs";
 import { ModalService, ToastService } from "../../../../shared/services";
 import { GeneralActionType } from "../../../../shared/types/general-action.type";
 import { ConfirmInterFace } from "../../../../shared/ki-components/ki-confirmation/confirm.interface";
-import { OrganizationUnitsService } from "../../../../../app/base/services/organization-units.service";
+import { OrganizationUnitsService } from "../../../../../app/salary/services/organization-units.service";
 import {
   OrganizationUnitsDto,
   OrganizationUnitsModel,
-} from "../../../../../app/base/models/organization-units.model";
+} from "../../../../../app/salary/models/organization-units.model";
 import { Paths } from "../../../../shared/utilities/paths";
 import { NgEventBus } from "../../../../shared/event/bus/ng-event-bus";
 import { Events } from "../../../../shared/event/app.events";

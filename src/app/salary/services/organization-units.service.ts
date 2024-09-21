@@ -6,7 +6,7 @@ import { Data, response } from "../../shared/models";
 import {
   OrganizationUnitsDto,
   OrganizationUnitsModel,
-} from "../../base/models/organization-units.model";
+} from "../../salary/models/organization-units.model";
 import { SessionNames } from "../../shared/utilities/session-names";
 import { SessionStorage } from "ngx-webstorage";
 @Injectable()

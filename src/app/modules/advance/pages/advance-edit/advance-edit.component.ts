@@ -30,7 +30,7 @@ import { SelectOptionInterface } from "../../../../shared/interfaces/select-opti
 import { DateUtilies } from "../../../../shared/utilities/Date";
 import { ToastService } from "../../../../shared/services";
 
-import { maskPrefixTaxRate } from "../../../../base/models/rul";
+import { maskPrefixTaxRate } from "../../../../salary/models/rul";
 import { Location } from "@angular/common";
 import { ActivatedRoute, Router } from "@angular/router";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
@@ -53,7 +53,6 @@ import { AdvanceDto } from "../../models";
 export class AdvanceEditComponent implements OnInit {
   employeList?: SelectOptionInterface<any>[];
   benefitDeductions?: SelectOptionInterface<any>[];
- 
 
   isShowLoadingDelete: boolean = false;
   showLoading: boolean = false;
@@ -89,7 +88,7 @@ export class AdvanceEditComponent implements OnInit {
         }
       });
 
-      //وقتی ورکشاپ از هدر تغییر کند
+    //وقتی ورکشاپ از هدر تغییر کند
     this._changeWorkShops.activeWorkShopsSource$
       .pipe(delay(100))
       .subscribe((workShopId) => {
@@ -98,8 +97,7 @@ export class AdvanceEditComponent implements OnInit {
   }
 
   onRefrashSelected() {}
-  saveCellHandeler(formData: AdvanceDto) {      
-  }
+  saveCellHandeler(formData: AdvanceDto) {}
 
   cancelClickHandler() {
     this._location.back();
@@ -111,7 +109,7 @@ export class AdvanceEditComponent implements OnInit {
       this._advanceService
         .getById(this.advanceId)
         .pipe(
-          takeUntilDestroyed(this._destroyRef),//وقتی دیتا رو گرفتیم سرویس رو خالی می کنیم
+          takeUntilDestroyed(this._destroyRef), //وقتی دیتا رو گرفتیم سرویس رو خالی می کنیم
           finalize(() => {
             this.isLoading = false;
           })
@@ -122,10 +120,8 @@ export class AdvanceEditComponent implements OnInit {
             this.persianBirthDate = DateUtilies.convertDateToNgbDateStruct(
               res.data.persianStartDate
             );
-        
           }
         });
     }, 3000);
   }
-  
 }
