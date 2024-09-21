@@ -63,7 +63,6 @@ export class EducationEvidencesFormModalComponent
             this.isLoadingSaveChange = false;
             this.finalize();
             this.cancelHandler();
-
           })
         )
         .subscribe({

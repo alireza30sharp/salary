@@ -19,9 +19,9 @@ import { Router } from "@angular/router";
 import { SelectOptionInterface } from "../../../shared/interfaces/select-option.interface";
 import { ChangeWorkShopsService } from "../../../services/change-work-shop.service";
 import { TourService } from "../../../shared/services/tour.service";
-import { STEPS_BUTTONS } from "../../../shared/models/shepherd-config";
+import { STEPS_BUTTONS } from "./../../../shared/models/shepherd-config";
 import { SessionStorage } from "ngx-webstorage";
-import { SessionNames } from "../../../shared/utilities/session-names";
+import { SessionNames } from "./../../../shared/utilities/session-names";
 
 export interface CacheDataInterface {
   value?: number;

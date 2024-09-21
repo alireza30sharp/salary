@@ -68,7 +68,6 @@ export class PaymentLocationFormModalComponent
             if (res.isOk) {
               this._toastService.success(res.data.message);
               this.cancelHandler();
-
             }
           },
           error: (err) => {

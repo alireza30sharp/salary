@@ -6,7 +6,7 @@ import { AgGridInterFace } from "../../../shared/interfaces/ag-grid.interface";
 import { propertyOf } from "../../../shared/utilities/property-of";
 import { finalize } from "rxjs";
 import { TourService } from "../../../shared/services/tour.service";
-import { STEPS_BUTTONS } from "../../../shared/models/shepherd-config";
+import { STEPS_BUTTONS } from "./../../../shared/models/shepherd-config";
 import { Router } from "@angular/router";
 import { ConfirmInterFace } from "../../../shared/ki-components/ki-confirmation/confirm.interface";
 import { BenefitDeductionEmployeesService } from "../../services/benefit-deduction-employees.service";
@@ -58,7 +58,7 @@ export class BenefitDeductionEmployeesListComponent implements OnInit {
       field: propertyOf<BenefitDeductionEmployeesDto>("dateAction"),
       headerName: "تاریخ",
       filter: "agTextColumnFilter",
-    cellClass:"text-center"
+      cellClass: "text-center",
     },
     {
       field: propertyOf<BenefitDeductionEmployeesDto>("personnelCode"),

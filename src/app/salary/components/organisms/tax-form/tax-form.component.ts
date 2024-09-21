@@ -7,7 +7,7 @@ import {
   maskPrefixCurrencyCharacter,
   maskPrefixTaxRate,
 } from "../../../models/rul";
-import { SelectOptionInterface } from "../../../../shared/interfaces/select-option.interface";
+import { SelectOptionInterface } from "./../../../../shared/interfaces/select-option.interface";
 
 @Component({
   selector: "app-tax-form",
@@ -38,5 +38,4 @@ export class TaxFormComponent implements OnInit {
   onEnter(e) {
     this.fromMoney = +this.taxModel.fromMoney;
   }
-
 }

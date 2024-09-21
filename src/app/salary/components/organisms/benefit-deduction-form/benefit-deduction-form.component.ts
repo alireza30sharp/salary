@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { Form } from "@angular/forms";
 import { BenefitDeductionDto } from "../../../models/benefit-deduction.model";
-import { SelectOptionInterface } from "../../../../shared/interfaces/select-option.interface";
+import { SelectOptionInterface } from "./../../../../shared/interfaces/select-option.interface";
 import { TypeOptions } from "../../../models/rul";
 
 @Component({
@@ -23,5 +23,4 @@ export class BenefitDeductionFormComponent implements OnInit {
     this.submitCallback.emit(this.benefitDeduction);
     this.benefitDeduction = new BenefitDeductionDto();
   }
-
 }

@@ -2,9 +2,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { Form } from "@angular/forms";
 import { BenefitDeductionEmployeesDto } from "../../../models/benefit-deduction-employees.model";
 import { NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
-import { SelectOptionInterface } from "../../../../shared/interfaces/select-option.interface";
+import { SelectOptionInterface } from "./../../../../shared/interfaces/select-option.interface";
 import { genderList, monthlyList } from "../../../models/rul";
-import { DateUtilies } from "../../../../shared/utilities/Date";
+import { DateUtilies } from "./../../../../shared/utilities/Date";
 import { ChangeWorkShopsService } from "../../../../services/change-work-shop.service";
 import { delay } from "rxjs";
 

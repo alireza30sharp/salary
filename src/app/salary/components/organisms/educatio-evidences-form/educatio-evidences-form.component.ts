@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { Form } from "@angular/forms";
 import { TaxDto } from "../../../models/tax.model";
-import { SelectOptionInterface } from "../../../../shared/interfaces/select-option.interface";
 import { EducationEvidencesDto } from "../../../models/education-evidences.model";
 
 @Component({

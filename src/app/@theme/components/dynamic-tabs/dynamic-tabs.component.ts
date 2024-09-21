@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { SessionStorage, SessionStorageService } from "ngx-webstorage";
-import { SessionNames } from "../../../shared/utilities/session-names";
+import { SessionNames } from "./../../../shared/utilities/session-names";
 import { DynamicTabService } from "../../service/dynamic-tab.service";
 import { TabModel } from "../../models/tab.model";
 @Component({

@@ -18,20 +18,20 @@ const routes: Routes = [
         path: "work-shops",
         loadChildren: () =>
           import(
-            "../modules/basic-information-modules/work-shops/work-shops.module"
+            "./modules/basic-information-modules/work-shops/work-shops.module"
           ).then((m) => m.WorkShopsModule),
       },
       {
         path: "benefit-deduction",
         loadChildren: () =>
           import(
-            "../modules/basic-information-modules/benefit-deduction/benefit-deduction.module"
+            "./modules/basic-information-modules/benefit-deduction/benefit-deduction.module"
           ).then((m) => m.BenefitDeductionModule),
       },
       {
         path: "tax",
         loadChildren: () =>
-          import("../modules/basic-information-modules/tax/tax.module").then(
+          import("./modules/basic-information-modules/tax/tax.module").then(
             (m) => m.TaxModule
           ),
       },
@@ -40,35 +40,35 @@ const routes: Routes = [
         path: "education-evidences",
         loadChildren: () =>
           import(
-            "../modules/basic-information-modules/educatio-evidences/educatio-evidences.module"
+            "./modules/basic-information-modules/educatio-evidences/educatio-evidences.module"
           ).then((m) => m.EducationEvidencesModule),
       },
       {
         path: "education-fields",
         loadChildren: () =>
           import(
-            "../modules/basic-information-modules/education-fields/education-fields.module"
+            "./modules/basic-information-modules/education-fields/education-fields.module"
           ).then((m) => m.EducationFieldsModule),
       },
       {
         path: "employment-types",
         loadChildren: () =>
           import(
-            "../modules/basic-information-modules/employment-types/employment-types.module"
+            "./modules/basic-information-modules/employment-types/employment-types.module"
           ).then((m) => m.EmploymentTypesModule),
       },
       {
         path: "organization-post",
         loadChildren: () =>
           import(
-            "../modules/basic-information-modules/organization-post/organization-post.module"
+            "./modules/basic-information-modules/organization-post/organization-post.module"
           ).then((m) => m.OrganizationPostModule),
       },
       {
         path: "employes",
         loadChildren: () =>
           import(
-            "../modules/basic-information-modules/employes/employes.module"
+            "./modules/basic-information-modules/employes/employes.module"
           ).then((m) => m.EmployesModule),
       },
       {
@@ -80,7 +80,7 @@ const routes: Routes = [
         path: "payment-location",
         loadChildren: () =>
           import(
-            "../modules/basic-information-modules/payment-location/payment-location.module"
+            "./modules/basic-information-modules/payment-location/payment-location.module"
           ).then((m) => m.PaymentLocationModule),
       },
 
@@ -92,28 +92,28 @@ const routes: Routes = [
       {
         path: "organization-units",
         loadChildren: () =>
-          import(
-            "../modules/organization-units/organization-units.module"
-          ).then((m) => m.OrganizationUnitsModule),
+          import("./modules/organization-units/organization-units.module").then(
+            (m) => m.OrganizationUnitsModule
+          ),
       },
       {
         path: "system-operation",
         loadChildren: () =>
-          import("../modules/system-operation/system-operation.module").then(
+          import("./modules/system-operation/system-operation.module").then(
             (m) => m.SystemOperationModule
           ),
       },
       {
         path: "wage-orders",
         loadChildren: () =>
-          import("../modules/wage-orders/wage-orders.module").then(
+          import("./modules/wage-orders/wage-orders.module").then(
             (m) => m.WageOrdersModule
           ),
       },
       {
         path: "employment-order",
         loadChildren: () =>
-          import("../modules/employment-order/employment-order.module").then(
+          import("./modules/employment-order/employment-order.module").then(
             (m) => m.EmploymentOrderModule
           ),
       },
@@ -121,14 +121,14 @@ const routes: Routes = [
         path: "insurance-type",
         loadChildren: () =>
           import(
-            "../modules/basic-information-modules/Insurance-type/Insurance-type.module"
+            "./modules/basic-information-modules/Insurance-type/Insurance-type.module"
           ).then((m) => m.InsuranceTypeModule),
       },
       {
         path: "exemption-types",
         loadChildren: () =>
           import(
-            "../modules/basic-information-modules/exemption-types/exemption-types.module"
+            "./modules/basic-information-modules/exemption-types/exemption-types.module"
           ).then((m) => m.ExemptionTypesModule),
       },
       {
@@ -140,7 +140,7 @@ const routes: Routes = [
       {
         path: "advance",
         loadChildren: () =>
-          import("../modules/advance/advance.module").then(
+          import("./modules/advance/advance.module").then(
             (m) => m.AdvanceModule
           ),
       },

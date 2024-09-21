@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
-import { propertyOf } from "../../../../shared/utilities/property-of";
-import { AgGridInterFace } from "../../../../shared/interfaces/ag-grid.interface";
+import { propertyOf } from "./../../../../shared/utilities/property-of";
+import { AgGridInterFace } from "./../../../../shared/interfaces/ag-grid.interface";
 
 export class ReportDto {
   row_NO: string;
