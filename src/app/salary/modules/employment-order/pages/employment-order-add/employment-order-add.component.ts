@@ -30,7 +30,8 @@ import { EmploymentOrderService } from "../../services/employment-order.service"
 import {
   wageOrderDetailDto,
   wageOrdersDto,
-} from "../../../../modules/wage-orders/models";
+} from "../../../basic-information-modules/wage-orders/models";
+
 @Component({
   selector: "app-employment-order-add",
   templateUrl: "./employment-order-add.component.html",

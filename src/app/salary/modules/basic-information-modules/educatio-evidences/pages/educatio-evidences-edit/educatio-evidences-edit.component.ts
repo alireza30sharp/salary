@@ -53,7 +53,7 @@ export class EducationEvidencesEditComponent implements OnInit {
 
   saveHandler() {
     this.showLoading = true;
-    this.formGroup.value.workShopId = this.id;
+    this.formGroup.value.id = this.id;
     this._EducationEvidencesService
       .update(this.formGroup.value)
       .pipe(
@@ -90,7 +90,6 @@ export class EducationEvidencesEditComponent implements OnInit {
       this._EducationEvidencesService
         .getById(this.id)
         .pipe(
-          takeUntilDestroyed(this._destroyRef),
           finalize(() => {
             this.isLoading = false;
           })

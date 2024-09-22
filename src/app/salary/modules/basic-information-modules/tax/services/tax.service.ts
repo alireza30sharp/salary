@@ -63,7 +63,7 @@ export class TaxService {
     return this.$http.post<response<any>>(this.urlSvc.Tax.Add, model);
   }
 
-  delete(workShopId, id?: any) {
+  delete(id?: any) {
     return this.$http.delete<response<string>>(this.urlSvc.Tax.Delete, {
       body: { workShopId: this.WorkShopsID, id: id },
     });

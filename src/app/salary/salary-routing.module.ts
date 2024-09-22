@@ -106,9 +106,9 @@ const routes: Routes = [
       {
         path: "wage-orders",
         loadChildren: () =>
-          import("./modules/wage-orders/wage-orders.module").then(
-            (m) => m.WageOrdersModule
-          ),
+          import(
+            "./modules/basic-information-modules/wage-orders/wage-orders.module"
+          ).then((m) => m.WageOrdersModule),
       },
       {
         path: "employment-order",

@@ -53,7 +53,7 @@ export class EducationFieldsEditComponent implements OnInit {
 
   saveHandler() {
     this.showLoading = true;
-    this.formGroup.value.workShopId = this.id;
+    this.formGroup.value.id = this.id;
     this._EducationFieldsService
       .update(this.formGroup.value)
       .pipe(

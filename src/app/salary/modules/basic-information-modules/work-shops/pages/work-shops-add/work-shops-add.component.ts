@@ -93,6 +93,18 @@ export class WorkShopsAddComponent implements OnInit {
         ],
       },
       {
+        idAttr: "txtFistName",
+        type: "textbox",
+        title: "ردیف پیمان",
+        columnWidthNumber: 3,
+        binding: propertyOf<WorkShopsDto>("radifPeyman"),
+        validators: [
+          {
+            type: Validators.required,
+          },
+        ],
+      },
+      {
         type: "textbox",
         title: "کد کارگاه",
         columnWidthNumber: 3,

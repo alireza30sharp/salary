@@ -69,6 +69,12 @@ export class WorkShopsListComponent implements OnInit {
       },
     },
     {
+      field: propertyOf<WorkShopsDto>("radifPeyman"),
+      headerName: "ردیف پیمان",
+      filter: "agTextColumnFilter",
+      headerClass: "companyName",
+    },
+    {
       field: propertyOf<WorkShopsDto>("companyName"),
       headerName: "نام شرکت",
       filter: "agTextColumnFilter",
@@ -181,7 +187,7 @@ export class WorkShopsListComponent implements OnInit {
   onDeleteItem(item: any) {
     this.isShowLoadingDelete = true;
     this._WorkShopsService
-      .delete(item.id)
+      .delete(item.workShopId)
       .pipe(
         finalize(() => {
           this.isShowLoadingDelete = false;

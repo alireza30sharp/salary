@@ -84,10 +84,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: "edit-2-outline",
     children: [
       {
-        title: "لیست",
-        link: "/salary/system-operation/list",
-      },
-      {
         title: "کارکرد ماهانه ",
         link: "/salary/system-operation/monthly-performance",
       },

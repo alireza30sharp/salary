@@ -40,12 +40,9 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { Paths } from "../../../../../shared/utilities/paths";
 import { ConfirmInterFace } from "../../../../../shared/ki-components/ki-confirmation/confirm.interface";
 import { AdvanceService } from "../../services/advance.service";
-import {
-  actionTypeEnum,
-  wageOrderDetailDto,
-  wageOrdersDto,
-} from "../../../wage-orders/models";
+
 import { AdvanceDto } from "../../models";
+import { actionTypeEnum } from "../../../basic-information-modules/wage-orders/models";
 
 @Component({
   selector: "app-advance-edit",

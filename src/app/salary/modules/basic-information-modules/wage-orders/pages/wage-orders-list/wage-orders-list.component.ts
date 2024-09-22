@@ -1,16 +1,16 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { ModalService } from "./../../../../../shared/services";
-import { AgGridInterFace } from "./../../../../../shared/interfaces/ag-grid.interface";
-import { propertyOf } from "./../../../../../shared/utilities/property-of";
+import { ModalService } from "../../../../../../shared/services";
+import { AgGridInterFace } from "../../../../../../shared/interfaces/ag-grid.interface";
+import { propertyOf } from "../../../../../../shared/utilities/property-of";
 import { finalize } from "rxjs";
-import { ConfirmInterFace } from "./../../../../../shared/ki-components/ki-confirmation/confirm.interface";
+import { ConfirmInterFace } from "../../../../../../shared/ki-components/ki-confirmation/confirm.interface";
 import { WageOrdersService } from "../../services/wage-orders.service";
-import { ChangeWorkShopsService } from "../../../../../services/change-work-shop.service";
+import { ChangeWorkShopsService } from "../../../../../../services/change-work-shop.service";
 import { Router } from "@angular/router";
 import { wageOrderListDto } from "../../models/wage-orders.model";
-import { CellOperationsClickEvent } from "./../../../../../shared/components/ag-grid";
-import { Paths } from "./../../../../../shared/utilities/paths";
-import { ClientPrerequisitsService } from "../../../../../services/client-prerequisits";
+import { CellOperationsClickEvent } from "../../../../../../shared/components/ag-grid";
+import { Paths } from "../../../../../../shared/utilities/paths";
+import { ClientPrerequisitsService } from "../../../../../../services/client-prerequisits";
 import { Location } from "@angular/common";
 
 @Component({
@@ -43,7 +43,7 @@ export class WageOrdersListComponent implements OnInit {
       field: "عملیات",
       cellClass: "d-flex justify-content-center align-items-center",
       editable: false,
-      width: 15,
+      width: 90,
       cellRenderer: CellOperationsClickEvent,
       cellRendererParams: {
         onClickRemove: (params) => {

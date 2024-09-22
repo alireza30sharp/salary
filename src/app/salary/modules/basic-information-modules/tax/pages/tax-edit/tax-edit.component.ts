@@ -55,7 +55,7 @@ export class TaxEditComponent implements OnInit {
 
   saveHandler() {
     this.showLoading = true;
-    this.formGroup.value.workShopId = this.id;
+    this.formGroup.value.id = this.id;
     this._TaxService
       .update(this.formGroup.value)
       .pipe(
@@ -135,7 +135,7 @@ export class TaxEditComponent implements OnInit {
       {
         type: "textbox",
         title: "درصد",
-        binding: propertyOf<TaxDto>("toMoney"),
+        binding: propertyOf<TaxDto>("taxRate"),
         config: {
           type: "number",
           onlyNumber: true,

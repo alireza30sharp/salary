@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { ClientPrerequisitsService } from "../../../services/client-prerequisits";
+import { ClientPrerequisitsService } from "../../../../services/client-prerequisits";
 
 @Component({
   selector: "app-wage-orders",

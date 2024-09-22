@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { ApiUrlService } from "../../../../api-url.service";
-import { Data, response } from "../../../../shared/models";
+import { ApiUrlService } from "../../../../../api-url.service";
+import { Data, response } from "../../../../../shared/models";
 import { wageOrderListDto, wageOrdersDto } from "../models/wage-orders.model";
-import { SessionNames } from "../../../../shared/utilities/session-names";
+import { SessionNames } from "../../../../../shared/utilities/session-names";
 import { SessionStorage } from "ngx-webstorage";
 @Injectable()
 export class WageOrdersService {

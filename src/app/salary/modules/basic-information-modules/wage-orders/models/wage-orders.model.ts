@@ -1,4 +1,4 @@
-import { DeductionsEnum } from "../../../../shared/models/deductions.enum";
+import { DeductionsEnum } from "../../../../../shared/models/deductions.enum";
 
 export class wageOrdersDto {
   workShopId: number;

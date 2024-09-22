@@ -63,7 +63,7 @@ export class PaymentLocationListComponent implements OnInit {
 
     {
       field: propertyOf<PaymentLocationDto>("location"),
-      headerName: "پست سازمانی",
+      headerName: "محل های پرداخت",
       filter: "agTextColumnFilter",
       minWidth: 150,
     },

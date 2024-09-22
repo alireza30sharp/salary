@@ -9,10 +9,6 @@ const routes: Routes = [
     component: SystemOperationComponent,
     children: [
       {
-        path: "list",
-        component: _pages.ListComponent,
-      },
-      {
         path: "monthly-performance",
         loadChildren: () =>
           import("../monthly-performance/monthly-performance.module").then(

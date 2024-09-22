@@ -110,7 +110,7 @@ export class TaxAddComponent implements OnInit {
       {
         type: "textbox",
         title: "درصد",
-        binding: propertyOf<TaxDto>("toMoney"),
+        binding: propertyOf<TaxDto>("taxRate"),
         config: {
           type: "number",
           onlyNumber: true,

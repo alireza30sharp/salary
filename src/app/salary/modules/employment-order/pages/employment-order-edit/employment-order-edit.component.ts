@@ -43,7 +43,7 @@ import {
   actionTypeEnum,
   wageOrderDetailDto,
   wageOrdersDto,
-} from "../../../../modules/wage-orders/models";
+} from "../../../basic-information-modules/wage-orders/models";
 
 @Component({
   selector: "app-employment-order-edit",

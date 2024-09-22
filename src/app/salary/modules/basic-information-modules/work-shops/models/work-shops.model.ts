@@ -1,4 +1,5 @@
 export class WorkShopsDto {
+  radifPeyman: string;
   workShopId?: number;
   row_NO?: number;
   workShopName: string;

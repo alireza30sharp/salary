@@ -118,6 +118,18 @@ export class WorkShopsEditComponent implements OnInit {
         ],
       },
       {
+        idAttr: "txtFistName",
+        type: "textbox",
+        title: "ردیف پیمان",
+        columnWidthNumber: 3,
+        binding: propertyOf<WorkShopsDto>("radifPeyman"),
+        validators: [
+          {
+            type: Validators.required,
+          },
+        ],
+      },
+      {
         type: "textbox",
         title: "کد کارگاه",
         columnWidthNumber: 3,
@@ -161,7 +173,22 @@ export class WorkShopsEditComponent implements OnInit {
           },
         ],
       },
-
+      // {
+      //   type: "textbox",
+      //   title: "ترتیب",
+      //   binding: propertyOf<WorkShopsDto>("orderIndex"),
+      //   columnWidthNumber: 3,
+      //   validators: [
+      //     {
+      //       type: Validators.required,
+      //     },
+      //   ],
+      //   config: {
+      //     type: "number",
+      //     onlyNumber: true,
+      //   },
+      //   changeEvent: (changedValue, formGroup) => {},
+      // },
       {
         type: "checkbox",
         title: "وضعیت",
@@ -179,6 +206,7 @@ export class WorkShopsEditComponent implements OnInit {
         type: "textarea",
         title: "آدرس کارگاه",
         binding: propertyOf<WorkShopsDto>("workShopAddress"),
+        columnWidthNumber: 6,
       },
     ];
   }

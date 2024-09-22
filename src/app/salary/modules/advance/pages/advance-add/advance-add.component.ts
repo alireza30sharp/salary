@@ -30,7 +30,6 @@ import { Location } from "@angular/common";
 import { AdvanceService } from "../../services/advance.service";
 
 import { AdvanceDto } from "../../models";
-import { wageOrdersDto } from "../../../wage-orders/models";
 @Component({
   selector: "app-advance-add",
   templateUrl: "./advance-add.component.html",

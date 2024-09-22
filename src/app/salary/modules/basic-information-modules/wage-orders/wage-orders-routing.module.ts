@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import * as _pages from "./pages";
-import { Paths } from "../../../shared/utilities/paths";
+import { Paths } from "../../../../shared/utilities/paths";
 import { WageOrdersComponent } from "./wage-orders.component";
 
 const routes: Routes = [
