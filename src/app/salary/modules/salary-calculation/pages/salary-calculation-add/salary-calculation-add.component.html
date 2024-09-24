@@ -21,7 +21,7 @@
             <ki-select
               [placeholder]="'انتخاب ماه'"
               [options]="monthlyList"
-              [(ngModel)]="addDraftDto.monthNum"
+              [(ngModel)]="addDraftDto.month"
               [hideSelected]="false"
             >
             </ki-select>
@@ -30,7 +30,7 @@
             <ki-select
               [placeholder]="'انتخاب سال'"
               [options]="yearlyList"
-              [(ngModel)]="addDraftDto.yearNum"
+              [(ngModel)]="addDraftDto.year"
             >
             </ki-select>
           </ki-form-group>
@@ -48,7 +48,19 @@
         </div>
       </ng-template>
 
-      <ag-grid-data [showTotal]="true" [rowId]="'code'"></ag-grid-data>
+      <ag-grid-data
+        [showTotal]="true"
+        [rowId]="'code'"
+        [editType]="editType"
+        [columnsDefault]="columnsDefault"
+        [rowDataDefault]="rowDataDefault"
+        [showSideBar]="false"
+        [defaultColDef]="defaultColDef"
+        [rowSelection]="'multiple'"
+        [showLoading]="showLoading"
+        (saveCellChange)="saveCellHandeler($event)"
+        (selectedRowsChange)="selectedRowsChange($event)"
+      ></ag-grid-data>
       <ng-template #footer>
         <div class="d-flex justify-content justify-content-between w-100">
           <ki-button

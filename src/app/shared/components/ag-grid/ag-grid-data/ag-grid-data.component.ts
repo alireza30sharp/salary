@@ -93,6 +93,7 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
   };
   @Input() suppressRowClickSelection: boolean = false;
   @Input() rowSelection: "single" | "multiple" = "single";
+  @Input() showLoading: boolean = false;
   @Input() suppressAggFuncInHeader: boolean = false;
   @Input() showTotal: boolean = false;
   @Input() editType;

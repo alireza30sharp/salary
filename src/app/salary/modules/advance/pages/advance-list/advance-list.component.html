@@ -12,6 +12,7 @@
         [disabled]="selectRow.length != 0 ? false : true"
         [isShowLoadingDelete]="isShowLoadingDelete"
         [isShowLoadingRefrash]="isShowLoadingRefrash"
+        [showLoading]="isShowLoadingRefrash"
       ></app-tools-bar>
     </div>
   </ng-template>
@@ -20,20 +21,15 @@
     <list-view-filter
       [configViewFilter]="configViewFilter"
       (onSearchCallback)="onSearchHandelar($event)"
-      
     ></list-view-filter>
   </div>
 
-
-
-
   <ag-grid-data
-  [rowId]="'id'"
-  [columnsDefault]="columnsDefault"
-  [rowDataDefault]="rowDataDefault"
-  [pagination]="true"
-  (removeCellChange)="onDeleteItem($event)"
-  (selectedRowsChange)="onSelectedRowsChangeEvent($event)"
-></ag-grid-data>
-
+    [rowId]="'id'"
+    [columnsDefault]="columnsDefault"
+    [rowDataDefault]="rowDataDefault"
+    [pagination]="true"
+    (removeCellChange)="onDeleteItem($event)"
+    (selectedRowsChange)="onSelectedRowsChangeEvent($event)"
+  ></ag-grid-data>
 </app-general-panel>

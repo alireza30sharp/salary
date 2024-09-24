@@ -91,28 +91,23 @@ export class SalaryCalculationAddComponent implements OnInit {
       width: 150,
     },
     {
-      headerName: "کارکرد روزانه",
+      headerName: "",
       cellClass: "text-center",
       children: [
         {
-          headerName: "روز",
+          headerName: "totalAdvance",
           editable: true,
           cellEditor: "agNumberCellEditor",
-          cellEditorParams: {
-            min: 0,
-            max: 31,
-          },
-          field: propertyOf<addWorkingTimesDetailDto>("dayWorkShiftDays"),
+          field: propertyOf<addWorkingTimesDetailDto>("totalAdvance"),
           cellRenderer: "agAnimateShowChangeCellRenderer",
           width: 80,
           aggFunc: "sum",
         },
         {
-          field: propertyOf<addWorkingTimesDetailDto>("dayWorkShiftHours"),
-          headerName: "ساعت",
+          field: propertyOf<addWorkingTimesDetailDto>("mozdRoozane"),
+          headerName: "mozdRoozane",
           editable: true,
-          valueFormatter: timeCellFormatter,
-          cellEditor: CellEditorTimeComponent,
+          cellEditor: "agNumberCellEditor",
           width: 80,
           aggFunc: "sum",
           cellRenderer: "agAnimateShowChangeCellRenderer",
@@ -120,28 +115,23 @@ export class SalaryCalculationAddComponent implements OnInit {
       ],
     },
     {
-      headerName: "مرخصی",
+      headerName: "mozdMahane",
       cellClass: "text-center",
       children: [
         {
-          headerName: "روز",
+          headerName: "mozdMahane",
           editable: true,
           cellEditor: "agNumberCellEditor",
-          cellEditorParams: {
-            min: 0,
-            max: 31,
-          },
-          field: propertyOf<addWorkingTimesDetailDto>("sickLeaveDays"),
+          field: propertyOf<addWorkingTimesDetailDto>("mozdMahane"),
           width: 80,
           aggFunc: "sum",
           cellRenderer: "agAnimateShowChangeCellRenderer",
         },
         {
-          field: propertyOf<addWorkingTimesDetailDto>("sickLeaveHours"),
-          headerName: "ساعت",
+          field: propertyOf<addWorkingTimesDetailDto>("ezefekari"),
+          headerName: "ezefekari",
           editable: true,
-          valueFormatter: timeCellFormatter,
-          cellEditor: CellEditorTimeComponent,
+          cellEditor: "agNumberCellEditor",
           width: 80,
           aggFunc: "sum",
           cellRenderer: "agAnimateShowChangeCellRenderer",
@@ -153,24 +143,19 @@ export class SalaryCalculationAddComponent implements OnInit {
       cellClass: "text-center",
       children: [
         {
-          headerName: "روز",
+          headerName: "haghOlad",
           editable: true,
           cellEditor: "agNumberCellEditor",
-          cellEditorParams: {
-            min: 0,
-            max: 31,
-          },
-          field: propertyOf<addWorkingTimesDetailDto>("withOutPayLeaveDays"),
+          field: propertyOf<addWorkingTimesDetailDto>("haghOlad"),
           width: 80,
           aggFunc: "sum",
           cellRenderer: "agAnimateShowChangeCellRenderer",
         },
         {
-          field: propertyOf<addWorkingTimesDetailDto>("withOutPayLeaveHours"),
-          headerName: "ساعت",
+          field: propertyOf<addWorkingTimesDetailDto>("haghMaskan"),
+          headerName: "haghMaskan",
           editable: true,
-          valueFormatter: timeCellFormatter,
-          cellEditor: CellEditorTimeComponent,
+          cellEditor: "agNumberCellEditor",
           width: 80,
           aggFunc: "sum",
           cellRenderer: "agAnimateShowChangeCellRenderer",
@@ -178,28 +163,23 @@ export class SalaryCalculationAddComponent implements OnInit {
       ],
     },
     {
-      headerName: "کسری کار",
+      headerName: "haghBon",
       cellClass: "text-center",
       children: [
         {
           headerName: "روز",
           editable: true,
           cellEditor: "agNumberCellEditor",
-          cellEditorParams: {
-            min: 0,
-            max: 31,
-          },
-          field: propertyOf<addWorkingTimesDetailDto>("workDeficitDays"),
+          field: propertyOf<addWorkingTimesDetailDto>("haghBon"),
           width: 80,
           aggFunc: "sum",
           cellRenderer: "agAnimateShowChangeCellRenderer",
         },
         {
-          field: propertyOf<addWorkingTimesDetailDto>("workDeficitHours"),
-          headerName: "ساعت",
+          field: propertyOf<addWorkingTimesDetailDto>("mamooriat"),
+          headerName: "mamooriat",
           editable: true,
-          valueFormatter: timeCellFormatter,
-          cellEditor: CellEditorTimeComponent,
+          cellEditor: "agNumberCellEditor",
           width: 80,
           aggFunc: "sum",
           cellRenderer: "agAnimateShowChangeCellRenderer",
@@ -207,28 +187,23 @@ export class SalaryCalculationAddComponent implements OnInit {
       ],
     },
     {
-      headerName: "روز غیبت",
+      headerName: "mosaede",
       cellClass: "text-center",
       children: [
         {
-          headerName: "روز",
+          headerName: "mosaede",
           editable: true,
           cellEditor: "agNumberCellEditor",
-          cellEditorParams: {
-            min: 0,
-            max: 31,
-          },
-          field: propertyOf<addWorkingTimesDetailDto>("absenceDays"),
+          field: propertyOf<addWorkingTimesDetailDto>("mosaede"),
           width: 80,
           aggFunc: "sum",
           cellRenderer: "agAnimateShowChangeCellRenderer",
         },
         {
-          field: propertyOf<addWorkingTimesDetailDto>("absanceHours"),
-          headerName: "ساعت",
+          field: propertyOf<addWorkingTimesDetailDto>("payeSanavat"),
+          headerName: "payeSanavat",
           editable: true,
-          valueFormatter: timeCellFormatter,
-          cellEditor: CellEditorTimeComponent,
+          cellEditor: "agNumberCellEditor",
           width: 80,
           aggFunc: "sum",
           cellRenderer: "agAnimateShowChangeCellRenderer",
@@ -236,28 +211,23 @@ export class SalaryCalculationAddComponent implements OnInit {
       ],
     },
     {
-      headerName: "ماموریت",
+      headerName: "padash",
       cellClass: "text-center",
       children: [
         {
-          headerName: "روز",
+          headerName: "padash",
           editable: true,
           cellEditor: "agNumberCellEditor",
-          cellEditorParams: {
-            min: 0,
-            max: 31,
-          },
-          field: propertyOf<addWorkingTimesDetailDto>("missionDays"),
+          field: propertyOf<addWorkingTimesDetailDto>("padash"),
           width: 80,
           aggFunc: "sum",
           cellRenderer: "agAnimateShowChangeCellRenderer",
         },
         {
-          field: propertyOf<addWorkingTimesDetailDto>("missionHours"),
-          headerName: "ساعت",
+          field: propertyOf<addWorkingTimesDetailDto>("eydi"),
+          headerName: "eydi",
           editable: true,
-          valueFormatter: timeCellFormatter,
-          cellEditor: CellEditorTimeComponent,
+          cellEditor: "agNumberCellEditor",
           width: 80,
           aggFunc: "sum",
           cellRenderer: "agAnimateShowChangeCellRenderer",
@@ -265,28 +235,23 @@ export class SalaryCalculationAddComponent implements OnInit {
       ],
     },
     {
-      headerName: "شب کاری",
+      headerName: "sanavatPayanSal",
       cellClass: "text-center",
       children: [
         {
-          headerName: "روز",
+          headerName: "sanavatPayanSal",
           editable: true,
           cellEditor: "agNumberCellEditor",
-          cellEditorParams: {
-            min: 0,
-            max: 31,
-          },
-          field: propertyOf<addWorkingTimesDetailDto>("nightWorkShiftDays"),
+          field: propertyOf<addWorkingTimesDetailDto>("sanavatPayanSal"),
           width: 80,
           aggFunc: "sum",
           cellRenderer: "agAnimateShowChangeCellRenderer",
         },
         {
-          field: propertyOf<addWorkingTimesDetailDto>("nightWorkShiftHours"),
-          headerName: "ساعت",
+          field: propertyOf<addWorkingTimesDetailDto>("jamMazaya"),
+          headerName: "jamMazaya",
           editable: true,
-          valueFormatter: timeCellFormatter,
-          cellEditor: CellEditorTimeComponent,
+          cellEditor: "agNumberCellEditor",
           width: 80,
           aggFunc: "sum",
           cellRenderer: "agAnimateShowChangeCellRenderer",
@@ -294,62 +259,92 @@ export class SalaryCalculationAddComponent implements OnInit {
       ],
     },
     {
-      headerName: "اضافه کاری",
+      headerName: "kasriKar",
       cellClass: "text-center",
       children: [
         {
           headerName: "روز",
           editable: true,
           cellEditor: "agNumberCellEditor",
-          cellEditorParams: {
-            min: 0,
-            max: 31,
-          },
-          field: propertyOf<addWorkingTimesDetailDto>("overTimeWorkShiftDays"),
+          field: propertyOf<addWorkingTimesDetailDto>("kasriKar"),
           width: 80,
           aggFunc: "sum",
           cellRenderer: "agAnimateShowChangeCellRenderer",
         },
         {
-          field: propertyOf<addWorkingTimesDetailDto>("overTimeWorkShiftHours"),
-          headerName: "ساعت",
+          field: propertyOf<addWorkingTimesDetailDto>("tashilat"),
+          headerName: "tashilat",
           editable: true,
-          valueFormatter: timeCellFormatter,
-          cellEditor: CellEditorTimeComponent,
+          cellEditor: "agNumberCellEditor",
           width: 80,
           aggFunc: "sum",
           cellRenderer: "agAnimateShowChangeCellRenderer",
         },
       ],
     },
+
     {
-      headerName: "تعطیل کاری",
-      cellClass: "text-center",
-      children: [
-        {
-          headerName: "روز",
-          editable: true,
-          cellEditor: "agNumberCellEditor",
-          cellEditorParams: {
-            min: 0,
-            max: 31,
-          },
-          field: propertyOf<addWorkingTimesDetailDto>("vacationDays"),
-          width: 80,
-          aggFunc: "sum",
-          cellRenderer: "agAnimateShowChangeCellRenderer",
-        },
-        {
-          field: propertyOf<addWorkingTimesDetailDto>("vacationHours"),
-          headerName: "ساعت",
-          editable: true,
-          valueFormatter: timeCellFormatter,
-          cellEditor: CellEditorTimeComponent,
-          width: 80,
-          aggFunc: "sum",
-          cellRenderer: "agAnimateShowChangeCellRenderer",
-        },
-      ],
+      field: propertyOf<addWorkingTimesDetailDto>("sayerKosoorat"),
+      headerName: "sayerKosoorat",
+      editable: true,
+      cellEditor: "agNumberCellEditor",
+      width: 80,
+      aggFunc: "sum",
+      cellRenderer: "agAnimateShowChangeCellRenderer",
+    },
+    {
+      field: propertyOf<addWorkingTimesDetailDto>("jamKosoorat"),
+      headerName: "jamKosoorat",
+      editable: true,
+      cellEditor: "agNumberCellEditor",
+      width: 80,
+      aggFunc: "sum",
+      cellRenderer: "agAnimateShowChangeCellRenderer",
+    },
+    {
+      field: propertyOf<addWorkingTimesDetailDto>("jamHoghogh"),
+      headerName: "jamHoghogh",
+      editable: true,
+      cellEditor: "agNumberCellEditor",
+      width: 80,
+      aggFunc: "sum",
+      cellRenderer: "agAnimateShowChangeCellRenderer",
+    },
+    {
+      field: propertyOf<addWorkingTimesDetailDto>("jamHoghooghMashmool"),
+      headerName: "jamHoghooghMashmool",
+      editable: true,
+      cellEditor: "agNumberCellEditor",
+      width: 80,
+      aggFunc: "sum",
+      cellRenderer: "agAnimateShowChangeCellRenderer",
+    },
+    {
+      field: propertyOf<addWorkingTimesDetailDto>("bimePardakhti"),
+      headerName: "bimePardakhti",
+      editable: true,
+      cellEditor: "agNumberCellEditor",
+      width: 80,
+      aggFunc: "sum",
+      cellRenderer: "agAnimateShowChangeCellRenderer",
+    },
+    {
+      field: propertyOf<addWorkingTimesDetailDto>("maliatPardakhti"),
+      headerName: "maliatPardakhti",
+      editable: true,
+      cellEditor: "agNumberCellEditor",
+      width: 80,
+      aggFunc: "sum",
+      cellRenderer: "agAnimateShowChangeCellRenderer",
+    },
+    {
+      field: propertyOf<addWorkingTimesDetailDto>("jamKhalesPardakhti"),
+      headerName: "jamKhalesPardakhti",
+      editable: true,
+      cellEditor: "agNumberCellEditor",
+      width: 80,
+      aggFunc: "sum",
+      cellRenderer: "agAnimateShowChangeCellRenderer",
     },
   ];
   defaultColDef: AgGridInterFace = {
@@ -373,7 +368,6 @@ export class SalaryCalculationAddComponent implements OnInit {
   maskPrefixTaxRate = maskPrefixTaxRate;
   yearlyList = [];
   monthlyList = monthlyList;
-
   listclientPrerequisits: clientPrerequisitsInterface[];
   cacheKeyType = cacheKeyEnum;
   model: NgbDateStruct;
@@ -392,9 +386,10 @@ export class SalaryCalculationAddComponent implements OnInit {
   }
   ngOnInit(): void {
     this.yearlyList = DateUtilies.generateYearlyList();
-    this.addDraftDto.monthNum = DateUtilies.getCurrentMonth().value;
-    this.addDraftDto.yearNum = DateUtilies.getCurrentYear();
+    this.addDraftDto.month = DateUtilies.getCurrentMonth().value;
+    this.addDraftDto.year = DateUtilies.getCurrentYear();
   }
+  saveCellHandeler(data) {}
   ngAfterViewInit(): void {
     this._changeWorkShops.employeListData$
       .pipe(delay(100))
@@ -420,7 +415,7 @@ export class SalaryCalculationAddComponent implements OnInit {
         next: (res) => {
           if (res.isOk) {
             this._toastService.success(res.data.message);
-            this.rowDataDefault = res.data;
+            this.rowDataDefault = res.data.salaryList;
           }
         },
         error: (err) => {

@@ -94,6 +94,7 @@ const component = [
   kiComponent.UiTileComponent,
   kiComponent.KiValidationComponent,
   kiComponent.KiTextareaComponent,
+  kiComponent.KiGridLoaderComponent,
   HighLightPipe,
   GetElementIdPipe,
   GetValidatorMessagePipe,

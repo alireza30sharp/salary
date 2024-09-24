@@ -1,4 +1,4 @@
-<div>
+<div class="h-100">
   <input
     type="file"
     accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
@@ -6,7 +6,7 @@
     #file
     (change)="onFileChange($event)"
   />
-
+  <ki-grid-loader *ngIf="showLoading"></ki-grid-loader>
   <ag-grid-angular
     id="myGrid"
     [id]="idGrid"
@@ -41,5 +41,6 @@
     [pagination]="pagination"
     [paginationPageSize]="paginationPageSize"
     [paginationPageSizeSelector]="paginationPageSizeSelector"
-  ></ag-grid-angular>
+  >
+  </ag-grid-angular>
 </div>

@@ -47,6 +47,7 @@
     [rowSelection]="'multiple'"
     (saveCellChange)="saveCellHandeler($event)"
     (selectedRowsChange)="selectedRowsChange($event)"
+    [showLoading]="showLoading"
   ></ag-grid-data>
   <ng-template #footer>
     <div class="d-flex justify-content justify-content-between w-100">

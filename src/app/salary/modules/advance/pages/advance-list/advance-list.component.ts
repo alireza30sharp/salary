@@ -133,8 +133,6 @@ export class AdvanceListComponent implements OnInit {
 
     model.Statues = 0;
     this.isShowLoadingRefrash = true;
-
-    debugger;
     this._advanceService.getAll(model, advanceFilter).subscribe({
       next: (res) => {
         //وقتی ریسپانس میاد

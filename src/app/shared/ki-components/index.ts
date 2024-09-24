@@ -14,3 +14,4 @@ export * from "./ki-textarea/ki-textarea.component";
 export * from "./ki-tile/ki-tile.component";
 export * from "./ki-validation/ki-validation.component";
 export * from "./ki-tab-group/ki-tab/ki-tab.component";
+export * from "./ki-grid-loader/ki-grid-loader.component";
