@@ -39,6 +39,10 @@ export class EmploymentOrdersListComponent implements OnInit {
       hide: true,
     },
     {
+      field: propertyOf<EmploymentOrdersListDto>("persianStartDate"),
+      headerName: "تاریخ",
+    },
+    {
       field: propertyOf<EmploymentOrdersListDto>("fullEmployeeName"),
       headerName: "نام کارمند",
     },
@@ -52,15 +56,11 @@ export class EmploymentOrdersListComponent implements OnInit {
     },
     {
       field: propertyOf<EmploymentOrdersListDto>("organizationUnitName"),
-      headerName: "نوع استخدام ",
+      headerName: "پست سازمانی",
     },
     {
       field: propertyOf<EmploymentOrdersListDto>("paymentLocationName"),
       headerName: "محل پرداخت",
-    },
-    {
-      field: propertyOf<EmploymentOrdersListDto>("persianStartDate"),
-      headerName: "تاریخ",
     },
   ];
   rowDataDefault = new Array<EmploymentOrdersListDto>();

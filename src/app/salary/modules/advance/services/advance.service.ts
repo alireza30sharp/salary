@@ -16,13 +16,13 @@ export class AdvanceService {
   ) {}
 
   //اضافه کردن رکورد
-  create(model: AdvanceDto) {
+  create(model: Partial<AdvanceDto>) {
     model.workShopId = this.WorkShopsID;
-    return this.$http.post<response<Data<any>>>(this.urlSvc.Advance.Add, model);
+    return this.$http.post<response<any>>(this.urlSvc.Advance.Add, model);
   }
 
   //ویرایش
-  update(model: AdvanceDto) {
+  update(model: Partial<AdvanceDto>) {
     model.workShopId = this.WorkShopsID;
     return this.$http.put<response<any>>(this.urlSvc.Advance.Edit, model);
   }

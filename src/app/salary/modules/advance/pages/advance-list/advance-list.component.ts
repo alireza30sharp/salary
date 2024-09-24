@@ -45,7 +45,32 @@ export class AdvanceListComponent implements OnInit {
       field: propertyOf<AdvanceListDto>("id"),
       hide: true,
     },
-
+    {
+      field: "عملیات",
+      cellClass: "d-flex justify-content-center align-items-center",
+      editable: false,
+      minWidth: 150,
+      cellRenderer: CellOperationsClickEvent,
+      cellRendererParams: {
+        onClickRemove: (params) => {
+          const param: ConfirmInterFace = {
+            acceptText: "بله",
+            declineText: "خیر",
+            description: "آیا از عملیات مورد نظر اطمینان دارید؟",
+            title: "حذف" + " " + `"${params.node?.firstName.toUpperCase()}"`,
+            type: "Confirm",
+          };
+          this._modalService.showConfirm(param, false).then((res) => {
+            if (res) {
+              this.onDeleteItem(params.node);
+            }
+          });
+        },
+        onClickEdit: (params) => {
+          this._router.navigateByUrl(Paths.advance.edit(params.node.id).url);
+        },
+      },
+    },
     {
       field: propertyOf<AdvanceListDto>("requestDate"),
       headerName: "تاریخ",

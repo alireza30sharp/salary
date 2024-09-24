@@ -3,13 +3,22 @@
   [hideBackButton]="false"
   (backCallback)="cancelClickHandler()"
 >
+  <app-general-form
+    [formGroup]="formGroup"
+    [form]="form"
+    [fields]="feilds"
+    [hideFooter]="true"
+    [showLoadingSave]="showLoading"
+  ></app-general-form>
+
   <ng-template #footer>
     <ki-button
       btnType="basic"
       [iconClassName]="'fa-solid fa-floppy-disk'"
       [showLoading]="showLoading"
+      [disabled]="formGroup.invalid"
       [title]="'ذخیره اطلاعات'"
-      (clickCallback)="clickSearchHander()"
+      (clickCallback)="saveHandler()"
     >
     </ki-button>
   </ng-template>

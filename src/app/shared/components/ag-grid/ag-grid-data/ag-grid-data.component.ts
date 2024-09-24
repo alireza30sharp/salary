@@ -23,6 +23,7 @@ import {
   GridReadyEvent,
   GridSizeChangedEvent,
   PaginationNumberFormatterParams,
+  RowGroupingDisplayType,
   SizeColumnsToContentStrategy,
   SizeColumnsToFitGridStrategy,
   SuppressKeyboardEventParams,
@@ -113,7 +114,11 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
   @Input() rowId: string;
   @Input() pagination: boolean = true;
   @Input() paginationPageSize: number = 10;
+  @Input() groupDisplayType: RowGroupingDisplayType = "groupRows";
+  @Input() rowGroupPanelShow: "always" | "onlyWhenGrouping" | "never" =
+    "onlyWhenGrouping";
   paginationPageSizeSelector: number[] | boolean = [10, 20, 50, 100];
+
   paginationNumberFormatter: (
     params: PaginationNumberFormatterParams
   ) => string = (params: PaginationNumberFormatterParams) => {

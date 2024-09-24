@@ -57,13 +57,14 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: "کارمندان",
         link: "/salary/employes/list",
       },
-      {
-        title: "حکم حقوقی",
-        link: "/salary/wage-orders/list",
-      },
+
       {
         title: "حکم استخدامی",
         link: "/salary/employment-order/list",
+      },
+      {
+        title: "حکم حقوقی",
+        link: "/salary/wage-orders/list",
       },
       {
         title: "نوع بیمه",

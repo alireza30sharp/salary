@@ -8,7 +8,7 @@ export class WorkShopsDto {
   employerName: string;
   workShopAddress: string;
   socialSecurityBranchName: string;
-  isActive: boolean;
+  isActive: boolean = true;
   isDefault: boolean;
   isActiveString?: string;
   isDefaultString?: string;

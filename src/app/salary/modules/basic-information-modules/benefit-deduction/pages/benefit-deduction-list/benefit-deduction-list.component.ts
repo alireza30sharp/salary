@@ -70,6 +70,9 @@ export class BenefitDeductionListComponent implements OnInit {
       field: propertyOf<BenefitDeductionDto>("typeName"),
       headerName: "نوع",
       filter: "agTextColumnFilter",
+      rowGroup: true,
+      hide: true,
+      showRowGroup: true,
     },
     {
       field: propertyOf<BenefitDeductionDto>("idMoin"),

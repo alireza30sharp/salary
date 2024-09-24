@@ -148,22 +148,6 @@ export class WorkShopsAddComponent implements OnInit {
           },
         ],
       },
-      // {
-      //   type: "textbox",
-      //   title: "ترتیب",
-      //   binding: propertyOf<WorkShopsDto>("orderIndex"),
-      //   columnWidthNumber: 3,
-      //   validators: [
-      //     {
-      //       type: Validators.required,
-      //     },
-      //   ],
-      //   config: {
-      //     type: "number",
-      //     onlyNumber: true,
-      //   },
-      //   changeEvent: (changedValue, formGroup) => {},
-      // },
       {
         type: "checkbox",
         title: "وضعیت",

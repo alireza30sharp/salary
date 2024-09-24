@@ -60,17 +60,18 @@ export class EmployesListComponent implements OnInit {
       },
     },
     {
-      field: propertyOf<EmployeDto>("displayName"),
-      headerName: "نام و نام خانوادگی",
-      filter: "agTextColumnFilter",
-      headerClass: "displayName",
-    },
-    {
       field: propertyOf<EmployeDto>("personnelCode"),
       headerName: "کد پرسنلی",
       filter: "agTextColumnFilter",
       headerClass: "displayName",
     },
+    {
+      field: propertyOf<EmployeDto>("displayName"),
+      headerName: "نام و نام خانوادگی",
+      filter: "agTextColumnFilter",
+      headerClass: "displayName",
+    },
+
     {
       field: propertyOf<EmployeDto>("nationalCode"),
       headerName: "کد ملی",
