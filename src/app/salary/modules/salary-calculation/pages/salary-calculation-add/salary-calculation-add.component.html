@@ -58,6 +58,7 @@
         [defaultColDef]="defaultColDef"
         [rowSelection]="'multiple'"
         [showLoading]="showLoading"
+        [rowClassOdd]="true"
         (saveCellChange)="saveCellHandeler($event)"
         (selectedRowsChange)="selectedRowsChange($event)"
       ></ag-grid-data>

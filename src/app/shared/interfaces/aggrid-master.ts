@@ -93,6 +93,20 @@ export class AgGridMaster {
     suppressExpandablePivotGroups: true,
     suppressRowDrag: true,
     suppressClearOnFillReduction: true,
+    rowClassRules: {
+      "ag-row-class-odd": (params) => {
+        if (params.context?.thisComponent.rowClassOdd) {
+          if (params.node.rowIndex % 2 === 0) {
+            return true;
+          }
+        }
+      },
+    },
+    // getRowStyle: (params) => {
+    //   if (params.node.rowIndex % 2 === 0) {
+    //     return { background: "red" };
+    //   }
+    // },
   };
 
   ckeditorConfig = {
@@ -110,6 +124,7 @@ export class AgGridMaster {
   onGridReady(params) {
     this.gridApi = params.api;
     params.api.sizeColumnsToFit();
+
     // const updateValues = () => {
     //   var rowCount = params.api!.getDisplayedRowCount();
     //   // pick 2 cells at random to update

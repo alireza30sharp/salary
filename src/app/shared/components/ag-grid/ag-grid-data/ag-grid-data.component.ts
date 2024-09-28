@@ -94,6 +94,8 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
   @Input() suppressRowClickSelection: boolean = false;
   @Input() rowSelection: "single" | "multiple" = "single";
   @Input() showLoading: boolean = false;
+  @Input() rowClass: string | string[];
+  @Input() rowClassOdd: boolean;
   @Input() suppressAggFuncInHeader: boolean = false;
   @Input() showTotal: boolean = false;
   @Input() editType;
@@ -118,6 +120,7 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
   @Input() groupDisplayType: RowGroupingDisplayType = "groupRows";
   @Input() rowGroupPanelShow: "always" | "onlyWhenGrouping" | "never" =
     "onlyWhenGrouping";
+
   paginationPageSizeSelector: number[] | boolean = [10, 20, 50, 100];
 
   paginationNumberFormatter: (
@@ -188,20 +191,31 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
   ///------undo
   enableFillHandle: boolean = false;
   undoRedoCellEditing: boolean = false;
+
   undoRedoCellEditingLimit: number = 0;
   onSelectionChanged() {
     this.selectedRows = this.gridApi.getSelectedRows();
     this.selectedRowsChange.emit(this.selectedRows);
   }
   calculateTotal() {
-    // شناسایی ستون‌های با فیلد جمع کل
-    const columnsWithSum = this.columnsTable.flatMap((column) =>
-      column.children
-        ? column.children.filter((child) => child.aggFunc === "sum")
-        : column.aggFunc === "sum"
-        ? [column]
-        : []
-    );
+    // تابع بازگشتی برای جستجو و یافتن ستون‌های دارای aggFunc برابر با 'sum'
+    const getColumnsWithSum = (columns: any[]): any[] => {
+      return columns.flatMap((column) => {
+        if (column.children) {
+          // اگر ستون دارای فرزند بود، به صورت بازگشتی فرزندان را بررسی می‌کنیم
+          return getColumnsWithSum(column.children);
+        } else if (column.aggFunc === "sum") {
+          // اگر ستون دارای aggFunc برابر 'sum' بود، آن را اضافه می‌کنیم
+          return [column];
+        } else {
+          // در غیر این صورت، ستون را نادیده می‌گیریم
+          return [];
+        }
+      });
+    };
+
+    // استخراج تمام ستون‌های دارای 'aggFunc: sum' در تمام سطوح
+    const columnsWithSum = getColumnsWithSum(this.columnsTable);
 
     // ایجاد یک شیء برای ذخیره مقادیر جمع کل
     const totals: any = { totalLabel: "جمع کل:" };
@@ -214,36 +228,21 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
       );
     });
 
+    // تنظیم داده‌های ردیف پایینی با جمع کل‌ها
     this.pinnedBottomRowData = [totals];
+
+    // اضافه کردن ستون جمع کل (totalLabel) به جدول در صورت عدم وجود
+    if (!this.columnsTable.some((col) => col.field === "totalLabel")) {
+      this.columnsTable.unshift({
+        field: "totalLabel",
+        headerName: "",
+        valueGetter: (params) => params.data.totalLabel,
+        cellStyle: { fontWeight: "bold" },
+        cellRenderer: "agAnimateShowChangeCellRenderer",
+      });
+    }
   }
 
-  // calculateTotal() {
-  //   // شناسایی ستون‌های با فیلد جمع کل
-  //   const columnsWithSum = this.columnsTable.filter(
-  //     (column) => column.aggFunc === "sum"
-  //   );
-
-  //   // ایجاد یک شیء برای ذخیره مقادیر جمع کل
-  //   const totals: any = { totalLabel: "جمع کل:" };
-
-  //   // محاسبه جمع کل برای هر ستون
-  //   columnsWithSum.forEach((column) => {
-  //     totals[column.field] = this.rowData.reduce(
-  //       (sum, row) => sum + parseFloat(row[column.field] || "0"),
-  //       0
-  //     );
-  //   });
-
-  //   // اضافه کردن جمع کل‌ها به داده‌های ردیف پایین
-  //   this.pinnedBottomRowData = [totals];
-  //   this.columnsTable.unshift({
-  //     field: "totalLabel",
-  //     headerName: "",
-  //     valueGetter: (params) => params.data.totalLabel,
-  //     cellStyle: { fontWeight: "bold" },
-  //     cellRenderer: "agAnimateShowChangeCellRenderer",
-  //   });
-  // }
   pinnedBottomRowData: any[];
   cellEditingStopped(event: CellEditingStoppedEvent) {
     // Check if all required fields are filled
@@ -284,25 +283,6 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
       }
     }
   }
-
-  // onFlashOneCell() {
-  //   if (this.gridApi && this.lastFocusedColumn) {
-  //     // دریافت سلول متمرکز فعلی
-  //     const focusedCell = this.gridApi.getFocusedCell();
-  //     if (focusedCell) {
-  //       // دریافت rowNode از gridApi با استفاده از rowIndex
-  //       const rowNode = this.gridApi.getRowNode(
-  //         focusedCell.rowIndex.toString()
-  //       );
-
-  //       // فلش کردن سلول‌ها با استفاده از rowNode و ستون متمرکز
-  //       this.gridApi.flashCells({
-  //         rowNodes: [rowNode],
-  //         columns: [this.lastFocusedColumn],
-  //       });
-  //     }
-  //   }
-  // }
 
   cellEditingStarted(event) {
     const focusedCell = this.gridApi.getFocusedCell();
@@ -386,10 +366,12 @@ export class AgGridDataComponent extends AgGridMaster implements AfterViewInit {
       }
     }
   }
+  _isRowClass: boolean = false;
 
   rowClassRules = {
     // apply green to 2008
     "edit-rowClassRules": (params) => {
+      let aa = this._isRowClass;
       if (params.data.isEdited && params.data.id) {
         return true;
       }
