@@ -148,6 +148,11 @@ export class ApiUrlService {
     Add: BASE_URL + "SalaryList/Add",
     Delete: BASE_URL + "SalaryList/Delete",
   };
+  TaxDisket = {
+    GetTaxDisketReport: BASE_URL + "TaxDisket/GetTaxDisketReport",
+    Add: BASE_URL + "TaxDisket/Add",
+    Delete: BASE_URL + "TaxDisket/Delete",
+  };
 
   Advance = {
     GetAll: BASE_URL + "Advance/GetAdvanceList",

@@ -42,6 +42,11 @@ import {
 } from "../../../../../salary/models/rul";
 import { Location } from "@angular/common";
 import { ConfirmInterFace } from "./../../../../../shared/ki-components/ki-confirmation/confirm.interface";
+
+export enum tabType {
+  SalaryList = 0,
+  TaxDisket = 2,
+}
 @Component({
   selector: "app-salary-calculation-add",
   templateUrl: "./salary-calculation-add.component.html",
@@ -204,6 +209,8 @@ export class SalaryCalculationAddComponent implements OnInit {
   model: NgbDateStruct;
   addDraftDto = new addDraftDto();
   addWorkingTimesDto = new addWorkingTimesDto();
+  selectedTabIndex: number = 0;
+  tabType = tabType;
   constructor(
     private _changeWorkShops: ChangeWorkShopsService,
     private _toastService: ToastService,
@@ -221,6 +228,10 @@ export class SalaryCalculationAddComponent implements OnInit {
     this.addDraftDto.year = DateUtilies.getCurrentYear();
   }
   saveCellHandeler(data) {}
+  selectTabHandler({ index }: { index: number }) {
+    this.selectedTabIndex = index;
+  }
+
   ngAfterViewInit(): void {
     this._changeWorkShops.employeListData$
       .pipe(delay(100))
@@ -234,7 +245,17 @@ export class SalaryCalculationAddComponent implements OnInit {
     console.log("Selected month:", event.month, "Selected year:", event.year);
   }
   clickSearchHander() {
+    switch (this.selectedTabIndex) {
+      case this.tabType.SalaryList:
+        this.salaryCalculationAdd();
+        break;
+      case this.tabType.TaxDisket:
+        this.salarTaxDisketAdd();
+        break;
+    }
     this.showLoading = true;
+  }
+  salaryCalculationAdd() {
     this._salaryCalculationService
       .Add(this.addDraftDto)
       .pipe(
@@ -260,7 +281,33 @@ export class SalaryCalculationAddComponent implements OnInit {
         },
       });
   }
-
+  salarTaxDisketAdd() {
+    this._salaryCalculationService
+      .TaxDisketAdd(this.addDraftDto)
+      .pipe(
+        finalize(() => {
+          this.showLoading = false;
+        })
+      )
+      .subscribe({
+        next: (res) => {
+          debugger;
+          if (res.isOk) {
+            this._toastService.success(res.data.message);
+            this.rowDataDefault = res.data.salaryList;
+          }
+        },
+        error: (err) => {
+          let msg = "";
+          if (err.error.messages) {
+            this._toastService.error(err.error.messages);
+            msg = err.error.messages.join(" ");
+          } else if (err.error.message) {
+            this._toastService.error(err.error.message);
+          }
+        },
+      });
+  }
   onRefrashSelected() {}
   saveHander() {}
   selectedRowsChange(details: addWorkingTimesDetailDto[]) {

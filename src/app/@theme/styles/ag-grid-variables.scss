@@ -1,0 +1,46 @@
+.ag-theme-quartz {
+    // Customizing Colours & Fonts
+    --ag-foreground-color: rgb(126, 46, 132); // Main text color
+    --ag-background-color: rgb(249, 245, 227); // Grid background color
+    --ag-header-foreground-color: rgb(204, 245, 172); // Header text color
+    --ag-header-background-color: rgb(209, 64, 129); // Header background color
+    --ag-odd-row-background-color: rgb(0, 0, 0, 0.03); // Background for odd rows
+    --ag-header-column-resize-handle-color: rgb(126, 46, 132); // Column resize handle color
+    --ag-active-color: rgb(38, 39, 124); // Accent color for active selections, checkboxes, focus outlines
+    --ag-font-size: 15px; // Base font size for grid text
+    --ag-font-family: monospace; // Font family used in the grid
+  
+    // Customizing Compactness & Row Height
+    --ag-grid-size: 3px; // Grid spacing and padding for compact layout
+    --ag-row-height: 25px; // Default row height
+    --ag-header-height: 35px; // Header row height
+  
+    // Customizing Selections
+    --ag-selection-color: rgb(173, 216, 230); // Background color for selected rows
+    --ag-selection-border-color: rgb(100, 149, 237); // Border color for selected cells
+  
+    // Customizing the Header
+    --ag-header-cell-hover-background-color: rgba(209, 64, 129, 0.8); // Hover background color for header cells
+    --ag-header-border-color: rgb(190, 190, 190); // Border between header cells
+  
+    // Customizing Borders
+    --ag-border-color: rgb(220, 220, 220); // Border color for cells
+    --ag-row-border-width: 1px; // Thickness of row borders
+    --ag-header-border-color: rgb(190, 190, 190); // Header border color
+    --ag-header-cell-separator-color: rgb(126, 46, 132); // Color for header cell separators
+  
+    // Customizing Tool Panels
+    --ag-tool-panel-background-color: rgb(240, 240, 240); // Tool panel background color
+    --ag-tool-panel-border-color: rgb(200, 200, 200); // Border color for tool panel
+  
+    // Customizing Inputs & Widgets
+    --ag-input-border-color: rgb(150, 150, 150); // Border color for input fields
+    --ag-input-background-color: rgb(255, 255, 255); // Background color for inputs
+    --ag-input-foreground-color: rgb(50, 50, 50); // Text color in input fields
+  
+    // Customizing Menus & Popups
+    --ag-popup-background-color: rgb(255, 255, 255); // Popup background color
+    --ag-popup-border-color: rgb(150, 150, 150); // Border color for popups
+    --ag-popup-shadow-color: rgba(0, 0, 0, 0.15); // Shadow color for popups
+  }
+  

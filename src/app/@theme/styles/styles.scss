@@ -6,6 +6,7 @@
   @include nb-theme-global();
 }
 @import "app.scss";
+@import "ag-grid-variables";
 a,
 li,
 ul,
@@ -84,21 +85,21 @@ ag-grid-angular {
 .ag-header-group-cell {
   justify-content: center !important;
 }
-.ag-row-pinned{
-  background-color: #d7d6d6 !important;
+// .ag-row-pinned{
+//   background-color: #d7d6d6 !important;
 
-}
-.ag-column-drop,
-.ag-header-row-column-group,
-.ag-floating-bottom-container,
-.ag-header-row-column {
-  background-color: #d7d6d6 !important;
-  font-size: 15px !important;
-  font-weight: bold !important;
-}
-.ag-row-class-odd{
-  background-color: #b8f2c9 !important;
-}
+// }
+// .ag-column-drop,
+// .ag-header-row-column-group,
+// .ag-floating-bottom-container,
+// .ag-header-row-column {
+//   background-color: #d7d6d6 !important;
+//   font-size: 15px !important;
+//   font-weight: bold !important;
+// }
+// .ag-row-class-odd{
+//   background-color: #b8f2c9 !important;
+// }
 
 .btn-close:focus {
   box-shadow: none !important;

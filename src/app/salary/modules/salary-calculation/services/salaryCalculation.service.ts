@@ -31,4 +31,9 @@ export class salaryCalculationService {
       params: { workShopId: this.WorkShopsID, WageOrderId: id },
     });
   }
+  //=============TaxDisket
+  TaxDisketAdd(model: addDraftDto) {
+    model.workShopId = this.WorkShopsID;
+    return this.$http.post<response<any>>(this.urlSvc.TaxDisket.Add, model);
+  }
 }
