@@ -122,6 +122,21 @@
       </ng-template>
     </ki-tab>
     <ki-tab [text]="'دیسکت بیمه'"> بزودی... </ki-tab>
-    <ki-tab [text]="'دیسکت مالیات'"> بزودی... </ki-tab>
+    <ki-tab [text]="'دیسکت مالیات'">
+      <ag-grid-data
+        [showTotal]="true"
+        [rowId]="'code'"
+        [editType]="editType"
+        [columnsDefault]="columnsTaxDisketListDefault"
+        [rowDataDefault]="rowDataTaxDisketListDefault"
+        [showSideBar]="false"
+        [defaultColDef]="defaultColDef"
+        [rowSelection]="'multiple'"
+        [showLoading]="showLoading"
+        [rowClassOdd]="true"
+        (saveCellChange)="saveCellHandeler($event)"
+        (selectedRowsChange)="selectedRowsChange($event)"
+      ></ag-grid-data>
+    </ki-tab>
   </ki-tab-group>
 </app-general-panel>

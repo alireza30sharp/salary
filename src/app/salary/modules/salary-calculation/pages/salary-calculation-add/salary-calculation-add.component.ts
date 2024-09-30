@@ -35,6 +35,7 @@ import {
   addDraftDto,
   addWorkingTimesDetailDto,
   addWorkingTimesDto,
+  taxDisketDto,
 } from "../../models";
 import {
   maskPrefixTaxRate,
@@ -191,7 +192,85 @@ export class SalaryCalculationAddComponent implements OnInit {
     enableCellChangeFlash: true,
     width: 100,
   };
-
+  //=========
+  columnsTaxDisketListDefault: AgGridInterFace[] = [
+    {
+      field: propertyOf<taxDisketDto>("id"),
+      hide: true,
+    },
+    {
+      headerName: "ردیف",
+      width: 100,
+      headerCheckboxSelection: true,
+      checkboxSelection: true,
+      showDisabledCheckboxes: true,
+      cellRenderer: (params) => {
+        if (params.node.rowPinned) {
+          return "";
+        }
+        return params.node.rowIndex + 1;
+      },
+    },
+    {
+      field: propertyOf<taxDisketDto>("codenumber"),
+      headerName: "کد",
+      cellClass: "text-center",
+      width: 80,
+    },
+    {
+      field: propertyOf<taxDisketDto>("fullName"),
+      headerName: "fullName",
+      cellClass: "text-center",
+      width: 100,
+    },
+    {
+      headerName: "autoMobileEkhtesasi_11",
+      editable: true,
+      cellEditor: "agNumberCellEditor",
+      field: propertyOf<taxDisketDto>("autoMobileEkhtesasi_11"),
+      cellRenderer: "agAnimateShowChangeCellRenderer",
+      width: 150,
+      aggFunc: "sum",
+    },
+    {
+      headerName: "bazKharidKhedmat_26",
+      editable: true,
+      cellEditor: "agNumberCellEditor",
+      field: propertyOf<taxDisketDto>("bazKharidKhedmat_26"),
+      cellRenderer: "agAnimateShowChangeCellRenderer",
+      width: 150,
+      aggFunc: "sum",
+    },
+    {
+      headerName: "ezafeKari_17",
+      editable: true,
+      cellEditor: "agNumberCellEditor",
+      field: propertyOf<taxDisketDto>("ezafeKari_17"),
+      cellRenderer: "agAnimateShowChangeCellRenderer",
+      width: 150,
+      aggFunc: "sum",
+    },
+    {
+      headerName: "haghBimeOmr_34",
+      editable: true,
+      cellEditor: "agNumberCellEditor",
+      field: propertyOf<taxDisketDto>("haghBimeOmr_34"),
+      cellRenderer: "agAnimateShowChangeCellRenderer",
+      width: 150,
+      aggFunc: "sum",
+    },
+    {
+      headerName: "hazineSafar_18",
+      editable: true,
+      cellEditor: "agNumberCellEditor",
+      field: propertyOf<taxDisketDto>("hazineSafar_18"),
+      cellRenderer: "agAnimateShowChangeCellRenderer",
+      width: 150,
+      aggFunc: "sum",
+    },
+  ];
+  rowDataTaxDisketListDefault = new Array<any>();
+  //=====
   editType: "fullRow";
   rowDataDefault = new Array<any>();
   selectRow = new Array<addWorkingTimesDetailDto>();
@@ -291,10 +370,9 @@ export class SalaryCalculationAddComponent implements OnInit {
       )
       .subscribe({
         next: (res) => {
-          debugger;
           if (res.isOk) {
             this._toastService.success(res.data.message);
-            this.rowDataDefault = res.data.salaryList;
+            this.rowDataTaxDisketListDefault = res.data.taxDisketList;
           }
         },
         error: (err) => {
