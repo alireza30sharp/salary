@@ -48,6 +48,33 @@ export class deleteDto {
 }
 
 export class taxDisketDto {
+  id?: number;
+  personnelCode: string;
+  nationalityTypeId: number;
+  nationalityTypeName: string;
+  nationalCode: string;
+  firstName: string;
+  lastName: string;
+  fatherName: string;
+  fullName: string;
+  educationEvidenceName: string;
+  employeeInsuranceTypeName: string;
+  insuranceNumber: number;
+  insuranceName: string;
+  exemptionTypeName: string;
+  countryOfCitizenshipName: string;
+  countryOfResidenceName: string;
+  postalCode: string;
+  address: string;
+  categoryName: string;
+  organizationPostName: string;
+  employmentTypeName: string;
+  startDate: string;
+  finishDate: string;
+  retireDate: string;
+}
+
+export class taxDisketDto1 {
   id: number;
   year: number;
   monthnumber;
