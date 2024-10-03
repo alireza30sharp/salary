@@ -74,7 +74,7 @@ export class taxDisketDto {
   retireDate: string;
 }
 
-export class taxDisketDto1 {
+export class InsuranceDisketDto {
   id: number;
   year: number;
   monthnumber;

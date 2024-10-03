@@ -36,4 +36,11 @@ export class salaryCalculationService {
     model.workShopId = this.WorkShopsID;
     return this.$http.post<response<any>>(this.urlSvc.TaxDisket.Add, model);
   }
+  InsuranceDiskeAdd(model: addDraftDto) {
+    model.workShopId = this.WorkShopsID;
+    return this.$http.post<response<any>>(
+      this.urlSvc.InsuranceDisket.Add,
+      model
+    );
+  }
 }

@@ -35,6 +35,7 @@ import {
   addDraftDto,
   addWorkingTimesDetailDto,
   addWorkingTimesDto,
+  InsuranceDisketDto,
   taxDisketDto,
 } from "../../models";
 import {
@@ -43,9 +44,11 @@ import {
 } from "../../../../../salary/models/rul";
 import { Location } from "@angular/common";
 import { ConfirmInterFace } from "./../../../../../shared/ki-components/ki-confirmation/confirm.interface";
+import { Section } from "../../../../../shared-business/model/Section";
 
 export enum tabType {
   SalaryList = 0,
+  InsuranceDisket = 1,
   TaxDisket = 2,
 }
 @Component({
@@ -57,6 +60,7 @@ export enum tabType {
 export class SalaryCalculationAddComponent implements OnInit {
   employeList?: SelectOptionInterface<any>[];
   benefitDeductions?: SelectOptionInterface<any>[];
+  //====
   columnsDefault: AgGridInterFace[] = [
     {
       field: propertyOf<addWorkingTimesDetailDto>("id"),
@@ -192,7 +196,44 @@ export class SalaryCalculationAddComponent implements OnInit {
     enableCellChangeFlash: true,
     width: 100,
   };
-  //=========
+  //=======InsuranceDisket
+  columnsInsuranceDisketDefault: AgGridInterFace[] = [
+    {
+      field: propertyOf<InsuranceDisketDto>("id"),
+      hide: true,
+    },
+    {
+      headerName: "ردیف",
+      width: 100,
+      headerCheckboxSelection: true,
+      checkboxSelection: true,
+      showDisabledCheckboxes: true,
+      cellRenderer: (params) => {
+        if (params.node.rowPinned) {
+          return "";
+        }
+        return params.node.rowIndex + 1;
+      },
+    },
+    {
+      field: propertyOf<InsuranceDisketDto>("codenumber"),
+      headerName: "codenumber",
+      width: 80,
+    },
+    {
+      field: propertyOf<InsuranceDisketDto>("ezafeKari_17"),
+      headerName: "ezafeKari_17",
+      width: 80,
+    },
+    {
+      field: propertyOf<InsuranceDisketDto>("eydiSalane_23"),
+      headerName: "eydiSalane_23",
+      width: 80,
+    },
+  ];
+  rowDataInsuranceDisketDefault = new Array<any>();
+  //
+  //=========TaxDisket
   columnsTaxDisketListDefault: AgGridInterFace[] = [
     {
       field: propertyOf<taxDisketDto>("id"),
@@ -243,6 +284,7 @@ export class SalaryCalculationAddComponent implements OnInit {
   ];
   rowDataTaxDisketListDefault = new Array<any>();
   //=====
+
   editType: "fullRow";
   rowDataDefault = new Array<any>();
   selectRow = new Array<addWorkingTimesDetailDto>();
@@ -262,6 +304,102 @@ export class SalaryCalculationAddComponent implements OnInit {
   addWorkingTimesDto = new addWorkingTimesDto();
   selectedTabIndex: number = 0;
   tabType = tabType;
+  monthlySections: Section[] = [
+    {
+      columns: [
+        [
+          { label: "بیمه", value: "رضا سیستم - مهر2" },
+          {
+            label: "ردیف پیمان",
+            value: "12345",
+            separator: true,
+            type: "number",
+          },
+          { label: "آدرس کارگاه", value: "تهران" },
+        ],
+        [
+          {
+            label: "کد کارگاه",
+            value: "232323",
+            separator: true,
+            type: "number",
+          },
+          { label: "شماره لیست", value: "3", separator: true, type: "number" },
+        ],
+        [
+          { label: "نام کارگاه", value: "رضا سیستم" },
+          {
+            label: "تعداد نفرات",
+            value: "15",
+            separator: true,
+            type: "number",
+          },
+        ],
+        [
+          { label: "نام کارگاه", value: "رضا سیستم" },
+          {
+            label: "تعداد نفرات",
+            value: "15",
+            separator: true,
+            type: "number",
+          },
+        ],
+      ],
+    },
+    {
+      title: "جزئیات دستمزد و بیمه",
+      columns: [
+        [
+          {
+            label: "جمع دستمزد روزانه",
+            value: "12122",
+            separator: true,
+            type: "number",
+          },
+          {
+            label: "جمع دستمزد ماهانه",
+            value: "12122",
+            separator: true,
+            type: "number",
+          },
+          { label: "نرخ حق بیمه", value: "20%" },
+        ],
+        [
+          {
+            label: "جمع مزایای ماهانه مشمول",
+            value: "2323",
+            separator: true,
+            type: "number",
+          },
+          {
+            label: "جمع دستمزد و مزایا ماهانه مشمول",
+            value: "12122",
+            separator: true,
+            type: "number",
+          },
+          {
+            label: "جمع کل دستمزد و مزایای ماهانه",
+            value: "121212",
+            separator: true,
+            type: "number",
+          },
+        ],
+      ],
+    },
+    {
+      columns: [
+        [
+          {
+            label: "مبلغ فیش پرداختی حق بیمه",
+            value: "234234234",
+            separator: true,
+            type: "number",
+          },
+        ],
+      ],
+    },
+  ];
+
   constructor(
     private _changeWorkShops: ChangeWorkShopsService,
     private _toastService: ToastService,
@@ -299,6 +437,9 @@ export class SalaryCalculationAddComponent implements OnInit {
     switch (this.selectedTabIndex) {
       case this.tabType.SalaryList:
         this.salaryCalculationAdd();
+        break;
+      case this.tabType.InsuranceDisket:
+        this.salarInsuranceDiskeAdd();
         break;
       case this.tabType.TaxDisket:
         this.salarTaxDisketAdd();
@@ -345,6 +486,32 @@ export class SalaryCalculationAddComponent implements OnInit {
           if (res.isOk) {
             this._toastService.success(res.data.message);
             this.rowDataTaxDisketListDefault = res.data.taxDisketList;
+          }
+        },
+        error: (err) => {
+          let msg = "";
+          if (err.error.messages) {
+            this._toastService.error(err.error.messages);
+            msg = err.error.messages.join(" ");
+          } else if (err.error.message) {
+            this._toastService.error(err.error.message);
+          }
+        },
+      });
+  }
+  salarInsuranceDiskeAdd() {
+    this._salaryCalculationService
+      .InsuranceDiskeAdd(this.addDraftDto)
+      .pipe(
+        finalize(() => {
+          this.showLoading = false;
+        })
+      )
+      .subscribe({
+        next: (res) => {
+          if (res.isOk) {
+            this._toastService.success(res.data.message);
+            this.rowDataInsuranceDisketDefault = res.data.taxDisketList;
           }
         },
         error: (err) => {

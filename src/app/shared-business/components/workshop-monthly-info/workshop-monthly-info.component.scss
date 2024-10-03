@@ -1,0 +1,40 @@
+.container {
+  direction: rtl;
+  background-color: #fff;
+  border-radius: 0;
+}
+
+h4, h5 {
+  font-weight: bold;
+  color: #343a40;
+  margin-bottom: 20px;
+}
+
+.row {
+  margin-bottom: 20px;
+}
+
+hr {
+  border-top: 1px solid #dcdcdc;
+  margin: 15px 0;
+}
+
+.d-flex span {
+  margin-left: 5px;
+}
+
+.font-weight-bold {
+  color: #000;
+}
+
+span {
+  font-size: 16px;
+}
+
+.col-md-3, .col-md-6 {
+  padding: 10px 0;
+}
+
+.flex-column span {
+  margin-bottom: 5px;
+}
