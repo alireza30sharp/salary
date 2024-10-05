@@ -36,6 +36,7 @@ import {
   addWorkingTimesDetailDto,
   addWorkingTimesDto,
   InsuranceDisketDto,
+  InsuranceDisketHeader,
   taxDisketDto,
 } from "../../models";
 import {
@@ -67,6 +68,12 @@ export class SalaryCalculationAddComponent implements OnInit {
       hide: true,
     },
     {
+      field: propertyOf<addWorkingTimesDetailDto>("code"),
+      headerName: "کد",
+      cellClass: "text-center",
+      width: 80,
+    },
+    {
       headerName: "ردیف",
       width: 100,
       headerCheckboxSelection: true,
@@ -80,12 +87,6 @@ export class SalaryCalculationAddComponent implements OnInit {
       },
     },
 
-    {
-      field: propertyOf<addWorkingTimesDetailDto>("code"),
-      headerName: "کد",
-      cellClass: "text-center",
-      width: 80,
-    },
     {
       field: propertyOf<addWorkingTimesDetailDto>("employeeId"),
       headerName: "نام و نام   خانوادگی",
@@ -308,38 +309,55 @@ export class SalaryCalculationAddComponent implements OnInit {
     {
       columns: [
         [
-          { label: "بیمه", value: "رضا سیستم - مهر2" },
           {
-            label: "ردیف پیمان",
-            value: "12345",
+            label: "dsK_BIC",
+            field: propertyOf<InsuranceDisketHeader>("dsK_BIC"),
+          },
+          {
+            label: "dsK_TROOZ",
+            field: propertyOf<InsuranceDisketHeader>("dsK_TROOZ"),
             separator: true,
             type: "number",
           },
-          { label: "آدرس کارگاه", value: "تهران" },
+          {
+            label: "آدرس کارگاه",
+            field: propertyOf<InsuranceDisketHeader>("workShopAddress"),
+          },
         ],
         [
           {
             label: "کد کارگاه",
-            value: "232323",
+            field: propertyOf<InsuranceDisketHeader>("dsK_TROOZ"),
             separator: true,
             type: "number",
           },
-          { label: "شماره لیست", value: "3", separator: true, type: "number" },
-        ],
-        [
-          { label: "نام کارگاه", value: "رضا سیستم" },
           {
-            label: "تعداد نفرات",
-            value: "15",
+            label: "شماره لیست",
+            field: propertyOf<InsuranceDisketHeader>("dsK_TROOZ"),
             separator: true,
             type: "number",
           },
         ],
         [
-          { label: "نام کارگاه", value: "رضا سیستم" },
+          {
+            label: "نام کارگاه",
+            field: propertyOf<InsuranceDisketHeader>("workShopName"),
+          },
           {
             label: "تعداد نفرات",
-            value: "15",
+            field: propertyOf<InsuranceDisketHeader>("dsK_TROOZ"),
+            separator: true,
+            type: "number",
+          },
+        ],
+        [
+          {
+            label: "نام کارگاه",
+            field: propertyOf<InsuranceDisketHeader>("dsK_TROOZ"),
+          },
+          {
+            label: "تعداد نفرات",
+            field: propertyOf<InsuranceDisketHeader>("dsK_TROOZ"),
             separator: true,
             type: "number",
           },
@@ -347,39 +365,41 @@ export class SalaryCalculationAddComponent implements OnInit {
       ],
     },
     {
-      title: "جزئیات دستمزد و بیمه",
       columns: [
         [
           {
             label: "جمع دستمزد روزانه",
-            value: "12122",
+            field: propertyOf<InsuranceDisketHeader>("dsK_TROOZ"),
             separator: true,
             type: "number",
           },
           {
             label: "جمع دستمزد ماهانه",
-            value: "12122",
+            field: propertyOf<InsuranceDisketHeader>("dsK_TROOZ"),
             separator: true,
             type: "number",
           },
-          { label: "نرخ حق بیمه", value: "20%" },
+          {
+            label: "نرخ حق بیمه",
+            field: propertyOf<InsuranceDisketHeader>("dsK_TROOZ"),
+          },
         ],
         [
           {
             label: "جمع مزایای ماهانه مشمول",
-            value: "2323",
+            field: propertyOf<InsuranceDisketHeader>("dsK_TROOZ"),
             separator: true,
             type: "number",
           },
           {
             label: "جمع دستمزد و مزایا ماهانه مشمول",
-            value: "12122",
+            field: propertyOf<InsuranceDisketHeader>("dsK_TROOZ"),
             separator: true,
             type: "number",
           },
           {
             label: "جمع کل دستمزد و مزایای ماهانه",
-            value: "121212",
+            field: propertyOf<InsuranceDisketHeader>("dsK_TROOZ"),
             separator: true,
             type: "number",
           },
@@ -391,7 +411,7 @@ export class SalaryCalculationAddComponent implements OnInit {
         [
           {
             label: "مبلغ فیش پرداختی حق بیمه",
-            value: "234234234",
+            field: propertyOf<InsuranceDisketHeader>("dsK_TROOZ"),
             separator: true,
             type: "number",
           },
@@ -399,6 +419,7 @@ export class SalaryCalculationAddComponent implements OnInit {
       ],
     },
   ];
+  insuranceDisketHeader: InsuranceDisketHeader;
 
   constructor(
     private _changeWorkShops: ChangeWorkShopsService,
@@ -511,7 +532,8 @@ export class SalaryCalculationAddComponent implements OnInit {
         next: (res) => {
           if (res.isOk) {
             this._toastService.success(res.data.message);
-            this.rowDataInsuranceDisketDefault = res.data.taxDisketList;
+            this.insuranceDisketHeader = res.data.header;
+            this.rowDataInsuranceDisketDefault = res.data.details;
           }
         },
         error: (err) => {

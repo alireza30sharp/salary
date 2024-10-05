@@ -27,9 +27,7 @@ hr {
   color: #000;
 }
 
-span {
-  font-size: 16px;
-}
+
 
 .col-md-3, .col-md-6 {
   padding: 10px 0;
@@ -37,4 +35,7 @@ span {
 
 .flex-column span {
   margin-bottom: 5px;
+}
+.key-value,.key-label{
+  font-size: 12px;
 }

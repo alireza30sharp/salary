@@ -3,7 +3,8 @@ type InputType = "number" | "text";
 export interface SectionData {
   label: string; // لیبل فیلد (مثل جمع دستمزد ماهانه)
   type?: InputType; // نوع فیلد (مثل number یا string)
-  value: any; // مقدار فیلد
+  value?: any; // مقدار فیلد
+  field: string;
   separator?: boolean; // آیا باید جداکننده اضافه شود یا خیر
 }
 
