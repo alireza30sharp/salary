@@ -50,6 +50,38 @@
               </ki-form-group>
             </div>
           </ng-container>
+          <ng-container *ngSwitchCase="tabType.InsuranceDisket">
+            <div class="d-flex justify-content-start w-100">
+              <ki-form-group [label]="'انتخاب ماه'" class="ml-2 w-15">
+                <ki-select
+                  [placeholder]="'انتخاب ماه'"
+                  [options]="monthlyList"
+                  [(ngModel)]="addDraftDto.month"
+                  [hideSelected]="false"
+                >
+                </ki-select>
+              </ki-form-group>
+              <ki-form-group [label]="'انتخاب سال'" class="ml-2 w-15">
+                <ki-select
+                  [placeholder]="'انتخاب سال'"
+                  [options]="yearlyList"
+                  [(ngModel)]="addDraftDto.year"
+                >
+                </ki-select>
+              </ki-form-group>
+
+              <ki-form-group class="ml-2 w-15">
+                <ki-button
+                  btnType="basic"
+                  [iconClassName]="'fa-solid fa-magnifying-glass'"
+                  [showLoading]="showLoading"
+                  [title]="'نمایش'"
+                  (clickCallback)="clickSearchHander()"
+                >
+                </ki-button>
+              </ki-form-group>
+            </div>
+          </ng-container>
           <ng-container *ngSwitchCase="tabType.TaxDisket">
             <div class="d-flex justify-content-start w-100">
               <ki-form-group [label]="'انتخاب ماه'" class="ml-2 w-15">
@@ -121,7 +153,29 @@
         </div>
       </ng-template>
     </ki-tab>
-    <ki-tab [text]="'دیسکت بیمه'"> بزودی... </ki-tab>
+    <ki-tab [text]="'دیسکت بیمه'">
+      <app-workshop-monthly-info
+        [title]="'گزارش ماهیانه کارگاه'"
+        [sections]="monthlySections"
+        [data]="insuranceDisketHeader"
+      >
+      </app-workshop-monthly-info>
+
+      <ag-grid-data
+        [showTotal]="true"
+        [rowId]="'code'"
+        [editType]="editType"
+        [columnsDefault]="columnsInsuranceDisketDefault"
+        [rowDataDefault]="rowDataInsuranceDisketDefault"
+        [showSideBar]="false"
+        [defaultColDef]="defaultColDef"
+        [rowSelection]="'multiple'"
+        [showLoading]="showLoading"
+        [rowClassOdd]="true"
+        (saveCellChange)="saveCellHandeler($event)"
+        (selectedRowsChange)="selectedRowsChange($event)"
+      ></ag-grid-data>
+    </ki-tab>
     <ki-tab [text]="'دیسکت مالیات'">
       <ag-grid-data
         [showTotal]="true"

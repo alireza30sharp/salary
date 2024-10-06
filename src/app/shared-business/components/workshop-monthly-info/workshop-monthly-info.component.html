@@ -1,0 +1,37 @@
+<div class="container my-4 p-3 border">
+  <!-- عنوان اصلی کامپوننت -->
+  <h6 class="text-right font-weight-bold mb-4">
+    {{ title || "اطلاعات ماهیانه کارگاه" }}
+  </h6>
+
+  <!-- بخش‌های داینامیک -->
+  <div *ngFor="let section of sections" class="mb-4">
+    <!-- عنوان بخش اختیاری -->
+    <h6 *ngIf="section.title" class="text-right font-weight-bold mb-3">
+      {{ section.title }}
+    </h6>
+
+    <!-- ستون‌ها -->
+    <div class="row">
+      <div
+        *ngFor="let column of section.columns"
+        class="col-md-{{
+          getColumnClass(section.columns.length)
+        }} d-flex flex-column"
+      >
+        <div *ngFor="let item of column" class="d-flex mb-2">
+          <span class="font-weight-bold key-label">{{ item.label }}:</span>
+          <span *ngIf="item.type == 'number'" class="key-value">
+            {{ item.value | numberSeparator : item.separator }}
+          </span>
+          <span *ngIf="item.type !== 'number'">
+            {{ item.value }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- خط جداکننده برای هر بخش -->
+    <hr *ngIf="section !== sections[sections.length - 1]" />
+  </div>
+</div>

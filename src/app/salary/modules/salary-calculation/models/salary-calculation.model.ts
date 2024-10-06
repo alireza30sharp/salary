@@ -74,7 +74,7 @@ export class taxDisketDto {
   retireDate: string;
 }
 
-export class taxDisketDto1 {
+export class InsuranceDisketDto {
   id: number;
   year: number;
   monthnumber;
@@ -116,4 +116,37 @@ export class taxDisketDto1 {
   haghBimeDarman_33: number;
   haghBimeOmr_34: number;
   khalesPardakhti_35: number;
+}
+
+export class InsuranceDisketHeader {
+  code: number;
+  workShopCode: string;
+  workShopName: string;
+  employerName: string;
+  workShopAddress: string;
+  year: number;
+  month: number;
+  dsK_ID: number;
+  dsK_NAME: string;
+  dsK_FARM: string;
+  dsK_ADRS: string;
+  dsK_KIND: number;
+  dsK_YY: number;
+  dsK_MM: number;
+  dsK_LISTNO: number;
+  dsK_DISC: string;
+  dsK_NUM: number;
+  dsK_TDD: number;
+  dsK_TROOZ: number;
+  dsK_TMAH: number;
+  dsK_TMAZ: number;
+  dsK_TMASH: number;
+  dsK_TTOTL: number;
+  dsK_TBIME: number;
+  dsK_TKOSO: number;
+  dsK_BIC: number;
+  dsK_RATE: number;
+  dsK_PRATE: number;
+  dsK_BIMH: number;
+  moN_PYM: string;
 }
