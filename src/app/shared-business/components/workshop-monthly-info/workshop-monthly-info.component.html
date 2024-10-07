@@ -19,15 +19,62 @@
           getColumnClass(section.columns.length)
         }} d-flex flex-column"
       >
-        <div *ngFor="let item of column" class="d-flex mb-2">
-          <span class="font-weight-bold key-label">{{ item.label }}:</span>
-          <span *ngIf="item.type == 'number'" class="key-value">
-            {{ item.value | numberSeparator : item.separator }}
-          </span>
-          <span *ngIf="item.type !== 'number'">
-            {{ item.value }}
-          </span>
+        <!-- <form
+          *ngIf="formGroup"
+          #formRef="ngForm"
+          class="general-form"
+          [class.general-form--show-padding]="showPadding"
+          [style.height]="cssHeight"
+          [style.min-height]="cssMinHeight"
+          [style.overflow]="cssOverflow"
+          [attr.id]="idAttr"
+          [formGroup]="formGroup"
+          (submit)="submitHandler($event)"
+        > -->
+        <div *ngFor="let item of column" class="d-flex align-items-center mb-2">
+          <span class="font-weight-bold key-label">{{ item.title }}:</span>
+          <ng-container [ngSwitch]="item.type">
+            <ng-container *ngSwitchCase="'lbl'">
+              <span class="key-value">
+                {{ item.value | numberSeparator : item.config?.separator }}
+              </span>
+            </ng-container>
+            <ng-container *ngSwitchCase="'textbox'">
+              <ki-input
+                class="w-30"
+                [id]="item | getElementId : formUniqueKey"
+                [(ngModel)]="item.value"
+                [readonly]="item.readonly"
+                [type]="item.config?.type"
+                [min]="item.config?.min"
+                [max]="item.config?.max"
+                [step]="item.config?.step"
+                [maxLength]="item.config?.maxLength"
+                [onlyNumber]="item.config?.onlyNumber"
+                [maskType]="item.config?.maskType"
+                [maskDecimalDigit]="item.config?.maskDecimalDigit"
+                [maskThousandSeparator]="item.config?.maskThousandSeparator"
+                [maskPrefix]="item.config?.maskPrefix"
+                [maskAllowNegativeNumbers]="
+                  item.config?.maskAllowNegativeNumbers
+                "
+              ></ki-input>
+              <ki-button
+                [appTooltip]="'ذخیره'"
+                [appTooltipPosition]="'top'"
+                btnType="basic"
+                [iconClassName]="'fa-solid fa-floppy-disk'"
+                [showLoading]="showLoading"
+                [disabled]="item.value ? false : true"
+                (clickCallback)="textboxChangeHandler($event, item)"
+              ></ki-button>
+            </ng-container>
+            <ng-container *ngSwitchDefault>
+              {{ item.value }}
+            </ng-container>
+          </ng-container>
         </div>
+        <!---  </form>--->
       </div>
     </div>
 

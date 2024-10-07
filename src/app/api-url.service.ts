@@ -158,6 +158,8 @@ export class ApiUrlService {
       BASE_URL + "InsuranceDisket/GetInsuranceDisketReport",
     Add: BASE_URL + "InsuranceDisket/Add",
     Delete: BASE_URL + "InsuranceDisket/Delete",
+    ChangeInsuranceDisketListNumber:
+      BASE_URL + "InsuranceDisket/ChangeInsuranceDisketListNumber",
   };
   Advance = {
     GetAll: BASE_URL + "Advance/GetAdvanceList",

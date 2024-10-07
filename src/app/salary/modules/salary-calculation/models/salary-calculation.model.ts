@@ -126,6 +126,10 @@ export class InsuranceDisketHeader {
   workShopAddress: string;
   year: number;
   month: number;
+  dsK_RATE: number;
+  dsK_PRATE: number;
+  dsK_BIMH: number;
+  moN_PYM: string;
   dsK_ID: number;
   dsK_NAME: string;
   dsK_FARM: string;
@@ -145,8 +149,9 @@ export class InsuranceDisketHeader {
   dsK_TBIME: number;
   dsK_TKOSO: number;
   dsK_BIC: number;
-  dsK_RATE: number;
-  dsK_PRATE: number;
-  dsK_BIMH: number;
-  moN_PYM: string;
+}
+export class ChangeInsuranceDisket {
+  workShopId: number;
+  id: number;
+  dsK_LISTNO: number;
 }

@@ -5,7 +5,7 @@ import { Data, response } from "../../../../shared/models";
 
 import { SessionNames } from "../../../../shared/utilities/session-names";
 import { SessionStorage } from "ngx-webstorage";
-import { addDraftDto, deleteDto } from "../models";
+import { addDraftDto, ChangeInsuranceDisket, deleteDto } from "../models";
 @Injectable()
 export class salaryCalculationService {
   @SessionStorage(SessionNames.WorkShopsID)
@@ -31,6 +31,7 @@ export class salaryCalculationService {
       params: { workShopId: this.WorkShopsID, WageOrderId: id },
     });
   }
+
   //=============TaxDisket
   TaxDisketAdd(model: addDraftDto) {
     model.workShopId = this.WorkShopsID;
@@ -40,6 +41,14 @@ export class salaryCalculationService {
     model.workShopId = this.WorkShopsID;
     return this.$http.post<response<any>>(
       this.urlSvc.InsuranceDisket.Add,
+      model
+    );
+  }
+  //
+  ChangeInsuranceDisketListNumber(model: ChangeInsuranceDisket) {
+    model.workShopId = this.WorkShopsID;
+    return this.$http.put<response<any>>(
+      this.urlSvc.InsuranceDisket.ChangeInsuranceDisketListNumber,
       model
     );
   }

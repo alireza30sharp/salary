@@ -3,13 +3,15 @@ import { WorkshopMonthlyInfoComponent } from "./components/workshop-monthly-info
 import * as _components from "./components";
 import { CommonModule } from "@angular/common";
 import { NumberSeparatorPipe } from "./pipes/number-separator.pipe";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { SharedModule } from "../shared/shared.module";
 const component = [
   _components.WorkshopMonthlyInfoComponent,
   NumberSeparatorPipe,
 ];
 @NgModule({
   declarations: [component, WorkshopMonthlyInfoComponent],
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, SharedModule],
 
   exports: [...component],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
